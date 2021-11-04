@@ -110,7 +110,6 @@ dist
 .tern-port
 
 # VSCode
-.vscode/
 .vscode-test
 
 # yarn v2
