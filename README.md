@@ -16,7 +16,7 @@ $ git clone https://github.com/WallQ/pwa-project.git
 Install the dependencies and start the server.
 
 ```sh
-$ cd pwa-project
+$ cd pwa-project/src
 $ npm install
 $ mongod
 $ npm start
@@ -34,7 +34,7 @@ Verify the deployment by navigating to your server address in your preferred bro
 
 License
 ----
-ISC
+MIT
 
 [MongoDB]:<https://www.mongodb.com/>
 [Express.js]: <https://expressjs.com/>
