@@ -3,9 +3,9 @@ A simple hotel booking system API to manage bookings, users, hotels and rooms.
 
 ### Tech
 * [MongoDB]- noSQL document oriented database
-* [ExpressJs]- fast node.js network app framework
-* [ReactJs]- popular javascript frontend framework
-* [NodeJs]- evented I/O for the backend
+* [Express.js]- fast node.js network app framework
+* [React.js]- popular frontend framework javascript based
+* [Node.js]- evented I/O for the backend
 
 ### Installation
 Clone the repository using
@@ -37,6 +37,6 @@ License
 ISC
 
 [MongoDB]:<https://www.mongodb.com/>
-[ExpressJs]: <https://expressjs.com/>
-[ReactJs]: <https://reactjs.org/>
-[NodeJs]: <https://nodejs.org/>
+[Express.js]: <https://expressjs.com/>
+[React.js]: <https://reactjs.org/>
+[Node.js]: <https://nodejs.org/>
