@@ -1,5 +1,5 @@
 # PWA Evaluation Project - Hotel Booking System
-A simple hotel booking system API to manage bookings, users, hotels and rooms.
+A simple hotel booking system API to manage bookings, users, hotels and rooms.\
 This app was created using MongoDB, ExpressJs, ReactJs and NextJs.
 
 ### Tech
