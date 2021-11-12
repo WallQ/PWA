@@ -1,5 +1,4 @@
 ### Node ###
-
 # Logs
 logs
 *.log
@@ -42,8 +41,8 @@ build/Release
 
 # Dependency directories
 node_modules/
-package-lock.json
 jspm_packages/
+package-lock.json
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -110,7 +109,7 @@ dist
 # TernJS port file
 .tern-port
 
-# VSCode
+# Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
 # yarn v2
