@@ -16,9 +16,7 @@ const config = {
 			expires_time: process.env.JWT_EXPIRES_TIME || 3600,
 		},
 	},
-	production: {
-		
-	},
+	production: {},
 };
 
 module.exports = config;
