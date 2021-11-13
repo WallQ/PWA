@@ -1,0 +1,59 @@
+{
+    "name":"The Yeatman",
+    "description":"The Yeatman is a luxury wine hotel and spa in Porto with spectacular views over the UNESCO World Heritage city and the Douro River.",
+    "rating":5,
+    "address":{
+        "street":"Rua do Choupelo",
+        "postCode":"4400-088",
+        "doorNumber":1,
+        "district":"Porto",
+        "locality":"Vila Nova de Gaia",
+        "country":"Portugal",
+        "map":""
+    },
+    "contacts":[{
+        "type":"telephone",
+        "contact": "220133100"
+    }, 
+    {
+        "type":"email",
+        "contact": "reservations@theyeatman.com"
+    }],
+    "languages":[{
+        "initials": "PT",
+        "country": "Portugal",
+        "language": "Portuguese"
+    },
+    {
+        "initials": "EN",
+        "country": "United Kingdom",
+        "language": "English"
+    }],
+    "images":[{
+        "cover":true,
+        "path":"../images/front-cover.jpg",
+        "tags":["sea","beautiful"]
+    },
+    {
+        "cover":false,
+        "path":"../images/room.jpg",
+        "tags":["clean","fresh","beautiful"]
+    }
+    ],
+    "facilities":[{
+        "icon":"../icons/sea.svg",
+        "description":"Sea view"
+    },
+    {
+        "icon":"../icons/no-smoking.svg",
+        "description":"Smoking not allowed"
+    }],
+    "comments":[{
+        "userID":"123wasd",
+        "message":"Loved the place!"
+    },
+    {
+        "userID":"wasd321",
+        "message":"Hated the place!"
+    }]
+}
