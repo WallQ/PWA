@@ -64,7 +64,6 @@ function hotelService(hotelModel) {
 
 	function updateById(hotelId, values) {
 		return new Promise((resolve, reject) => {
-			//hotelModel.findOneAndUpdate(hotelId, values, { new: true }, function (err, user) {});
 			hotelModel.findByIdAndUpdate(
 				hotelId,
 				values,
@@ -82,7 +81,6 @@ function hotelService(hotelModel) {
 
 	function deleteById(hotelId) {
 		return new Promise((resolve, reject) => {
-			//hotelModel.findOneAndDelete(hotelId, function (err, hotel) {});
 			hotelModel.findByIdAndDelete(hotelId, (err, hotel) => {
 				if (err) {
 					reject(err);
