@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/WallQ/pwa-project.git"
-  },  
+  },
   "keywords": [
     "MERN",
     "MongoDB",
@@ -22,12 +22,13 @@
   "author": "André Pinto & Sérgio Félix",
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.14",
     "cross-env": "^7.0.3",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12"
   }
