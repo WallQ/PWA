@@ -1,4 +1,4 @@
-function roomsControler(roomModel){
+function roomsController(roomModel){
     let services = {
         create,
         findAll,
@@ -54,7 +54,7 @@ function roomsControler(roomModel){
     function findOneAndDelete(id){
         return new Promise ((resolve,reject)=>{
             roomModel.findOneAndDelete({_id:id},(err,room)=>{
-                if (!room) reject("Can not dellet item!");
+                if (!room) reject("Couldn't delete the item!");
                 resolve(room);
             })
         })
@@ -63,4 +63,4 @@ function roomsControler(roomModel){
     return services;
 }
 
-module.exports = roomsControler;
+module.exports = roomsController;
