@@ -64,7 +64,7 @@ function HotelRouter() {
 	});
 
 	router
-		.route('/id/:hotelId')
+		.route('/:hotelId')
 		.get((req, res, next) => {
 			let hotelId = req.params.hotelId;
 			hotel
