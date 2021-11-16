@@ -1,6 +1,6 @@
-const hotel = require('./hotelModel');
-const hotelService = require('./hotelController');
+const hotelModel = require('./hotelModel');
+const hotelController = require('./hotelController');
 
-const service = hotelService(hotel);
+const service = hotelController(hotelModel);
 
 module.exports = service;
