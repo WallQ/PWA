@@ -13,21 +13,21 @@
     },
     "contacts":[{
         "type":"telephone",
-        "contact": "220133100"
+        "contact":"220133100"
     }, 
     {
         "type":"email",
-        "contact": "reservations@theyeatman.com"
+        "contact":"reservations@theyeatman.com"
     }],
     "languages":[{
-        "initials": "PT",
-        "country": "Portugal",
-        "language": "Portuguese"
+        "initials":"PT",
+        "country":"Portugal",
+        "language":"Portuguese"
     },
     {
-        "initials": "EN",
-        "country": "United Kingdom",
-        "language": "English"
+        "initials":"EN",
+        "country":"United Kingdom",
+        "language":"English"
     }],
     "images":[{
         "cover":true,
