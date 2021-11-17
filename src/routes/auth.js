@@ -1,5 +1,5 @@
 const express = require('express');
-const users = require('../components/users');
+const user = require('../components/user');
 
 function AuthRouter() {
 	let router = express();
@@ -12,45 +12,39 @@ function AuthRouter() {
 		next();
 	});
 
-	router.route('/register').post(function (req, res, next) {
-		console.log('Create user');
+	router.route('/sign-up').post((req, res, next) => {
 		let body = req.body;
-		users
-			.create(body)
-			.then((user) => users.createToken(user))
+		user.createUser(body)
+			.then((userData) => user.createToken(userData))
 			.then((response) => {
-				res.status(200);
-				res.send(response);
+				console.log(response);
+				res.status(200).send(response);
 				next();
 			})
 			.catch((err) => {
-				console.log('Player already exist!', err);
-				res.status(500);
+				console.log(err);
+				res.status(409).send(err);
 				next();
 			});
 	});
 
-	router.route('/login').post(function (req, res, next) {
-		console.log('Login user');
+	router.route('/sign-in').post((req, res, next) => {
 		let body = req.body;
-
-		users
-			.findUser(body)
-			.then((user) => users.createToken(user))
+		user.findUser(body)
+			.then((userData) => user.createToken(userData))
 			.then((response) => {
-				res.status(200);
-				res.send(response);
+				console.log(response);
+				res.status(200).send(response);
 				next();
 			})
 			.catch((err) => {
-				console.log('Incorrect data!', err);
-				res.status(500);
+				console.log(err);
+				res.status(500).send(err);
 				next();
 			});
 	});
 
-	router.route('/me').get(function (req, res, next) {
-		console.log('Login user');
+	router.route('/me').get((req, res, next) => {
 		let token = req.headers['x-access-token'];
 
 		if (!token) {
@@ -60,14 +54,12 @@ function AuthRouter() {
 			});
 		}
 
-		users
-			.verifyToken(token)
+		user.verifyToken(token)
 			.then((decoded) => {
 				res.status(202).send({ auth: true, decoded });
 			})
 			.catch((err) => {
-				res.status(500);
-				res.send(err);
+				res.status(500).send(err);
 				next();
 			});
 	});
