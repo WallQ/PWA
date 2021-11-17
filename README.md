@@ -34,14 +34,14 @@ $ npm start
 
 #### Endpoints for Hotel
 
-| Endpoint                     | Token Needed | Body Request    | Description                                              |
-| ---------------------------- | ------------ | --------------- | -------------------------------------------------------- |
-| `GET /hotel/`                | No           |                 | Returns a list of hotels                                 |
-| `POST /hotel/`               | Yes          |                 | Create a new hotel                                       |
-| `GET /hotel/name/:hotelName` | No           | {name : "John"} | Returns a list of specific hotels                        |
-| `GET /hotel/:hotelId`        | Yes          |                 | Returns a specific hotel                                 |
-| `PUT /hotel/:hotelId`        | Yes          | {name : "John"} | Updates the hotel data with the new data in body request |
-| `DELETE /hotel/:hotelId`     | Yes          |                 | Deletes an hotel                                         |
+| Endpoint                     | Token Needed | Body Request    | Description                       |
+| ---------------------------- | ------------ | --------------- | --------------------------------- |
+| `GET /hotel/`                | No           |                 | Returns a list of hotels          |
+| `POST /hotel/`               | Yes          |                 | Create a new hotel                |
+| `GET /hotel/name/:hotelName` | No           | {name : "John"} | Returns a list of specific hotels |
+| `GET /hotel/:hotelId`        | Yes          |                 | Returns a specific hotel          |
+| `PUT /hotel/:hotelId`        | Yes          | {name : "John"} | Updates a specific hotel data     |
+| `DELETE /hotel/:hotelId`     | Yes          |                 | Deletes a hotel                   |
 
 ### To do list
 
