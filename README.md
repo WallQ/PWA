@@ -1,15 +1,14 @@
-<div style="text-align:center">
-    # PWA Evaluation Project - Hotel Booking System
-    A simple hotel booking system API to manage bookings, users, hotels and rooms.
-</div>
+# PWA Evaluation Project - Hotel Booking System
 
-### Tech
-* [MongoDB]- noSQL document oriented database
-* [Express.js]- fast node.js network app framework
-* [React.js]- popular frontend framework javascript based
-* [Node.js]- evented I/O for the backend
+## MERN Stack
+* [MongoDB]
+* [Express.js]
+* [React.js]
+* [Node.js]
 
-### Installation
+## Getting Started
+### Prerequisites
+Please make sure you have the following technologies installed:
 Clone the repository using
 
 ```sh
