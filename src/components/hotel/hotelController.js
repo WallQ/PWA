@@ -39,7 +39,6 @@ function hotelService(hotelModel) {
 
 	function findByName(hotelName) {
 		return new Promise((resolve, reject) => {
-			//hotelModel.findOne({ name: hotelName }, function (err, hotel) {});
 			hotelModel.find({ name: hotelName }, (err, hotel) => {
 				if (err) {
 					reject(err);

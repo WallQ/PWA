@@ -19,13 +19,12 @@ function HotelRouter() {
 				.findAll()
 				.then((hotels) => {
 					console.log('Hotels found -> \n', hotels);
-					res.status(200);
-					res.send(hotels);
+					res.status(200).send(hotels);
 					next();
 				})
 				.catch((err) => {
 					console.log('Something went wrong!', err);
-					res.status(404);
+					res.status(404).send(err);
 					next();
 				});
 		})
@@ -35,13 +34,12 @@ function HotelRouter() {
 				.create(body)
 				.then((hotel) => {
 					console.log('Hotel saved -> \n', hotel);
-					res.status(201);
-					res.send(body);
+					res.status(201).send(body);
 					next();
 				})
 				.catch((err) => {
 					console.log('Something went wrong!', err);
-					res.status(401);
+					res.status(401).send(err);
 					next();
 				});
 		});
@@ -52,13 +50,12 @@ function HotelRouter() {
 			.findByName(hotelName)
 			.then((hotel) => {
 				console.log('Hotel found -> \n', hotel);
-				res.status(200);
-				res.send(hotel);
+				res.status(200).send(hotel);
 				next();
 			})
 			.catch((err) => {
 				console.log('Something went wrong!', err);
-				res.status(404);
+				res.status(404).send(err);
 				next();
 			});
 	});
@@ -71,13 +68,12 @@ function HotelRouter() {
 				.findById(hotelId)
 				.then((hotel) => {
 					console.log('Hotel found -> \n', hotel);
-					res.status(200);
-					res.send(hotel);
+					res.status(200).send(hotel);
 					next();
 				})
 				.catch((err) => {
 					console.log('Something went wrong!', err);
-					res.status(404);
+					res.status(404).send(err);
 					next();
 				});
 		})
@@ -88,13 +84,12 @@ function HotelRouter() {
 				.updateById(hotelId, body)
 				.then((hotel) => {
 					console.log('Hotel updated -> \n', hotel);
-					res.status(200);
-					res.send(hotel);
+					res.status(200).send(hotel);
 					next();
 				})
 				.catch((err) => {
 					console.log('Something went wrong!', err);
-					res.status(404);
+					res.status(404).send(err);
 					next();
 				});
 		})
@@ -104,12 +99,12 @@ function HotelRouter() {
 				.deleteById(hotelId)
 				.then((hotel) => {
 					console.log('Hotel removed -> \n', hotel);
-					res.status(200);
+					res.status(200).send(hotel);
 					next();
 				})
 				.catch((err) => {
 					console.log('Something went wrong!', err);
-					res.status(404);
+					res.status(404).send(err);
 					next();
 				});
 		});
