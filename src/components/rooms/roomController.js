@@ -1,6 +1,7 @@
 function roomsControler(roomModel){
     let services = {
         create,
+        exists,
         findAll,
         findById,
         findByNumber,
@@ -23,6 +24,17 @@ function roomsControler(roomModel){
 					reject(err);
 				} else {
 					resolve('Room created successfully!');
+				}
+			});
+		});
+	}
+    function exists(id) {
+		return new Promise(function (resolve, reject) {
+			newRoom.exists(_id = id,function (err,result) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(result);
 				}
 			});
 		});
