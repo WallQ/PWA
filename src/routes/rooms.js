@@ -1,6 +1,6 @@
 const express = require('express');
 const rooms = require('../components/rooms');
-let validator = require('../components/rooms/validations')
+let validator = require('../components/rooms/validations');
 
 function RoomRouter() {
 	let router = express();
@@ -13,42 +13,45 @@ function RoomRouter() {
 		next();
 	});
 
-	router.route('')
-		.get(validator.newRoom(),(req, res, next) => {
-
+	router
+		.route('/')
+		.get(validator.newRoom(), (req, res, next) => {
 			let err = validator.results(req);
 			if (!err.isEmpty()) {
-			return res.status(400).json({ errors: err.array() });
+				return res.status(400).json({ errors: err.array() });
 			}
 
-			console.log(req.body)
-			rooms.findAll()
-			.then((rooms) => {
-				res.status(200).send(rooms);
-				next();
-			})
-			.catch((err) => {
-				res.status(404).send("Error");
-				next();
-			});
+			console.log(req.body);
+			rooms
+				.findAll()
+				.then((rooms) => {
+					res.status(200).send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404).send('Error');
+					next();
+				});
 		})
 		.post(function (req, res, next) {
 			let body = req.body;
-			rooms.create(body)
-			.then(() => {
-				console.log('Player saved!');
-				res.status(200);
-				res.send(body);
-				next();
-			})
-			.catch((err) => {
-				console.log('Player already exist!', err);
-				res.status(401);
-				next();
-			});
+			rooms
+				.create(body)
+				.then(() => {
+					console.log('Player saved!');
+					res.status(200);
+					res.send(body);
+					next();
+				})
+				.catch((err) => {
+					console.log('Player already exist!', err);
+					res.status(401);
+					next();
+				});
 		});
 
-	router.route('/:roomID')
+	router
+		.route('/:roomID')
 		.get(function (req, res, next) {
 			console.log('Get specific player');
 			let playerId = req.params.roomID;
@@ -100,7 +103,6 @@ function RoomRouter() {
 					next();
 				});
 		});
-
 
 	return router;
 }
