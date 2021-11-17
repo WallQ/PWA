@@ -1,5 +1,7 @@
-# PWA Evaluation Project - Hotel Booking System
-A simple hotel booking system API to manage bookings, users, hotels and rooms.
+<div style="text-align:center">
+    # PWA Evaluation Project - Hotel Booking System
+    A simple hotel booking system API to manage bookings, users, hotels and rooms.
+</div>
 
 ### Tech
 * [MongoDB]- noSQL document oriented database
