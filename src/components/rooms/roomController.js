@@ -3,8 +3,12 @@ function roomsControler(roomModel){
         create,
         findAll,
         findById,
+        findByNumber,
+        findByHotel,
         findByIdAndUpdate,
-        findOneAndDelete
+        findByNumberAndUpdate,
+        findOneAndDelete,
+        findOneAndDeleteByNumber
     }
 
     function create(values){
@@ -42,9 +46,37 @@ function roomsControler(roomModel){
         })
     }
 
-    function findByIdAndUpdate(id,values){
+    function findByNumber(number){
         return new Promise ((resolve,reject)=>{
+            roomModel.find({number: number},(err,room)=>{
+                if (err) reject(err);
+                resolve(room);
+            })
+        })
+    }
+
+    function findByHotel(hotelID){
+        return new Promise ((resolve,reject)=>{
+            roomModel.find({hotel: hotelID},(err,room)=>{
+                if (err) reject(err);
+                resolve(room);
+            })
+        })
+    }
+
+
+    function findByIdAndUpdate(id,values){
+        return new Promise ((resolve,reject)=>{   
             roomModel.findByIdAndUpdate(id,values,(err,room)=>{
+                if (err) reject(err);
+                resolve(room);
+            })
+        })
+    }
+
+    function findByNumberAndUpdate(number,values){
+        return new Promise ((resolve,reject)=>{
+            roomModel.findOneAndUpdate({number:number},values,(err,room)=>{
                 if (err) reject(err);
                 resolve(room);
             })
@@ -54,6 +86,14 @@ function roomsControler(roomModel){
     function findOneAndDelete(id){
         return new Promise ((resolve,reject)=>{
             roomModel.findOneAndDelete({_id:id},(err,room)=>{
+                if (!room) reject("Can not dellet item!");
+                resolve(room);
+            })
+        })
+    }
+    function findOneAndDeleteByNumber(number){
+        return new Promise ((resolve,reject)=>{
+            roomModel.findOneAndDelete({number:number},(err,room)=>{
                 if (!room) reject("Can not dellet item!");
                 resolve(room);
             })

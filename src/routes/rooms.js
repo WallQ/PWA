@@ -13,6 +13,7 @@ function RoomRouter() {
 		next();
 	});
 
+		//Tested OK
 	router.route('')
 		.get(validator.newRoom(),(req, res, next) => {
 
@@ -36,70 +37,77 @@ function RoomRouter() {
 			let body = req.body;
 			rooms.create(body)
 			.then(() => {
-				console.log('Player saved!');
 				res.status(200);
 				res.send(body);
 				next();
 			})
 			.catch((err) => {
-				console.log('Player already exist!', err);
 				res.status(401);
 				next();
 			});
 		});
 
+		//Tested OK
 	router.route('/:roomID')
 		.get(function (req, res, next) {
-			console.log('Get specific player');
-			let playerId = req.params.roomID;
+			let roomID = req.params.roomID;
 			rooms
-				.findById(playerId)
-				.then((player) => {
-					console.log('Player found!');
+				.findById(roomID)
+				.then((rooms) => {
 					res.status(200);
-					res.send(player);
+					res.send(rooms);
 					next();
 				})
 				.catch((err) => {
-					console.log('Player not found!', err);
 					res.status(404);
 					next();
 				});
 		})
 		.put(function (req, res, next) {
-			console.log('Update specific player');
-			let playerId = req.params.playersId;
+			let roomID = req.params.roomID;
 			let body = req.body;
 			rooms
-				.update(playerId, body)
-				.then((player) => {
-					console.log('Player updated!');
+				.findByIdAndUpdate(roomID, body)
+				.then((room) => {
 					res.status(200);
-					res.send(player);
+					res.send(room);
 					next();
 				})
 				.catch((err) => {
-					console.log('Player not found!', err);
 					res.status(404);
 					next();
 				});
 		})
 		.delete(function (req, res, next) {
-			console.log('Delete specific player');
-			let playerId = req.params.playersId;
+			let roomID = req.params.roomID;
 			rooms
-				.removeById(playerId)
+				.findOneAndDelete(roomID)
 				.then(() => {
-					console.log('Player deleted!');
-					res.status(200).json();
+					res.status(200).json({msg:"OK- DELETED"});
 					next();
 				})
 				.catch((err) => {
-					console.log('Player not found!', err);
 					res.status(404);
 					next();
 				});
 		});
+	
+		//Tested OK
+	router.route('/byhotel/:hotelID')
+		.get(function (req, res, next) {
+			let hotelID = req.params.hotelID;
+			rooms
+				.findByHotel(hotelID)
+				.then((rooms) => {
+					res.status(200);
+					res.send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404);
+					next();
+				});
+		})
 
 
 	return router;

@@ -1,0 +1,37 @@
+{
+    "number":100,
+    "hotel": "id hotel existente",
+    "name": "QUARTO EXECUTIVO",
+    "description":"Some DEscription",
+    "maxGuest":2,
+    "maxGuestChild":1,
+    "area": "39",
+    "sale":0,
+    "facilities":[
+        {"icon": "" ,"description":"Mesa ou local de trabalho"},
+        {"icon": "" ,"description":"Wifi grátis"},
+        {"icon": "" ,"description":"Não fumador"},
+        {"icon": "" ,"description":"Ar condicionado"}
+    ],
+    "priceByMounth":[
+        {"mounth": 1, "default_price":50,"wekend_price":90},
+        {"mounth": 2, "default_price":50,"wekend_price":90},
+        {"mounth": 3, "default_price":50,"wekend_price":90},
+        {"mounth": 4, "default_price":50,"wekend_price":90},
+        {"mounth": 5, "default_price":50,"wekend_price":90},
+        {"mounth": 6, "default_price":50,"wekend_price":90},
+        {"mounth": 7, "default_price":50,"wekend_price":90},
+        {"mounth": 8, "default_price":50,"wekend_price":90},
+        {"mounth": 9, "default_price":50,"wekend_price":90},
+        {"mounth": 10, "default_price":50,"wekend_price":90},
+        {"mounth": 11, "default_price":50,"wekend_price":90},
+        {"mounth": 12, "default_price":50,"wekend_price":90}
+    ],
+    "priceExtraDays":[
+        {"day":"10/10/2021","price":100},
+        {"day":"10/10/2021","price":100},
+        {"day":"10/10/2021","price":100},
+        {"day":"10/10/2021","price":100}
+    ]
+
+}

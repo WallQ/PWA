@@ -6,12 +6,11 @@ exports.results = (req) => {
 
 exports.newRoom = () => {
     return [
-      check('username')
+      check('number')
         .trim()
-        .notEmpty()
-        .withMessage('password is required')
-        .isLength({ min: 40 })
-        .withMessage('password must be 8 characters')
         .escape()
+        .notEmpty()
+        .withMessage('number is required')
+        .isNumeric()
     ]
   }
