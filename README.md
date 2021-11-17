@@ -1,43 +1,53 @@
 # PWA Evaluation Project - Hotel Booking System
 
-## MERN Stack
-* [MongoDB]
-* [Express.js]
-* [React.js]
-* [Node.js]
+### MERN Stack
 
-## Getting Started
-### Prerequisites
-Please make sure you have the following technologies installed:
-Clone the repository using
+-   [MongoDB]
+-   [Express.js]
+-   [React.js]
+-   [Node.js]
 
-```sh
-$ git clone https://github.com/WallQ/pwa-project.git
+### Getting Started
+
 ```
-Install the dependencies and start the server.
+# Clone the repository
+$ git clone https://github.com/WallQ/pwa-project.git
 
-```sh
+# Change the directory
 $ cd pwa-project/src
+
+# Install the dependencies
 $ npm install
-$ mongod
+
+# Start the app
 $ npm start
 ```
-Verify the deployment by navigating to your server address in your preferred browser.
 
-```sh
-127.0.0.1:3000
-```
+## Routes
 
-### Routes
-* /api/users
+#### Endpoints for the authentication
 
-### Todos
+| Endpoint             | Body Request Fields                              | Description          |
+| -------------------- | ------------------------------------------------ | -------------------- |
+| `POST /auth/sign-up` | {name: "", surname: "", email: "", password: ""} | Create a new user    |
+| `POST /auth/sign-in` | {email: "", password: ""}                        | Authenticate an user |
 
-License
-----
-MIT
+#### Endpoints for Hotel
 
-[MongoDB]:<https://www.mongodb.com/>
-[Express.js]: <https://expressjs.com/>
-[React.js]: <https://reactjs.org/>
-[Node.js]: <https://nodejs.org/>
+| Endpoint                     | Token Needed | Body Request    | Description                                              |
+| ---------------------------- | ------------ | --------------- | -------------------------------------------------------- |
+| `GET /hotel/`                | No           |                 | Returns a list of hotels                                 |
+| `POST /hotel/`               | Yes          |                 | Create a new hotel                                       |
+| `GET /hotel/name/:hotelName` | No           | {name : "John"} | Returns a list of specific hotels                        |
+| `GET /hotel/:hotelId`        | Yes          |                 | Returns a specific hotel                                 |
+| `PUT /hotel/:hotelId`        | Yes          | {name : "John"} | Updates the hotel data with the new data in body request |
+| `DELETE /hotel/:hotelId`     | Yes          |                 | Deletes an hotel                                         |
+
+### To do list
+
+-   [ ] Endpoints for user
+
+[mongodb]: https://www.mongodb.com/
+[express.js]: https://expressjs.com/
+[react.js]: https://reactjs.org/
+[node.js]: https://nodejs.org/
