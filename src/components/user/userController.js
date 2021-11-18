@@ -7,7 +7,7 @@ function userService(userModel) {
 		createUser,
 		createToken,
 		verifyToken,
-		findUser,
+		verifyUser,
 		hashPassword,
 		verifyPassword,
 	};
@@ -41,11 +41,18 @@ function userService(userModel) {
 	}
 
 	function createToken(user) {
-		let token = jwt.sign({ id: user._id }, config.jsonwebtoken.secret, {
-			expiresIn: config.jsonwebtoken.expires_time,
-		});
+		let token = jwt.sign(
+			{ id: user._id },
+			config.jsonwebtoken.secret,
+			{
+				algorithm: 'HS256',
+			},
+			{
+				expiresIn: config.jsonwebtoken.expires_time,
+			}
+		);
 
-		return { auth: true, token };
+		return token;
 	}
 
 	function verifyToken(token) {
@@ -53,30 +60,42 @@ function userService(userModel) {
 			jwt.verify(token, config.jsonwebtoken.secret, (err, decoded) => {
 				if (err) {
 					reject(err);
+				} else {
+					resolve(decoded);
 				}
-
-				return resolve(decoded);
 			});
 		});
 	}
 
-	function findUser({ email, password }) {
+	function verifyUser({ email, password }) {
 		return new Promise((resolve, reject) => {
 			userModel.findOne({ email }, (err, user) => {
 				if (err) {
 					reject(err);
 				}
-
-				if (!user) {
-					reject(err);
+				if (email && password) {
+					if (!user) {
+						reject({
+							status: 200,
+							message: 'Email not registered.',
+						});
+					} else {
+						resolve(user);
+					}
 				} else {
-					resolve(user);
+					reject({
+						status: 400,
+						message: 'Invalid syntax.',
+					});
 				}
 			});
 		}).then((user) => {
 			return verifyPassword(password, user.password).then((match) => {
 				if (!match) {
-					return Promise.reject('Incorrect email or password.');
+					return Promise.reject({
+						status: 401,
+						message: 'Invalid email or password.',
+					});
 				} else {
 					return Promise.resolve(user);
 				}

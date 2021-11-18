@@ -16,52 +16,74 @@ function AuthRouter() {
 		let body = req.body;
 		user.createUser(body)
 			.then((userData) => user.createToken(userData))
-			.then((response) => {
-				console.log(response);
-				res.status(200).send(response);
+			.then((token) => {
+				console.log(token);
+				res.status(200).send({
+					message: 'User created successfully.',
+				});
 				next();
 			})
 			.catch((err) => {
 				console.log(err);
-				res.status(409).send(err);
+				res.status(err.status || 500).send({
+					error: {
+						status: err.status || 500,
+						message: err.message || "Internal Server Error",
+					},
+				});
 				next();
 			});
 	});
 
 	router.route('/sign-in').post((req, res, next) => {
 		let body = req.body;
-		user.findUser(body)
+		user.verifyUser(body)
 			.then((userData) => user.createToken(userData))
-			.then((response) => {
-				console.log(response);
-				res.status(200).send(response);
+			.then((token) => {
+				console.log(token);
+				res.status(200).send({
+					message: 'User authenticated successfully.',
+				});
 				next();
 			})
 			.catch((err) => {
 				console.log(err);
-				res.status(500).send(err);
+				res.status(err.status || 500).send({
+					error: {
+						status: err.status || 500,
+						message: err.message || "Internal Server Error",
+					},
+				});
 				next();
 			});
 	});
 
 	router.route('/me').get((req, res, next) => {
-		let token = req.headers['x-access-token'];
+		let token =
+			req.body.token || req.query.token || req.headers['x-access-token'];
 
 		if (!token) {
+			console.log(token);
 			res.status(401).send({
-				auth: false,
 				message: 'No token provided.',
 			});
+		} else {
+			user.verifyToken(token)
+				.then((decoded) => {
+					console.log(decoded);
+					res.status(202).send({
+						message: 'Valid token.',
+					});
+					next();
+				})
+				.catch((err) => {
+					console.log(err);
+					res.status(403).send({
+						message: 'Invalid token.',
+					});
+					next();
+				});
 		}
-
-		user.verifyToken(token)
-			.then((decoded) => {
-				res.status(202).send({ auth: true, decoded });
-			})
-			.catch((err) => {
-				res.status(500).send(err);
-				next();
-			});
 	});
 
 	return router;

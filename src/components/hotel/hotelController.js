@@ -31,7 +31,14 @@ function hotelService(hotelModel) {
 				if (err) {
 					reject(err);
 				} else {
-					resolve(hotels);
+					if (hotels.length) {
+						resolve(hotels);
+					} else {
+						reject({
+							status: 404,
+							message: 'No hotels have been found.',
+						});
+					}
 				}
 			});
 		});
@@ -39,13 +46,23 @@ function hotelService(hotelModel) {
 
 	function findByName(hotelName) {
 		return new Promise((resolve, reject) => {
-			hotelModel.find({ name: hotelName }, (err, hotel) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(hotel);
+			hotelModel.find(
+				{ name: { $regex: hotelName, $options: 'i' } },
+				(err, hotel) => {
+					if (err) {
+						reject(err);
+					} else {
+						if (hotel) {
+							resolve(hotel);
+						} else {
+							reject({
+								status: 404,
+								message: 'No hotel have been found.',
+							});
+						}
+					}
 				}
-			});
+			);
 		});
 	}
 
@@ -55,7 +72,14 @@ function hotelService(hotelModel) {
 				if (err) {
 					reject(err);
 				} else {
-					resolve(hotel);
+					if (hotel) {
+						resolve(hotel);
+					} else {
+						reject({
+							status: 404,
+							message: 'No hotel have been found.',
+						});
+					}
 				}
 			});
 		});
@@ -71,7 +95,14 @@ function hotelService(hotelModel) {
 					if (err) {
 						reject(err);
 					} else {
-						resolve(hotel);
+						if (hotel) {
+							resolve(hotel);
+						} else {
+							reject({
+								status: 404,
+								message: 'No hotel have been found.',
+							});
+						}
 					}
 				}
 			);
@@ -84,7 +115,14 @@ function hotelService(hotelModel) {
 				if (err) {
 					reject(err);
 				} else {
-					resolve(hotel);
+					if (hotel) {
+						resolve(hotel);
+					} else {
+						reject({
+							status: 404,
+							message: 'No hotel have been found.',
+						});
+					}
 				}
 			});
 		});

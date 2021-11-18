@@ -23,8 +23,13 @@ function HotelRouter() {
 					next();
 				})
 				.catch((err) => {
-					console.log('Something went wrong!', err);
-					res.status(404).send(err);
+					console.log(err);
+					res.status(err.status || 500).send({
+						error: {
+							status: err.status || 500,
+							message: err.message || "Internal Server Error",
+						},
+					});
 					next();
 				});
 		})
@@ -33,13 +38,18 @@ function HotelRouter() {
 			hotel
 				.create(body)
 				.then((hotel) => {
-					console.log('Hotel saved -> \n', hotel);
+					console.log('Hotel created -> \n', hotel);
 					res.status(201).send(body);
 					next();
 				})
 				.catch((err) => {
-					console.log('Something went wrong!', err);
-					res.status(401).send(err);
+					console.log(err);
+					res.status(err.status || 500).send({
+						error: {
+							status: err.status || 500,
+							message: err.message || "Internal Server Error",
+						},
+					});
 					next();
 				});
 		});
@@ -54,8 +64,13 @@ function HotelRouter() {
 				next();
 			})
 			.catch((err) => {
-				console.log('Something went wrong!', err);
-				res.status(404).send(err);
+				console.log(err);
+				res.status(err.status || 500).send({
+					error: {
+						status: err.status || 500,
+						message: err.message || "Internal Server Error",
+					},
+				});
 				next();
 			});
 	});
@@ -72,8 +87,13 @@ function HotelRouter() {
 					next();
 				})
 				.catch((err) => {
-					console.log('Something went wrong!', err);
-					res.status(404).send(err);
+					console.log(err);
+					res.status(err.status || 500).send({
+						error: {
+							status: err.status || 500,
+							message: err.message || "Internal Server Error",
+						},
+					});
 					next();
 				});
 		})
@@ -88,8 +108,13 @@ function HotelRouter() {
 					next();
 				})
 				.catch((err) => {
-					console.log('Something went wrong!', err);
-					res.status(404).send(err);
+					console.log(err);
+					res.status(err.status || 500).send({
+						error: {
+							status: err.status || 500,
+							message: err.message || "Internal Server Error",
+						},
+					});
 					next();
 				});
 		})
@@ -103,8 +128,13 @@ function HotelRouter() {
 					next();
 				})
 				.catch((err) => {
-					console.log('Something went wrong!', err);
-					res.status(404).send(err);
+					console.log(err);
+					res.status(err.status || 500).send({
+						error: {
+							status: err.status || 500,
+							message: err.message || "Internal Server Error",
+						},
+					});
 					next();
 				});
 		});
