@@ -129,6 +129,9 @@ const hotelSchema = new Schema({
 			type: commentType,
 		},
 	],
+	url: {
+		type: String,
+	},
 });
 
 const hotel = mongoose.model('hotel', hotelSchema);
