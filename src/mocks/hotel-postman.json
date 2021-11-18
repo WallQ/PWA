@@ -1,4 +1,4 @@
-{
+[{
     "name":"The Yeatman",
     "description":"The Yeatman is a luxury wine hotel and spa in Porto with spectacular views over the UNESCO World Heritage city and the Douro River.",
     "rating":5,
@@ -55,5 +55,146 @@
     {
         "userID":"wasd321",
         "message":"Hated the place!"
-    }]
-}
+    }],
+    "url":"https://www.the-yeatman-hotel.com/"
+},
+{
+    "name":"Tivoli Marina Vilamoura Algarve Resort",
+    "description":"The iconic Tivoli Marina Vilamoura Algarve Resort is far more than a luxury 5 star hotel in Vilamoura.",
+    "rating":5,
+    "address":{
+        "street":"Apartado 65 Marina Vilamoura",
+        "postCode":"8125-401",
+        "doorNumber":1,
+        "district":"Faro",
+        "locality":"Vilamoura",
+        "country":"Portugal",
+        "map":""
+    },
+    "contacts":[{
+        "type":"telephone",
+        "contact":"289303303"
+    }, 
+    {
+        "type":"email",
+        "contact":"marinavilamoura@tivoli-hotels.com"
+    }],
+    "languages":[{
+        "initials":"PT",
+        "country":"Portugal",
+        "language":"Portuguese"
+    },
+    {
+        "initials":"EN",
+        "country":"United Kingdom",
+        "language":"English"
+    },
+    {
+        "initials":"DE",
+        "country":"German",
+        "language":"Deutsch"
+    },
+    {
+        "initials":"FR",
+        "country":"France",
+        "language":"French"
+    },
+    {
+        "initials":"ES",
+        "country":"Spain",
+        "language":"Spanish"
+    }],
+    "images":[{
+        "cover":true,
+        "path":"../images/front-cover.jpg",
+        "tags":["sea","beautiful"]
+    },
+    {
+        "cover":false,
+        "path":"../images/room.jpg",
+        "tags":["clean","fresh","beautiful"]
+    }
+    ],
+    "facilities":[{
+        "icon":"../icons/sea.svg",
+        "description":"Sea view"
+    },
+    {
+        "icon":"../icons/no-smoking.svg",
+        "description":"Smoking not allowed"
+    }],
+    "comments":[{
+        "userID":"123wasd",
+        "message":"Beautiful view of the sea!"
+    },
+    {
+        "userID":"wasd321",
+        "message":"I loved the hospitality!"
+    }],
+    "url":"https://www.tivolihotels.com/tivoli-marina-vilamoura"
+},
+{
+    "name":"Hotel Altis Avenida",
+    "description":"O Hotel Altis Avenida é um boutique hotel de charme em Lisboa, com uma localização extraordinária no centro da cidade, na Praça dos Restauradores. A arquitetura e decoração são inspiradas nos anos 40 e giram em torno do conceito urban chic, onde o passado e futuro se encontram criando um ambiente único de charme e glamour.",
+    "rating":5,
+    "address":{
+        "street":"Rua 1º Dezembro",
+        "postCode":"1200-360",
+        "doorNumber":120,
+        "district":"Lisboa",
+        "locality":"Lisboa",
+        "country":"Portugal",
+        "map":""
+    },
+    "contacts":[{
+        "type":"telephone",
+        "contact":"210440000"
+    }, 
+    {
+        "type":"email",
+        "contact":" guestserviceavenida@altishotels.com"
+    }],
+    "languages":[{
+        "initials":"PT",
+        "country":"Portugal",
+        "language":"Portuguese"
+    },
+    {
+        "initials":"EN",
+        "country":"United Kingdom",
+        "language":"English"
+    },
+    {
+        "initials":"ES",
+        "country":"Spain",
+        "language":"Spanish"
+    }],
+    "images":[{
+        "cover":true,
+        "path":"../images/front-cover.jpg",
+        "tags":["sea","beautiful"]
+    },
+    {
+        "cover":false,
+        "path":"../images/room.jpg",
+        "tags":["clean","fresh","beautiful"]
+    }
+    ],
+    "facilities":[{
+        "icon":"../icons/sea.svg",
+        "description":"Sea view"
+    },
+    {
+        "icon":"../icons/no-smoking.svg",
+        "description":"Smoking not allowed"
+    }],
+    "comments":[{
+        "userID":"123wasd",
+        "message":"Delicious gastronomic dishes!"
+    },
+    {
+        "userID":"wasd321",
+        "message":"Too much noise!"
+    }],
+    "url":"https://www.tivolihotels.com/tivoli-marina-vilamoura"
+}]
