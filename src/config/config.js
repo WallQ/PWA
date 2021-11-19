@@ -12,7 +12,7 @@ const config = {
 			name: process.env.DATABASE_NAME || 'sample',
 		},
 		jsonwebtoken: {
-			secret: process.env.JWT_SECRET || 3000,
+			secret: process.env.JWT_SECRET || 'secret',
 			expires_time: process.env.JWT_EXPIRES_TIME || 3600,
 		},
 		bcrypt: {
