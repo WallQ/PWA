@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const facilityType = require('../helpers/facilityType');
+const facilityType = require('../../helpers/facilityType');
 
-let defaultByMonth = new Schema({
+const defaultByMonth = new Schema({
 	month: {
 		type: Number,
 		required: true,
