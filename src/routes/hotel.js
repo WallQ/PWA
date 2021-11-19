@@ -1,5 +1,8 @@
 const express = require('express');
 const hotel = require('../components/hotel');
+const verifyJWT = require('../middlewares/verifyJWT');
+const verifyROLES = require('../middlewares/verifyROLES');
+const roles = require('../config/roles');
 
 function HotelRouter() {
 	let router = express();
@@ -27,7 +30,7 @@ function HotelRouter() {
 					res.status(err.status || 500).send({
 						error: {
 							status: err.status || 500,
-							message: err.message || "Internal Server Error",
+							message: err.message || 'Internal Server Error',
 						},
 					});
 					next();
@@ -47,7 +50,7 @@ function HotelRouter() {
 					res.status(err.status || 500).send({
 						error: {
 							status: err.status || 500,
-							message: err.message || "Internal Server Error",
+							message: err.message || 'Internal Server Error',
 						},
 					});
 					next();
@@ -68,7 +71,7 @@ function HotelRouter() {
 				res.status(err.status || 500).send({
 					error: {
 						status: err.status || 500,
-						message: err.message || "Internal Server Error",
+						message: err.message || 'Internal Server Error',
 					},
 				});
 				next();
@@ -91,7 +94,7 @@ function HotelRouter() {
 					res.status(err.status || 500).send({
 						error: {
 							status: err.status || 500,
-							message: err.message || "Internal Server Error",
+							message: err.message || 'Internal Server Error',
 						},
 					});
 					next();
@@ -112,7 +115,7 @@ function HotelRouter() {
 					res.status(err.status || 500).send({
 						error: {
 							status: err.status || 500,
-							message: err.message || "Internal Server Error",
+							message: err.message || 'Internal Server Error',
 						},
 					});
 					next();
@@ -132,7 +135,7 @@ function HotelRouter() {
 					res.status(err.status || 500).send({
 						error: {
 							status: err.status || 500,
-							message: err.message || "Internal Server Error",
+							message: err.message || 'Internal Server Error',
 						},
 					});
 					next();
