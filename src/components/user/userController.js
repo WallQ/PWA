@@ -1,12 +1,14 @@
-const config = require('../../config/config')[process.env.NODE_ENV || 'development'];
+const config = require('../../config/config')[
+	process.env.NODE_ENV || 'development'
+];
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const roles = require('../../config/roles');
 
 function userService(userModel) {
 	let service = {
 		createUser,
 		createToken,
-		verifyToken,
 		verifyUser,
 		hashPassword,
 		verifyPassword,
@@ -21,6 +23,7 @@ function userService(userModel) {
 			let newUserUpdated = {
 				...user,
 				password: hashedPassword,
+				roles: [roles.CLIENT],
 			};
 
 			let newUser = userModel(newUserUpdated);
@@ -42,29 +45,12 @@ function userService(userModel) {
 
 	function createToken(user) {
 		let token = jwt.sign(
-			{ id: user._id },
+			{ id: user._id, email: user.email, roles: user.roles },
 			config.jsonwebtoken.secret,
-			{
-				algorithm: 'HS256',
-			},
-			{
-				expiresIn: config.jsonwebtoken.expires_time,
-			}
+			{ algorithm: 'HS256' },
+			{ expiresIn: config.jsonwebtoken.expires_time }
 		);
-
 		return token;
-	}
-
-	function verifyToken(token) {
-		return new Promise((resolve, reject) => {
-			jwt.verify(token, config.jsonwebtoken.secret, (err, decoded) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(decoded);
-				}
-			});
-		});
 	}
 
 	function verifyUser({ email, password }) {
