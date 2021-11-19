@@ -1,13 +1,13 @@
 # PWA Evaluation Project - Hotel Booking System
 
-### MERN Stack
+## MERN Stack
 
 -   [MongoDB]
 -   [Express.js]
 -   [React.js]
 -   [Node.js]
 
-### Getting Started
+## Getting Started
 
 ```
 # Clone the repository
@@ -43,7 +43,7 @@ $ npm start
 | `PUT /hotel/:hotelId`        | Yes          | Updates a specific hotel data     |
 | `DELETE /hotel/:hotelId`     | Yes          | Deletes a hotel                   |
 
-### To do list
+## To do list
 
 -   [ ] Endpoints for user
 
