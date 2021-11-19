@@ -58,34 +58,6 @@ function AuthRouter() {
 			});
 	});
 
-	router.route('/me').get((req, res, next) => {
-		let token =
-			req.body.token || req.query.token || req.headers['x-access-token'];
-
-		if (!token) {
-			console.log(token);
-			res.status(401).send({
-				message: 'No token provided.',
-			});
-		} else {
-			user.verifyToken(token)
-				.then((decoded) => {
-					console.log(decoded);
-					res.status(202).send({
-						message: 'Valid token.',
-					});
-					next();
-				})
-				.catch((err) => {
-					console.log(err);
-					res.status(403).send({
-						message: 'Invalid token.',
-					});
-					next();
-				});
-		}
-	});
-
 	return router;
 }
 
