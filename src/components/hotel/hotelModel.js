@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const facilityType = require('../../helpers/facilityType');
+const facilityType = require('../../utils/facilityType');
 
 const addressType = new Schema({
 	street: {
