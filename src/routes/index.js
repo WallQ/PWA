@@ -3,6 +3,7 @@ let PlayerAPI = require('./players');
 let HotelAPI = require('./hotel');
 let AuthAPI = require('./auth');
 let RoomAPI = require('./rooms');
+let RoomTypeAPI = require('./roomTypes');
 let BookAPI = require('./books');
 let PackAPI = require('./packs');
 
@@ -13,6 +14,7 @@ function initialize() {
 	api.use('/hotel', HotelAPI());
 	api.use('/auth', AuthAPI());
 	api.use('/rooms', RoomAPI());
+	api.use('/roomsTypes', RoomTypeAPI());
 	api.use('/books', BookAPI());
 	api.use('/packs', PackAPI());
 
