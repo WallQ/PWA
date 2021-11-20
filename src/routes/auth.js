@@ -14,7 +14,7 @@ function AuthRouter() {
 
 	router.route('/sign-up').post((req, res, next) => {
 		let body = req.body;
-		user.createUser(body)
+		user.register(body)
 			.then((userData) => user.createToken(userData))
 			.then((token) => {
 				console.log(token);

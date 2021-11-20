@@ -56,7 +56,7 @@ function userService(userModel) {
 
 	function findByEmail(userEmail) {
 		return new Promise((resolve, reject) => {
-			userModel.findOne({ userEmail }, (err, user) => {
+			userModel.findOne({ email: userEmail }, (err, user) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -164,7 +164,7 @@ function userService(userModel) {
 
 	function verifyUser({ email, password }) {
 		return new Promise((resolve, reject) => {
-			userModel.findOne({ email }, (err, user) => {
+			userModel.findOne({ email: email }, (err, user) => {
 				if (err) {
 					reject(err);
 				}
