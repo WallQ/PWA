@@ -19,7 +19,7 @@ function AuthRouter() {
 			.then((token) => {
 				console.log(token);
 				res.status(200).send({
-					message: 'User created successfully.',
+					message: 'Successfully signed up.',
 				});
 				next();
 			})
@@ -42,7 +42,7 @@ function AuthRouter() {
 			.then((token) => {
 				console.log(token);
 				res.status(200).send({
-					message: 'User authenticated successfully.',
+					message: 'Successfully signed in.',
 				});
 				next();
 			})
@@ -56,6 +56,13 @@ function AuthRouter() {
 				});
 				next();
 			});
+	});
+
+	router.route('/sign-out').get((req, res, next) => {
+		res.status(200).send({
+			message: 'Successfully signed out.',
+		});
+		next();
 	});
 
 	return router;
