@@ -12,7 +12,7 @@ function userService(userModel) {
 		findByEmail,
 		findById,
 		updateById,
-		removeById,
+		deleteById,
 		createToken,
 		register,
 		verifyUser,
@@ -116,9 +116,9 @@ function userService(userModel) {
 		});
 	}
 
-	function removeById(userId) {
+	function deleteById(userId) {
 		return new Promise((resolve, reject) => {
-			userModel.findByIdAndRemove(userId, (err, user) => {
+			userModel.findByIdAndDelete(userId, (err, user) => {
 				if (err) {
 					reject(err);
 				} else {
