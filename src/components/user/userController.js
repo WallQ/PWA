@@ -7,14 +7,145 @@ const roles = require('../../config/roles');
 
 function userService(userModel) {
 	let service = {
-		createUser,
+		create,
+		findAll,
+		findByEmail,
+		findById,
+		updateById,
+		removeById,
 		createToken,
+		register,
 		verifyUser,
-		hashPassword,
-		verifyPassword,
 	};
 
-	function createUser(user) {
+	function save(newUser) {
+		return new Promise((resolve, reject) => {
+			newUser.save((err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(newUser);
+				}
+			});
+		});
+	}
+
+	function create(user) {
+		let newUser = playerModel(user);
+		return save(newUser);
+	}
+
+	function findAll() {
+		return new Promise((resolve, reject) => {
+			userModel.find({}, (err, users) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (users.length) {
+						resolve(users);
+					} else {
+						reject({
+							status: 404,
+							message: 'No users have been found.',
+						});
+					}
+				}
+			});
+		});
+	}
+
+	function findByEmail(userEmail) {
+		return new Promise((resolve, reject) => {
+			userModel.findOne({ userEmail }, (err, user) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (user) {
+						resolve(user);
+					} else {
+						reject({
+							status: 404,
+							message: 'No user have been found.',
+						});
+					}
+				}
+			});
+		});
+	}
+
+	function findById(userId) {
+		return new Promise((resolve, reject) => {
+			userModel.findById(userId, (err, user) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (user) {
+						resolve(user);
+					} else {
+						reject({
+							status: 404,
+							message: 'No user have been found.',
+						});
+					}
+				}
+			});
+		});
+	}
+
+	function updateById(userId, values) {
+		return new Promise((resolve, reject) => {
+			userModel.findByIdAndUpdate(
+				userId,
+				values,
+				{ new: true },
+				function (err, user) {
+					if (err) {
+						reject(err);
+					} else {
+						if (user) {
+							resolve(user);
+						} else {
+							reject({
+								status: 404,
+								message: 'No user have been found.',
+							});
+						}
+					}
+				}
+			);
+		});
+	}
+
+	function removeById(userId) {
+		return new Promise((resolve, reject) => {
+			userModel.findByIdAndRemove(userId, (err, user) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (user) {
+						resolve(user);
+					} else {
+						reject({
+							status: 404,
+							message: 'No user have been found.',
+						});
+					}
+				}
+			});
+		});
+	}
+
+	function createToken(user) {
+		let token = jwt.sign(
+			{ id: user._id, email: user.email, roles: user.roles },
+			config.jsonwebtoken.secret,
+			{ algorithm: 'HS256' },
+			{ expiresIn: config.jsonwebtoken.expires_time }
+		);
+		return token;
+	}
+
+	function register(user) {
 		return hashPassword(user.password).then((hashedPassword, err) => {
 			if (err) {
 				return Promise.reject(err);
@@ -29,28 +160,6 @@ function userService(userModel) {
 			let newUser = userModel(newUserUpdated);
 			return save(newUser);
 		});
-	}
-
-	function save(newUser) {
-		return new Promise((resolve, reject) => {
-			newUser.save((err) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(newUser);
-				}
-			});
-		});
-	}
-
-	function createToken(user) {
-		let token = jwt.sign(
-			{ id: user._id, email: user.email, roles: user.roles },
-			config.jsonwebtoken.secret,
-			{ algorithm: 'HS256' },
-			{ expiresIn: config.jsonwebtoken.expires_time }
-		);
-		return token;
 	}
 
 	function verifyUser({ email, password }) {

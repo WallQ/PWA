@@ -2,16 +2,11 @@ function hotelService(hotelModel) {
 	let service = {
 		create,
 		findAll,
-		findById,
 		findByName,
+		findById,
 		updateById,
 		deleteById,
 	};
-
-	function create(values) {
-		let newHotel = hotelModel(values);
-		return save(newHotel);
-	}
 
 	function save(newHotel) {
 		return new Promise((resolve, reject) => {
@@ -23,6 +18,11 @@ function hotelService(hotelModel) {
 				}
 			});
 		});
+	}
+
+	function create(values) {
+		let newHotel = hotelModel(values);
+		return save(newHotel);
 	}
 
 	function findAll() {
