@@ -28,7 +28,7 @@ function AuthRouter() {
 				res.status(err.status || 500).send({
 					error: {
 						status: err.status || 500,
-						message: err.message || "Internal Server Error",
+						message: err.message || 'Internal Server Error',
 					},
 				});
 				next();
@@ -51,7 +51,7 @@ function AuthRouter() {
 				res.status(err.status || 500).send({
 					error: {
 						status: err.status || 500,
-						message: err.message || "Internal Server Error",
+						message: err.message || 'Internal Server Error',
 					},
 				});
 				next();

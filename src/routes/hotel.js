@@ -1,8 +1,8 @@
 const express = require('express');
 const hotel = require('../components/hotel');
+const roles = require('../config/roles');
 const verifyJWT = require('../middlewares/verifyJWT');
 const verifyROLES = require('../middlewares/verifyROLES');
-const roles = require('../config/roles');
 
 function HotelRouter() {
 	let router = express();

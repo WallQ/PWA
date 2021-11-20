@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config =
-	require('../config/config')[process.env.NODE_ENV || 'development'];
+const config = require('../config/config')[process.env.NODE_ENV || 'development'];
 
 const verifyJWT = (req, res, next) => {
 	const token = req.headers['x-access-token'] || req.query['x-access-token'];
