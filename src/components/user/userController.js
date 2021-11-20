@@ -31,7 +31,7 @@ function userService(userModel) {
 	}
 
 	function create(user) {
-		let newUser = playerModel(user);
+		let newUser = userModel(user);
 		return save(newUser);
 	}
 
