@@ -93,6 +93,20 @@ function BookRouter() {
 		});
 	
 
+	router.route('/availability')
+		.put(function (req, res, next) {
+			let body = req.body;
+			books.findByIdAndUpdate(bookID, body)
+				.then((book) => {
+					res.status(200);
+					res.send(book);
+					next();
+				})
+				.catch((err) => {
+					res.status(404);
+					next();
+				});
+		});
 
 	return router;
 }

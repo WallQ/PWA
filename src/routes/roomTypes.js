@@ -13,7 +13,6 @@ function RoomTypeRouter() {
 		next();
 	});
 
-		//Tested OK
 	router.route('')
 		.get((req, res, next) => {
 
@@ -47,7 +46,6 @@ function RoomTypeRouter() {
 			});
 		});
 
-		//Tested OK
 	router.route('/:roomTypeID')
 		.get(function (req, res, next) {
 			let roomID = req.params.roomTypeID;
@@ -91,6 +89,55 @@ function RoomTypeRouter() {
 					next();
 				});
 		});
+
+	router.route('/:roomTypeID/packs')
+		.get(function (req, res, next) {
+			let roomID = req.params.roomTypeID;
+			roomTypes
+				.findPacksFromRoomType(roomID)
+				.then((rooms) => {
+					res.status(200);
+					res.send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404);
+					next();
+				});
+		});
+
+	router.route('/:roomTypeID/books')
+		.get(function (req, res, next) {
+			let roomID = req.params.roomTypeID;
+			roomTypes
+				.findBooksFromRoomType(roomID)
+				.then((rooms) => {
+					res.status(200);
+					res.send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404);
+					next();
+				});
+		});
+	
+	router.route('/:roomTypeID/rooms')
+		.get(function (req, res, next) {
+			let roomID = req.params.roomTypeID;
+			roomTypes
+				.findRoomsFromRoomType(roomID)
+				.then((rooms) => {
+					res.status(200);
+					res.send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404);
+					next();
+				});
+		});
+
 	return router;
 }
 
