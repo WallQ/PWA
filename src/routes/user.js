@@ -1,10 +1,7 @@
 const express = require('express');
-const hotel = require('../components/hotel');
-const roles = require('../config/roles');
-const verifyJWT = require('../middlewares/verifyJWT');
-const verifyROLES = require('../middlewares/verifyROLES');
+const user = require('../components/user');
 
-function HotelRouter() {
+function UserRouter() {
 	let router = express();
 
 	router.use(express.json({ limit: '100mb' }));
@@ -18,11 +15,10 @@ function HotelRouter() {
 	router
 		.route('/')
 		.get((req, res, next) => {
-			hotel
-				.findAll()
-				.then((hotels) => {
-					console.log('Hotels found -> \n', hotels);
-					res.status(200).send(hotels);
+			user.findAll()
+				.then((users) => {
+					console.log('Users found -> \n', users);
+					res.status(200).send(users);
 					next();
 				})
 				.catch((err) => {
@@ -38,10 +34,9 @@ function HotelRouter() {
 		})
 		.post((req, res, next) => {
 			let body = req.body;
-			hotel
-				.create(body)
-				.then((hotel) => {
-					console.log('Hotel created -> \n', hotel);
+			user.create(body)
+				.then((user) => {
+					console.log('User created -> \n', user);
 					res.status(201).send(body);
 					next();
 				})
@@ -57,13 +52,12 @@ function HotelRouter() {
 				});
 		});
 
-	router.route('/name/:hotelName').get((req, res, next) => {
-		let hotelName = req.params.hotelName;
-		hotel
-			.findByName(hotelName)
-			.then((hotel) => {
-				console.log('Hotel found -> \n', hotel);
-				res.status(200).send(hotel);
+	router.route('/email/:userEmail').get((req, res, next) => {
+		let userEmail = req.params.userEmail;
+		user.findByEmail(userEmail)
+			.then((user) => {
+				console.log('User found -> \n', user);
+				res.status(200).send(user);
 				next();
 			})
 			.catch((err) => {
@@ -79,14 +73,13 @@ function HotelRouter() {
 	});
 
 	router
-		.route('/:hotelId')
+		.route('/:userId')
 		.get((req, res, next) => {
-			let hotelId = req.params.hotelId;
-			hotel
-				.findById(hotelId)
-				.then((hotel) => {
-					console.log('Hotel found -> \n', hotel);
-					res.status(200).send(hotel);
+			let userId = req.params.userId;
+			user.findById(userId)
+				.then((user) => {
+					console.log('User found -> \n', user);
+					res.status(200).send(user);
 					next();
 				})
 				.catch((err) => {
@@ -101,13 +94,12 @@ function HotelRouter() {
 				});
 		})
 		.put((req, res, next) => {
-			let hotelId = req.params.hotelId;
+			let userId = req.params.userId;
 			let body = req.body;
-			hotel
-				.updateById(hotelId, body)
-				.then((hotel) => {
-					console.log('Hotel updated -> \n', hotel);
-					res.status(200).send(hotel);
+			user.updateById(userId, body)
+				.then((user) => {
+					console.log('User updated -> \n', user);
+					res.status(200).send(user);
 					next();
 				})
 				.catch((err) => {
@@ -122,12 +114,11 @@ function HotelRouter() {
 				});
 		})
 		.delete((req, res, next) => {
-			let hotelId = req.params.hotelId;
-			hotel
-				.deleteById(hotelId)
-				.then((hotel) => {
-					console.log('Hotel removed -> \n', hotel);
-					res.status(200).send(hotel);
+			let userId = req.params.userId;
+			user.deleteById(userId)
+				.then((user) => {
+					console.log('User removed -> \n', user);
+					res.status(200).send(user);
 					next();
 				})
 				.catch((err) => {
@@ -145,4 +136,4 @@ function HotelRouter() {
 	return router;
 }
 
-module.exports = HotelRouter;
+module.exports = UserRouter;

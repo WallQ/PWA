@@ -12,12 +12,12 @@ function roomsControler(roomModel){
         findOneAndDeleteByNumber
     }
 
-    function create(values){
-        let newRoom = roomModel(values);
-        return save(newRoom);
-    }
+	function create(values) {
+		let newRoom = roomModel(values);
+		return save(newRoom);
+	}
 
-    function save(newRoom) {
+	function save(newRoom) {
 		return new Promise(function (resolve, reject) {
 			newRoom.save(function (err) {
 				if (err) {
@@ -40,23 +40,23 @@ function roomsControler(roomModel){
 		});
 	}
 
-    function findAll(){
-        return new Promise ((resolve,reject)=>{
-            roomModel.find({},(err,rooms)=>{
-                if (err) reject(err);
-                resolve(rooms)
-            })
-        })
-    }
+	function findAll() {
+		return new Promise((resolve, reject) => {
+			roomModel.find({}, (err, rooms) => {
+				if (err) reject(err);
+				resolve(rooms);
+			});
+		});
+	}
 
-    function findById(id){
-        return new Promise ((resolve,reject)=>{
-            roomModel.findById(id,(err,room)=>{
-                if (err) reject(err);
-                resolve(room);
-            })
-        })
-    }
+	function findById(id) {
+		return new Promise((resolve, reject) => {
+			roomModel.findById(id, (err, room) => {
+				if (err) reject(err);
+				resolve(room);
+			});
+		});
+	}
 
     function findByNumber(number){
         return new Promise ((resolve,reject)=>{
@@ -112,7 +112,8 @@ function roomsControler(roomModel){
         })
     }
 
-    return services;
+
+	return services;
 }
 
-module.exports = roomsControler;
+module.exports = roomsController;

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const facilityType = require('../../utils/facilityType');
 
-let addressType = new Schema({
+const addressType = new Schema({
 	street: {
 		type: String,
 		required: true,
@@ -31,7 +32,7 @@ let addressType = new Schema({
 	},
 });
 
-let contactType = new Schema({
+const contactType = new Schema({
 	type: {
 		type: String,
 		required: true,
@@ -42,7 +43,7 @@ let contactType = new Schema({
 	},
 });
 
-let languageType = new Schema({
+const languageType = new Schema({
 	initials: {
 		type: String,
 		required: true,
@@ -57,7 +58,7 @@ let languageType = new Schema({
 	},
 });
 
-let imageType = new Schema({
+const imageType = new Schema({
 	cover: {
 		type: Boolean,
 		required: true,
@@ -73,18 +74,7 @@ let imageType = new Schema({
 	],
 });
 
-let facilityType = new Schema({
-	icon: {
-		type: String,
-		required: true,
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-});
-
-let commentType = new Schema({
+const commentType = new Schema({
 	userID: {
 		type: String,
 		required: true,
@@ -95,7 +85,7 @@ let commentType = new Schema({
 	},
 });
 
-let hotelSchema = new Schema({
+const hotelSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
@@ -113,24 +103,37 @@ let hotelSchema = new Schema({
 		type: addressType,
 		required: true,
 	},
-	contacts: [{
-		type: contactType,
-		required: true,
-	}],
-	languages: [{
-		type: languageType,
-	}],
-	images: [{
-		type: imageType,
-	}],
-	facilities: [{
-		type: facilityType,
-	}],
-	comments: [{
-		type: commentType,
-	}],
+	contacts: [
+		{
+			type: contactType,
+			required: true,
+		},
+	],
+	languages: [
+		{
+			type: languageType,
+		},
+	],
+	images: [
+		{
+			type: imageType,
+		},
+	],
+	facilities: [
+		{
+			type: facilityType,
+		},
+	],
+	comments: [
+		{
+			type: commentType,
+		},
+	],
+	url: {
+		type: String,
+	},
 });
 
-let Hotel = mongoose.model('Hotel', hotelSchema);
+const hotel = mongoose.model('hotel', hotelSchema);
 
-module.exports = Hotel;
+module.exports = hotel;

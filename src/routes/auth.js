@@ -1,5 +1,5 @@
 const express = require('express');
-const users = require('../components/users');
+const user = require('../components/user');
 
 function AuthRouter() {
 	let router = express();
@@ -12,64 +12,57 @@ function AuthRouter() {
 		next();
 	});
 
-	router.route('/register').post(function (req, res, next) {
-		console.log('Create user');
+	router.route('/sign-up').post((req, res, next) => {
 		let body = req.body;
-		users
-			.create(body)
-			.then((user) => users.createToken(user))
-			.then((response) => {
-				res.status(200);
-				res.send(response);
+		user.register(body)
+			.then((userData) => user.createToken(userData))
+			.then((token) => {
+				console.log(token);
+				res.status(200).send({
+					message: 'Successfully signed up.',
+				});
 				next();
 			})
 			.catch((err) => {
-				console.log('Player already exist!', err);
-				res.status(500);
+				console.log(err);
+				res.status(err.status || 500).send({
+					error: {
+						status: err.status || 500,
+						message: err.message || 'Internal Server Error',
+					},
+				});
 				next();
 			});
 	});
 
-	router.route('/login').post(function (req, res, next) {
-		console.log('Login user');
+	router.route('/sign-in').post((req, res, next) => {
 		let body = req.body;
-
-		users
-			.findUser(body)
-			.then((user) => users.createToken(user))
-			.then((response) => {
-				res.status(200);
-				res.send(response);
+		user.verifyUser(body)
+			.then((userData) => user.createToken(userData))
+			.then((token) => {
+				console.log(token);
+				res.status(200).send({
+					message: 'Successfully signed in.',
+				});
 				next();
 			})
 			.catch((err) => {
-				console.log('Incorrect data!', err);
-				res.status(500);
+				console.log(err);
+				res.status(err.status || 500).send({
+					error: {
+						status: err.status || 500,
+						message: err.message || 'Internal Server Error',
+					},
+				});
 				next();
 			});
 	});
 
-	router.route('/me').get(function (req, res, next) {
-		console.log('Login user');
-		let token = req.headers['x-access-token'];
-
-		if (!token) {
-			res.status(401).send({
-				auth: false,
-				message: 'No token provided.',
-			});
-		}
-
-		users
-			.verifyToken(token)
-			.then((decoded) => {
-				res.status(202).send({ auth: true, decoded });
-			})
-			.catch((err) => {
-				res.status(500);
-				res.send(err);
-				next();
-			});
+	router.route('/sign-out').get((req, res, next) => {
+		res.status(200).send({
+			message: 'Successfully signed out.',
+		});
+		next();
 	});
 
 	return router;

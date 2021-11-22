@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const facilityType = require('../../utils/facilityType');
 
 const roomSchema = new Schema({
 	number: {
@@ -18,6 +19,7 @@ const roomSchema = new Schema({
 	notes:{
 		type: String
 	}
+
 });
 
 const room = mongoose.model('room', roomSchema);

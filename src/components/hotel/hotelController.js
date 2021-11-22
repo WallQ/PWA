@@ -2,16 +2,11 @@ function hotelService(hotelModel) {
 	let service = {
 		create,
 		findAll,
-		findById,
 		findByName,
+		findById,
 		updateById,
 		deleteById,
 	};
-
-	function create(values) {
-		let newHotel = hotelModel(values);
-		return save(newHotel);
-	}
 
 	function save(newHotel) {
 		return new Promise((resolve, reject) => {
@@ -25,13 +20,25 @@ function hotelService(hotelModel) {
 		});
 	}
 
+	function create(values) {
+		let newHotel = hotelModel(values);
+		return save(newHotel);
+	}
+
 	function findAll() {
 		return new Promise((resolve, reject) => {
 			hotelModel.find({}, (err, hotels) => {
 				if (err) {
 					reject(err);
 				} else {
-					resolve(hotels);
+					if (hotels.length) {
+						resolve(hotels);
+					} else {
+						reject({
+							status: 404,
+							message: 'No hotels have been found.',
+						});
+					}
 				}
 			});
 		});
@@ -39,14 +46,23 @@ function hotelService(hotelModel) {
 
 	function findByName(hotelName) {
 		return new Promise((resolve, reject) => {
-			//hotelModel.findOne({ name: hotelName }, function (err, hotel) {});
-			hotelModel.find({ name: hotelName }, (err, hotel) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(hotel);
+			hotelModel.find(
+				{ name: { $regex: hotelName, $options: 'i' } },
+				(err, hotel) => {
+					if (err) {
+						reject(err);
+					} else {
+						if (hotel) {
+							resolve(hotel);
+						} else {
+							reject({
+								status: 404,
+								message: 'No hotel have been found.',
+							});
+						}
+					}
 				}
-			});
+			);
 		});
 	}
 
@@ -56,7 +72,14 @@ function hotelService(hotelModel) {
 				if (err) {
 					reject(err);
 				} else {
-					resolve(hotel);
+					if (hotel) {
+						resolve(hotel);
+					} else {
+						reject({
+							status: 404,
+							message: 'No hotel have been found.',
+						});
+					}
 				}
 			});
 		});
@@ -72,7 +95,14 @@ function hotelService(hotelModel) {
 					if (err) {
 						reject(err);
 					} else {
-						resolve(hotel);
+						if (hotel) {
+							resolve(hotel);
+						} else {
+							reject({
+								status: 404,
+								message: 'No hotel have been found.',
+							});
+						}
 					}
 				}
 			);
@@ -85,7 +115,14 @@ function hotelService(hotelModel) {
 				if (err) {
 					reject(err);
 				} else {
-					resolve(hotel);
+					if (hotel) {
+						resolve(hotel);
+					} else {
+						reject({
+							status: 404,
+							message: 'No hotel have been found.',
+						});
+					}
 				}
 			});
 		});

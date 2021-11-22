@@ -1,6 +1,6 @@
 const express = require('express');
 const rooms = require('../components/rooms');
-let validator = require('../components/rooms/validations')
+let validator = require('../components/rooms/validations');
 
 function RoomRouter() {
 	let router = express();
@@ -16,22 +16,22 @@ function RoomRouter() {
 		//Tested OK
 	router.route('')
 		.get((req, res, next) => {
-
 			let err = validator.results(req);
 			if (!err.isEmpty()) {
-			return res.status(400).json({ errors: err.array() });
+				return res.status(400).json({ errors: err.array() });
 			}
 
-			console.log(req.body)
-			rooms.findAll()
-			.then((rooms) => {
-				res.status(200).send(rooms);
-				next();
-			})
-			.catch((err) => {
-				res.status(404).send("Error");
-				next();
-			});
+			console.log(req.body);
+			rooms
+				.findAll()
+				.then((rooms) => {
+					res.status(200).send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404).send('Error');
+					next();
+				});
 		})
 		.post(function (req, res, next) {
 			let body = req.body;
@@ -91,8 +91,6 @@ function RoomRouter() {
 					next();
 				});
 		});
-
-
 
 	return router;
 }
