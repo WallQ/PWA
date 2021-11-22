@@ -1,11 +1,14 @@
-function roomTypesControler(roomTypeModel){
+function roomTypesControler(roomTypeModel,bookModel,roomModel){
     let services = {
         create,
         find,
         findAll,
         findById,
         findByIdAndUpdate,
-        findByIdAndDelete
+        findByIdAndDelete,
+        findPacksFromRoomType,
+        findBooksFromRoomType,
+        findRoomsFromRoomType
     }
 
     function create(values){
@@ -18,6 +21,7 @@ function roomTypesControler(roomTypeModel){
             //Testar os IDS ( HOTEL, ROOM)
 			newRoomType.save(function (err) {
 				if (err) {
+                    console.log(err);
 					reject(err);
 				} else {
 					resolve('RoomType created successfully!');
@@ -66,6 +70,36 @@ function roomTypesControler(roomTypeModel){
             roomTypeModel.findByIdAndDelete(id,(err,roomType)=>{
                 if (!roomType) reject("Can not dellet item!");
                 resolve(roomType);
+            })
+        })
+    }
+
+    function findPacksFromRoomType(id){
+        return new Promise ((resolve,reject)=>{
+            roomTypeModel
+                .findById(id)
+                .populate('packs')
+                .exec((err,room)=> {
+                    if (err) reject(err);
+                    resolve(room.packs);
+            })
+        })
+    }
+    function findBooksFromRoomType(id){
+        return new Promise ((resolve,reject)=>{
+            bookModel
+                .find({roomType: id},(err,books)=> {
+                    if (err) reject(err);
+                    resolve(books);
+            })
+        })
+    }
+    function findRoomsFromRoomType(id){
+        return new Promise ((resolve,reject)=>{
+            roomModel
+                .find({roomType: id},(err,rooms)=> {
+                    if (err) reject(err);
+                    resolve(rooms);
             })
         })
     }

@@ -10,6 +10,7 @@ const roomSchema = new Schema({
 	roomType:{
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'roomTypes',
+		strictPopulate: false,
 		required: true
 	},
 	hotel:{
