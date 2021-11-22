@@ -1,11 +1,16 @@
-function roomsController(roomModel) {
-	let services = {
-		create,
-		findAll,
-		findById,
-		findByIdAndUpdate,
-		findOneAndDelete,
-	};
+function roomsControler(roomModel){
+    let services = {
+        create,
+        exists,
+        findAll,
+        findById,
+        findByNumber,
+        findByHotel,
+        findByIdAndUpdate,
+        findByNumberAndUpdate,
+        findOneAndDelete,
+        findOneAndDeleteByNumber
+    }
 
 	function create(values) {
 		let newRoom = roomModel(values);
@@ -19,6 +24,17 @@ function roomsController(roomModel) {
 					reject(err);
 				} else {
 					resolve('Room created successfully!');
+				}
+			});
+		});
+	}
+    function exists(id) {
+		return new Promise(function (resolve, reject) {
+			newRoom.exists(_id = id,function (err,result) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(result);
 				}
 			});
 		});
@@ -42,23 +58,60 @@ function roomsController(roomModel) {
 		});
 	}
 
-	function findByIdAndUpdate(id, values) {
-		return new Promise((resolve, reject) => {
-			roomModel.findByIdAndUpdate(id, values, (err, room) => {
-				if (err) reject(err);
-				resolve(room);
-			});
-		});
-	}
+    function findByNumber(number){
+        return new Promise ((resolve,reject)=>{
+            roomModel.find({number: number},(err,room)=>{
+                if (err) reject(err);
+                resolve(room);
+            })
+        })
+    }
 
-	function findOneAndDelete(id) {
-		return new Promise((resolve, reject) => {
-			roomModel.findOneAndDelete({ _id: id }, (err, room) => {
-				if (!room) reject("Couldn't delete the item!");
-				resolve(room);
-			});
-		});
-	}
+    function findByHotel(hotelID){
+        return new Promise ((resolve,reject)=>{
+            roomModel.find({hotel: hotelID},(err,room)=>{
+                if (err) reject(err);
+                resolve(room);
+            })
+        })
+    }
+
+
+    function findByIdAndUpdate(id,values){
+        return new Promise ((resolve,reject)=>{   
+            roomModel.findByIdAndUpdate(id,values,(err,room)=>{
+                if (err) reject(err);
+                resolve(room);
+            })
+        })
+    }
+
+    function findByNumberAndUpdate(number,values){
+        return new Promise ((resolve,reject)=>{
+            roomModel.findOneAndUpdate({number:number},values,(err,room)=>{
+                if (err) reject(err);
+                resolve(room);
+            })
+        })
+    }
+
+    function findOneAndDelete(id){
+        return new Promise ((resolve,reject)=>{
+            roomModel.findOneAndDelete({_id:id},(err,room)=>{
+                if (!room) reject("Can not dellet item!");
+                resolve(room);
+            })
+        })
+    }
+    function findOneAndDeleteByNumber(number){
+        return new Promise ((resolve,reject)=>{
+            roomModel.findOneAndDelete({number:number},(err,room)=>{
+                if (!room) reject("Can not dellet item!");
+                resolve(room);
+            })
+        })
+    }
+
 
 	return services;
 }

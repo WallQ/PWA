@@ -1,8 +1,8 @@
 const express = require('express');
-const rooms = require('../components/rooms');
-let validator = require('../components/rooms/validations');
+const roomTypes = require('../components/roomTypes');
+let validator = require('../components/roomTypes/validations')
 
-function RoomRouter() {
+function RoomTypeRouter() {
 	let router = express();
 
 	router.use(express.json({ limit: '100mb' }));
@@ -16,26 +16,26 @@ function RoomRouter() {
 		//Tested OK
 	router.route('')
 		.get((req, res, next) => {
+
 			let err = validator.results(req);
 			if (!err.isEmpty()) {
-				return res.status(400).json({ errors: err.array() });
+			return res.status(400).json({ errors: err.array() });
 			}
 
-			console.log(req.body);
-			rooms
-				.findAll()
-				.then((rooms) => {
-					res.status(200).send(rooms);
-					next();
-				})
-				.catch((err) => {
-					res.status(404).send('Error');
-					next();
-				});
+			console.log(req.body)
+			roomTypes.findAll()
+			.then((rooms) => {
+				res.status(200).send(rooms);
+				next();
+			})
+			.catch((err) => {
+				res.status(404).send("Error");
+				next();
+			});
 		})
 		.post(function (req, res, next) {
 			let body = req.body;
-			rooms.create(body)
+			roomTypes.create(body)
 			.then(() => {
 				res.status(200);
 				res.send(body);
@@ -48,10 +48,10 @@ function RoomRouter() {
 		});
 
 		//Tested OK
-	router.route('/:roomID')
+	router.route('/:roomTypeID')
 		.get(function (req, res, next) {
-			let roomID = req.params.roomID;
-			rooms
+			let roomID = req.params.roomTypeID;
+			roomTypes
 				.findById(roomID)
 				.then((rooms) => {
 					res.status(200);
@@ -64,9 +64,9 @@ function RoomRouter() {
 				});
 		})
 		.put(function (req, res, next) {
-			let roomID = req.params.roomID;
+			let roomID = req.params.roomTypeID;
 			let body = req.body;
-			rooms
+			roomTypes
 				.findByIdAndUpdate(roomID, body)
 				.then((room) => {
 					res.status(200);
@@ -79,8 +79,8 @@ function RoomRouter() {
 				});
 		})
 		.delete(function (req, res, next) {
-			let roomID = req.params.roomID;
-			rooms
+			let roomID = req.params.roomTypeID;
+			roomTypes
 				.findOneAndDelete(roomID)
 				.then(() => {
 					res.status(200).json({msg:"OK- DELETED"});
@@ -91,8 +91,7 @@ function RoomRouter() {
 					next();
 				});
 		});
-
 	return router;
 }
 
-module.exports = RoomRouter;
+module.exports = RoomTypeRouter;

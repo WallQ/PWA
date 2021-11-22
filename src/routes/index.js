@@ -1,8 +1,14 @@
 const express = require('express');
-const AuthAPI = require('./auth');
+
+let PlayerAPI = require('./players');
+let HotelAPI = require('./hotel');
+let AuthAPI = require('./auth');
+let RoomAPI = require('./rooms');
+let RoomTypeAPI = require('./roomTypes');
+let BookAPI = require('./books');
+let PackAPI = require('./packs');
 const UserAPI = require('./user');
-const HotelAPI = require('./hotel');
-const RoomAPI = require('./rooms');
+
 
 function initialize() {
 	let api = express();
@@ -11,6 +17,9 @@ function initialize() {
 	api.use('/user', UserAPI());
 	api.use('/hotel', HotelAPI());
 	api.use('/rooms', RoomAPI());
+	api.use('/roomsTypes', RoomTypeAPI());
+	api.use('/books', BookAPI());
+	api.use('/packs', PackAPI());
 
 	return api;
 }

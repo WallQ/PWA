@@ -1,8 +1,8 @@
 const express = require('express');
-const rooms = require('../components/rooms');
-let validator = require('../components/rooms/validations');
+const books = require('../components/books');
+let validator = require('../components/books/validations')
 
-function RoomRouter() {
+function BookRouter() {
 	let router = express();
 
 	router.use(express.json({ limit: '100mb' }));
@@ -13,29 +13,30 @@ function RoomRouter() {
 		next();
 	});
 
-		//Tested OK
+		//
 	router.route('')
 		.get((req, res, next) => {
+			books.findAll()
+			.then((rooms) => {
+				res.status(200).send(rooms);
+				next();
+			})
+			.catch((err) => {
+				res.status(404).send("Error");
+				next();
+			});
+		})
+		.post((req, res, next) => {
+			/*
 			let err = validator.results(req);
 			if (!err.isEmpty()) {
 				return res.status(400).json({ errors: err.array() });
 			}
+			console.log("passou a validação")
+			*/
 
-			console.log(req.body);
-			rooms
-				.findAll()
-				.then((rooms) => {
-					res.status(200).send(rooms);
-					next();
-				})
-				.catch((err) => {
-					res.status(404).send('Error');
-					next();
-				});
-		})
-		.post(function (req, res, next) {
 			let body = req.body;
-			rooms.create(body)
+			books.create(body)
 			.then(() => {
 				res.status(200);
 				res.send(body);
@@ -47,15 +48,15 @@ function RoomRouter() {
 			});
 		});
 
-		//Tested OK
-	router.route('/:roomID')
+		//
+	router.route('/:bookID')
 		.get(function (req, res, next) {
-			let roomID = req.params.roomID;
-			rooms
-				.findById(roomID)
-				.then((rooms) => {
+			let bookID = req.params.bookID;
+			books
+				.findById(bookID)
+				.then((books) => {
 					res.status(200);
-					res.send(rooms);
+					res.send(books);
 					next();
 				})
 				.catch((err) => {
@@ -64,13 +65,12 @@ function RoomRouter() {
 				});
 		})
 		.put(function (req, res, next) {
-			let roomID = req.params.roomID;
+			let bookID = req.params.bookID;
 			let body = req.body;
-			rooms
-				.findByIdAndUpdate(roomID, body)
-				.then((room) => {
+			books.findByIdAndUpdate(bookID, body)
+				.then((book) => {
 					res.status(200);
-					res.send(room);
+					res.send(book);
 					next();
 				})
 				.catch((err) => {
@@ -79,9 +79,9 @@ function RoomRouter() {
 				});
 		})
 		.delete(function (req, res, next) {
-			let roomID = req.params.roomID;
-			rooms
-				.findOneAndDelete(roomID)
+			let bookID = req.params.bookID;
+			books
+				.findByIdAndDelete(bookID)
 				.then(() => {
 					res.status(200).json({msg:"OK- DELETED"});
 					next();
@@ -91,8 +91,10 @@ function RoomRouter() {
 					next();
 				});
 		});
+	
+
 
 	return router;
 }
 
-module.exports = RoomRouter;
+module.exports = BookRouter;

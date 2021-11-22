@@ -5,13 +5,13 @@ exports.results = (req) => {
 };
 
 exports.newRoom = () => {
-	return [
-		check('username')
-			.trim()
-			.notEmpty()
-			.withMessage('password is required')
-			.isLength({ min: 40 })
-			.withMessage('password must be 8 characters')
-			.escape(),
-	];
-};
+    return [
+      check('number')
+        .trim()
+        .escape()
+        .notEmpty()
+        .withMessage('number is required')
+        .isNumeric()
+    ]
+  }
+
