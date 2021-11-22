@@ -15,7 +15,7 @@ function RoomRouter() {
 
 		//Tested OK
 	router.route('')
-		.get((req, res, next) => {
+		.get((req, res, next)=> {
 			let err = validator.results(req);
 			if (!err.isEmpty()) {
 				return res.status(400).json({ errors: err.array() });
@@ -33,7 +33,7 @@ function RoomRouter() {
 					next();
 				});
 		})
-		.post(function (req, res, next) {
+		.post((req, res, next)=> {
 			let body = req.body;
 			rooms.create(body)
 			.then(() => {
@@ -47,9 +47,8 @@ function RoomRouter() {
 			});
 		});
 
-		//Tested OK
 	router.route('/:roomID')
-		.get(function (req, res, next) {
+		.get( (req, res, next)=> {
 			let roomID = req.params.roomID;
 			rooms
 				.findById(roomID)
@@ -63,7 +62,7 @@ function RoomRouter() {
 					next();
 				});
 		})
-		.put(function (req, res, next) {
+		.put((req, res, next)=> {
 			let roomID = req.params.roomID;
 			let body = req.body;
 			rooms
@@ -78,7 +77,7 @@ function RoomRouter() {
 					next();
 				});
 		})
-		.delete(function (req, res, next) {
+		.delete((req, res, next)=> {
 			let roomID = req.params.roomID;
 			rooms
 				.findOneAndDelete(roomID)
@@ -91,6 +90,23 @@ function RoomRouter() {
 					next();
 				});
 		});
+
+	router.route('/:roomID/books')
+		.get((req, res, next)=>{
+			let roomID = req.params.roomID;
+			rooms
+				.findBooksFromRoom(roomID)
+				.then((books) => {
+					res.status(200);
+					res.send(books);
+					next();
+				})
+				.catch((err) => {
+					res.status(404);
+					next();
+				});
+		})
+
 
 	return router;
 }

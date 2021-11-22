@@ -7,6 +7,11 @@ const bookSchema = new Schema({
 		ref: 'clients',
 		required: true
 	},
+	roomType:{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'roomTypes',
+		required: true
+	},
 	room:{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'room',

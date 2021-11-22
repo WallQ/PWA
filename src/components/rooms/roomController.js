@@ -1,15 +1,17 @@
-function roomsControler(roomModel){
+function roomsController(roomModel,bookModel){
     let services = {
         create,
         exists,
         findAll,
         findById,
+        findByIdPopulated,
         findByNumber,
         findByHotel,
         findByIdAndUpdate,
         findByNumberAndUpdate,
         findOneAndDelete,
-        findOneAndDeleteByNumber
+        findOneAndDeleteByNumber,
+        findBooksFromRoom
     }
 
 	function create(values) {
@@ -58,6 +60,18 @@ function roomsControler(roomModel){
 		});
 	}
 
+    function findByIdPopulated(id) {
+		return new Promise((resolve, reject) => {
+			roomModel.find({})
+            .populate('roomType')
+            .exec((err, room) => {
+                if (err) reject(err);
+                resolve(room);
+            })
+            
+		});
+	}
+
     function findByNumber(number){
         return new Promise ((resolve,reject)=>{
             roomModel.find({number: number},(err,room)=>{
@@ -75,7 +89,6 @@ function roomsControler(roomModel){
             })
         })
     }
-
 
     function findByIdAndUpdate(id,values){
         return new Promise ((resolve,reject)=>{   
@@ -112,6 +125,14 @@ function roomsControler(roomModel){
         })
     }
 
+    function findBooksFromRoom(roomId){
+        return new Promise ((resolve,reject)=>{
+            bookModel.find({room: roomId}, (err,books)=>{
+                if (err) reject(err);
+                resolve(books);
+            })
+        })
+    }
 
 	return services;
 }
