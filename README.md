@@ -43,10 +43,6 @@ $ npm start
 | `PUT /hotel/:hotelId`        | Yes          | Updates a specific hotel data     |
 | `DELETE /hotel/:hotelId`     | Yes          | Deletes a hotel                   |
 
-## To do list
-
--   [ ] Endpoints for user
-
 [mongodb]: https://www.mongodb.com/
 [express.js]: https://expressjs.com/
 [react.js]: https://reactjs.org/
