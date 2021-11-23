@@ -18,9 +18,9 @@ const packSchema = new Schema({
 		required: true,
 	},
 	dailyPrice: { type: Number, required: true },
-	minNigths: { type: Number },
+	minNights: { type: Number },
 	sale: { type: Number },
-	includ: [{ type: String }],
+	include: [{ type: String }],
 	start_date: {
 		type: Date,
 		required: true,

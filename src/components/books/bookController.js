@@ -1,4 +1,4 @@
-function booksControler(bookModel, hotelModel, roomModel) {
+function booksController(bookModel, hotelModel, roomModel) {
 	let services = {
 		create,
 		find,
@@ -64,7 +64,7 @@ function booksControler(bookModel, hotelModel, roomModel) {
 	function findByIdAndDelete(id) {
 		return new Promise((resolve, reject) => {
 			bookModel.findByIdAndDelete(id, (err, book) => {
-				if (!book) reject('Can not dellet item!');
+				if (!book) reject('Can not delete item!');
 				resolve(book);
 			});
 		});
@@ -73,4 +73,4 @@ function booksControler(bookModel, hotelModel, roomModel) {
 	return services;
 }
 
-module.exports = booksControler;
+module.exports = booksController;

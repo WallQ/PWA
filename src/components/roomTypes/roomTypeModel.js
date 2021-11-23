@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const facilityType = require('../../utils/facilityType');
 
-let defaultByMounth = new Schema({
-	mounth: { type: Number, required: true },
+let defaultByMonth = new Schema({
+	month: { type: Number, required: true },
 	default_price: { type: Number, required: true },
-	wekend_price: { type: Number, required: true },
+	weekend_price: { type: Number, required: true },
 });
 
 const extraDays = new Schema({
@@ -50,7 +50,7 @@ const roomTypeSchema = new Schema({
 		default: 0,
 	},
 	facilities: [{ type: facilityType, required: true }],
-	priceByMounth: [{ type: defaultByMounth }],
+	priceByMonth: [{ type: defaultByMonth }],
 	priceExtraDays: [{ type: extraDays }],
 });
 

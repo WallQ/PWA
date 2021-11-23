@@ -115,7 +115,7 @@ function roomsController(roomModel, bookModel) {
 	function findOneAndDelete(id) {
 		return new Promise((resolve, reject) => {
 			roomModel.findOneAndDelete({ _id: id }, (err, room) => {
-				if (!room) reject('Can not dellet item!');
+				if (!room) reject('Can not delete item!');
 				resolve(room);
 			});
 		});
@@ -123,7 +123,7 @@ function roomsController(roomModel, bookModel) {
 	function findOneAndDeleteByNumber(number) {
 		return new Promise((resolve, reject) => {
 			roomModel.findOneAndDelete({ number: number }, (err, room) => {
-				if (!room) reject('Can not dellet item!');
+				if (!room) reject('Can not delete item!');
 				resolve(room);
 			});
 		});

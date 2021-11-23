@@ -1,4 +1,4 @@
-function roomTypesControler(roomTypeModel, bookModel, roomModel) {
+function roomTypesController(roomTypeModel, bookModel, roomModel) {
 	let services = {
 		create,
 		find,
@@ -68,7 +68,7 @@ function roomTypesControler(roomTypeModel, bookModel, roomModel) {
 	function findByIdAndDelete(id) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel.findByIdAndDelete(id, (err, roomType) => {
-				if (!roomType) reject('Can not dellet item!');
+				if (!roomType) reject('Can not delete item!');
 				resolve(roomType);
 			});
 		});
@@ -105,4 +105,4 @@ function roomTypesControler(roomTypeModel, bookModel, roomModel) {
 	return services;
 }
 
-module.exports = roomTypesControler;
+module.exports = roomTypesController;

@@ -1,4 +1,4 @@
-function packsControler(packModel) {
+function packsController(packModel) {
 	let services = {
 		create,
 		find,
@@ -64,7 +64,7 @@ function packsControler(packModel) {
 	function findByIdAndDelete(id) {
 		return new Promise((resolve, reject) => {
 			packModel.findByIdAndDelete(id, (err, pack) => {
-				if (!pack) reject('Can not dellet item!');
+				if (!pack) reject('Can not delete item!');
 				resolve(pack);
 			});
 		});
@@ -73,4 +73,4 @@ function packsControler(packModel) {
 	return services;
 }
 
-module.exports = packsControler;
+module.exports = packsController;
