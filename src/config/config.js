@@ -13,6 +13,7 @@ const config = {
 		},
 		jsonwebtoken: {
 			secret: process.env.JWT_SECRET || 'secret',
+			recover_secret: process.env.JWT_RECOVER || 'secret',
 			expires_time: process.env.JWT_EXPIRES_TIME || 3600,
 		},
 		bcrypt: {

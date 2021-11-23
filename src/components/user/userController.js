@@ -1,6 +1,4 @@
-const config = require('../../config/config')[
-	process.env.NODE_ENV || 'development'
-];
+const config = require('../../config/config')[process.env.NODE_ENV || 'development'];
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const roles = require('../../config/roles');

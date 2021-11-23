@@ -1,6 +1,6 @@
 const express = require('express');
 const roomTypes = require('../components/roomTypes');
-let validator = require('../components/roomTypes/validations')
+const validator = require('../components/roomTypes/validations');
 
 function RoomTypeRouter() {
 	let router = express();
@@ -13,40 +13,43 @@ function RoomTypeRouter() {
 		next();
 	});
 
-	router.route('')
+	router
+		.route('')
 		.get((req, res, next) => {
-
 			let err = validator.results(req);
 			if (!err.isEmpty()) {
-			return res.status(400).json({ errors: err.array() });
+				return res.status(400).json({ errors: err.array() });
 			}
 
-			console.log(req.body)
-			roomTypes.findAll()
-			.then((rooms) => {
-				res.status(200).send(rooms);
-				next();
-			})
-			.catch((err) => {
-				res.status(404).send("Error");
-				next();
-			});
+			console.log(req.body);
+			roomTypes
+				.findAll()
+				.then((rooms) => {
+					res.status(200).send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404).send('Error');
+					next();
+				});
 		})
 		.post(function (req, res, next) {
 			let body = req.body;
-			roomTypes.create(body)
-			.then(() => {
-				res.status(200);
-				res.send(body);
-				next();
-			})
-			.catch((err) => {
-				res.status(401);
-				next();
-			});
+			roomTypes
+				.create(body)
+				.then(() => {
+					res.status(200);
+					res.send(body);
+					next();
+				})
+				.catch((err) => {
+					res.status(401);
+					next();
+				});
 		});
 
-	router.route('/:roomTypeID')
+	router
+		.route('/:roomTypeID')
 		.get(function (req, res, next) {
 			let roomID = req.params.roomTypeID;
 			roomTypes
@@ -81,7 +84,7 @@ function RoomTypeRouter() {
 			roomTypes
 				.findOneAndDelete(roomID)
 				.then(() => {
-					res.status(200).json({msg:"OK- DELETED"});
+					res.status(200).json({ msg: 'OK- DELETED' });
 					next();
 				})
 				.catch((err) => {
@@ -90,53 +93,50 @@ function RoomTypeRouter() {
 				});
 		});
 
-	router.route('/:roomTypeID/packs')
-		.get(function (req, res, next) {
-			let roomID = req.params.roomTypeID;
-			roomTypes
-				.findPacksFromRoomType(roomID)
-				.then((rooms) => {
-					res.status(200);
-					res.send(rooms);
-					next();
-				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
-		});
+	router.route('/:roomTypeID/packs').get(function (req, res, next) {
+		let roomID = req.params.roomTypeID;
+		roomTypes
+			.findPacksFromRoomType(roomID)
+			.then((rooms) => {
+				res.status(200);
+				res.send(rooms);
+				next();
+			})
+			.catch((err) => {
+				res.status(404);
+				next();
+			});
+	});
 
-	router.route('/:roomTypeID/books')
-		.get(function (req, res, next) {
-			let roomID = req.params.roomTypeID;
-			roomTypes
-				.findBooksFromRoomType(roomID)
-				.then((rooms) => {
-					res.status(200);
-					res.send(rooms);
-					next();
-				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
-		});
-	
-	router.route('/:roomTypeID/rooms')
-		.get(function (req, res, next) {
-			let roomID = req.params.roomTypeID;
-			roomTypes
-				.findRoomsFromRoomType(roomID)
-				.then((rooms) => {
-					res.status(200);
-					res.send(rooms);
-					next();
-				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
-		});
+	router.route('/:roomTypeID/books').get(function (req, res, next) {
+		let roomID = req.params.roomTypeID;
+		roomTypes
+			.findBooksFromRoomType(roomID)
+			.then((rooms) => {
+				res.status(200);
+				res.send(rooms);
+				next();
+			})
+			.catch((err) => {
+				res.status(404);
+				next();
+			});
+	});
+
+	router.route('/:roomTypeID/rooms').get(function (req, res, next) {
+		let roomID = req.params.roomTypeID;
+		roomTypes
+			.findRoomsFromRoomType(roomID)
+			.then((rooms) => {
+				res.status(200);
+				res.send(rooms);
+				next();
+			})
+			.catch((err) => {
+				res.status(404);
+				next();
+			});
+	});
 
 	return router;
 }

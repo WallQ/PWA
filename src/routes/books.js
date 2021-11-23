@@ -1,6 +1,6 @@
 const express = require('express');
 const books = require('../components/books');
-let validator = require('../components/books/validations')
+const validator = require('../components/books/validations');
 
 function BookRouter() {
 	let router = express();
@@ -13,18 +13,20 @@ function BookRouter() {
 		next();
 	});
 
-		//
-	router.route('')
+	//
+	router
+		.route('')
 		.get((req, res, next) => {
-			books.findAll()
-			.then((rooms) => {
-				res.status(200).send(rooms);
-				next();
-			})
-			.catch((err) => {
-				res.status(404).send("Error");
-				next();
-			});
+			books
+				.findAll()
+				.then((rooms) => {
+					res.status(200).send(rooms);
+					next();
+				})
+				.catch((err) => {
+					res.status(404).send('Error');
+					next();
+				});
 		})
 		.post((req, res, next) => {
 			/*
@@ -36,20 +38,22 @@ function BookRouter() {
 			*/
 
 			let body = req.body;
-			books.create(body)
-			.then(() => {
-				res.status(200);
-				res.send(body);
-				next();
-			})
-			.catch((err) => {
-				res.status(401);
-				next();
-			});
+			books
+				.create(body)
+				.then(() => {
+					res.status(200);
+					res.send(body);
+					next();
+				})
+				.catch((err) => {
+					res.status(401);
+					next();
+				});
 		});
 
-		//
-	router.route('/:bookID')
+	//
+	router
+		.route('/:bookID')
 		.get(function (req, res, next) {
 			let bookID = req.params.bookID;
 			books
@@ -67,7 +71,8 @@ function BookRouter() {
 		.put(function (req, res, next) {
 			let bookID = req.params.bookID;
 			let body = req.body;
-			books.findByIdAndUpdate(bookID, body)
+			books
+				.findByIdAndUpdate(bookID, body)
 				.then((book) => {
 					res.status(200);
 					res.send(book);
@@ -83,7 +88,7 @@ function BookRouter() {
 			books
 				.findByIdAndDelete(bookID)
 				.then(() => {
-					res.status(200).json({msg:"OK- DELETED"});
+					res.status(200).json({ msg: 'OK- DELETED' });
 					next();
 				})
 				.catch((err) => {
@@ -91,22 +96,21 @@ function BookRouter() {
 					next();
 				});
 		});
-	
 
-	router.route('/availability')
-		.put(function (req, res, next) {
-			let body = req.body;
-			books.findByIdAndUpdate(bookID, body)
-				.then((book) => {
-					res.status(200);
-					res.send(book);
-					next();
-				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
-		});
+	router.route('/availability').put(function (req, res, next) {
+		let body = req.body;
+		books
+			.findByIdAndUpdate(bookID, body)
+			.then((book) => {
+				res.status(200);
+				res.send(book);
+				next();
+			})
+			.catch((err) => {
+				res.status(404);
+				next();
+			});
+	});
 
 	return router;
 }

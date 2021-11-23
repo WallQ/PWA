@@ -5,13 +5,12 @@ exports.results = (req) => {
 };
 
 exports.newRoom = () => {
-    return [
-      check('number')
-        .trim()
-        .escape()
-        .notEmpty()
-        .withMessage('number is required')
-        .isNumeric()
-    ]
-  }
-
+	return [
+		check('number')
+			.trim()
+			.escape()
+			.notEmpty()
+			.withMessage('number is required')
+			.isNumeric(),
+	];
+};

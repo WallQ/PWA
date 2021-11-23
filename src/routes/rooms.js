@@ -1,6 +1,6 @@
 const express = require('express');
 const rooms = require('../components/rooms');
-let validator = require('../components/rooms/validations');
+const validator = require('../components/rooms/validations');
 
 function RoomRouter() {
 	let router = express();
@@ -13,9 +13,10 @@ function RoomRouter() {
 		next();
 	});
 
-		//Tested OK
-	router.route('')
-		.get((req, res, next)=> {
+	//Tested OK
+	router
+		.route('')
+		.get((req, res, next) => {
 			let err = validator.results(req);
 			if (!err.isEmpty()) {
 				return res.status(400).json({ errors: err.array() });
@@ -33,22 +34,24 @@ function RoomRouter() {
 					next();
 				});
 		})
-		.post((req, res, next)=> {
+		.post((req, res, next) => {
 			let body = req.body;
-			rooms.create(body)
-			.then(() => {
-				res.status(200);
-				res.send(body);
-				next();
-			})
-			.catch((err) => {
-				res.status(401);
-				next();
-			});
+			rooms
+				.create(body)
+				.then(() => {
+					res.status(200);
+					res.send(body);
+					next();
+				})
+				.catch((err) => {
+					res.status(401);
+					next();
+				});
 		});
 
-	router.route('/:roomID')
-		.get( (req, res, next)=> {
+	router
+		.route('/:roomID')
+		.get((req, res, next) => {
 			let roomID = req.params.roomID;
 			rooms
 				.findById(roomID)
@@ -62,7 +65,7 @@ function RoomRouter() {
 					next();
 				});
 		})
-		.put((req, res, next)=> {
+		.put((req, res, next) => {
 			let roomID = req.params.roomID;
 			let body = req.body;
 			rooms
@@ -77,12 +80,12 @@ function RoomRouter() {
 					next();
 				});
 		})
-		.delete((req, res, next)=> {
+		.delete((req, res, next) => {
 			let roomID = req.params.roomID;
 			rooms
 				.findOneAndDelete(roomID)
 				.then(() => {
-					res.status(200).json({msg:"OK- DELETED"});
+					res.status(200).json({ msg: 'OK- DELETED' });
 					next();
 				})
 				.catch((err) => {
@@ -91,22 +94,20 @@ function RoomRouter() {
 				});
 		});
 
-	router.route('/:roomID/books')
-		.get((req, res, next)=>{
-			let roomID = req.params.roomID;
-			rooms
-				.findBooksFromRoom(roomID)
-				.then((books) => {
-					res.status(200);
-					res.send(books);
-					next();
-				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
-		})
-
+	router.route('/:roomID/books').get((req, res, next) => {
+		let roomID = req.params.roomID;
+		rooms
+			.findBooksFromRoom(roomID)
+			.then((books) => {
+				res.status(200);
+				res.send(books);
+				next();
+			})
+			.catch((err) => {
+				res.status(404);
+				next();
+			});
+	});
 
 	return router;
 }

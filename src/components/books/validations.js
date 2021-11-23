@@ -1,17 +1,14 @@
-const { validationResult, body } = require('express-validator')
+const { validationResult, body } = require('express-validator');
 
 exports.results = (req) => {
-    return validationResult(req);
-  }
+	return validationResult(req);
+};
 
-  exports.newBook = () => {
-    return [
-      body('room')
-        .exists(checkNull = true)
-    ]
-  }
+exports.newBook = () => {
+	return [body('room').exists((checkNull = true))];
+};
 
-  /*
+/*
 exports.newBook = () => {
     return [
       body('room')

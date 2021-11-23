@@ -5,38 +5,38 @@ const bookSchema = new Schema({
 	client: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'clients',
-		required: true
+		required: true,
 	},
-	roomType:{
+	roomType: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'roomTypes',
-		required: true
+		required: true,
 	},
-	room:{
+	room: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'room',
-		required: true
+		required: true,
 	},
-    pack: {
+	pack: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'packs',
-		required: true
+		required: true,
 	},
-    total_price: {
+	total_price: {
 		type: Number,
-		required: true
+		required: true,
 	},
-    purchase_date:{
+	purchase_date: {
 		type: Date,
-		default: Date.now()
+		default: Date.now(),
 	},
-    checkIn_date:{
+	checkIn_date: {
 		type: Date,
-		required: true
+		required: true,
 	},
-    checkOut_date: {
+	checkOut_date: {
 		type: Date,
-		required: true
+		required: true,
 	},
 });
 

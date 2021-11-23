@@ -1,13 +1,12 @@
 const express = require('express');
 
-let HotelAPI = require('./hotel');
-let AuthAPI = require('./auth');
-let RoomAPI = require('./rooms');
-let RoomTypeAPI = require('./roomTypes');
-let BookAPI = require('./books');
-let PackAPI = require('./packs');
-let UserAPI = require('./user');
-
+const AuthAPI = require('./auth');
+const UserAPI = require('./user');
+const HotelAPI = require('./hotel');
+const RoomAPI = require('./rooms');
+const RoomTypeAPI = require('./roomTypes');
+const BookAPI = require('./books');
+const PackAPI = require('./packs');
 
 function initialize() {
 	let api = express();

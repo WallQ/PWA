@@ -4,30 +4,30 @@ const Schema = mongoose.Schema;
 const packSchema = new Schema({
 	name: {
 		type: String,
-		required: true
+		required: true,
 	},
-	freeCancel:{
-		type: Boolean
+	freeCancel: {
+		type: Boolean,
 	},
-    maxGuests: {
+	maxGuests: {
 		type: Number,
-		required: true
+		required: true,
 	},
-    maxGuestsChild: {
+	maxGuestsChild: {
 		type: Number,
-		required: true
+		required: true,
 	},
-    dailyPrice:{type: Number,required: true},
-    minNigths:{type: Number},
-	sale:{type: Number},
-	includ:[{type: String}],
+	dailyPrice: { type: Number, required: true },
+	minNigths: { type: Number },
+	sale: { type: Number },
+	includ: [{ type: String }],
 	start_date: {
 		type: Date,
-		required: true
+		required: true,
 	},
-    end_date: {
+	end_date: {
 		type: Date,
-		required: true
+		required: true,
 	},
 });
 

@@ -1,8 +1,8 @@
 const roles = {
-	ADMIN: 'admin', // Acesso a tudo
-	DIRECTOR: 'director', // Acceso total ao seu hotel
-	EMPLOYEE: 'employee', // Criar reservas
-	CLIENT: 'client', // Efetuar reservas
+	ADMIN: 'admin',
+	DIRECTOR: 'director',
+	EMPLOYEE: 'employee',
+	CLIENT: 'client',
 };
 
 module.exports = roles;

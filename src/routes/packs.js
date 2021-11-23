@@ -1,6 +1,6 @@
 const express = require('express');
 const packs = require('../components/packs');
-let validator = require('../components/packs/validations')
+const validator = require('../components/packs/validations');
 
 function PackRouter() {
 	let router = express();
@@ -13,18 +13,20 @@ function PackRouter() {
 		next();
 	});
 
-		//
-	router.route('')
+	//
+	router
+		.route('')
 		.get((req, res, next) => {
-			packs.findAll()
-			.then((packs) => {
-				res.status(200).send(packs);
-				next();
-			})
-			.catch((err) => {
-				res.status(404).send("Error");
-				next();
-			});
+			packs
+				.findAll()
+				.then((packs) => {
+					res.status(200).send(packs);
+					next();
+				})
+				.catch((err) => {
+					res.status(404).send('Error');
+					next();
+				});
 		})
 		.post((req, res, next) => {
 			/*
@@ -36,20 +38,22 @@ function PackRouter() {
 			*/
 
 			let body = req.body;
-			packs.create(body)
-			.then(() => {
-				res.status(200);
-				res.send(body);
-				next();
-			})
-			.catch((err) => {
-				res.status(401);
-				next();
-			});
+			packs
+				.create(body)
+				.then(() => {
+					res.status(200);
+					res.send(body);
+					next();
+				})
+				.catch((err) => {
+					res.status(401);
+					next();
+				});
 		});
 
-		//
-	router.route('/:packID')
+	//
+	router
+		.route('/:packID')
 		.get(function (req, res, next) {
 			let packID = req.params.packID;
 			packs
@@ -67,7 +71,8 @@ function PackRouter() {
 		.put(function (req, res, next) {
 			let packID = req.params.packID;
 			let body = req.body;
-			packs.findByIdAndUpdate(packID, body)
+			packs
+				.findByIdAndUpdate(packID, body)
 				.then((pack) => {
 					res.status(200);
 					res.send(pack);
@@ -83,7 +88,7 @@ function PackRouter() {
 			packs
 				.findByIdAndDelete(bookID)
 				.then(() => {
-					res.status(200).json({msg:"OK- DELETED"});
+					res.status(200).json({ msg: 'OK- DELETED' });
 					next();
 				})
 				.catch((err) => {
@@ -91,8 +96,6 @@ function PackRouter() {
 					next();
 				});
 		});
-	
-
 
 	return router;
 }

@@ -5,22 +5,21 @@ const facilityType = require('../../utils/facilityType');
 const roomSchema = new Schema({
 	number: {
 		type: String,
-		required: true
+		required: true,
 	},
-	roomType:{
-		type: mongoose.Schema.Types.ObjectId, 
+	roomType: {
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'roomTypes',
 		strictPopulate: false,
-		required: true
+		required: true,
 	},
-	hotel:{
-		type: mongoose.Schema.Types.ObjectId, 
-		ref: 'Hotel'
+	hotel: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Hotel',
 	},
-	notes:{
-		type: String
-	}
-
+	notes: {
+		type: String,
+	},
 });
 
 const room = mongoose.model('room', roomSchema);
