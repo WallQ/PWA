@@ -56,7 +56,8 @@
         "userID":"wasd321",
         "message":"Hated the place!"
     }],
-    "url":"https://www.the-yeatman-hotel.com/"
+    "url":"https://www.the-yeatman-hotel.com/",
+    "director":"61991fe289e8848774bbdd4f"
 },
 {
     "name":"Tivoli Marina Vilamoura Algarve Resort",
@@ -131,7 +132,8 @@
         "userID":"wasd321",
         "message":"I loved the hospitality!"
     }],
-    "url":"https://www.tivolihotels.com/tivoli-marina-vilamoura"
+    "url":"https://www.tivolihotels.com/tivoli-marina-vilamoura",
+    "director":"61991fe689e8848774bbdd51"
 },
 {
     "name":"Hotel Altis Avenida",
@@ -196,5 +198,6 @@
         "userID":"wasd321",
         "message":"Too much noise!"
     }],
-    "url":"https://www.tivolihotels.com/tivoli-marina-vilamoura"
+    "url":"https://www.tivolihotels.com/tivoli-marina-vilamoura",
+    "director":"61991fe289e8848774bbdd4f"
 }]
