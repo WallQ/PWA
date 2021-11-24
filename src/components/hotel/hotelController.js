@@ -6,6 +6,7 @@ function hotelService(hotelModel) {
 		findById,
 		updateById,
 		deleteById,
+		verifyDirector,
 	};
 
 	function save(newHotel) {
@@ -25,9 +26,27 @@ function hotelService(hotelModel) {
 		return save(newHotel);
 	}
 
-	function findAll() {
+	function verifyDirector(idUser, idHotel) {
 		return new Promise((resolve, reject) => {
-			hotelModel.find({}, (err, hotels) => {
+			hotelModel.findOne(
+				{ director: idUser, _id: idHotel },
+				(err, result) => {
+					if (err) {
+						reject(err);
+					}
+					if (result) {
+						resolve(true);
+					} else {
+						resolve(false);
+					}
+				}
+			);
+		});
+	}
+
+	function findAll(opt) {
+		return new Promise((resolve, reject) => {
+			hotelModel.find({}, opt, (err, hotels) => {
 				if (err) {
 					reject(err);
 				} else {
