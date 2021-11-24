@@ -1,6 +1,8 @@
 const express = require('express');
 const hotel = require('../components/hotel');
 const roles = require('../config/roles');
+const { verifyJWT, tryDecode } = require('../middlewares/verifyJWT');
+const verifyROLES = require('../middlewares/verifyROLES');
 
 function HotelRouter() {
 	let router = express();
@@ -15,11 +17,15 @@ function HotelRouter() {
 
 	router
 		.route('/')
-		.get((req, res, next) => {
+		.get(tryDecode, (req, res, next) => {
+			let opt = req.roles?.includes(roles.ADMIN)
+				? ''
+				: 'name description';
+
 			hotel
-				.findAll()
+				.findAll(opt)
 				.then((hotels) => {
-					console.log('Hotels found -> \n', hotels);
+					//console.log('Hotels found -> \n', hotels);
 					res.status(200).send(hotels);
 					next();
 				})
@@ -98,27 +104,49 @@ function HotelRouter() {
 					next();
 				});
 		})
-		.put((req, res, next) => {
-			let hotelId = req.params.hotelId;
-			let body = req.body;
-			hotel
-				.updateById(hotelId, body)
-				.then((hotel) => {
-					console.log('Hotel updated -> \n', hotel);
-					res.status(200).send(hotel);
-					next();
-				})
-				.catch((err) => {
-					console.log(err);
-					res.status(err.status || 500).send({
-						error: {
-							status: err.status || 500,
-							message: err.message || 'Internal Server Error',
-						},
+		.put(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				let hotelId = req.params.hotelId;
+				let body = req.body;
+				hotel
+					.verifyDirector(req.userId, hotelId)
+					.then((result) => {
+						if (!result) {
+							return res.status(400).send('merda');
+						}
+
+						hotel
+							.updateById(hotelId, body)
+							.then((hotel) => {
+								//console.log('Hotel updated -> \n', hotel);
+								res.status(200).send(hotel);
+								next();
+							})
+							.catch((err) => {
+								console.log(err);
+								res.status(err.status || 500).send({
+									error: {
+										status: err.status || 500,
+										message:
+											err.message ||
+											'Internal Server Error',
+									},
+								});
+							});
+					})
+					.catch((err) => {
+						console.log(err);
+						res.status(err.status || 500).send({
+							error: {
+								status: err.status || 500,
+								message: err.message || 'Internal Server Error',
+							},
+						});
 					});
-					next();
-				});
-		})
+			}
+		)
 		.delete((req, res, next) => {
 			let hotelId = req.params.hotelId;
 			hotel
