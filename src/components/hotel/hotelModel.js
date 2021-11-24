@@ -132,6 +132,10 @@ const hotelSchema = new Schema({
 	url: {
 		type: String,
 	},
+	director: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'user',
+	}
 });
 
 const hotel = mongoose.model('hotel', hotelSchema);
