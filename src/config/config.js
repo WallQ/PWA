@@ -19,6 +19,13 @@ const config = {
 		bcrypt: {
 			saltRounds: process.env.SALT_ROUNDS || 10,
 		},
+		nodemailer: {
+			email: process.env.MAIL_EMAIL || 'example@example.com',
+            password: process.env.MAIL_PASSWORD || 'secret',
+			smtp: process.env.MAIL_SMTP || 'smtp.gmail.com',
+			port: process.env.MAIL_PORT || '587',
+			expires_time: process.env.MAIL_EXPIRES_TIME || '900s',
+		},
 	},
 	production: {},
 };

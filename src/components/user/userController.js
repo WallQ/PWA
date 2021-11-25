@@ -12,6 +12,7 @@ function userService(userModel) {
 		updateById,
 		deleteById,
 		createToken,
+		createTokenRecoverPassword,
 		register,
 		verifyUser,
 		verifyPassword,
@@ -164,6 +165,16 @@ function userService(userModel) {
 			config.jsonwebtoken.secret,
 			{ algorithm: 'HS256' },
 			{ expiresIn: config.jsonwebtoken.expires_time }
+		);
+		return token;
+	}
+
+	function createTokenRecoverPassword(user) {
+		let token = jwt.sign(
+			{ id: user._id, email: user.email },
+			config.jsonwebtoken.recover_secret,
+			{ algorithm: 'HS256' },
+			{ expiresIn: config.nodemailer.expires_time }
 		);
 		return token;
 	}

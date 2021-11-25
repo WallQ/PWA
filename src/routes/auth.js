@@ -1,5 +1,6 @@
 const express = require('express');
 const user = require('../components/user');
+const mailSender = require('../utils/mailSender');
 
 function AuthRouter() {
 	let router = express();
@@ -37,6 +38,33 @@ function AuthRouter() {
 		res.status(200).send({
 			message: 'Successfully signed out.',
 		});
+	});
+
+	router.route('/forgot-password').post((req, res, next) => {
+		let email = req.body.email;
+		user.findByEmail(email)
+			.then((userData) => {
+				let token = user.createTokenRecoverPassword(userData)
+				mailSender.sendEmailRecoverPassword(userData.email,token)
+				.then(value =>{
+					res.status(200).send(value);
+				})
+			})
+			.catch(next);
+	});
+
+	router.route('/forgot-password/token').post((req, res, next) => {
+
+		let email = req.body.email;
+		user.findByEmail(email)
+			.then((userData) => {
+				let token = user.createTokenRecoverPassword(userData)
+				mailSender.sendEmailRecoverPassword(userData.email,token)
+				.then(value =>{
+					res.status(200).send(value);
+				})
+			})
+			.catch(next);
 	});
 
 	return router;
