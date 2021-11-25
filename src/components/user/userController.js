@@ -1,4 +1,6 @@
-const config = require('../../config/config')[process.env.NODE_ENV || 'development'];
+const config = require('../../config/config')[
+	process.env.NODE_ENV || 'development'
+];
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const roles = require('../../config/roles');
@@ -121,7 +123,7 @@ function userService(userModel) {
 				userId,
 				values,
 				{ new: true },
-				function (err, user) {
+				(err, user) => {
 					if (err) {
 						reject(err);
 					} else {

@@ -58,8 +58,18 @@ function packsController(packModel) {
 				values,
 				{ new: true },
 				(err, pack) => {
-					if (err) reject(err);
-					resolve(pack);
+					if (err) {
+						reject(err);
+					} else {
+						if (pack) {
+							resolve(pack);
+						} else {
+							reject({
+								status: 404,
+								message: 'No pack have been found.',
+							});
+						}
+					}
 				}
 			);
 		});

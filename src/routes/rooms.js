@@ -18,10 +18,10 @@ function RoomRouter() {
 				rooms
 					.findAll()
 					.then((rooms) => {
-						//console.log('Rooms found -> \n', rooms);
 						res.status(200).send({
+							status: 200,
 							message: 'Rooms have been successfully found.',
-							rooms: rooms,
+							data: rooms,
 						});
 					})
 					.catch(next);
@@ -34,11 +34,11 @@ function RoomRouter() {
 				let body = req.body;
 				rooms
 					.create(body)
-					.then((hotel) => {
-						//console.log('Room created -> \n', hotel);
+					.then((room) => {
 						res.status(201).send({
-							message: 'Room has been created successfully.',
-							hotel: hotel,
+							status: 201,
+							message: 'Rooms have been created successfully.',
+							data: room,
 						});
 					})
 					.catch(next);
@@ -53,8 +53,9 @@ function RoomRouter() {
 				.findById(roomId)
 				.then((room) => {
 					res.status(200).send({
+						status: 200,
 						message: 'Room has been successfully found.',
-						room: room,
+						data: room,
 					});
 				})
 				.catch(next);
