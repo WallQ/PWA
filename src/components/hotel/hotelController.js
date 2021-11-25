@@ -64,9 +64,23 @@ function hotelService(hotelModel) {
 	}
 
 	function findByName(hotelName) {
+		let opt = {
+			_id: 0,
+			name: 1,
+			description: 1,
+			rating: 1,
+			address: 1,
+			contacts: 1,
+			languages: 1,
+			images: 1,
+			facilities: 1,
+			comments: 1,
+			url: 1,
+		};
 		return new Promise((resolve, reject) => {
 			hotelModel.find(
 				{ name: { $regex: hotelName, $options: 'i' } },
+				opt,
 				(err, hotel) => {
 					if (err) {
 						reject(err);
