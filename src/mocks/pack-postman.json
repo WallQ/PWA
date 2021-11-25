@@ -1,0 +1,12 @@
+{
+    "name":"Pack test",
+    "freeCancel":true,
+    "maxGuests":1,
+    "maxGuestsChild":0,
+    "dailyPrice":1,
+    "minNights":1,
+    "sale":0,
+    "include":["test"],
+    "start_date":"2021-12-31",
+    "end_date":"2022-01-01"
+}

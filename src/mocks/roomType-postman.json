@@ -1,0 +1,40 @@
+{
+    "hotel": "idQUarto",
+    "name": "test",
+    "description":"test",
+    "maxGuest":1,
+    "maxGuestChild":1,
+    "area": "1",
+    "sale":0,
+    "packs":[
+        "619e78798e4295a4d9fe9d1c",
+        "619e78798e4295a4d9fe9d1c"
+    ],
+    "facilities":[
+        {"icon": "test" ,"description":"Mesa ou local de trabalho"},
+        {"icon": "test" ,"description":"Wifi grátis"},
+        {"icon": "test" ,"description":"Não fumador"},
+        {"icon": "test" ,"description":"Ar condicionado"}
+    ],
+    "priceByMonth":[
+        {"month": 1, "default_price":50,"weekend_price":90},
+        {"month": 2, "default_price":50,"weekend_price":90},
+        {"month": 3, "default_price":50,"weekend_price":90},
+        {"month": 4, "default_price":50,"weekend_price":90},
+        {"month": 5, "default_price":50,"weekend_price":90},
+        {"month": 6, "default_price":50,"weekend_price":90},
+        {"month": 7, "default_price":50,"weekend_price":90},
+        {"month": 8, "default_price":50,"weekend_price":90},
+        {"month": 9, "default_price":50,"weekend_price":90},
+        {"month": 10, "default_price":50,"weekend_price":90},
+        {"month": 11, "default_price":50,"weekend_price":90},
+        {"month": 12, "default_price":50,"weekend_price":90}
+    ],
+    "priceExtraDays":[
+        {"day":"10/10/2021","price":100},
+        {"day":"10/10/2021","price":100},
+        {"day":"10/10/2021","price":100},
+        {"day":"10/10/2021","price":100}
+    ]
+
+}
