@@ -2,8 +2,11 @@ const verifyROLES = (...allowedRoles) => {
 	return (req, res, next) => {
 		if (!req?.roles) {
 			return res.status(401).send({
-				auth: false,
-				message: 'Unauthorized to access this content.',
+				error: {
+					status: 401,
+					message:
+						"You don't have permission to access this content.",
+				},
 			});
 		}
 		const roles = [...allowedRoles];
@@ -14,8 +17,11 @@ const verifyROLES = (...allowedRoles) => {
 
 		if (!result) {
 			return res.status(401).send({
-				auth: false,
-				message: 'Unauthorized to access this content.',
+				error: {
+					status: 401,
+					message:
+						"You don't have permission to access this content.",
+				},
 			});
 		}
 
