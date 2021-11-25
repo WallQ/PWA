@@ -1,9 +1,7 @@
 const express = require('express');
 const rooms = require('../components/rooms');
-const validator = require('../components/rooms/validations');
 const roles = require('../config/roles');
 const verifyJWT = require('../middlewares/verifyJWT');
-const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
 
 function RoomRouter() {
@@ -13,25 +11,22 @@ function RoomRouter() {
 
 	router
 		.route('/')
-		.get(tryDecode, (req, res, next) => {
-			let err = validator.results(req);
-			if (!err.isEmpty()) {
-				return res.status(400).json({ errors: err.array() });
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				rooms
+					.findAll()
+					.then((rooms) => {
+						//console.log('Rooms found -> \n', rooms);
+						res.status(200).send({
+							message: 'Rooms have been successfully found.',
+							rooms: rooms,
+						});
+					})
+					.catch(next);
 			}
-			let opt = req.roles?.includes(roles.ADMIN)
-				? ''
-				: '-_id name description rating address contacts languages images facilities comments url';
-			rooms
-				.findAll(opt)
-				.then((rooms) => {
-					//console.log('Rotels found -> \n', rooms);
-					res.status(200).send({
-						message: 'Rooms have been successfully found.',
-						rooms: rooms,
-					});
-				})
-				.catch(next);
-		})
+		)
 		.post(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
@@ -70,17 +65,44 @@ function RoomRouter() {
 			(req, res, next) => {
 				let roomId = req.params.roomId;
 				let body = req.body;
-				rooms
-					.findByIdAndUpdate(roomId, body)
-					.then((room) => {
-						res.status(200);
-						res.send(room);
-						next();
-					})
-					.catch((err) => {
-						res.status(404);
-						next();
-					});
+				if (!req.roles?.includes(roles.ADMIN)) {
+					rooms
+						.verifyDirector(req.userId, body.hotel)
+						.then((result) => {
+							if (!result) {
+								return res.status(403).send({
+									error: {
+										status: 403,
+										message:
+											"You don't have permission to access this content.",
+									},
+								});
+							}
+							rooms
+								.findByIdAndUpdate(roomId, body)
+								.then((room) => {
+									//console.log('Room updated -> \n', hotel);
+									res.status(200).send({
+										message:
+											'Room has been successfully updated.',
+										room: room,
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				} else {
+					rooms
+						.findByIdAndUpdate(roomId, body)
+						.then((room) => {
+							//console.log('Room updated -> \n', hotel);
+							res.status(200).send({
+								message: 'Room has been successfully updated.',
+								room: room,
+							});
+						})
+						.catch(next);
+				}
 			}
 		)
 		.delete(
@@ -89,32 +111,37 @@ function RoomRouter() {
 			(req, res, next) => {
 				let roomId = req.params.roomId;
 				rooms
-					.findOneAndDelete(roomId)
-					.then(() => {
-						res.status(200).json({ msg: 'OK- DELETED' });
-						next();
+					.findByIdAndDelete(roomId)
+					.then((room) => {
+						//console.log('Room removed -> \n', hotel);
+						res.status(200).send({
+							message: 'Room has been successfully deleted.',
+							room: room,
+						});
 					})
-					.catch((err) => {
-						res.status(404);
-						next();
-					});
+					.catch(next);
 			}
 		);
 
-	router.route('/:roomID/books').get((req, res, next) => {
-		let roomID = req.params.roomID;
-		rooms
-			.findBooksFromRoom(roomID)
-			.then((books) => {
-				res.status(200);
-				res.send(books);
-				next();
-			})
-			.catch((err) => {
-				res.status(404);
-				next();
-			});
-	});
+	router
+		.route('/:roomId/books')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				let roomId = req.params.roomId;
+				rooms
+					.findBooksFromRoom(roomId)
+					.then((books) => {
+						//console.log('Room books found -> \n', books);
+						res.status(200).send({
+							message: 'Room books has been successfully found.',
+							books: books,
+						});
+					})
+					.catch(next);
+			}
+		);
 
 	return router;
 }

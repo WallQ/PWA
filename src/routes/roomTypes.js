@@ -1,141 +1,167 @@
 const express = require('express');
 const roomTypes = require('../components/roomTypes');
-const validator = require('../components/roomTypes/validations');
+const roles = require('../config/roles');
+const verifyJWT = require('../middlewares/verifyJWT');
+const verifyROLES = require('../middlewares/verifyROLES');
 
 function RoomTypeRouter() {
 	let router = express();
-
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
 
-	router.use((req, res, next) => {
-		console.log('Timer:', Date.now());
-		next();
-	});
-
 	router
-		.route('')
+		.route('/')
 		.get((req, res, next) => {
-			let err = validator.results(req);
-			if (!err.isEmpty()) {
-				return res.status(400).json({ errors: err.array() });
-			}
-
-			console.log(req.body);
 			roomTypes
 				.findAll()
 				.then((rooms) => {
-					res.status(200).send(rooms);
-					next();
+					//console.log('RoomTypes found -> \n', rooms);
+					res.status(200).send({
+						message: 'RoomTypes have been successfully found.',
+						rooms: rooms,
+					});
 				})
-				.catch((err) => {
-					res.status(404).send('Error');
-					next();
-				});
+				.catch(next);
 		})
-		.post(function (req, res, next) {
-			let body = req.body;
-			roomTypes
-				.create(body)
-				.then(() => {
-					res.status(200);
-					res.send(body);
-					next();
-				})
-				.catch((err) => {
-					res.status(401);
-					next();
-				});
-		});
+		.post(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				let body = req.body;
+				roomTypes
+					.create(body)
+					.then((roomType) => {
+						//console.log('RoomType created -> \n', roomType);
+						res.status(201).send({
+							message: 'RoomType has been created successfully.',
+							roomType: roomType,
+						});
+					})
+					.catch(next);
+			}
+		);
 
 	router
-		.route('/:roomTypeID')
-		.get(function (req, res, next) {
-			let roomID = req.params.roomTypeID;
+		.route('/:roomTypeId')
+		.get((req, res, next) => {
+			let roomId = req.params.roomTypeId;
 			roomTypes
-				.findById(roomID)
-				.then((rooms) => {
-					res.status(200);
-					res.send(rooms);
-					next();
-				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
-		})
-		.put(function (req, res, next) {
-			let roomID = req.params.roomTypeID;
-			let body = req.body;
-			roomTypes
-				.findByIdAndUpdate(roomID, body)
+				.findById(roomId)
 				.then((room) => {
-					res.status(200);
-					res.send(room);
-					next();
+					//console.log('RoomType found -> \n', room);
+					res.status(200).send({
+						message: 'RoomType have been successfully found.',
+						room: room,
+					});
 				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
+				.catch(next);
 		})
-		.delete(function (req, res, next) {
-			let roomID = req.params.roomTypeID;
-			roomTypes
-				.findOneAndDelete(roomID)
-				.then(() => {
-					res.status(200).json({ msg: 'OK- DELETED' });
-					next();
-				})
-				.catch((err) => {
-					res.status(404);
-					next();
+		.put(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				let roomTypeId = req.params.roomTypeId;
+				let body = req.body;
+				if (!req.roles?.includes(roles.ADMIN)) {
+					rooms
+						.verifyDirector(req.userId, body.hotel)
+						.then((result) => {
+							if (!result) {
+								return res.status(403).send({
+									error: {
+										status: 403,
+										message:
+											"You don't have permission to access this content.",
+									},
+								});
+							}
+							rooms;
+							roomTypes
+								.findByIdAndUpdate(roomTypeId, body)
+								.then((roomType) => {
+									//console.log('RoomType updated -> \n', roomType);
+									res.status(200).send({
+										message:
+											'RoomType has been successfully updated.',
+										roomType: roomType,
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				} else {
+					roomTypes
+						.findByIdAndUpdate(roomTypeId, body)
+						.then((roomType) => {
+							//console.log('RoomType updated -> \n', roomType);
+							res.status(200).send({
+								message:
+									'RoomType has been successfully updated.',
+								roomType: roomType,
+							});
+						})
+						.catch(next);
+				}
+			}
+		)
+		.delete(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				let roomId = req.params.roomTypeId;
+				roomTypes
+					.findByIdAndDelete(roomId)
+					.then((roomType) => {
+						//console.log('RoomType removed -> \n', roomType);
+						res.status(200).send({
+							message: 'RoomType has been successfully deleted.',
+							roomType: roomType,
+						});
+					})
+					.catch(next);
+			}
+		);
+
+	router.route('/:roomTypeId/packs').get(function (req, res, next) {
+		let roomId = req.params.roomTypeId;
+		roomTypes
+			.findPacksFromRoomType(roomId)
+			.then((packs) => {
+				//console.log('Packs found -> \n', packs);
+				res.status(200).send({
+					message: 'Packs have been successfully found.',
+					packs: packs,
 				});
-		});
-
-	router.route('/:roomTypeID/packs').get(function (req, res, next) {
-		let roomID = req.params.roomTypeID;
-		roomTypes
-			.findPacksFromRoomType(roomID)
-			.then((rooms) => {
-				res.status(200);
-				res.send(rooms);
-				next();
 			})
-			.catch((err) => {
-				res.status(404);
-				next();
-			});
+			.catch(next);
 	});
 
-	router.route('/:roomTypeID/books').get(function (req, res, next) {
-		let roomID = req.params.roomTypeID;
+	router.route('/:roomTypeId/books').get(function (req, res, next) {
+		let roomId = req.params.roomTypeId;
 		roomTypes
-			.findBooksFromRoomType(roomID)
-			.then((rooms) => {
-				res.status(200);
-				res.send(rooms);
-				next();
+			.findBooksFromRoomType(roomId)
+			.then((books) => {
+				//console.log('Books found -> \n', books);
+				res.status(200).send({
+					message: 'Books have been successfully found.',
+					books: books,
+				});
 			})
-			.catch((err) => {
-				res.status(404);
-				next();
-			});
+			.catch(next);
 	});
 
-	router.route('/:roomTypeID/rooms').get(function (req, res, next) {
-		let roomID = req.params.roomTypeID;
+	router.route('/:roomTypeId/rooms').get(function (req, res, next) {
+		let roomId = req.params.roomTypeId;
 		roomTypes
-			.findRoomsFromRoomType(roomID)
+			.findRoomsFromRoomType(roomId)
 			.then((rooms) => {
-				res.status(200);
-				res.send(rooms);
-				next();
+				//console.log('Rooms found -> \n', rooms);
+				res.status(200).send({
+					message: 'Rooms have been successfully found.',
+					rooms: rooms,
+				});
 			})
-			.catch((err) => {
-				res.status(404);
-				next();
-			});
+			.catch(next);
 	});
 
 	return router;
