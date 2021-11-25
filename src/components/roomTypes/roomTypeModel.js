@@ -3,14 +3,29 @@ const Schema = mongoose.Schema;
 const facilityType = require('../../utils/facilityType');
 
 let defaultByMonth = new Schema({
-	month: { type: Number, required: true },
-	default_price: { type: Number, required: true },
-	weekend_price: { type: Number, required: true },
+	month: {
+		type: Number,
+		required: true,
+	},
+	default_price: {
+		type: Number,
+		required: true,
+	},
+	weekend_price: {
+		type: Number,
+		required: true,
+	},
 });
 
 const extraDays = new Schema({
-	day: { type: Date, required: true },
-	price: { type: Number, required: true },
+	day: {
+		type: Date,
+		required: true,
+	},
+	price: {
+		type: Number,
+		required: true,
+	},
 });
 
 const roomTypeSchema = new Schema({
@@ -23,12 +38,6 @@ const roomTypeSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	packs: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'packs',
-		},
-	],
 	description: {
 		type: String,
 		required: true,
@@ -49,9 +58,28 @@ const roomTypeSchema = new Schema({
 		type: Number,
 		default: 0,
 	},
-	facilities: [{ type: facilityType, required: true }],
-	priceByMonth: [{ type: defaultByMonth }],
-	priceExtraDays: [{ type: extraDays }],
+	packs: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'packs',
+		},
+	],
+	facilities: [
+		{
+			type: facilityType,
+			required: true,
+		},
+	],
+	priceByMonth: [
+		{
+			type: defaultByMonth,
+		},
+	],
+	priceExtraDays: [
+		{
+			type: extraDays,
+		},
+	],
 });
 
 const packs = mongoose.model('roomTypes', roomTypeSchema);
