@@ -25,15 +25,10 @@ function emailController(nodemailer,userController) {
 			};
 
 			transporter.sendMail(mailOptions,  (error, info) => {
-				//if (error) {
-					//console.log(error);
-					//err.status = err.status || 500;
-					//res.status(401);
-					//res.end();
-					//next();
-				//}
+				if (error) reject("Error on sending Email for user!")
+				resolve("Email Send")
 			});	
-			resolve("ok")
+			
 		})
 	}
 
