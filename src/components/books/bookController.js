@@ -6,6 +6,7 @@ function booksController(bookModel, hotelModel, roomModel,roomTypeModel) {
 		findById,
 		findByIdAndUpdate,
 		findByIdAndDelete,
+		finRoomTypes,
 		getAvailableRoomTypes 
 	};
 
@@ -75,10 +76,12 @@ function booksController(bookModel, hotelModel, roomModel,roomTypeModel) {
 	//Search Available
 	function finRoomTypes(roomTypes) {
 		return new Promise((resolve, reject) => {
-			bookModel.find({}, (err, books) => {
+			roomTypeModel.find({_id: {$in: roomTypes}})
+			.populate('packs')
+			.exec((err, res) => {
 				if (err) reject(err);
-				resolve(books);
-			});
+				resolve (res);
+				});
 		});
 	}
 	async function getAvailableRoomTypes(hotelID,numGuest,numGuestChild,dataCheckIn,dataCheckOut){	
@@ -122,7 +125,7 @@ function booksController(bookModel, hotelModel, roomModel,roomTypeModel) {
 			if ( numBooks = matchRoomTypes.length <  (numMaxAvailable = await countRoomTypeRooms(roomTypeId))) {
 				return true
 			}else{
-				return false
+				return null
 			}
 		} catch (error) {
 			throw (error)

@@ -99,15 +99,22 @@ function BookRouter() {
 		.post(async (req, res, next) => {
 
 			let {hotelID, numGuest, numGuestChild,checkIn_date,checkOut_date} = req.body
-
+			
 			try {
-				console.log(await books.getAvailableRoomTypes(hotelID, numGuest,numGuestChild,checkIn_date,checkOut_date))
-			
+				let roomTypesAvailable = await books.getAvailableRoomTypes(hotelID, numGuest,numGuestChild,checkIn_date,checkOut_date)
+				
+				books.finRoomTypes(roomTypesAvailable)
+				.then((books) => {
+					res.status(200);
+					res.send(books);
+				})
+				.catch((err) => {
+					
+					res.status(400).send("ERROR");
+				});
 			} catch (error) {
-				res.status(400).send("Error")
+				res.status(400).send("ERROR")
 			}
-			
-			res.status(200).send({})
 		});
 
 	return router;
