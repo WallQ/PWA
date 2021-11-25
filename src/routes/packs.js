@@ -14,6 +14,7 @@ function PackRouter() {
 		.get(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			//verificar se pertence
 			(req, res, next) => {
 				packs
 					.findAll()

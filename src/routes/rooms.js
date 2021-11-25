@@ -13,7 +13,7 @@ function RoomRouter() {
 		.route('/')
 		.get(
 			verifyJWT,
-			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
 			(req, res, next) => {
 				rooms
 					.findAll()
@@ -47,19 +47,23 @@ function RoomRouter() {
 
 	router
 		.route('/:roomId')
-		.get((req, res, next) => {
-			let roomId = req.params.roomId;
-			rooms
-				.findById(roomId)
-				.then((room) => {
-					res.status(200).send({
-						status: 200,
-						message: 'Room has been successfully found.',
-						data: room,
-					});
-				})
-				.catch(next);
-		})
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let roomId = req.params.roomId;
+				rooms
+					.findById(roomId)
+					.then((room) => {
+						res.status(200).send({
+							status: 200,
+							message: 'Room has been successfully found.',
+							data: room,
+						});
+					})
+					.catch(next);
+			}
+		)
 		.put(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
@@ -109,12 +113,12 @@ function RoomRouter() {
 		.delete(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			// verificar se pertence ao hotel
 			(req, res, next) => {
 				let roomId = req.params.roomId;
 				rooms
 					.findByIdAndDelete(roomId)
 					.then((room) => {
-						//console.log('Room removed -> \n', hotel);
 						res.status(200).send({
 							message: 'Room has been successfully deleted.',
 							room: room,
@@ -128,13 +132,13 @@ function RoomRouter() {
 		.route('/:roomId/books')
 		.get(
 			verifyJWT,
-			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			//verificar se pertence
 			(req, res, next) => {
 				let roomId = req.params.roomId;
 				rooms
 					.findBooksFromRoom(roomId)
 					.then((books) => {
-						//console.log('Room books found -> \n', books);
 						res.status(200).send({
 							message: 'Room books has been successfully found.',
 							books: books,

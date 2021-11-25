@@ -10,6 +10,7 @@ function BookRouter() {
 	router
 		.route('/')
 		.get(verifyJWT, (req, res, next) => {
+			// verificar hotel
 			books
 				.findAll()
 				.then((rooms) => {
@@ -21,7 +22,7 @@ function BookRouter() {
 				})
 				.catch(next);
 		})
-		.post((req, res, next) => {
+		.post(verifyJWT, (req, res, next) => {
 			let body = req.body;
 			books
 				.create(body)

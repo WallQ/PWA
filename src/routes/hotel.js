@@ -15,7 +15,7 @@ function HotelRouter() {
 		.get(tryDecode, (req, res, next) => {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
-				: '-_id name description rating address contacts languages images facilities comments url';
+				: 'name description rating address contacts languages images facilities comments url';
 
 			hotel
 				.findAll(opt)
@@ -43,9 +43,12 @@ function HotelRouter() {
 		});
 
 	router.route('/name/:hotelName').get((req, res, next) => {
+		let opt = req.roles?.includes(roles.ADMIN)
+			? ''
+			: 'name description rating address contacts languages images facilities comments url';
 		let hotelName = req.params.hotelName;
 		hotel
-			.findByName(hotelName)
+			.findByName(hotelName, opt)
 			.then((hotel) => {
 				res.status(200).send({
 					status: 200,
@@ -60,6 +63,7 @@ function HotelRouter() {
 		.route('/:hotelId')
 		.get((req, res, next) => {
 			let hotelId = req.params.hotelId;
+			// esconder dados
 			hotel
 				.findById(hotelId)
 				.then((hotel) => {

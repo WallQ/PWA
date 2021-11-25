@@ -17,7 +17,6 @@ function UserRouter() {
 		.get(verifyROLES(roles.ADMIN), (req, res, next) => {
 			user.findAll()
 				.then((users) => {
-					//console.log('Users found -> \n', users);
 					res.status(200).send({
 						message: 'Users have been successfully found.',
 						data: users,
@@ -29,7 +28,6 @@ function UserRouter() {
 			let body = req.body;
 			user.create(body)
 				.then((user) => {
-					//console.log('User created -> \n', user);
 					res.status(201).send({
 						message: 'User has been created successfully.',
 						data: user,
@@ -42,11 +40,11 @@ function UserRouter() {
 		.route('/email/:userEmail')
 		.get(
 			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			// devolver dados veridficar
 			(req, res, next) => {
 				let userEmail = req.params.userEmail;
 				user.findByEmail(userEmail)
 					.then((user) => {
-						//console.log('User found -> \n', user);
 						res.status(200).send({
 							message: 'User has been successfully found.',
 							user: user,

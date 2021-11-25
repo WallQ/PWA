@@ -15,8 +15,8 @@ function RoomTypeRouter() {
 			roomTypes
 				.findAll()
 				.then((rooms) => {
-					//console.log('RoomTypes found -> \n', rooms);
 					res.status(200).send({
+						status: 200,
 						message: 'RoomTypes have been successfully found.',
 						rooms: rooms,
 					});
@@ -26,12 +26,12 @@ function RoomTypeRouter() {
 		.post(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			//verificar se pertence
 			(req, res, next) => {
 				let body = req.body;
 				roomTypes
 					.create(body)
 					.then((roomType) => {
-						//console.log('RoomType created -> \n', roomType);
 						res.status(201).send({
 							message: 'RoomType has been created successfully.',
 							roomType: roomType,
@@ -44,11 +44,11 @@ function RoomTypeRouter() {
 	router
 		.route('/:roomTypeId')
 		.get((req, res, next) => {
+			//sensibilizar dados
 			let roomId = req.params.roomTypeId;
 			roomTypes
 				.findById(roomId)
 				.then((room) => {
-					//console.log('RoomType found -> \n', room);
 					res.status(200).send({
 						message: 'RoomType have been successfully found.',
 						room: room,
@@ -107,6 +107,7 @@ function RoomTypeRouter() {
 		.delete(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			//verificar se pertence
 			(req, res, next) => {
 				let roomId = req.params.roomTypeId;
 				roomTypes
