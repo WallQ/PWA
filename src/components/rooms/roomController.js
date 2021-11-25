@@ -1,7 +1,8 @@
-function roomsController(roomModel, bookModel) {
+function roomsController(roomModel, bookModel, hotelModel) {
 	let services = {
 		create,
 		exists,
+		verifyDirector,
 		findAll,
 		findById,
 		findByIdPopulated,
@@ -9,7 +10,7 @@ function roomsController(roomModel, bookModel) {
 		findByHotel,
 		findByIdAndUpdate,
 		findByNumberAndUpdate,
-		findOneAndDelete,
+		findByIdAndDelete,
 		findOneAndDeleteByNumber,
 		findBooksFromRoom,
 	};
@@ -31,6 +32,24 @@ function roomsController(roomModel, bookModel) {
 		return save(newRoom);
 	}
 
+	function verifyDirector(idUser, idHotel) {
+		return new Promise((resolve, reject) => {
+			hotelModel.findOne(
+				{ director: idUser, _id: idHotel },
+				(err, result) => {
+					if (err) {
+						reject(err);
+					}
+					if (result) {
+						resolve(true);
+					} else {
+						resolve(false);
+					}
+				}
+			);
+		});
+	}
+
 	function exists(id) {
 		return new Promise(function (resolve, reject) {
 			newRoom.exists((_id = id), function (err, result) {
@@ -43,9 +62,9 @@ function roomsController(roomModel, bookModel) {
 		});
 	}
 
-	function findAll(opt) {
+	function findAll() {
 		return new Promise((resolve, reject) => {
-			roomModel.find({}, opt, (err, rooms) => {
+			roomModel.find({}, (err, rooms) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -103,10 +122,25 @@ function roomsController(roomModel, bookModel) {
 
 	function findByIdAndUpdate(id, values) {
 		return new Promise((resolve, reject) => {
-			roomModel.findByIdAndUpdate(id, values, (err, room) => {
-				if (err) reject(err);
-				resolve(room);
-			});
+			roomModel.findByIdAndUpdate(
+				id,
+				values,
+				{ new: true },
+				(err, room) => {
+					if (err) {
+						reject(err);
+					} else {
+						if (room) {
+							resolve(room);
+						} else {
+							reject({
+								status: 404,
+								message: 'No Room have been found.',
+							});
+						}
+					}
+				}
+			);
 		});
 	}
 
@@ -123,14 +157,25 @@ function roomsController(roomModel, bookModel) {
 		});
 	}
 
-	function findOneAndDelete(id) {
+	function findByIdAndDelete(roomId) {
 		return new Promise((resolve, reject) => {
-			roomModel.findOneAndDelete({ _id: id }, (err, room) => {
-				if (!room) reject('Can not delete item!');
-				resolve(room);
+			roomModel.findByIdAndDelete(roomId, (err, room) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (room) {
+						resolve(room);
+					} else {
+						reject({
+							status: 404,
+							message: 'No Room have been found.',
+						});
+					}
+				}
 			});
 		});
 	}
+
 	function findOneAndDeleteByNumber(number) {
 		return new Promise((resolve, reject) => {
 			roomModel.findOneAndDelete({ number: number }, (err, room) => {

@@ -1,8 +1,14 @@
-const roomTypes = require('./roomTypeModel');
-const books = require('../books/bookModel');
-const rooms = require('../rooms/roomModel');
+const roomTypesModel = require('./roomTypeModel');
+const bookModel = require('../books/bookModel');
+const roomModel = require('../rooms/roomModel');
+const hotelModel = require('../hotel/hotelModel');
 const roomTypeController = require('./roomTypeController');
 
-const service = roomTypeController(roomTypes, books, rooms);
+const service = roomTypeController(
+	roomTypesModel,
+	bookModel,
+	roomModel,
+	hotelModel
+);
 
 module.exports = service;
