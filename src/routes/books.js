@@ -1,115 +1,109 @@
 const express = require('express');
 const books = require('../components/books');
-const validator = require('../components/books/validations');
+const verifyJWT = require('../middlewares/verifyJWT');
 
 function BookRouter() {
 	let router = express();
-
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
 
-	router.use((req, res, next) => {
-		console.log('Timer:', Date.now());
-		next();
-	});
-
-	//
 	router
 		.route('/')
-		.get((req, res, next) => {
+		.get(verifyJWT, (req, res, next) => {
 			books
 				.findAll()
 				.then((rooms) => {
-					res.status(200).send(rooms);
-					next();
+					res.status(200).send({
+						status: 200,
+						message: 'Book have been successfully found.',
+						data: rooms,
+					});
 				})
-				.catch((err) => {
-					res.status(404).send('Error');
-					next();
-				});
+				.catch(next);
 		})
 		.post((req, res, next) => {
-			/*
-			let err = validator.results(req);
-			if (!err.isEmpty()) {
-				return res.status(400).json({ errors: err.array() });
-			}
-			console.log("passou a validação")
-			*/
-
 			let body = req.body;
 			books
 				.create(body)
-				.then(() => {
-					res.status(200);
-					res.send(body);
-					next();
+				.then((book) => {
+					res.status(200).send({
+						status: 200,
+						message: 'Book has been created successfully.',
+						data: book,
+					});
 				})
-				.catch((err) => {
-					res.status(401);
-					next();
-				});
+				.catch(next);
 		});
 
-	//
 	router
-		.route('/:bookID')
-		.get(function (req, res, next) {
-			let bookID = req.params.bookID;
+		.route('/:bookId')
+		.get((req, res, next) => {
+			let bookId = req.params.bookId;
 			books
-				.findById(bookID)
-				.then((books) => {
-					res.status(200);
-					res.send(books);
-					next();
+				.findById(bookId)
+				.then((book) => {
+					res.status(200).send({
+						status: 200,
+						message: 'Book has been successfully found.',
+						data: book,
+					});
 				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
+				.catch(next);
 		})
-		.put(function (req, res, next) {
-			let bookID = req.params.bookID;
+		.put((req, res, next) => {
+			let bookId = req.params.bookId;
 			let body = req.body;
 			books
-				.findByIdAndUpdate(bookID, body)
+				.findByIdAndUpdate(bookId, body)
 				.then((book) => {
-					res.status(200);
-					res.send(book);
-					next();
+					res.status(200).send({
+						status: 200,
+						message: 'Book has been successfully found.',
+						data: book,
+					});
 				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
+				.catch(next);
 		})
-		.delete(function (req, res, next) {
-			let bookID = req.params.bookID;
+		.delete((req, res, next) => {
+			let bookId = req.params.bookId;
 			books
-				.findByIdAndDelete(bookID)
-				.then(() => {
-					res.status(200).json({ msg: 'OK- DELETED' });
-					next();
+				.findByIdAndDelete(bookId)
+				.then((book) => {
+					res.status(200).send({
+						status: 200,
+						message: 'Book has been successfully deleted.',
+						data: book,
+					});
 				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
+				.catch(next);
 		});
 
-	router.route('/availability').put(function (req, res, next) {
-		let body = req.body;
-		books
-			.findByIdAndUpdate(bookID, body)
-			.then((book) => {
-				res.status(200);
-				res.send(book);
-				next();
-			})
-			.catch((err) => {
-				res.status(404);
-				next();
-			});
+	router.route('/availability').post(async (req, res, next) => {
+		let { hotelID, numGuest, numGuestChild, checkIn_date, checkOut_date } =
+			req.body;
+
+		try {
+			let roomTypesAvailable = await books.getAvailableRoomTypes(
+				hotelID,
+				numGuest,
+				numGuestChild,
+				checkIn_date,
+				checkOut_date
+			);
+
+			books
+				.finRoomTypes(roomTypesAvailable)
+				.then((books) => {
+					res.status(200).send({
+						status: 200,
+						message: 'Rooms have been successfully found.',
+						data: books,
+					});
+				})
+				.catch(next);
+		} catch (err) {
+			next(err);
+		}
 	});
 
 	return router;

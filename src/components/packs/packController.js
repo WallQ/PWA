@@ -14,13 +14,12 @@ function packsController(packModel) {
 	}
 
 	function save(newPack) {
-		return new Promise(function (resolve, reject) {
-			//Testar os IDS ( HOTEL, ROOM)
-			newPack.save(function (err) {
+		return new Promise((resolve, reject) => {
+			newPack.save((err) => {
 				if (err) {
 					reject(err);
 				} else {
-					resolve('Book created successfully!');
+					resolve(newPack);
 				}
 			});
 		});
@@ -54,18 +53,43 @@ function packsController(packModel) {
 
 	function findByIdAndUpdate(id, values) {
 		return new Promise((resolve, reject) => {
-			packModel.findByIdAndUpdate(id, values, (err, pack) => {
-				if (err) reject(err);
-				resolve(pack);
-			});
+			packModel.findByIdAndUpdate(
+				id,
+				values,
+				{ new: true },
+				(err, pack) => {
+					if (err) {
+						reject(err);
+					} else {
+						if (pack) {
+							resolve(pack);
+						} else {
+							reject({
+								status: 404,
+								message: 'No pack have been found.',
+							});
+						}
+					}
+				}
+			);
 		});
 	}
 
-	function findByIdAndDelete(id) {
+	function findByIdAndDelete(packId) {
 		return new Promise((resolve, reject) => {
-			packModel.findByIdAndDelete(id, (err, pack) => {
-				if (!pack) reject('Can not delete item!');
-				resolve(pack);
+			packModel.findByIdAndDelete(packId, (err, pack) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (pack) {
+						resolve(pack);
+					} else {
+						reject({
+							status: 404,
+							message: 'No pack have been found.',
+						});
+					}
+				}
 			});
 		});
 	}

@@ -1,4 +1,4 @@
-function roomTypesController(roomTypeModel, bookModel, roomModel) {
+function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
 	let services = {
 		create,
 		find,
@@ -11,22 +11,38 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 		findRoomsFromRoomType,
 	};
 
+	function save(newRoomType) {
+		return new Promise((resolve, reject) => {
+			newRoomType.save((err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(newRoomType);
+				}
+			});
+		});
+	}
+
 	function create(values) {
 		let newRoomType = roomTypeModel(values);
 		return save(newRoomType);
 	}
 
-	function save(newRoomType) {
-		return new Promise(function (resolve, reject) {
-			//Testar os IDS ( HOTEL, ROOM)
-			newRoomType.save(function (err) {
-				if (err) {
-					console.log(err);
-					reject(err);
-				} else {
-					resolve('RoomType created successfully!');
+	function verifyDirector(idUser, idHotel) {
+		return new Promise((resolve, reject) => {
+			hotelModel.findOne(
+				{ director: idUser, _id: idHotel },
+				(err, result) => {
+					if (err) {
+						reject(err);
+					}
+					if (result) {
+						resolve(true);
+					} else {
+						resolve(false);
+					}
 				}
-			});
+			);
 		});
 	}
 
@@ -58,26 +74,51 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 
 	function findByIdAndUpdate(id, values) {
 		return new Promise((resolve, reject) => {
-			roomTypeModel.findByIdAndUpdate(id, values, (err, roomType) => {
-				if (err) reject(err);
-				resolve(roomType);
-			});
+			roomTypeModel.findByIdAndUpdate(
+				id,
+				values,
+				{ new: true },
+				(err, roomType) => {
+					if (err) {
+						reject(err);
+					} else {
+						if (roomType) {
+							resolve(roomType);
+						} else {
+							reject({
+								status: 404,
+								message: 'No RoomType have been found.',
+							});
+						}
+					}
+				}
+			);
 		});
 	}
 
-	function findByIdAndDelete(id) {
+	function findByIdAndDelete(roomTypeId) {
 		return new Promise((resolve, reject) => {
-			roomTypeModel.findByIdAndDelete(id, (err, roomType) => {
-				if (!roomType) reject('Can not delete item!');
-				resolve(roomType);
+			roomTypeModel.findByIdAndDelete(roomTypeId, (err, roomType) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (roomType) {
+						resolve(roomType);
+					} else {
+						reject({
+							status: 404,
+							message: 'No RoomType have been found.',
+						});
+					}
+				}
 			});
 		});
 	}
 
-	function findPacksFromRoomType(id) {
+	function findPacksFromRoomType(roomTypeId) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel
-				.findById(id)
+				.findById(roomTypeId)
 				.populate('packs')
 				.exec((err, room) => {
 					if (err) reject(err);
@@ -85,17 +126,19 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 				});
 		});
 	}
-	function findBooksFromRoomType(id) {
+
+	function findBooksFromRoomType(roomTypeId) {
 		return new Promise((resolve, reject) => {
-			bookModel.find({ roomType: id }, (err, books) => {
+			bookModel.find({ roomType: roomTypeId }, (err, books) => {
 				if (err) reject(err);
 				resolve(books);
 			});
 		});
 	}
-	function findRoomsFromRoomType(id) {
+
+	function findRoomsFromRoomType(roomTypeId) {
 		return new Promise((resolve, reject) => {
-			roomModel.find({ roomType: id }, (err, rooms) => {
+			roomModel.find({ roomType: roomTypeId }, (err, rooms) => {
 				if (err) reject(err);
 				resolve(rooms);
 			});

@@ -1,4 +1,10 @@
-function hotelService(hotelModel) {
+function hotelService(
+	hotelModel,
+	roomModel,
+	roomTypeModel,
+	bookModel,
+	packsModel
+) {
 	let service = {
 		create,
 		findAll,
@@ -7,6 +13,10 @@ function hotelService(hotelModel) {
 		updateById,
 		deleteById,
 		verifyDirector,
+		findRoomsByHotelId,
+		findRoomTypesByHotelId,
+		findBooksByHotelId,
+		findPacksByHotelId,
 	};
 
 	function save(newHotel) {
@@ -64,9 +74,23 @@ function hotelService(hotelModel) {
 	}
 
 	function findByName(hotelName) {
+		let opt = {
+			_id: 0,
+			name: 1,
+			description: 1,
+			rating: 1,
+			address: 1,
+			contacts: 1,
+			languages: 1,
+			images: 1,
+			facilities: 1,
+			comments: 1,
+			url: 1,
+		};
 		return new Promise((resolve, reject) => {
 			hotelModel.find(
 				{ name: { $regex: hotelName, $options: 'i' } },
+				opt,
 				(err, hotel) => {
 					if (err) {
 						reject(err);
@@ -146,6 +170,82 @@ function hotelService(hotelModel) {
 			});
 		});
 	}
+
+	function findRoomsByHotelId(hotelId) {
+		return new Promise((resolve, reject) => {
+			roomModel.find({hotel : hotelId}, (err, rooms) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (rooms) {
+						resolve(rooms);
+					} else {
+						reject({
+							status: 404,
+							message: 'No rooms have been found.',
+						});
+					}
+				}
+			});
+		});
+	}
+
+	function findRoomTypesByHotelId(hotelId) {
+		return new Promise((resolve, reject) => {
+			roomTypeModel.find({hotel : hotelId}, (err, roomTypes) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (roomTypes) {
+						resolve(roomTypes);
+					} else {
+						reject({
+							status: 404,
+							message: 'No roomTypes have been found.',
+						});
+					}
+				}
+			});
+		});
+	}
+
+	function findBooksByHotelId(hotelId) {
+		return new Promise((resolve, reject) => {
+			bookModel.find({hotel : hotelId}, (err, books) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (books) {
+						resolve(books);
+					} else {
+						reject({
+							status: 404,
+							message: 'No books have been found.',
+						});
+					}
+				}
+			});
+		});
+	}
+
+	function findPacksByHotelId(hotelId) {
+		return new Promise((resolve, reject) => {
+			packsModel.find({hotel : hotelId}, (err, packs) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (packs) {
+						resolve(packs);
+					} else {
+						reject({
+							status: 404,
+							message: 'No packs have been found.',
+						});
+					}
+				}
+			});
+		});
+	}	
 
 	return service;
 }

@@ -20,7 +20,7 @@ function UserRouter() {
 					//console.log('Users found -> \n', users);
 					res.status(200).send({
 						message: 'Users have been successfully found.',
-						users: users,
+						data: users,
 					});
 				})
 				.catch(next);
@@ -30,9 +30,9 @@ function UserRouter() {
 			user.create(body)
 				.then((user) => {
 					//console.log('User created -> \n', user);
-					res.status(200).send({
+					res.status(201).send({
 						message: 'User has been created successfully.',
-						user: user,
+						data: user,
 					});
 				})
 				.catch(next);
@@ -92,7 +92,7 @@ function UserRouter() {
 						//console.log('User information -> \n', user);
 						res.status(200).send({
 							message: 'User has been successfully found.',
-							user: user,
+							data: user,
 						});
 					})
 					.catch(next);
