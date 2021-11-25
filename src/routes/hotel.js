@@ -7,59 +7,39 @@ const verifyROLES = require('../middlewares/verifyROLES');
 
 function HotelRouter() {
 	let router = express();
-
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
-
-	router.use((req, res, next) => {
-		console.log('Timer:', Date.now());
-		next();
-	});
 
 	router
 		.route('/')
 		.get(tryDecode, (req, res, next) => {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
-				: 'name description';
+				: '-_id name description rating address contacts languages images facilities comments url';
 
 			hotel
 				.findAll(opt)
 				.then((hotels) => {
 					//console.log('Hotels found -> \n', hotels);
-					res.status(200).send(hotels);
-					next();
-				})
-				.catch((err) => {
-					console.log(err);
-					res.status(err.status || 500).send({
-						error: {
-							status: err.status || 500,
-							message: err.message || 'Internal Server Error',
-						},
+					res.status(200).send({
+						message: 'Hotels have been successfully found.',
+						hotels: hotels,
 					});
-					next();
-				});
+				})
+				.catch(next);
 		})
-		.post((req, res, next) => {
+		.post(verifyJWT, verifyROLES(roles.ADMIN), (req, res, next) => {
 			let body = req.body;
 			hotel
 				.create(body)
 				.then((hotel) => {
-					console.log('Hotel created -> \n', hotel);
-					res.status(201).send(body);
-					next();
-				})
-				.catch((err) => {
-					console.log(err);
-					res.status(err.status || 500).send({
-						error: {
-							status: err.status || 500,
-							message: err.message || 'Internal Server Error',
-						},
+					//console.log('Hotel created -> \n', hotel);
+					res.status(201).send({
+						message: 'Hotel has been created successfully.',
+						hotel: hotel,
 					});
-					next();
-				});
+				})
+				.catch(next);
 		});
 
 	router.route('/name/:hotelName').get((req, res, next) => {
@@ -67,20 +47,13 @@ function HotelRouter() {
 		hotel
 			.findByName(hotelName)
 			.then((hotel) => {
-				console.log('Hotel found -> \n', hotel);
-				res.status(200).send(hotel);
-				next();
-			})
-			.catch((err) => {
-				console.log(err);
-				res.status(err.status || 500).send({
-					error: {
-						status: err.status || 500,
-						message: err.message || 'Internal Server Error',
-					},
+				//console.log('Hotel found -> \n', hotel);
+				res.status(200).send({
+					message: 'Hotel(s) have been successfully found.',
+					hotel: hotel,
 				});
-				next();
-			});
+			})
+			.catch(next);
 	});
 
 	router
@@ -90,20 +63,13 @@ function HotelRouter() {
 			hotel
 				.findById(hotelId)
 				.then((hotel) => {
-					console.log('Hotel found -> \n', hotel);
-					res.status(200).send(hotel);
-					next();
-				})
-				.catch((err) => {
-					console.log(err);
-					res.status(err.status || 500).send({
-						error: {
-							status: err.status || 500,
-							message: err.message || 'Internal Server Error',
-						},
+					//console.log('Hotel found -> \n', hotel);
+					res.status(200).send({
+						message: 'Hotel has been successfully found.',
+						hotel: hotel,
 					});
-					next();
-				});
+				})
+				.catch(next);
 		})
 		.put(
 			verifyJWT,
@@ -111,61 +77,58 @@ function HotelRouter() {
 			(req, res, next) => {
 				let hotelId = req.params.hotelId;
 				let body = req.body;
-				hotel
-					.verifyDirector(req.userId, hotelId)
-					.then((result) => {
-						if (!result) {
-							return res.status(400).send('merda');
-						}
-						hotel
-							.updateById(hotelId, body)
-							.then((hotel) => {
-								//console.log('Hotel updated -> \n', hotel);
-								res.status(200).send(hotel);
-								next();
-							})
-							.catch((err) => {
-								console.log(err);
-								res.status(err.status || 500).send({
+				if (!req.roles?.includes(roles.ADMIN)) {
+					hotel
+						.verifyDirector(req.userId, hotelId)
+						.then((result) => {
+							if (!result) {
+								return res.status(403).send({
 									error: {
-										status: err.status || 500,
+										status: 403,
 										message:
-											err.message ||
-											'Internal Server Error',
+											"You don't have permission to access this content.",
 									},
 								});
+							}
+							hotel
+								.updateById(hotelId, body)
+								.then((hotel) => {
+									//console.log('Hotel updated -> \n', hotel);
+									res.status(200).send({
+										message:
+											'Hotel has been successfully updated.',
+										hotel: hotel,
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				} else {
+					hotel
+						.updateById(hotelId, body)
+						.then((hotel) => {
+							//console.log('Hotel updated -> \n', hotel);
+							res.status(200).send({
+								message: 'Hotel has been successfully updated.',
+								hotel: hotel,
 							});
-					})
-					.catch((err) => {
-						console.log(err);
-						res.status(err.status || 500).send({
-							error: {
-								status: err.status || 500,
-								message: err.message || 'Internal Server Error',
-							},
-						});
-					});
+						})
+						.catch(next);
+				}
 			}
 		)
-		.delete((req, res, next) => {
+		.delete(verifyJWT, verifyROLES(roles.ADMIN), (req, res, next) => {
 			let hotelId = req.params.hotelId;
 			hotel
 				.deleteById(hotelId)
 				.then((hotel) => {
-					console.log('Hotel removed -> \n', hotel);
-					res.status(200).send(hotel);
-					next();
-				})
-				.catch((err) => {
-					console.log(err);
-					res.status(err.status || 500).send({
-						error: {
-							status: err.status || 500,
-							message: err.message || 'Internal Server Error',
-						},
+					//console.log('Hotel removed -> \n', hotel);
+					res.status(200).send({
+						message: 'Hotel has been successfully deleted.',
+						hotel: hotel,
 					});
-					next();
-				});
+				})
+				.catch(next);
 		});
 
 	return router;
