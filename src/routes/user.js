@@ -30,7 +30,7 @@ function UserRouter() {
 			user.create(body)
 				.then((user) => {
 					//console.log('User created -> \n', user);
-					res.status(200).send({
+					res.status(201).send({
 						message: 'User has been created successfully.',
 						user: user,
 					});
