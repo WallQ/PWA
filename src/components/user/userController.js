@@ -14,6 +14,8 @@ function userService(userModel) {
 		updateById,
 		deleteById,
 		createToken,
+		createTokenRecoverPassword,
+		verifyRecoverPassword,
 		register,
 		verifyUser,
 		verifyPassword,
@@ -170,6 +172,35 @@ function userService(userModel) {
 		return token;
 	}
 
+	function createTokenRecoverPassword(user) {
+		return new Promise((resolve, reject) => {
+			hashPassword(user.password.slice(-7))
+			.then(val => {
+					let token = jwt.sign(
+					{ id: user._id, email: user.email , validationHash: val},
+					config.jsonwebtoken.recover_secret,
+					{ algorithm: 'HS256' },
+					{ expiresIn: config.nodemailer.expires_time }
+				);
+				resolve(token)
+			})
+			.catch(err => reject(err))
+		})
+	}
+
+	function verifyRecoverPassword(userId, newPassword, validationHash) {
+		return new Promise((resolve, reject) => {
+			userModel.findById(userId)
+			.then(  user => bcrypt.compare(  user.password.slice(-7).toString(),validationHash.toString()  )  )
+			.then((match) => { 
+				if(!match) reject("Password alredy changed. Token is invalid!")
+				hashPassword(newPassword).then(hash => updateById(userId, {password: hash}))
+			}  ) .then(()=>{resolve()})
+			.catch(err => reject(err))
+		})
+	}
+
+
 	function register(user) {
 		return hashPassword(user.password).then((hashedPassword, err) => {
 			if (err) {
@@ -264,6 +295,7 @@ function userService(userModel) {
 	function comparePassword(password, hashedPassword) {
 		return bcrypt.compare(password, hashedPassword);
 	}
+	
 
 	return service;
 }
