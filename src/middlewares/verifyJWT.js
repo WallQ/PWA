@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/config')[process.env.NODE_ENV || 'development'];
 
-const verifyJWT = (req, res, next) => {
+exports.verifyJWT = (req, res, next) => {
 	
 	const token = req.headers['x-access-token'] || req.query['x-access-token'];
 
@@ -30,7 +30,7 @@ const verifyJWT = (req, res, next) => {
 	});
 };
 
-const verifyRecoverPasswordJWT = (req, res, next) => {
+exports.verifyRecoverPasswordJWT = (req, res, next) => {
 	const token = req.headers['x-access-token'] || req.query['x-access-token'];
 
 	if (!token) {
@@ -59,5 +59,4 @@ const verifyRecoverPasswordJWT = (req, res, next) => {
 	});
 };
 
-module.exports = verifyJWT;
-module.exports = verifyRecoverPasswordJWT;
+

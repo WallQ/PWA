@@ -1,6 +1,6 @@
 const express = require('express');
 const books = require('../components/books');
-const verifyJWT = require('../middlewares/verifyJWT');
+const {verifyJWT} = require('../middlewares/verifyJWT');
 
 function BookRouter() {
 	let router = express();

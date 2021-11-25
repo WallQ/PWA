@@ -1,7 +1,8 @@
 const express = require('express');
 const user = require('../components/user');
+const books = require('../components/books');
 const roles = require('../config/roles');
-const verifyJWT = require('../middlewares/verifyJWT');
+const {verifyJWT} = require('../middlewares/verifyJWT');
 const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
 
@@ -54,31 +55,54 @@ function UserRouter() {
 			}
 		);
 
-	router.route('/change-password').put((req, res, next) => {
-		let tokenId = req.userId;
-		let currentPassword = req.body.password;
-		let newPassword = req.body.new_password;
-		user.verifyPassword(tokenId, currentPassword)
-			.then((userData) => {
-				user.hashPassword(newPassword)
-					.then((hashedPassword) => {
-						let body = {
-							password: hashedPassword,
-						};
-						user.updateById(tokenId, body)
-							.then((user) => {
-								//console.log('Password updated -> \n', user);
-								res.status(200).send({
-									message:
-										'Password has been successfully changed.',
-								});
-							})
-							.catch(next);
+	router.route('/change-password')
+		.put((req, res, next) => {
+			let tokenId = req.userId;
+			let currentPassword = req.body.password;
+			let newPassword = req.body.new_password;
+			user.verifyPassword(tokenId, currentPassword)
+				.then((userData) => {
+					user.hashPassword(newPassword)
+						.then((hashedPassword) => {
+							let body = {
+								password: hashedPassword,
+							};
+							user.updateById(tokenId, body)
+								.then((user) => {
+									//console.log('Password updated -> \n', user);
+									res.status(200).send({
+										message:
+											'Password has been successfully changed.',
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				})
+				.catch(next);
+		});
+
+	router.route('/:userId/books')
+		.get((req, res, next) => {
+			let userId = req.params.userId;
+			if (req.userId === userId || req.roles?.includes(roles.ADMIN)) {
+				books.findByUser(userId)
+					.then((books) => {
+						res.status(200).send({
+							status: 200,
+							message: 'Books has been successfully found.',
+							data: books,
+						});
 					})
 					.catch(next);
-			})
-			.catch(next);
-	});
+			} else {
+				let err = new Error(
+					"You don't have permission to access this content."
+				);
+				err.status = 403;
+				next(err);
+			}
+		})
 
 	router
 		.route('/:userId')
@@ -162,6 +186,8 @@ function UserRouter() {
 				next(err);
 			}
 		});
+
+	
 
 	return router;
 }
