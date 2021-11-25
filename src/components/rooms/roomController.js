@@ -14,22 +14,23 @@ function roomsController(roomModel, bookModel) {
 		findBooksFromRoom,
 	};
 
+	function save(newRoom) {
+		return new Promise((resolve, reject) => {
+			newRoom.save((err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(newRoom);
+				}
+			});
+		});
+	}
+
 	function create(values) {
 		let newRoom = roomModel(values);
 		return save(newRoom);
 	}
 
-	function save(newRoom) {
-		return new Promise(function (resolve, reject) {
-			newRoom.save(function (err) {
-				if (err) {
-					reject(err);
-				} else {
-					resolve('Room created successfully!');
-				}
-			});
-		});
-	}
 	function exists(id) {
 		return new Promise(function (resolve, reject) {
 			newRoom.exists((_id = id), function (err, result) {
@@ -42,11 +43,21 @@ function roomsController(roomModel, bookModel) {
 		});
 	}
 
-	function findAll() {
+	function findAll(opt) {
 		return new Promise((resolve, reject) => {
-			roomModel.find({}, (err, rooms) => {
-				if (err) reject(err);
-				resolve(rooms);
+			roomModel.find({}, opt, (err, rooms) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (rooms.length) {
+						resolve(rooms);
+					} else {
+						reject({
+							status: 404,
+							message: 'No rooms have been found.',
+						});
+					}
+				}
 			});
 		});
 	}
