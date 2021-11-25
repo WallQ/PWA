@@ -19,6 +19,10 @@ const config = {
 		bcrypt: {
 			saltRounds: process.env.SALT_ROUNDS || 10,
 		},
+		nodemailer: {
+			email: process.env.MAIL_EMAIL || 'example@example.com',
+			password: process.env.MAIL_PASSWORD || 'example',
+		},
 	},
 	production: {},
 };
