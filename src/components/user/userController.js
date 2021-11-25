@@ -14,6 +14,8 @@ function userService(userModel) {
 		createToken,
 		register,
 		verifyUser,
+		verifyPassword,
+		hashPassword,
 	};
 
 	function save(newUser) {
@@ -29,13 +31,30 @@ function userService(userModel) {
 	}
 
 	function create(user) {
-		let newUser = userModel(user);
-		return save(newUser);
+		return hashPassword(user.password).then((hashedPassword, err) => {
+			if (err) {
+				return Promise.reject(err);
+			}
+			let newUserUpdated = {
+				...user,
+				password: hashedPassword,
+			};
+			let newUser = userModel(newUserUpdated);
+			return save(newUser);
+		});
 	}
 
 	function findAll() {
+		let opt = {
+			_id: 1,
+			name: 1,
+			surname: 1,
+			email: 1,
+			roles: 1,
+			createdDate: 1,
+		};
 		return new Promise((resolve, reject) => {
-			userModel.find({}, (err, users) => {
+			userModel.find({}, opt, (err, users) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -72,8 +91,14 @@ function userService(userModel) {
 	}
 
 	function findById(userId) {
+		let params = {
+			_id: 0,
+			name: 1,
+			surname: 1,
+			email: 1,
+		};
 		return new Promise((resolve, reject) => {
-			userModel.findById(userId, (err, user) => {
+			userModel.findById(userId, params, (err, user) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -148,13 +173,11 @@ function userService(userModel) {
 			if (err) {
 				return Promise.reject(err);
 			}
-
 			let newUserUpdated = {
 				...user,
 				password: hashedPassword,
 				roles: [roles.CLIENT],
 			};
-
 			let newUser = userModel(newUserUpdated);
 			return save(newUser);
 		});
@@ -183,7 +206,7 @@ function userService(userModel) {
 				}
 			});
 		}).then((user) => {
-			return verifyPassword(password, user.password).then((match) => {
+			return comparePassword(password, user.password).then((match) => {
 				if (!match) {
 					return Promise.reject({
 						status: 401,
@@ -196,11 +219,47 @@ function userService(userModel) {
 		});
 	}
 
+	function verifyPassword(userId, password) {
+		return new Promise((resolve, reject) => {
+			userModel.findById(userId, (err, user) => {
+				if (err) {
+					reject(err);
+				}
+				if (password) {
+					if (!user) {
+						reject({
+							status: 200,
+							message: 'User not found.',
+						});
+					} else {
+						resolve(user);
+					}
+				} else {
+					reject({
+						status: 400,
+						message: 'Invalid syntax.',
+					});
+				}
+			});
+		}).then((user) => {
+			return comparePassword(password, user.password).then((match) => {
+				if (!match) {
+					return Promise.reject({
+						status: 401,
+						message: 'Invalid password.',
+					});
+				} else {
+					return Promise.resolve(user);
+				}
+			});
+		});
+	}
+
 	function hashPassword(password) {
 		return bcrypt.hash(password, parseInt(config.bcrypt.saltRounds));
 	}
 
-	function verifyPassword(password, hashedPassword) {
+	function comparePassword(password, hashedPassword) {
 		return bcrypt.compare(password, hashedPassword);
 	}
 

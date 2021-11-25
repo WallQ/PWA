@@ -9,7 +9,7 @@ const config = {
 		database: {
 			host: process.env.DATABASE_HOST || '127.0.0.1',
 			port: process.env.DATABASE_PORT || 27017,
-			name: process.env.DATABASE_NAME || 'sample',
+			name: process.env.DATABASE_NAME || 'pwa-project',
 		},
 		jsonwebtoken: {
 			secret: process.env.JWT_SECRET || 'secret',
