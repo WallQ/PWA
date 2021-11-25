@@ -15,7 +15,7 @@ function BookRouter() {
 
 	//
 	router
-		.route('')
+		.route('/')
 		.get((req, res, next) => {
 			books
 				.findAll()

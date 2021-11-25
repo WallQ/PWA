@@ -1,7 +1,8 @@
 const express = require('express');
 const hotel = require('../components/hotel');
 const roles = require('../config/roles');
-const { verifyJWT, tryDecode } = require('../middlewares/verifyJWT');
+const verifyJWT = require('../middlewares/verifyJWT');
+const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
 
 function HotelRouter() {
@@ -116,7 +117,6 @@ function HotelRouter() {
 						if (!result) {
 							return res.status(400).send('merda');
 						}
-
 						hotel
 							.updateById(hotelId, body)
 							.then((hotel) => {

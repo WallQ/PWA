@@ -7,11 +7,6 @@ function AuthRouter() {
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
 
-	router.use((req, res, next) => {
-		console.log('Timer:', Date.now());
-		next();
-	});
-
 	router.route('/sign-up').post((req, res, next) => {
 		let body = req.body;
 		user.register(body)
@@ -21,18 +16,8 @@ function AuthRouter() {
 				res.status(200).send({
 					message: 'Successfully signed up.',
 				});
-				next();
 			})
-			.catch((err) => {
-				console.log(err);
-				res.status(err.status || 500).send({
-					error: {
-						status: err.status || 500,
-						message: err.message || 'Internal Server Error',
-					},
-				});
-				next();
-			});
+			.catch(next);
 	});
 
 	router.route('/sign-in').post((req, res, next) => {
@@ -44,25 +29,14 @@ function AuthRouter() {
 				res.status(200).send({
 					message: 'Successfully signed in.',
 				});
-				next();
 			})
-			.catch((err) => {
-				console.log(err);
-				res.status(err.status || 500).send({
-					error: {
-						status: err.status || 500,
-						message: err.message || 'Internal Server Error',
-					},
-				});
-				next();
-			});
+			.catch(next);
 	});
 
 	router.route('/sign-out').get((req, res, next) => {
 		res.status(200).send({
 			message: 'Successfully signed out.',
 		});
-		next();
 	});
 
 	return router;
