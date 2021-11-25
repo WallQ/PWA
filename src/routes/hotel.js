@@ -20,10 +20,10 @@ function HotelRouter() {
 			hotel
 				.findAll(opt)
 				.then((hotels) => {
-					//console.log('Hotels found -> \n', hotels);
 					res.status(200).send({
+						status: 200,
 						message: 'Hotels have been successfully found.',
-						hotels: hotels,
+						data: hotels,
 					});
 				})
 				.catch(next);
@@ -33,10 +33,10 @@ function HotelRouter() {
 			hotel
 				.create(body)
 				.then((hotel) => {
-					//console.log('Hotel created -> \n', hotel);
 					res.status(201).send({
+						status: 201,
 						message: 'Hotel has been created successfully.',
-						hotel: hotel,
+						data: hotel,
 					});
 				})
 				.catch(next);
@@ -47,10 +47,10 @@ function HotelRouter() {
 		hotel
 			.findByName(hotelName)
 			.then((hotel) => {
-				//console.log('Hotel found -> \n', hotel);
 				res.status(200).send({
+					status: 200,
 					message: 'Hotel(s) have been successfully found.',
-					hotel: hotel,
+					data: hotel,
 				});
 			})
 			.catch(next);
@@ -63,10 +63,10 @@ function HotelRouter() {
 			hotel
 				.findById(hotelId)
 				.then((hotel) => {
-					//console.log('Hotel found -> \n', hotel);
 					res.status(200).send({
+						status: 200,
 						message: 'Hotel has been successfully found.',
-						hotel: hotel,
+						data: hotel,
 					});
 				})
 				.catch(next);
@@ -93,11 +93,11 @@ function HotelRouter() {
 							hotel
 								.updateById(hotelId, body)
 								.then((hotel) => {
-									//console.log('Hotel updated -> \n', hotel);
 									res.status(200).send({
+										status: 200,
 										message:
 											'Hotel has been successfully updated.',
-										hotel: hotel,
+										data: hotel,
 									});
 								})
 								.catch(next);
@@ -107,10 +107,10 @@ function HotelRouter() {
 					hotel
 						.updateById(hotelId, body)
 						.then((hotel) => {
-							//console.log('Hotel updated -> \n', hotel);
 							res.status(200).send({
+								status: 200,
 								message: 'Hotel has been successfully updated.',
-								hotel: hotel,
+								data: hotel,
 							});
 						})
 						.catch(next);
@@ -122,14 +122,70 @@ function HotelRouter() {
 			hotel
 				.deleteById(hotelId)
 				.then((hotel) => {
-					//console.log('Hotel removed -> \n', hotel);
 					res.status(200).send({
+						status: 200,
 						message: 'Hotel has been successfully deleted.',
-						hotel: hotel,
+						data: hotel,
 					});
 				})
 				.catch(next);
 		});
+
+	router.route('/:hotelId/rooms').get((req, res, next) => {
+		let hotelId = req.params.hotelId;
+		hotel
+			.findRoomsByHotelId(hotelId)
+			.then((rooms) => {
+				res.status(200).send({
+					status: 200,
+					message: 'Rooms have been successfully found.',
+					data: rooms,
+				});
+			})
+			.catch(next);
+	});
+
+	router.route('/:hotelId/roomTypes').get((req, res, next) => {
+		let hotelId = req.params.hotelId;
+		hotel
+			.findRoomTypesByHotelId(hotelId)
+			.then((roomTypes) => {
+				res.status(200).send({
+					status: 200,
+					message: 'RoomTypes have been successfully found.',
+					data: roomTypes,
+				});
+			})
+			.catch(next);
+	});
+
+	router.route('/:hotelId/books').get((req, res, next) => {
+		let hotelId = req.params.hotelId;
+		hotel
+			.findBooksByHotelId(hotelId)
+			.then((books) => {
+				res.status(200).send({
+					status: 200,
+					message: 'Books have been successfully found.',
+					data: books,
+				});
+			})
+			.catch(next);
+	});
+
+	router.route('/:hotelId/packs').get((req, res, next) => {
+		let hotelId = req.params.hotelId;
+		hotel
+			.findPacksByHotelId(hotelId)
+			.then((packs) => {
+				res.status(200).send({
+					status: 200,
+					message: 'Packs have been successfully found.',
+					data: packs,
+				});
+			})
+			.catch(next);
+	});
 
 	return router;
 }

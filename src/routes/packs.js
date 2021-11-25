@@ -1,100 +1,91 @@
 const express = require('express');
 const packs = require('../components/packs');
-const validator = require('../components/packs/validations');
+const roles = require('../config/roles');
+const verifyJWT = require('../middlewares/verifyJWT');
+const verifyROLES = require('../middlewares/verifyROLES');
 
 function PackRouter() {
 	let router = express();
-
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
 
-	router.use((req, res, next) => {
-		console.log('Timer:', Date.now());
-		next();
-	});
-
-	//
 	router
-		.route('')
-		.get((req, res, next) => {
-			packs
-				.findAll()
-				.then((packs) => {
-					res.status(200).send(packs);
-					next();
-				})
-				.catch((err) => {
-					res.status(404).send('Error');
-					next();
-				});
-		})
-		.post((req, res, next) => {
-			/*
-			let err = validator.results(req);
-			if (!err.isEmpty()) {
-				return res.status(400).json({ errors: err.array() });
+		.route('/')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				packs
+					.findAll()
+					.then((packs) => {
+						res.status(200).send({
+							status: 200,
+							message: 'Packs have been successfully found.',
+							data: packs,
+						});
+					})
+					.catch(next);
 			}
-			console.log("passou a validação")
-			*/
+		)
+		.post(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR),
+			(req, res, next) => {
+				let body = req.body;
+				packs
+					.create(body)
+					.then((pack) => {
+						res.status(201).send({
+							status: 201,
+							message: 'Pack has been created successfully.',
+							data: pack,
+						});
+					})
+					.catch(next);
+			}
+		);
 
-			let body = req.body;
-			packs
-				.create(body)
-				.then(() => {
-					res.status(200);
-					res.send(body);
-					next();
-				})
-				.catch((err) => {
-					res.status(401);
-					next();
-				});
-		});
-
-	//
 	router
-		.route('/:packID')
-		.get(function (req, res, next) {
-			let packID = req.params.packID;
+		.route('/:packId')
+		.get((req, res, next) => {
+			let packId = req.params.packId;
 			packs
-				.findById(packID)
-				.then((packs) => {
-					res.status(200);
-					res.send(packs);
-					next();
+				.findById(packId)
+				.then((pack) => {
+					res.status(200).send({
+						status: 200,
+						message: 'Pack has been successfully found.',
+						data: pack,
+					});
 				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
+				.catch(next);
 		})
-		.put(function (req, res, next) {
-			let packID = req.params.packID;
+		.put((req, res, next) => {
+			let packId = req.params.packId;
 			let body = req.body;
 			packs
-				.findByIdAndUpdate(packID, body)
+				.findByIdAndUpdate(packId, body)
 				.then((pack) => {
-					res.status(200);
-					res.send(pack);
-					next();
+					res.status(200).send({
+						status: 200,
+						message: 'Pack has been successfully updated.',
+						data: pack,
+					});
 				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
+				.catch(next);
 		})
-		.delete(function (req, res, next) {
-			let bookID = req.params.packID;
+		.delete((req, res, next) => {
+			let packId = req.params.packId;
 			packs
-				.findByIdAndDelete(bookID)
-				.then(() => {
-					res.status(200).json({ msg: 'OK- DELETED' });
-					next();
+				.findByIdAndDelete(packId)
+				.then((pack) => {
+					res.status(200).send({
+						status: 200,
+						message: 'Pack has been successfully deleted.',
+						data: pack,
+					});
 				})
-				.catch((err) => {
-					res.status(404);
-					next();
-				});
+				.catch(next);
 		});
 
 	return router;

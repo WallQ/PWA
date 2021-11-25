@@ -6,6 +6,11 @@ const packSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	hotel: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'hotel',
+		required: true,
+	},
 	freeCancel: {
 		type: Boolean,
 	},

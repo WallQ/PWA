@@ -115,10 +115,10 @@ function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
 		});
 	}
 
-	function findPacksFromRoomType(id) {
+	function findPacksFromRoomType(roomTypeId) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel
-				.findById(id)
+				.findById(roomTypeId)
 				.populate('packs')
 				.exec((err, room) => {
 					if (err) reject(err);
@@ -126,17 +126,19 @@ function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
 				});
 		});
 	}
-	function findBooksFromRoomType(id) {
+
+	function findBooksFromRoomType(roomTypeId) {
 		return new Promise((resolve, reject) => {
-			bookModel.find({ roomType: id }, (err, books) => {
+			bookModel.find({ roomType: roomTypeId }, (err, books) => {
 				if (err) reject(err);
 				resolve(books);
 			});
 		});
 	}
-	function findRoomsFromRoomType(id) {
+
+	function findRoomsFromRoomType(roomTypeId) {
 		return new Promise((resolve, reject) => {
-			roomModel.find({ roomType: id }, (err, rooms) => {
+			roomModel.find({ roomType: roomTypeId }, (err, rooms) => {
 				if (err) reject(err);
 				resolve(rooms);
 			});

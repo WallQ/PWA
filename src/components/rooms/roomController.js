@@ -15,6 +15,11 @@ function roomsController(roomModel, bookModel, hotelModel) {
 		findBooksFromRoom,
 	};
 
+	function create(values) {
+		let newRoom = roomModel(values);
+		return save(newRoom);
+	}
+
 	function save(newRoom) {
 		return new Promise((resolve, reject) => {
 			newRoom.save((err) => {
@@ -25,11 +30,6 @@ function roomsController(roomModel, bookModel, hotelModel) {
 				}
 			});
 		});
-	}
-
-	function create(values) {
-		let newRoom = roomModel(values);
-		return save(newRoom);
 	}
 
 	function verifyDirector(idUser, idHotel) {

@@ -17,6 +17,11 @@ const bookSchema = new Schema({
 		ref: 'room',
 		required: true,
 	},
+	hotel: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'hotel',
+		required: true,
+	},
 	pack: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'packs',
@@ -28,7 +33,7 @@ const bookSchema = new Schema({
 	},
 	purchase_date: {
 		type: Date,
-		default: Date.now(),
+		default: Date.now,
 	},
 	checkIn_date: {
 		type: Date,

@@ -1,4 +1,4 @@
-function booksController(bookModel, hotelModel, roomModel,roomTypeModel) {
+function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 	let services = {
 		create,
 		find,
@@ -7,25 +7,25 @@ function booksController(bookModel, hotelModel, roomModel,roomTypeModel) {
 		findByIdAndUpdate,
 		findByIdAndDelete,
 		finRoomTypes,
-		getAvailableRoomTypes 
+		getAvailableRoomTypes,
 	};
+
+	function save(newBook) {
+		return new Promise((resolve, reject) => {
+			//Testar os IDS ( HOTEL, ROOM)
+			newBook.save((err) => {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(newBook);
+				}
+			});
+		});
+	}
 
 	function create(values) {
 		let newBook = bookModel(values);
 		return save(newBook);
-	}
-
-	function save(newBook) {
-		return new Promise(function (resolve, reject) {
-			//Testar os IDS ( HOTEL, ROOM)
-			newBook.save(function (err) {
-				if (err) {
-					reject(err);
-				} else {
-					resolve('Book created successfully!');
-				}
-			});
-		});
 	}
 
 	function findAll() {
@@ -63,84 +63,124 @@ function booksController(bookModel, hotelModel, roomModel,roomTypeModel) {
 		});
 	}
 
-	function findByIdAndDelete(id) {
+	function findByIdAndDelete(bookId) {
 		return new Promise((resolve, reject) => {
-			bookModel.findByIdAndDelete(id, (err, book) => {
-				if (!book) reject('Can not delete item!');
-				resolve(book);
+			bookModel.findByIdAndDelete(bookId, (err, book) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (book) {
+						resolve(book);
+					} else {
+						reject({
+							status: 404,
+							message: 'No book have been found.',
+						});
+					}
+				}
 			});
 		});
 	}
 
-
-	//Search Available
 	function finRoomTypes(roomTypes) {
 		return new Promise((resolve, reject) => {
-			roomTypeModel.find({_id: {$in: roomTypes}})
-			.populate('packs')
-			.exec((err, res) => {
-				if (err) reject(err);
-				resolve (res);
+			roomTypeModel
+				.find({ _id: { $in: roomTypes } })
+				.populate('packs')
+				.exec((err, res) => {
+					if (err) reject(err);
+					resolve(res);
 				});
 		});
 	}
-	async function getAvailableRoomTypes(hotelID,numGuest,numGuestChild,dataCheckIn,dataCheckOut){	
+
+	async function getAvailableRoomTypes(
+		hotelID,
+		numGuest,
+		numGuestChild,
+		dataCheckIn,
+		dataCheckOut
+	) {
 		try {
-			
-			let opt = {$and:[ {hotel: String(hotelID)},{maxGuest: {$gte: numGuest}}, {maxGuestChild: {$gte: numGuestChild}}]}
+			let opt = {
+				$and: [
+					{ hotel: String(hotelID) },
+					{ maxGuest: { $gte: numGuest } },
+					{ maxGuestChild: { $gte: numGuestChild } },
+				],
+			};
 			const matchRoomTypes = await roomTypeModel.find(opt).exec();
 
 			let res = [];
-			
+
 			for (const roomType of matchRoomTypes) {
-				if(await haveAvailability(roomType._id,dataCheckIn,dataCheckOut)){
+				if (
+					await haveAvailability(
+						roomType._id,
+						dataCheckIn,
+						dataCheckOut
+					)
+				) {
 					res.push(roomType._id);
 				}
 			}
 			return res;
 		} catch (error) {
-			throw error
+			throw error;
 		}
 	}
-	async function haveAvailability(roomTypeId,dataCheckIn,dataCheckOut){
-		let opt = {$or: [
-			{$and: [
-				{checkIn_date: {$lte: new Date(dataCheckIn)}},
-				{checkOut_date: {$gt: new Date(dataCheckIn)}}
-			]},
-			{$and: [
-				{checkIn_date: {$lt: new Date(dataCheckOut)}},
-				{checkOut_date: {$gte: new Date(dataCheckOut)}}
-			]},
-			{$and: [
-				{checkIn_date: {$gte: new Date(dataCheckIn)}},
-				{checkOut_date: {$lte: new Date(dataCheckOut)}}
-			]},
-		],
-		roomType: roomTypeId}
+
+	async function haveAvailability(roomTypeId, dataCheckIn, dataCheckOut) {
+		let opt = {
+			$or: [
+				{
+					$and: [
+						{ checkIn_date: { $lte: new Date(dataCheckIn) } },
+						{ checkOut_date: { $gt: new Date(dataCheckIn) } },
+					],
+				},
+				{
+					$and: [
+						{ checkIn_date: { $lt: new Date(dataCheckOut) } },
+						{ checkOut_date: { $gte: new Date(dataCheckOut) } },
+					],
+				},
+				{
+					$and: [
+						{ checkIn_date: { $gte: new Date(dataCheckIn) } },
+						{ checkOut_date: { $lte: new Date(dataCheckOut) } },
+					],
+				},
+			],
+			roomType: roomTypeId,
+		};
 
 		try {
 			const matchRoomTypes = await bookModel.find(opt).exec();
 
-			if ( numBooks = matchRoomTypes.length <  (numMaxAvailable = await countRoomTypeRooms(roomTypeId))) {
-				return true
-			}else{
-				return null
+			if (
+				(numBooks =
+					matchRoomTypes.length <
+					(numMaxAvailable = await countRoomTypeRooms(roomTypeId)))
+			) {
+				return true;
+			} else {
+				return null;
 			}
 		} catch (error) {
-			throw (error)
-		}	
+			throw error;
+		}
 	}
-	async function countRoomTypeRooms(roomTypeId){
+
+	async function countRoomTypeRooms(roomTypeId) {
 		try {
-			let opt = {roomType: roomTypeId}
+			let opt = { roomType: roomTypeId };
 			const roomCount = await roomModel.countDocuments(opt).exec();
-			return roomCount
+			return roomCount;
 		} catch (error) {
-			throw error
-		}	
+			throw error;
+		}
 	}
-	//################
 
 	return services;
 }
