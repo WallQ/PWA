@@ -14,8 +14,7 @@ function BookRouter() {
 	});
 
 	//
-	router
-		.route('')
+	router.route('')
 		.get((req, res, next) => {
 			books
 				.findAll()
@@ -52,8 +51,7 @@ function BookRouter() {
 		});
 
 	//
-	router
-		.route('/:bookID')
+	router.route('/:bookID')
 		.get(function (req, res, next) {
 			let bookID = req.params.bookID;
 			books
@@ -97,20 +95,20 @@ function BookRouter() {
 				});
 		});
 
-	router.route('/availability').put(function (req, res, next) {
-		let body = req.body;
-		books
-			.findByIdAndUpdate(bookID, body)
-			.then((book) => {
-				res.status(200);
-				res.send(book);
-				next();
-			})
-			.catch((err) => {
-				res.status(404);
-				next();
-			});
-	});
+	router.route('/availability')
+		.post(async (req, res, next) => {
+
+			let {hotelID, numGuest, numGuestChild,checkIn_date,checkOut_date} = req.body
+
+			try {
+				console.log(await books.getAvailableRoomTypes(hotelID, numGuest,numGuestChild,checkIn_date,checkOut_date))
+			
+			} catch (error) {
+				res.status(400).send("Error")
+			}
+			
+			res.status(200).send({})
+		});
 
 	return router;
 }
