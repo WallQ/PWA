@@ -2,8 +2,10 @@ const express = require('express');
 const books = require('../components/books');
 const roles = require('../config/roles');
 const {verifyJWT} = require('../middlewares/verifyJWT');
+const validator = require('./validations/booksValidations')
 const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
+
 
 function BookRouter() {
 	let router = express();
@@ -81,7 +83,7 @@ function BookRouter() {
 				.catch(next);
 		});
 
-	router.route('/availability').post(async (req, res, next) => {
+	router.route('/availability').post(validator.availability, async (req, res, next) => {
 		let { hotelID, numGuest, numGuestChild, checkIn_date, checkOut_date } =
 			req.body;
 
@@ -93,7 +95,7 @@ function BookRouter() {
 				checkIn_date,
 				checkOut_date
 			);
-
+			console.log(roomTypesAvailable)
 			books
 				.findRoomTypes(roomTypesAvailable)
 				.then((books) => {
