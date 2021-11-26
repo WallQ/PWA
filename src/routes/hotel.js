@@ -1,9 +1,10 @@
 const express = require('express');
 const hotel = require('../components/hotel');
 const roles = require('../config/roles');
-const verifyJWT = require('../middlewares/verifyJWT');
+const { verifyJWT } = require('../middlewares/verifyJWT');
 const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
+const verifyBelongHotel = require('../utils/verifyBelongHotel');
 
 function HotelRouter() {
 	let router = express();
@@ -52,7 +53,7 @@ function HotelRouter() {
 			.then((hotel) => {
 				res.status(200).send({
 					status: 200,
-					message: 'Hotel(s) have been successfully found.',
+					message: 'Hotels have been successfully found.',
 					data: hotel,
 				});
 			})
@@ -61,11 +62,13 @@ function HotelRouter() {
 
 	router
 		.route('/:hotelId')
-		.get((req, res, next) => {
+		.get(tryDecode, (req, res, next) => {
+			let opt = req.roles?.includes(roles.ADMIN)
+				? ''
+				: 'name description rating address contacts languages images facilities comments url';
 			let hotelId = req.params.hotelId;
-			// esconder dados
 			hotel
-				.findById(hotelId)
+				.findById(hotelId, opt)
 				.then((hotel) => {
 					res.status(200).send({
 						status: 200,
@@ -83,7 +86,7 @@ function HotelRouter() {
 				let body = req.body;
 				if (!req.roles?.includes(roles.ADMIN)) {
 					hotel
-						.verifyDirector(req.userId, hotelId)
+						.verifyBelongHotel(req.userId, hotelId)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
@@ -135,24 +138,33 @@ function HotelRouter() {
 				.catch(next);
 		});
 
-	router.route('/:hotelId/rooms').get((req, res, next) => {
-		let hotelId = req.params.hotelId;
-		hotel
-			.findRoomsByHotelId(hotelId)
-			.then((rooms) => {
-				res.status(200).send({
-					status: 200,
-					message: 'Rooms have been successfully found.',
-					data: rooms,
-				});
-			})
-			.catch(next);
-	});
+	router
+		.route('/:hotelId/rooms')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let hotelId = req.params.hotelId;
+				hotel
+					.findRoomsByHotelId(hotelId)
+					.then((rooms) => {
+						res.status(200).send({
+							status: 200,
+							message: 'Rooms have been successfully found.',
+							data: rooms,
+						});
+					})
+					.catch(next);
+			}
+		);
 
 	router.route('/:hotelId/roomTypes').get((req, res, next) => {
+		let opt = req.roles?.includes(roles.ADMIN)
+			? ''
+			: 'name description maxGuest maxGuestChild area sale packs facilities';
 		let hotelId = req.params.hotelId;
 		hotel
-			.findRoomTypesByHotelId(hotelId)
+			.findRoomTypesByHotelId(hotelId, opt)
 			.then((roomTypes) => {
 				res.status(200).send({
 					status: 200,
@@ -163,33 +175,101 @@ function HotelRouter() {
 			.catch(next);
 	});
 
-	router.route('/:hotelId/books').get((req, res, next) => {
-		let hotelId = req.params.hotelId;
-		hotel
-			.findBooksByHotelId(hotelId)
-			.then((books) => {
-				res.status(200).send({
-					status: 200,
-					message: 'Books have been successfully found.',
-					data: books,
-				});
-			})
-			.catch(next);
-	});
+	router
+		.route('/:hotelId/books')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let hotelId = req.params.hotelId;
+				if (!req.roles?.includes(roles.ADMIN)) {
+					hotel
+						.verifyBelongHotel(req.userId, hotelId)
+						.then((result) => {
+							if (!result) {
+								return res.status(403).send({
+									error: {
+										status: 403,
+										message:
+											"You don't have permission to access this content.",
+									},
+								});
+							}
+							hotel
+								.findBooksByHotelId(hotelId)
+								.then((books) => {
+									res.status(200).send({
+										status: 200,
+										message:
+											'Books have been successfully found.',
+										data: books,
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				} else {
+					hotel
+						.findBooksByHotelId(hotelId)
+						.then((books) => {
+							res.status(200).send({
+								status: 200,
+								message: 'Books have been successfully found.',
+								data: books,
+							});
+						})
+						.catch(next);
+				}
+			}
+		);
 
-	router.route('/:hotelId/packs').get((req, res, next) => {
-		let hotelId = req.params.hotelId;
-		hotel
-			.findPacksByHotelId(hotelId)
-			.then((packs) => {
-				res.status(200).send({
-					status: 200,
-					message: 'Packs have been successfully found.',
-					data: packs,
-				});
-			})
-			.catch(next);
-	});
+	router
+		.route('/:hotelId/packs')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let hotelId = req.params.hotelId;
+				if (!req.roles?.includes(roles.ADMIN)) {
+					hotel
+						.verifyBelongHotel(req.userId, hotelId)
+						.then((result) => {
+							if (!result) {
+								return res.status(403).send({
+									error: {
+										status: 403,
+										message:
+											"You don't have permission to access this content.",
+									},
+								});
+							}
+							hotel
+								.findPacksByHotelId(hotelId)
+								.then((packs) => {
+									res.status(200).send({
+										status: 200,
+										message:
+											'Packs have been successfully found.',
+										data: packs,
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				} else {
+					hotel
+						.findPacksByHotelId(hotelId)
+						.then((packs) => {
+							res.status(200).send({
+								status: 200,
+								message: 'Packs have been successfully found.',
+								data: packs,
+							});
+						})
+						.catch(next);
+				}
+			}
+		);
 
 	return router;
 }

@@ -1,8 +1,7 @@
-function roomsController(roomModel, bookModel, hotelModel) {
+function roomsController(roomModel, bookModel) {
 	let services = {
 		create,
 		exists,
-		verifyDirector,
 		findAll,
 		findById,
 		findByIdPopulated,
@@ -29,24 +28,6 @@ function roomsController(roomModel, bookModel, hotelModel) {
 					resolve(newRoom);
 				}
 			});
-		});
-	}
-
-	function verifyDirector(idUser, idHotel) {
-		return new Promise((resolve, reject) => {
-			hotelModel.findOne(
-				{ director: idUser, _id: idHotel },
-				(err, result) => {
-					if (err) {
-						reject(err);
-					}
-					if (result) {
-						resolve(true);
-					} else {
-						resolve(false);
-					}
-				}
-			);
 		});
 	}
 

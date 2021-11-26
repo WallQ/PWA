@@ -1,8 +1,9 @@
 const express = require('express');
 const rooms = require('../components/rooms');
 const roles = require('../config/roles');
-const verifyJWT = require('../middlewares/verifyJWT');
+const { verifyJWT } = require('../middlewares/verifyJWT');
 const verifyROLES = require('../middlewares/verifyROLES');
+const verifyBelongHotel = require('../utils/verifyBelongHotel');
 
 function RoomRouter() {
 	let router = express();
@@ -72,7 +73,7 @@ function RoomRouter() {
 				let body = req.body;
 				if (!req.roles?.includes(roles.ADMIN)) {
 					rooms
-						.verifyDirector(req.userId, body.hotel)
+						.verifyBelongHotel(req.userId, body.hotel)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
@@ -128,25 +129,23 @@ function RoomRouter() {
 			}
 		);
 
-	router
-		.route('/:roomId/books')
-		.get(
-			verifyJWT,
-			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
-			//verificar se pertence
-			(req, res, next) => {
-				let roomId = req.params.roomId;
-				rooms
-					.findBooksFromRoom(roomId)
-					.then((books) => {
-						res.status(200).send({
-							message: 'Room books has been successfully found.',
-							books: books,
-						});
-					})
-					.catch(next);
-			}
-		);
+	router.route('/:roomId/books').get(
+		verifyJWT,
+		verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+		//verificar se pertence
+		(req, res, next) => {
+			let roomId = req.params.roomId;
+			rooms
+				.findBooksFromRoom(roomId)
+				.then((books) => {
+					res.status(200).send({
+						message: 'Room books has been successfully found.',
+						books: books,
+					});
+				})
+				.catch(next);
+		}
+	);
 
 	return router;
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const user = require('../components/user');
 const roles = require('../config/roles');
-const verifyJWT = require('../middlewares/verifyJWT');
+const {verifyJWT} = require('../middlewares/verifyJWT');
 const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
 

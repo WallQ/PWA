@@ -1,4 +1,4 @@
-function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
+function roomTypesController(roomTypeModel, bookModel, roomModel) {
 	let services = {
 		create,
 		find,
@@ -26,24 +26,6 @@ function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
 	function create(values) {
 		let newRoomType = roomTypeModel(values);
 		return save(newRoomType);
-	}
-
-	function verifyDirector(idUser, idHotel) {
-		return new Promise((resolve, reject) => {
-			hotelModel.findOne(
-				{ director: idUser, _id: idHotel },
-				(err, result) => {
-					if (err) {
-						reject(err);
-					}
-					if (result) {
-						resolve(true);
-					} else {
-						resolve(false);
-					}
-				}
-			);
-		});
 	}
 
 	function findAll() {

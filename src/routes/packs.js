@@ -1,7 +1,7 @@
 const express = require('express');
 const packs = require('../components/packs');
 const roles = require('../config/roles');
-const verifyJWT = require('../middlewares/verifyJWT');
+const {verifyJWT} = require('../middlewares/verifyJWT');
 const verifyROLES = require('../middlewares/verifyROLES');
 
 function PackRouter() {
