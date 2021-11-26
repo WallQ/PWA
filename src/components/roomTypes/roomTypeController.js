@@ -28,14 +28,6 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 		return save(newRoomType);
 	}
 
-	function findAll() {
-		return new Promise((resolve, reject) => {
-			roomTypeModel.find({}, (err, roomTypes) => {
-				if (err) reject(err);
-				resolve(roomTypes);
-			});
-		});
-	}
 	function find(opt = {}) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel.find(opt, (err, roomTypes) => {
@@ -45,11 +37,30 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 		});
 	}
 
-	function findById(id) {
+	function findAll() {
 		return new Promise((resolve, reject) => {
-			roomTypeModel.findById(id, (err, roomTypes) => {
+			roomTypeModel.find({}, (err, roomTypes) => {
 				if (err) reject(err);
 				resolve(roomTypes);
+			});
+		});
+	}
+
+	function findById(roomTypeId, params) {
+		return new Promise((resolve, reject) => {
+			roomTypeModel.findById(roomTypeId, params, (err, roomTypes) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (roomTypes) {
+						resolve(roomTypes);
+					} else {
+						reject({
+							status: 404,
+							message: 'No roomType have been found.',
+						});
+					}
+				}
 			});
 		});
 	}

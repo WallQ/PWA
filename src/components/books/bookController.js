@@ -7,13 +7,12 @@ function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 		findByUser,
 		findByIdAndUpdate,
 		findByIdAndDelete,
-		finRoomTypes,
+		findRoomTypes,
 		getAvailableRoomTypes,
 	};
 
 	function save(newBook) {
 		return new Promise((resolve, reject) => {
-			//Testar os IDS ( HOTEL, ROOM)
 			newBook.save((err) => {
 				if (err) {
 					reject(err);
@@ -29,17 +28,18 @@ function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 		return save(newBook);
 	}
 
-	function findAll() {
+	function find(opt = {}) {
 		return new Promise((resolve, reject) => {
-			bookModel.find({}, (err, books) => {
+			bookModel.find(opt, (err, books) => {
 				if (err) reject(err);
 				resolve(books);
 			});
 		});
 	}
-	function find(opt = {}) {
+
+	function findAll() {
 		return new Promise((resolve, reject) => {
-			bookModel.find(opt, (err, books) => {
+			bookModel.find({}, (err, books) => {
 				if (err) reject(err);
 				resolve(books);
 			});
@@ -57,7 +57,7 @@ function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 
 	function findByUser(id) {
 		return new Promise((resolve, reject) => {
-			bookModel.find({client: id}, (err, book) => {
+			bookModel.find({ client: id }, (err, book) => {
 				if (err) reject(err);
 				resolve(book);
 			});
@@ -92,7 +92,7 @@ function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 		});
 	}
 
-	function finRoomTypes(roomTypes) {
+	function findRoomTypes(roomTypes) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel
 				.find({ _id: { $in: roomTypes } })

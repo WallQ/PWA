@@ -33,16 +33,44 @@ function RoomRouter() {
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
 			(req, res, next) => {
 				let body = req.body;
-				rooms
-					.create(body)
-					.then((room) => {
-						res.status(201).send({
-							status: 201,
-							message: 'Rooms have been created successfully.',
-							data: room,
-						});
-					})
-					.catch(next);
+				if (!req.roles?.includes(roles.ADMIN)) {
+					rooms
+						.verifyBelongHotel(req.userId, body.hotel)
+						.then((result) => {
+							if (!result) {
+								return res.status(403).send({
+									error: {
+										status: 403,
+										message:
+											"You don't have permission to access this content.",
+									},
+								});
+							}
+							rooms
+								.create(body)
+								.then((room) => {
+									res.status(201).send({
+										status: 201,
+										message:
+											'Room have been created successfully.',
+										data: room,
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				} else {
+					rooms
+						.create(body)
+						.then((room) => {
+							res.status(201).send({
+								status: 201,
+								message: 'Room have been created successfully.',
+								data: room,
+							});
+						})
+						.catch(next);
+				}
 			}
 		);
 
@@ -114,7 +142,6 @@ function RoomRouter() {
 		.delete(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
-			// verificar se pertence ao hotel
 			(req, res, next) => {
 				let roomId = req.params.roomId;
 				rooms
@@ -129,23 +156,24 @@ function RoomRouter() {
 			}
 		);
 
-	router.route('/:roomId/books').get(
-		verifyJWT,
-		verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
-		//verificar se pertence
-		(req, res, next) => {
-			let roomId = req.params.roomId;
-			rooms
-				.findBooksFromRoom(roomId)
-				.then((books) => {
-					res.status(200).send({
-						message: 'Room books has been successfully found.',
-						books: books,
-					});
-				})
-				.catch(next);
-		}
-	);
+	router
+		.route('/:roomId/books')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let roomId = req.params.roomId;
+				rooms
+					.findBooksFromRoom(roomId)
+					.then((books) => {
+						res.status(200).send({
+							message: 'Room books has been successfully found.',
+							books: books,
+						});
+					})
+					.catch(next);
+			}
+		);
 
 	return router;
 }

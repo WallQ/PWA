@@ -1,7 +1,7 @@
 const express = require('express');
 const user = require('../components/user');
 const mailSender = require('../utils/mailSender');
-const {verifyRecoverPasswordJWT} = require('../middlewares/verifyJWT');
+const { verifyRecoverPasswordJWT } = require('../middlewares/verifyJWT');
 
 function AuthRouter() {
 	let router = express();
