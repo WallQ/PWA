@@ -4,6 +4,7 @@ function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 		find,
 		findAll,
 		findById,
+		findByUser,
 		findByIdAndUpdate,
 		findByIdAndDelete,
 		finRoomTypes,
@@ -48,6 +49,15 @@ function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 	function findById(id) {
 		return new Promise((resolve, reject) => {
 			bookModel.findById(id, (err, book) => {
+				if (err) reject(err);
+				resolve(book);
+			});
+		});
+	}
+
+	function findByUser(id) {
+		return new Promise((resolve, reject) => {
+			bookModel.find({client: id}, (err, book) => {
 				if (err) reject(err);
 				resolve(book);
 			});

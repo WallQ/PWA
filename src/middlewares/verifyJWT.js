@@ -57,3 +57,8 @@ exports.verifyRecoverPasswordJWT = (req, res, next) => {
 		next();
 	});
 };
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 87744091f268393afc9b0c8db3b682492d8c92b2
