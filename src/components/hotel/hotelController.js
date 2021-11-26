@@ -10,9 +10,8 @@ function hotelService(
 		findAll,
 		findByName,
 		findById,
-		updateById,
-		deleteById,
-		verifyDirector,
+		findByIdAndUpdate,
+		findByIdAndDelete,
 		findRoomsByHotelId,
 		findRoomTypesByHotelId,
 		findBooksByHotelId,
@@ -34,24 +33,6 @@ function hotelService(
 	function create(values) {
 		let newHotel = hotelModel(values);
 		return save(newHotel);
-	}
-
-	function verifyDirector(idUser, idHotel) {
-		return new Promise((resolve, reject) => {
-			hotelModel.findOne(
-				{ director: idUser, _id: idHotel },
-				(err, result) => {
-					if (err) {
-						reject(err);
-					}
-					if (result) {
-						resolve(true);
-					} else {
-						resolve(false);
-					}
-				}
-			);
-		});
 	}
 
 	function findAll(opt) {
@@ -96,9 +77,9 @@ function hotelService(
 		});
 	}
 
-	function findById(hotelId) {
+	function findById(hotelId, params) {
 		return new Promise((resolve, reject) => {
-			hotelModel.findById(hotelId, (err, hotel) => {
+			hotelModel.findById(hotelId, params, (err, hotel) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -115,7 +96,7 @@ function hotelService(
 		});
 	}
 
-	function updateById(hotelId, values) {
+	function findByIdAndUpdate(hotelId, values) {
 		return new Promise((resolve, reject) => {
 			hotelModel.findByIdAndUpdate(
 				hotelId,
@@ -139,7 +120,7 @@ function hotelService(
 		});
 	}
 
-	function deleteById(hotelId) {
+	function findByIdAndDelete(hotelId) {
 		return new Promise((resolve, reject) => {
 			hotelModel.findByIdAndDelete(hotelId, (err, hotel) => {
 				if (err) {
@@ -160,7 +141,7 @@ function hotelService(
 
 	function findRoomsByHotelId(hotelId) {
 		return new Promise((resolve, reject) => {
-			roomModel.find({hotel : hotelId}, (err, rooms) => {
+			roomModel.find({ hotel: hotelId }, (err, rooms) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -177,28 +158,34 @@ function hotelService(
 		});
 	}
 
-	function findRoomTypesByHotelId(hotelId) {
+	function findRoomTypesByHotelId(hotelId, params) {
 		return new Promise((resolve, reject) => {
-			roomTypeModel.find({hotel : hotelId}, (err, roomTypes) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (roomTypes) {
-						resolve(roomTypes);
+			roomTypeModel
+				.find({ hotel: hotelId }, params, (err, roomTypes) => {
+					if (err) {
+						reject(err);
 					} else {
-						reject({
-							status: 404,
-							message: 'No roomTypes have been found.',
-						});
+						if (roomTypes) {
+							resolve(roomTypes);
+						} else {
+							reject({
+								status: 404,
+								message: 'No roomTypes have been found.',
+							});
+						}
 					}
-				}
-			});
+				})
+				.populate(
+					'packs',
+					'-_id name freeCancel maxGuests maxGuestsChild dailyPrice sale include'
+				)
+				.select('-_id');
 		});
 	}
 
 	function findBooksByHotelId(hotelId) {
 		return new Promise((resolve, reject) => {
-			bookModel.find({hotel : hotelId}, (err, books) => {
+			bookModel.find({ hotel: hotelId }, (err, books) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -217,7 +204,7 @@ function hotelService(
 
 	function findPacksByHotelId(hotelId) {
 		return new Promise((resolve, reject) => {
-			packsModel.find({hotel : hotelId}, (err, packs) => {
+			packsModel.find({ hotel: hotelId }, (err, packs) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -232,7 +219,7 @@ function hotelService(
 				}
 			});
 		});
-	}	
+	}
 
 	return service;
 }

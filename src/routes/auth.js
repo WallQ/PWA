@@ -1,7 +1,7 @@
 const express = require('express');
 const user = require('../components/user');
 const mailSender = require('../utils/mailSender');
-const {verifyRecoverPasswordJWT} = require('../middlewares/verifyJWT');
+const { verifyRecoverPasswordJWT } = require('../middlewares/verifyJWT');
 
 function AuthRouter() {
 	let router = express();
@@ -30,7 +30,7 @@ function AuthRouter() {
 				res.status(200).send({
 					status: 200,
 					message: 'Successfully signed in.',
-					token: token,
+					data: token,
 				});
 			})
 			.catch(next);
@@ -56,7 +56,6 @@ function AuthRouter() {
 				res.status(200).send({
 					status: 200,
 					message: 'A email was send to recover your password',
-					data: [],
 				})
 			)
 			.catch((err) => next(err));
@@ -93,7 +92,6 @@ function AuthRouter() {
 						res.status(200).send({
 							status: 200,
 							message: 'Password has been successfully changed.',
-							data: [],
 						});
 					})
 					.catch((err) => {
@@ -101,7 +99,6 @@ function AuthRouter() {
 							status: 400,
 							message:
 								'Some error on reset your password : ' + err,
-							data: [],
 						});
 					});
 			}

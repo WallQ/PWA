@@ -135,7 +135,13 @@ const hotelSchema = new Schema({
 	director: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'user',
-	}
+	},
+	employee: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'user',
+		},
+	],
 });
 
 const hotel = mongoose.model('hotel', hotelSchema);

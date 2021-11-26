@@ -1,17 +1,10 @@
-function roomsController(roomModel, bookModel, hotelModel) {
+function roomsController(roomModel, bookModel) {
 	let services = {
 		create,
-		exists,
-		verifyDirector,
 		findAll,
 		findById,
-		findByIdPopulated,
-		findByNumber,
-		findByHotel,
 		findByIdAndUpdate,
-		findByNumberAndUpdate,
 		findByIdAndDelete,
-		findOneAndDeleteByNumber,
 		findBooksFromRoom,
 	};
 
@@ -27,36 +20,6 @@ function roomsController(roomModel, bookModel, hotelModel) {
 					reject(err);
 				} else {
 					resolve(newRoom);
-				}
-			});
-		});
-	}
-
-	function verifyDirector(idUser, idHotel) {
-		return new Promise((resolve, reject) => {
-			hotelModel.findOne(
-				{ director: idUser, _id: idHotel },
-				(err, result) => {
-					if (err) {
-						reject(err);
-					}
-					if (result) {
-						resolve(true);
-					} else {
-						resolve(false);
-					}
-				}
-			);
-		});
-	}
-
-	function exists(id) {
-		return new Promise(function (resolve, reject) {
-			newRoom.exists((_id = id), function (err, result) {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(result);
 				}
 			});
 		});
@@ -90,36 +53,6 @@ function roomsController(roomModel, bookModel, hotelModel) {
 		});
 	}
 
-	function findByIdPopulated(id) {
-		return new Promise((resolve, reject) => {
-			roomModel
-				.find({})
-				.populate('roomType')
-				.exec((err, room) => {
-					if (err) reject(err);
-					resolve(room);
-				});
-		});
-	}
-
-	function findByNumber(number) {
-		return new Promise((resolve, reject) => {
-			roomModel.find({ number: number }, (err, room) => {
-				if (err) reject(err);
-				resolve(room);
-			});
-		});
-	}
-
-	function findByHotel(hotelID) {
-		return new Promise((resolve, reject) => {
-			roomModel.find({ hotel: hotelID }, (err, room) => {
-				if (err) reject(err);
-				resolve(room);
-			});
-		});
-	}
-
 	function findByIdAndUpdate(id, values) {
 		return new Promise((resolve, reject) => {
 			roomModel.findByIdAndUpdate(
@@ -144,19 +77,6 @@ function roomsController(roomModel, bookModel, hotelModel) {
 		});
 	}
 
-	function findByNumberAndUpdate(number, values) {
-		return new Promise((resolve, reject) => {
-			roomModel.findOneAndUpdate(
-				{ number: number },
-				values,
-				(err, room) => {
-					if (err) reject(err);
-					resolve(room);
-				}
-			);
-		});
-	}
-
 	function findByIdAndDelete(roomId) {
 		return new Promise((resolve, reject) => {
 			roomModel.findByIdAndDelete(roomId, (err, room) => {
@@ -172,15 +92,6 @@ function roomsController(roomModel, bookModel, hotelModel) {
 						});
 					}
 				}
-			});
-		});
-	}
-
-	function findOneAndDeleteByNumber(number) {
-		return new Promise((resolve, reject) => {
-			roomModel.findOneAndDelete({ number: number }, (err, room) => {
-				if (!room) reject('Can not delete item!');
-				resolve(room);
 			});
 		});
 	}

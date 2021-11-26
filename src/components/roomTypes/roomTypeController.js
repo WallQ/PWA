@@ -1,4 +1,4 @@
-function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
+function roomTypesController(roomTypeModel, bookModel, roomModel) {
 	let services = {
 		create,
 		find,
@@ -28,21 +28,12 @@ function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
 		return save(newRoomType);
 	}
 
-	function verifyDirector(idUser, idHotel) {
+	function find(opt = {}) {
 		return new Promise((resolve, reject) => {
-			hotelModel.findOne(
-				{ director: idUser, _id: idHotel },
-				(err, result) => {
-					if (err) {
-						reject(err);
-					}
-					if (result) {
-						resolve(true);
-					} else {
-						resolve(false);
-					}
-				}
-			);
+			roomTypeModel.find(opt, (err, roomTypes) => {
+				if (err) reject(err);
+				resolve(roomTypes);
+			});
 		});
 	}
 
@@ -54,20 +45,22 @@ function roomTypesController(roomTypeModel, bookModel, roomModel, hotelModel) {
 			});
 		});
 	}
-	function find(opt = {}) {
-		return new Promise((resolve, reject) => {
-			roomTypeModel.find(opt, (err, roomTypes) => {
-				if (err) reject(err);
-				resolve(roomTypes);
-			});
-		});
-	}
 
-	function findById(id) {
+	function findById(roomTypeId, params) {
 		return new Promise((resolve, reject) => {
-			roomTypeModel.findById(id, (err, roomTypes) => {
-				if (err) reject(err);
-				resolve(roomTypes);
+			roomTypeModel.findById(roomTypeId, params, (err, roomTypes) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (roomTypes) {
+						resolve(roomTypes);
+					} else {
+						reject({
+							status: 404,
+							message: 'No roomType have been found.',
+						});
+					}
+				}
 			});
 		});
 	}

@@ -33,6 +33,7 @@ function packsController(packModel) {
 			});
 		});
 	}
+
 	function find(opt = {}) {
 		return new Promise((resolve, reject) => {
 			packModel.find(opt, (err, packs) => {

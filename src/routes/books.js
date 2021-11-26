@@ -1,7 +1,11 @@
 const express = require('express');
 const books = require('../components/books');
+const roles = require('../config/roles');
 const {verifyJWT} = require('../middlewares/verifyJWT');
 const validator = require('./validations/booksValidations')
+const tryDecode = require('../middlewares/tryDecode');
+const verifyROLES = require('../middlewares/verifyROLES');
+
 
 function BookRouter() {
 	let router = express();
@@ -10,8 +14,7 @@ function BookRouter() {
 
 	router
 		.route('/')
-		.get(verifyJWT, (req, res, next) => {
-			// verificar hotel
+		.get(verifyJWT, verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE), (req, res, next) => {
 			books
 				.findAll()
 				.then((rooms) => {
@@ -39,7 +42,7 @@ function BookRouter() {
 
 	router
 		.route('/:bookId')
-		.get((req, res, next) => {
+		.get(verifyJWT, (req, res, next) => {
 			let bookId = req.params.bookId;
 			books
 				.findById(bookId)
@@ -52,7 +55,7 @@ function BookRouter() {
 				})
 				.catch(next);
 		})
-		.put((req, res, next) => {
+		.put(verifyJWT, verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE), (req, res, next) => {
 			let bookId = req.params.bookId;
 			let body = req.body;
 			books
@@ -66,7 +69,7 @@ function BookRouter() {
 				})
 				.catch(next);
 		})
-		.delete((req, res, next) => {
+		.delete(verifyJWT, verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE), (req, res, next) => {
 			let bookId = req.params.bookId;
 			books
 				.findByIdAndDelete(bookId)
@@ -94,7 +97,7 @@ function BookRouter() {
 			);
 			console.log(roomTypesAvailable)
 			books
-				.finRoomTypes(roomTypesAvailable)
+				.findRoomTypes(roomTypesAvailable)
 				.then((books) => {
 					res.status(200).send({
 						status: 200,

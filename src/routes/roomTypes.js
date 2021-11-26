@@ -1,8 +1,10 @@
 const express = require('express');
 const roomTypes = require('../components/roomTypes');
 const roles = require('../config/roles');
-const {verifyJWT} = require('../middlewares/verifyJWT');
+const { verifyJWT } = require('../middlewares/verifyJWT');
+const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
+const verifyBelongHotel = require('../utils/verifyBelongHotel');
 
 function RoomTypeRouter() {
 	let router = express();
@@ -26,30 +28,62 @@ function RoomTypeRouter() {
 		.post(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
-			//verificar se pertence
 			(req, res, next) => {
 				let body = req.body;
-				roomTypes
-					.create(body)
-					.then((roomType) => {
-						res.status(201).send({
-							message: 'RoomType has been created successfully.',
-							roomType: roomType,
-						});
-					})
-					.catch(next);
+				if (!req.roles?.includes(roles.ADMIN)) {
+					rooms
+						.verifyBelongHotel(req.userId, body.hotel)
+						.then((result) => {
+							if (!result) {
+								return res.status(403).send({
+									error: {
+										status: 403,
+										message:
+											"You don't have permission to access this content.",
+									},
+								});
+							}
+							roomTypes
+								.create(body)
+								.then((roomType) => {
+									res.status(201).send({
+										status: 201,
+										message:
+											'RoomType has been created successfully.',
+										roomType: roomType,
+									});
+								})
+								.catch(next);
+						})
+						.catch(next);
+				} else {
+					roomTypes
+						.create(body)
+						.then((roomType) => {
+							res.status(201).send({
+								status: 201,
+								message:
+									'RoomType has been created successfully.',
+								roomType: roomType,
+							});
+						})
+						.catch(next);
+				}
 			}
 		);
 
 	router
 		.route('/:roomTypeId')
-		.get((req, res, next) => {
-			//sensibilizar dados
+		.get(tryDecode, (req, res, next) => {
+			let opt = req.roles?.includes(roles.ADMIN)
+				? ''
+				: 'name description maxGuest maxGuestChild area sale packs facilities';
 			let roomId = req.params.roomTypeId;
 			roomTypes
-				.findById(roomId)
+				.findById(roomId, opt)
 				.then((room) => {
 					res.status(200).send({
+						status: 200,
 						message: 'RoomType have been successfully found.',
 						room: room,
 					});
@@ -64,7 +98,7 @@ function RoomTypeRouter() {
 				let body = req.body;
 				if (!req.roles?.includes(roles.ADMIN)) {
 					rooms
-						.verifyDirector(req.userId, body.hotel)
+						.verifyBelongHotel(req.userId, body.hotel)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
@@ -79,8 +113,8 @@ function RoomTypeRouter() {
 							roomTypes
 								.findByIdAndUpdate(roomTypeId, body)
 								.then((roomType) => {
-									//console.log('RoomType updated -> \n', roomType);
 									res.status(200).send({
+										status: 200,
 										message:
 											'RoomType has been successfully updated.',
 										roomType: roomType,
@@ -93,8 +127,8 @@ function RoomTypeRouter() {
 					roomTypes
 						.findByIdAndUpdate(roomTypeId, body)
 						.then((roomType) => {
-							//console.log('RoomType updated -> \n', roomType);
 							res.status(200).send({
+								status: 200,
 								message:
 									'RoomType has been successfully updated.',
 								roomType: roomType,
@@ -107,14 +141,13 @@ function RoomTypeRouter() {
 		.delete(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR),
-			//verificar se pertence
 			(req, res, next) => {
 				let roomId = req.params.roomTypeId;
 				roomTypes
 					.findByIdAndDelete(roomId)
 					.then((roomType) => {
-						//console.log('RoomType removed -> \n', roomType);
 						res.status(200).send({
+							status: 200,
 							message: 'RoomType has been successfully deleted.',
 							roomType: roomType,
 						});
@@ -123,47 +156,65 @@ function RoomTypeRouter() {
 			}
 		);
 
-	router.route('/:roomTypeId/packs').get(function (req, res, next) {
-		let roomId = req.params.roomTypeId;
-		roomTypes
-			.findPacksFromRoomType(roomId)
-			.then((packs) => {
-				//console.log('Packs found -> \n', packs);
-				res.status(200).send({
-					message: 'Packs have been successfully found.',
-					packs: packs,
-				});
-			})
-			.catch(next);
-	});
+	router
+		.route('/:roomTypeId/packs')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let roomId = req.params.roomTypeId;
+				roomTypes
+					.findPacksFromRoomType(roomId)
+					.then((packs) => {
+						res.status(200).send({
+							status: 200,
+							message: 'Packs have been successfully found.',
+							packs: packs,
+						});
+					})
+					.catch(next);
+			}
+		);
 
-	router.route('/:roomTypeId/books').get(function (req, res, next) {
-		let roomId = req.params.roomTypeId;
-		roomTypes
-			.findBooksFromRoomType(roomId)
-			.then((books) => {
-				//console.log('Books found -> \n', books);
-				res.status(200).send({
-					message: 'Books have been successfully found.',
-					books: books,
-				});
-			})
-			.catch(next);
-	});
+	router
+		.route('/:roomTypeId/books')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let roomId = req.params.roomTypeId;
+				roomTypes
+					.findBooksFromRoomType(roomId)
+					.then((books) => {
+						res.status(200).send({
+							status: 200,
+							message: 'Books have been successfully found.',
+							books: books,
+						});
+					})
+					.catch(next);
+			}
+		);
 
-	router.route('/:roomTypeId/rooms').get(function (req, res, next) {
-		let roomId = req.params.roomTypeId;
-		roomTypes
-			.findRoomsFromRoomType(roomId)
-			.then((rooms) => {
-				//console.log('Rooms found -> \n', rooms);
-				res.status(200).send({
-					message: 'Rooms have been successfully found.',
-					rooms: rooms,
-				});
-			})
-			.catch(next);
-	});
+	router
+		.route('/:roomTypeId/rooms')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let roomId = req.params.roomTypeId;
+				roomTypes
+					.findRoomsFromRoomType(roomId)
+					.then((rooms) => {
+						res.status(200).send({
+							status: 200,
+							message: 'Rooms have been successfully found.',
+							rooms: rooms,
+						});
+					})
+					.catch(next);
+			}
+		);
 
 	return router;
 }
