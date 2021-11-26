@@ -1,0 +1,129 @@
+[{
+  "_id": {
+    "$oid": "61a0442176797ffc2a97aa9e"
+  },
+  "name": "Sérgio",
+  "surname": "Félix",
+  "email": "8200615@estg.ipp.pt",
+  "password": "$2b$10$.ag8bruCfKADa/CjVmeEtOnadOthIOuxDlMMcqqcWobqs4MnvLAh.",
+  "roles": [
+    "admin",
+    "director",
+    "employee",
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:19:13.693Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a0442b76797ffc2a97aaa0"
+  },
+  "name": "André",
+  "surname": "Pinto",
+  "email": "8200613@estg.ipp.pt",
+  "password": "$2b$10$ff0mLpp7dr3f3lMSgILC2u0itKWuorGWqDPWowRCrWl/tdyzWf.NO",
+  "roles": [
+    "director",
+    "employee",
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:19:23.404Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a044d976797ffc2a97aaa2"
+  },
+  "name": "Cliente",
+  "surname": "Teste",
+  "email": "clienteteste@estg.ipp.pt",
+  "password": "$2b$10$BjSj5H5c3PU6SYCDsJcoQOPzFvgX9fKO/K4zau105IAuHm.T58FtS",
+  "roles": [
+    "employee",
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:22:17.604Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a044dd76797ffc2a97aaa4"
+  },
+  "name": "Cliente",
+  "surname": "Teste1",
+  "email": "clienteteste1@estg.ipp.pt",
+  "password": "$2b$10$bOp8UizjOJy4Gja2eChwGeYMN8kTOZOC.QpXzIbW06rzkhLwCLt6i",
+  "roles": [
+    "employee",
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:22:21.478Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a044e176797ffc2a97aaa6"
+  },
+  "name": "Cliente",
+  "surname": "Teste2",
+  "email": "clienteteste2@estg.ipp.pt",
+  "password": "$2b$10$EitfS5YjaYYPMNhmSP0RheYKiu2kq8HralEfCUqfxfx8HwfU88FnK",
+  "roles": [
+    "employee",
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:22:25.160Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a0489296cd78a40308a779"
+  },
+  "name": "Cliente",
+  "surname": "Teste3",
+  "email": "clienteteste3@estg.ipp.pt",
+  "password": "$2b$10$g2qY3Fj4fQast2/XOW0X4.05bNu6ZE.e80Ycl9TUnWip8VhbK/gRW",
+  "roles": [
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:38:10.849Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a0489796cd78a40308a77b"
+  },
+  "name": "Cliente",
+  "surname": "Teste4",
+  "email": "clienteteste4@estg.ipp.pt",
+  "password": "$2b$10$V1XqsdMlMfzqSR4998ajteL9WA9tVgpVkTOnAWFFSMCGPSZ5not2i",
+  "roles": [
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:38:15.304Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a048a696cd78a40308a77d"
+  },
+  "name": "Cliente",
+  "surname": "Teste5",
+  "email": "clienteteste5@estg.ipp.pt",
+  "password": "$2b$10$VboUBJ3oZR6O5Hj7WyUqouO3TzTIDTK0xSnX1O4FP3Qo2GspYKQQS",
+  "roles": [
+    "client"
+  ],
+  "createdDate": {
+    "$date": "2021-11-26T02:38:30.728Z"
+  },
+  "__v": 0
+}]

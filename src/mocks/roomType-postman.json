@@ -1,20 +1,19 @@
 {
-    "hotel": "idHotel",
-    "name": "test",
-    "description":"test",
-    "maxGuest":1,
-    "maxGuestChild":1,
+    "hotel": "61a0479f82d81d49a844e191",
+    "name": "Quarto Familia",
+    "description":"Quarto muito espacoso",
+    "maxGuest":2,
+    "maxGuestChild":2,
     "area": "1",
     "sale":0,
     "packs":[
-        "619e78798e4295a4d9fe9d1c",
-        "619e78798e4295a4d9fe9d1c"
+        "61a04bc59e45046fb4894508"
     ],
     "facilities":[
-        {"icon": "test" ,"description":"Mesa ou local de trabalho"},
-        {"icon": "test" ,"description":"Wifi grátis"},
-        {"icon": "test" ,"description":"Não fumador"},
-        {"icon": "test" ,"description":"Ar condicionado"}
+        {"icon": "../images/1.svg" ,"description":"Mesa ou local de trabalho"},
+        {"icon": "../images/2.svg" ,"description":"Wifi grátis"},
+        {"icon": "../images/3.svg" ,"description":"Não fumador"},
+        {"icon": "../images/4.svg" ,"description":"Ar condicionado"}
     ],
     "priceByMonth":[
         {"month": 1, "default_price":50,"weekend_price":90},
@@ -36,5 +35,4 @@
         {"day":"10/10/2021","price":100},
         {"day":"10/10/2021","price":100}
     ]
-
 }

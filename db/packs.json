@@ -1,0 +1,135 @@
+[{
+  "_id": {
+    "$oid": "61a04a0ab218cafaf8b2a05c"
+  },
+  "name": "Pack Barato",
+  "hotel": {
+    "$oid": "61a046e582d81d49a844e184"
+  },
+  "freeCancel": true,
+  "maxGuests": 2,
+  "maxGuestsChild": 0,
+  "dailyPrice": 60,
+  "minNights": 1,
+  "sale": 0,
+  "include": [
+    "Pequeno Almoço",
+    " Jantar"
+  ],
+  "start_date": {
+    "$date": "2021-12-16T00:00:00Z"
+  },
+  "end_date": {
+    "$date": "2022-01-03T00:00:00Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04a12b218cafaf8b2a05e"
+  },
+  "name": "Pack Caro",
+  "hotel": {
+    "$oid": "61a046e582d81d49a844e184"
+  },
+  "freeCancel": false,
+  "maxGuests": 2,
+  "maxGuestsChild": 0,
+  "dailyPrice": 120,
+  "minNights": 2,
+  "sale": 0,
+  "include": [
+    "Pequeno Almoço",
+    "Jantar",
+    "Spa",
+    "Acesso ao terraço"
+  ],
+  "start_date": {
+    "$date": "2021-12-27T00:00:00Z"
+  },
+  "end_date": {
+    "$date": "2022-01-03T00:00:00Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04acc61818e989487b232"
+  },
+  "name": "Pack Romantico",
+  "hotel": {
+    "$oid": "61a0483796cd78a40308a76b"
+  },
+  "freeCancel": true,
+  "maxGuests": 2,
+  "maxGuestsChild": 0,
+  "dailyPrice": 80,
+  "minNights": 1,
+  "sale": 0,
+  "include": [
+    "Pequeno Almoço",
+    " Jantar",
+    "Piscina",
+    "Spa",
+    "Acesso ao terraço",
+    "Champanhe",
+    "Rosas"
+  ],
+  "start_date": {
+    "$date": "2021-12-27T00:00:00Z"
+  },
+  "end_date": {
+    "$date": "2022-01-03T00:00:00Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04bc19e45046fb4894506"
+  },
+  "name": "Pack Marinha",
+  "hotel": {
+    "$oid": "61a0479f82d81d49a844e191"
+  },
+  "freeCancel": true,
+  "maxGuests": 2,
+  "maxGuestsChild": 1,
+  "dailyPrice": 190,
+  "minNights": 1,
+  "sale": 0,
+  "include": [
+    "Jantar",
+    "Acesso a marinha",
+    "Passeio de barco"
+  ],
+  "start_date": {
+    "$date": "2021-11-29T00:00:00Z"
+  },
+  "end_date": {
+    "$date": "2022-01-15T00:00:00Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04bc59e45046fb4894508"
+  },
+  "name": "Pack Diversao",
+  "hotel": {
+    "$oid": "61a0479f82d81d49a844e191"
+  },
+  "freeCancel": false,
+  "maxGuests": 2,
+  "maxGuestsChild": 0,
+  "dailyPrice": 75,
+  "minNights": 1,
+  "sale": 0,
+  "include": [
+    "Pequeno Almoço",
+    " Jantar",
+    "Concerto"
+  ],
+  "start_date": {
+    "$date": "2021-12-29T00:00:00Z"
+  },
+  "end_date": {
+    "$date": "2022-01-01T00:00:00Z"
+  },
+  "__v": 0
+}]

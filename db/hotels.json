@@ -1,0 +1,393 @@
+[{
+  "_id": {
+    "$oid": "61a046e582d81d49a844e184"
+  },
+  "name": "The Yeatman",
+  "description": "The Yeatman is a luxury wine hotel and spa in Porto with spectacular views over the UNESCO World Heritage city and the Douro River.",
+  "rating": 5,
+  "address": {
+    "street": "Rua do Choupelo",
+    "postCode": "4400-088",
+    "doorNumber": 1,
+    "district": "Porto",
+    "locality": "Vila Nova de Gaia",
+    "country": "Portugal",
+    "map": "",
+    "_id": {
+      "$oid": "61a046e582d81d49a844e185"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "220133100",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e186"
+      }
+    },
+    {
+      "type": "email",
+      "contact": "reservations@theyeatman.com",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e187"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e188"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kingdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e189"
+      }
+    }
+  ],
+  "images": [
+    {
+      "cover": true,
+      "path": "../images/front-cover.jpg",
+      "tags": [
+        "sea",
+        "beautiful"
+      ],
+      "_id": {
+        "$oid": "61a046e582d81d49a844e18a"
+      }
+    },
+    {
+      "cover": false,
+      "path": "../images/room.jpg",
+      "tags": [
+        "clean",
+        "fresh",
+        "beautiful"
+      ],
+      "_id": {
+        "$oid": "61a046e582d81d49a844e18b"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "../icons/sea.svg",
+      "description": "Sea view",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e18c"
+      }
+    },
+    {
+      "icon": "../icons/no-smoking.svg",
+      "description": "Smoking not allowed",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e18d"
+      }
+    }
+  ],
+  "comments": [
+    {
+      "userID": "123wasd",
+      "message": "Loved the place!",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e18e"
+      }
+    },
+    {
+      "userID": "wasd321",
+      "message": "Hated the place!",
+      "_id": {
+        "$oid": "61a046e582d81d49a844e18f"
+      }
+    }
+  ],
+  "url": "https://www.the-yeatman-hotel.com/",
+  "director": {
+    "$oid": "61991fe289e8848774bbdd4f"
+  },
+  "employee": [
+    {
+      "$oid": "61a044d976797ffc2a97aaa2"
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a0479f82d81d49a844e191"
+  },
+  "name": "Tivoli Marina Vilamoura Algarve Resort",
+  "description": "The iconic Tivoli Marina Vilamoura Algarve Resort is far more than a luxury 5 star hotel in Vilamoura.",
+  "rating": 5,
+  "address": {
+    "street": "Apartado 65 Marina Vilamoura",
+    "postCode": "8125-401",
+    "doorNumber": 1,
+    "district": "Faro",
+    "locality": "Vilamoura",
+    "country": "Portugal",
+    "map": "",
+    "_id": {
+      "$oid": "61a0479f82d81d49a844e192"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "289303303",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e193"
+      }
+    },
+    {
+      "type": "email",
+      "contact": "marinavilamoura@tivoli-hotels.com",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e194"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e195"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kingdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e196"
+      }
+    },
+    {
+      "initials": "DE",
+      "country": "German",
+      "language": "Deutsch",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e197"
+      }
+    },
+    {
+      "initials": "FR",
+      "country": "France",
+      "language": "French",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e198"
+      }
+    },
+    {
+      "initials": "ES",
+      "country": "Spain",
+      "language": "Spanish",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e199"
+      }
+    }
+  ],
+  "images": [
+    {
+      "cover": true,
+      "path": "../images/front-cover.jpg",
+      "tags": [
+        "sea",
+        "beautiful"
+      ],
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e19a"
+      }
+    },
+    {
+      "cover": false,
+      "path": "../images/room.jpg",
+      "tags": [
+        "clean",
+        "fresh",
+        "beautiful"
+      ],
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e19b"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "../icons/sea.svg",
+      "description": "Sea view",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e19c"
+      }
+    },
+    {
+      "icon": "../icons/no-smoking.svg",
+      "description": "Smoking not allowed",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e19d"
+      }
+    }
+  ],
+  "comments": [
+    {
+      "userID": "123wasd",
+      "message": "Beautiful view of the sea!",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e19e"
+      }
+    },
+    {
+      "userID": "wasd321",
+      "message": "I loved the hospitality!",
+      "_id": {
+        "$oid": "61a0479f82d81d49a844e19f"
+      }
+    }
+  ],
+  "url": "https://www.tivolihotels.com/tivoli-marina-vilamoura",
+  "director": {
+    "$oid": "61a0442b76797ffc2a97aaa0"
+  },
+  "employee": [
+    {
+      "$oid": "61a044dd76797ffc2a97aaa4"
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a0483796cd78a40308a76b"
+  },
+  "name": "Hotel Altis Avenida",
+  "description": "O Hotel Altis Avenida é um boutique hotel de charme em Lisboa, com uma localização extraordinária no centro da cidade, na Praça dos Restauradores. A arquitetura e decoração são inspiradas nos anos 40 e giram em torno do conceito urban chic, onde o passado e futuro se encontram criando um ambiente único de charme e glamour.",
+  "rating": 5,
+  "address": {
+    "street": "Rua 1º Dezembro",
+    "postCode": "1200-360",
+    "doorNumber": 120,
+    "district": "Lisboa",
+    "locality": "Lisboa",
+    "country": "Portugal",
+    "map": "",
+    "_id": {
+      "$oid": "61a0483796cd78a40308a76c"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "210440000",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a76d"
+      }
+    },
+    {
+      "type": "email",
+      "contact": " guestserviceavenida@altishotels.com",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a76e"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a76f"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kingdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a770"
+      }
+    },
+    {
+      "initials": "ES",
+      "country": "Spain",
+      "language": "Spanish",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a771"
+      }
+    }
+  ],
+  "images": [
+    {
+      "cover": true,
+      "path": "../images/front-cover.jpg",
+      "tags": [
+        "sea",
+        "beautiful"
+      ],
+      "_id": {
+        "$oid": "61a0483796cd78a40308a772"
+      }
+    },
+    {
+      "cover": false,
+      "path": "../images/room.jpg",
+      "tags": [
+        "clean",
+        "fresh",
+        "beautiful"
+      ],
+      "_id": {
+        "$oid": "61a0483796cd78a40308a773"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "../icons/sea.svg",
+      "description": "Sea view",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a774"
+      }
+    },
+    {
+      "icon": "../icons/no-smoking.svg",
+      "description": "Smoking not allowed",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a775"
+      }
+    }
+  ],
+  "comments": [
+    {
+      "userID": "123wasd",
+      "message": "Delicious gastronomic dishes!",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a776"
+      }
+    },
+    {
+      "userID": "wasd321",
+      "message": "Too much noise!",
+      "_id": {
+        "$oid": "61a0483796cd78a40308a777"
+      }
+    }
+  ],
+  "url": "https://www.tivolihotels.com/tivoli-marina-vilamoura",
+  "director": {
+    "$oid": "61a0442176797ffc2a97aa9e"
+  },
+  "employee": [
+    {
+      "$oid": "61a044e176797ffc2a97aaa6"
+    }
+  ],
+  "__v": 0
+}]

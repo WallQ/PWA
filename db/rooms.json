@@ -1,0 +1,131 @@
+[{
+  "_id": {
+    "$oid": "61a04e9d1f238e5d7cbe6b93"
+  },
+  "number": "1",
+  "roomType": {
+    "$oid": "61a04d479c181b96e3ee2f15"
+  },
+  "hotel": {
+    "$oid": "61a046e582d81d49a844e184"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04ea21f238e5d7cbe6b95"
+  },
+  "number": "2",
+  "roomType": {
+    "$oid": "61a04d479c181b96e3ee2f15"
+  },
+  "hotel": {
+    "$oid": "61a046e582d81d49a844e184"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04ea51f238e5d7cbe6b97"
+  },
+  "number": "3",
+  "roomType": {
+    "$oid": "61a04d479c181b96e3ee2f15"
+  },
+  "hotel": {
+    "$oid": "61a046e582d81d49a844e184"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04eb31f238e5d7cbe6b99"
+  },
+  "number": "10",
+  "roomType": {
+    "$oid": "61a04ceb8b3626c1f81431d8"
+  },
+  "hotel": {
+    "$oid": "61a046e582d81d49a844e184"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04f271f238e5d7cbe6b9b"
+  },
+  "number": "1",
+  "roomType": {
+    "$oid": "61a04daabaa2d3c83343ca37"
+  },
+  "hotel": {
+    "$oid": "61a0483796cd78a40308a76b"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04f291f238e5d7cbe6b9d"
+  },
+  "number": "2",
+  "roomType": {
+    "$oid": "61a04daabaa2d3c83343ca37"
+  },
+  "hotel": {
+    "$oid": "61a0483796cd78a40308a76b"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04f451f238e5d7cbe6b9f"
+  },
+  "number": "1",
+  "roomType": {
+    "$oid": "61a04de99794f5aca7830446"
+  },
+  "hotel": {
+    "$oid": "61a0479f82d81d49a844e191"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04f471f238e5d7cbe6ba1"
+  },
+  "number": "2",
+  "roomType": {
+    "$oid": "61a04de99794f5aca7830446"
+  },
+  "hotel": {
+    "$oid": "61a0479f82d81d49a844e191"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04f491f238e5d7cbe6ba3"
+  },
+  "number": "3",
+  "roomType": {
+    "$oid": "61a04de99794f5aca7830446"
+  },
+  "hotel": {
+    "$oid": "61a0479f82d81d49a844e191"
+  },
+  "notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61a04f581f238e5d7cbe6ba5"
+  },
+  "number": "7",
+  "roomType": {
+    "$oid": "61a04e031f238e5d7cbe6b7d"
+  },
+  "hotel": {
+    "$oid": "61a0479f82d81d49a844e191"
+  },
+  "notes": "",
+  "__v": 0
+}]
