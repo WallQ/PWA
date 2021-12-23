@@ -2,6 +2,7 @@ const express = require('express');
 const user = require('../components/user');
 const mailSender = require('../utils/mailSender');
 const { verifyRecoverPasswordJWT } = require('../middlewares/verifyJWT');
+const cookieParser = require('cookie-parser');
 
 function AuthRouter() {
 	let router = express();
@@ -24,26 +25,38 @@ function AuthRouter() {
 
 	router.route('/sign-in').post((req, res, next) => {
 		let body = req.body;
-		user.verifyUser(body)
-			.then((userData) => user.createToken(userData))
-			.then((token) => {
-				res.status(200).send({
-					status: 200,
-					message: 'Successfully signed in.',
-					data: token,
-				});
-			})
-			.catch(next);
+        return  user.findUser(body)
+        .then((userResponse)=> user.createToken(userResponse))
+        .then((response) => {
+            res.cookie('token', response.token, {httpOnly: true});
+            res.status(200);
+            res.send(response);
+        })
+        .catch((err) => {
+            res.status(500);
+            res.send(err)
+            next();
+        })
+	});
+	router.use(cookieParser)
+	router.use(verifyRecoverPasswordJWT)
+
+	router.route('/me')
+    .get((req, res, next) => {
+        res.status(202).send({auth:true})
+    })
+
+	router.route('/sign-out')
+	.get((req, res, next) => {
+		res.cookie('token', req.cookies.token, {httpOnly: true, maxAge:0})
+
+            res.status(200);
+            res.send({logout: true})
+            next();
 	});
 
-	router.route('/sign-out').get((req, res, next) => {
-		res.status(200).send({
-			status: 200,
-			message: 'Successfully signed out.',
-		});
-	});
-
-	router.route('/forgot-password').post((req, res, next) => {
+	router.route('/forgot-password')
+	.post((req, res, next) => {
 		let email = req.body.email;
 		user.findByEmail(email)
 			.then((userData) =>
@@ -61,48 +74,47 @@ function AuthRouter() {
 			.catch((err) => next(err));
 	});
 
-	router
-		.route('/new-password')
-		.post(verifyRecoverPasswordJWT, (req, res, next) => {
-			let { password: newPassword, passwordMatch } = req.body;
-			if (
-				!req.userId ||
-				!req.email ||
-				!req.validationHash ||
-				!newPassword ||
-				!passwordMatch ||
-				newPassword != passwordMatch
-			) {
-				return;
-				res.status(401).send({
-					error: {
-						status: 401,
-						message:
-							'Please check all parameter required. Somthing wrong',
-					},
-				});
-			} else {
-				user.verifyRecoverPassword(
-					req.userId,
-					newPassword,
-					req.validationHash
-				)
-					.then(() => {
-						return;
-						res.status(200).send({
-							status: 200,
-							message: 'Password has been successfully changed.',
-						});
-					})
-					.catch((err) => {
-						res.status(400).send({
-							status: 400,
-							message:
-								'Some error on reset your password : ' + err,
-						});
+	router.route('/new-password')
+	.post((req, res, next) => {
+		let { password: newPassword, passwordMatch } = req.body;
+		if (
+			!req.userId ||
+			!req.email ||
+			!req.validationHash ||
+			!newPassword ||
+			!passwordMatch ||
+			newPassword != passwordMatch
+		) {
+			return;
+			res.status(401).send({
+				error: {
+					status: 401,
+					message:
+						'Please check all parameter required. Somthing wrong',
+				},
+			});
+		} else {
+			user.verifyRecoverPassword(
+				req.userId,
+				newPassword,
+				req.validationHash
+			)
+				.then(() => {
+					return;
+					res.status(200).send({
+						status: 200,
+						message: 'Password has been successfully changed.',
 					});
-			}
-		});
+				})
+				.catch((err) => {
+					res.status(400).send({
+						status: 400,
+						message:
+							'Some error on reset your password : ' + err,
+					});
+				});
+		}
+	});
 
 	return router;
 }
