@@ -1,23 +1,21 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { Navigate } from 'react-router'
 import "antd/dist/antd.css";
 import './Login.css';
 
     
 const Login = () => {
-    const { register, handleSubmit} = useForm();
     const [loginSucess, setLoginSucess] = useState(false);
     const onSubmit = data => login(data)
 
-    const login = (data) => {
-        cconsole.log('Form Values:', values);
-        fetch('/auth/login', {
+    const login = (values) => {
+        console.log('Form Values:', values);
+        fetch('http://localhost:80/auth/sign-in', {
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(values)
         })
         .then(r => r.json())
         .then((response)=>{
@@ -44,7 +42,7 @@ const Login = () => {
     };
 
     if(loginSucess){
-        return <Navigate to='/players'/>
+        return <Navigate to='dashboard'/>
     }
 
 
