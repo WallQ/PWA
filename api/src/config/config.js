@@ -4,7 +4,12 @@ const config = {
 	development: {
 		server: {
 			host: process.env.SERVER_HOST || '127.0.0.1',
-			port: process.env.SERVER_PORT || 3000,
+			http: {
+				port: process.env.SERVER_HTTP_PORT || 3000,
+			},
+			https: {
+				port: process.env.SERVER_HTTPS_PORT || 3030,
+			},
 		},
 		database: {
 			host: process.env.DATABASE_HOST || '127.0.0.1',
