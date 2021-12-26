@@ -1,24 +1,28 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Loading from './components/Loading/';
-const Homepage = React.lazy(() => import('./pages/Homepage/'));
-const SignUp = React.lazy(() => import('./pages/SignUp/'));
-const SignIn = React.lazy(() => import('./pages/SignIn/'));
-const Error = React.lazy(() => import('./pages/Error/'));
+
+const Layout = lazy(() => import('./Layout/Main'));
+const Homepage = lazy(() => import('./pages/Homepage/'));
+const SignUp = lazy(() => import('./pages/SignUp/'));
+const SignIn = lazy(() => import('./pages/SignIn/'));
+const SignOut = lazy(() => import('./pages/SignOut/'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function Website() {
 	return (
-		<div className="bg-light">
-			<Suspense fallback={<Loading />}>
-				<Routes>
-					<Route element={<Homepage />} path="/" />
-					<Route element={<SignUp />} path="signup" />
-					<Route element={<SignIn />} path="signin" />
-					<Route element={<Error />} path="*" />
-				</Routes>
-			</Suspense>
-		</div>
+		<Suspense fallback={<Loading />}>
+			<Routes>
+				<Route element={<Layout />} path="/">
+					<Route element={<Homepage />} index />
+					<Route element={<NotFound />} path="*" />
+				</Route>
+				<Route element={<SignUp />} path="sign-up" />
+				<Route element={<SignIn />} path="sign-in" />
+				<Route element={<SignOut />} path="sign-out" />
+			</Routes>
+		</Suspense>
 	);
 }
 

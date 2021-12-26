@@ -4,3 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+@layer components {
+	.btn-primary {
+		@apply font-sans text-lg font-bold text-left text-white hover:text-white rounded-lg cursor-pointer px-3 h-10 ml-3 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700;
+	}
+	.text-shadow {
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+	.text-shadow-md {
+		text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+	}
+	.text-shadow-lg {
+		text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+	}
+	.text-shadow-none {
+		text-shadow: none;
+	}
+}

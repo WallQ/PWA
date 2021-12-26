@@ -5,10 +5,10 @@ const config = {
 		server: {
 			host: process.env.SERVER_HOST || '127.0.0.1',
 			http: {
-				port: process.env.SERVER_HTTP_PORT || 3000,
+				port: process.env.SERVER_HTTP_PORT || 3030,
 			},
 			https: {
-				port: process.env.SERVER_HTTPS_PORT || 3030,
+				port: process.env.SERVER_HTTPS_PORT || 3060,
 			},
 		},
 		database: {
@@ -19,7 +19,7 @@ const config = {
 		jsonwebtoken: {
 			secret: process.env.JWT_SECRET || 'secret',
 			recover_secret: process.env.JWT_RECOVER || 'secret',
-			expires_time: process.env.JWT_EXPIRES_TIME || 3600,
+			expires_time: process.env.JWT_EXPIRES_TIME || 1800000,
 		},
 		bcrypt: {
 			saltRounds: process.env.SALT_ROUNDS || 10,

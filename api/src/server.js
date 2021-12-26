@@ -23,6 +23,6 @@ https
 	.createServer(options, app)
 	.listen(config.server.https.port, config.server.host, () => {
 		console.log(
-			`Server running at -> http://${config.server.host}:${config.server.https.port}/`
+			`Server running at -> https://${config.server.host}:${config.server.https.port}/`
 		);
 	});
