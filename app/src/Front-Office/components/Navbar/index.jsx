@@ -28,7 +28,7 @@ function Navbar() {
 				</NavLink>
 				<div className="hidden md:flex">
 					<div className="relative">
-						<input type="text" id="Search" name="search" placeholder="Search" className={`h-10 px-3 py-1 pr-10 ring-0 focus:outline-none ease-linear duration-500 font-sans text-base font-medium text-left ${navBar ? 'bg-transparent border-b-2 border-white rounded-none text-white placeholder:text-white' : 'bg-white rounded-lg text-blue-700'}`} />
+						<input type="text" id="Search" name="search" placeholder="Search" className={`h-10 px-3 pr-10 ring-0 focus:outline-none ease-linear duration-500 font-sans text-base font-medium text-left ${navBar ? 'bg-transparent border-b-2 border-white rounded-none text-white placeholder:text-white' : 'bg-white rounded-lg text-blue-700'}`} />
 						<button type="submit" value="submit" className="absolute right-0 top-0 mt-3 mr-3">
 							<FaSearch className={`w-4 h-4 ease-linear duration-500 ${navBar ? 'fill-white' : 'fill-blue-600'}`} />
 						</button>

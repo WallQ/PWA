@@ -24,9 +24,9 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 					{ searchBar && (
 						<div className={`flex flex-col md:flex-row justify-between items-center ${titleWord ? 'mt-6' : 'mt-6'}`}>
 							<div className="flex flex-col md:flex-row">
-								<input type="date" name="" id="" className='mr-0 md:mr-5 mb-5 md:mb-0'/>
-								<input type="date" name="" id="" className='mr-0 md:mr-5 mb-5 md:mb-0'/>
-								<input type="date" name="" id="" className='mr-0 md:mr-5 mb-5 md:mb-0'/>
+								<input type="date" name="" id="" className='mr-0 md:mr-5 mb-5 md:mb-0 h-10 px-3 ring-0 focus:outline-none text-blue-700 rounded-lg font-sans text-base font-medium text-left'/>
+								<input type="date" name="" id="" className='mr-0 md:mr-5 mb-5 md:mb-0 h-10 px-3 ring-0 focus:outline-none text-blue-700 rounded-lg font-sans text-base font-medium text-left'/>
+								<input type="date" name="" id="" className='mr-0 md:mr-5 mb-5 md:mb-0 h-10 px-3 ring-0 focus:outline-none text-blue-700 rounded-lg font-sans text-base font-medium text-left'/>
 							</div>
 							<button type="submit" value="submit" className="btn-primary bg-blue-600 hover:bg-blue-700">
 								<FaSearch className="w-5 h-5 mr-2 fill-white" />
