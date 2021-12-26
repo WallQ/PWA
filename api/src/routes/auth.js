@@ -46,6 +46,7 @@ function AuthRouter() {
 					path: '/',
 					domain: '127.0.0.1',
 					secure: process.env.NODE_ENV === 'development' ? false : true,
+					sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
 					httpOnly: true,
 				})
 					.status(200)
