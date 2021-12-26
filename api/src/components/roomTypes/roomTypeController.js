@@ -37,13 +37,29 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 		});
 	}
 
-	function findAll() {
+
+	function findAll(pagination) {
+		const {limit, skip}= pagination;
+
 		return new Promise((resolve, reject) => {
-			roomTypeModel.find({}, (err, roomTypes) => {
+			roomTypeModel.find({},{},{skip,limit},(err, roomTypes) => {
 				if (err) reject(err);
 				resolve(roomTypes);
 			});
-		});
+		})
+		.then( async (roomTypes) => {
+            const totalRoomTypes = await roomTypeModel.count();
+
+            return Promise.resolve({
+                roomTypes: roomTypes,
+                pagination:{
+                    pageSize: limit,
+                    page: Math.floor(skip / limit),
+                    hasMore: (skip + limit) < totalRoomTypes,
+                    total: totalRoomTypes
+                }
+            });
+        });
 	}
 
 	function findById(roomTypeId, params) {

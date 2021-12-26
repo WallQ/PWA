@@ -5,23 +5,26 @@ const { verifyJWT } = require('../middlewares/verifyJWT');
 const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
 const verifyBelongHotel = require('../utils/verifyBelongHotel');
+const pagination = require('../middlewares/pagination');
 
 function RoomTypeRouter() {
 	let router = express();
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
 
-	router
-		.route('/')
-		.get((req, res, next) => {
+	router.route('/')
+		.get(pagination,(req, res, next) => {
 			roomTypes
-				.findAll()
+				.findAll(req.pagination)
 				.then((rooms) => {
-					res.status(200).send({
+					const response = {
+						auth:true,
 						status: 200,
 						message: 'RoomTypes have been successfully found.',
-						rooms: rooms,
-					});
+						...rooms
+					}
+					res.send(response);
+					
 				})
 				.catch(next);
 		})
@@ -72,8 +75,7 @@ function RoomTypeRouter() {
 			}
 		);
 
-	router
-		.route('/:roomTypeId')
+	router.route('/:roomTypeId')
 		.get(tryDecode, (req, res, next) => {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
@@ -156,8 +158,7 @@ function RoomTypeRouter() {
 			}
 		);
 
-	router
-		.route('/:roomTypeId/packs')
+	router.route('/:roomTypeId/packs')
 		.get(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
@@ -176,8 +177,7 @@ function RoomTypeRouter() {
 			}
 		);
 
-	router
-		.route('/:roomTypeId/books')
+	router.route('/:roomTypeId/books')
 		.get(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
@@ -196,8 +196,7 @@ function RoomTypeRouter() {
 			}
 		);
 
-	router
-		.route('/:roomTypeId/rooms')
+	router.route('/:roomTypeId/rooms')
 		.get(
 			verifyJWT,
 			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
