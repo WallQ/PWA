@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/images/logo.svg';
-import { FaUser, FaUserPlus, FaUserTimes, FaChevronDown } from 'react-icons/fa';
+import { FaUser, FaUserPlus, FaUserTimes, FaSearch, FaChevronDown } from 'react-icons/fa';
 
 function Navbar() {
 	const [navBar, setNavbar] = useState(false);
@@ -27,16 +27,22 @@ function Navbar() {
 					</h1>
 				</NavLink>
 				<div className="hidden md:flex">
-					<NavLink to="/signup" className={`btn-primary ${navBar ? '' : 'bg-cyan-400 hover:bg-cyan-500 '}`}>
-						<FaUserPlus className="btn-primary-icon" />
+					<div className="relative">
+						<input type="text" id="Search" name="search" placeholder="Search" className={`h-10 px-3 py-1 pr-10 ring-0 focus:outline-none ease-linear duration-500 font-sans text-base font-medium text-left ${navBar ? 'bg-transparent border-b-2 border-white rounded-none text-white placeholder:text-white' : 'bg-white rounded-lg text-blue-700'}`} />
+						<button type="submit" value="submit" className="absolute right-0 top-0 mt-3 mr-3">
+							<FaSearch className={`w-4 h-4 ease-linear duration-500 ${navBar ? 'fill-white' : 'fill-blue-600'}`} />
+						</button>
+					</div>
+					<NavLink to="/sign-up" className={`btn-primary ${navBar ? '' : ' bg-blue-600 hover:bg-blue-700 '}`}>
+						<FaUserPlus className="w-5 h-5 mr-2 fill-white" />
 						Sign Up
 					</NavLink>
-					<NavLink to="/signin" className={`btn-primary ${navBar ? '' : 'bg-cyan-400 hover:bg-cyan-500 '}`}>
-						<FaUser className="btn-primary-icon" />
+					<NavLink to="/sign-in" className={`btn-primary ${navBar ? '' : ' bg-blue-600 hover:bg-blue-700 '}`}>
+						<FaUser className="w-5 h-5 mr-2 fill-white" />
 						Sign In
 					</NavLink>
-					<NavLink to="/signout" className={`btn-primary ${navBar ? '' : 'bg-cyan-400 hover:bg-cyan-500 '}`}>
-						<FaUserTimes className="btn-primary-icon" />
+					<NavLink to="/sign-out" className={`btn-primary ${navBar ? '' : ' bg-blue-600 hover:bg-blue-700 '}`}>
+						<FaUserTimes className="w-5 h-5 mr-2 fill-white" />
 						Sign Out
 					</NavLink>
 				</div>
@@ -46,13 +52,13 @@ function Navbar() {
 							<FaChevronDown className="h-8 w-8 text-white" />
 						</button>
 						{/* <div className={`absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl ease-linear duration-700 ${dropDown ? '' : 'invisible'}`}>
-							<NavLink to="/signup" className="flex px-4 py-2 text-black capitalize">
+							<NavLink to="/sign-up" className="flex px-4 py-2 text-black capitalize">
 								<UserAddIcon className="h-5 w-5 text-black" />&nbsp;Sign Up
 							</NavLink>
-							<NavLink to="/signin" className="flex px-4 py-2 text-black capitalize">
+							<NavLink to="/sign-in" className="flex px-4 py-2 text-black capitalize">
 								<UserIcon className="h-5 w-5 text-black" />&nbsp;Sign In
 							</NavLink>
-							<NavLink to="/signout" className="flex px-4 py-2 text-black capitalize">
+							<NavLink to="/sign-out" className="flex px-4 py-2 text-black capitalize">
 								<UserRemoveIcon className="h-5 w-5 text-black" />&nbsp;Sign Out
 							</NavLink>
 						</div> */}

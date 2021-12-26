@@ -1,9 +1,13 @@
 import React from 'react';
 
+import Header from '../../components/Header';
+
+import bgImage from '../../assets/images/header/cover-4.webp';
+
 function NotFound() {
 	return (
 		<div>
-			<h1>ERROR</h1>
+			<Header title="Error" titleWord="404!" subTitle="The hotels still under construction!" bgImage={bgImage} searchBar={false} button={false} />
 		</div>
 	);
 }

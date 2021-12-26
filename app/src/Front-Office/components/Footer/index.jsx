@@ -15,13 +15,13 @@ function Footer() {
 				</div>
 				<div className="flex flex-row mb-2 md:mb-0">
 					<a href="https://www.facebook.com/" rel="noreferrer" target="_blank" className="">
-						<FaFacebook className='social hover:text-blue-700' />
+						<FaFacebook className='h-6 w-6 fill-white hover:fill-blue-700' />
 					</a>
 					<a href="http://twitter.com/" rel="noreferrer" target="_blank" className="">
-						<FaTwitter className='social hover:text-cyan-600' />
+						<FaTwitter className='h-6 w-6 fill-white hover:fill-cyan-600' />
 					</a>
 					<a href="https://linkedin.com/" rel="noreferrer" target="_blank" className="">
-						<FaLinkedin className='social hover:text-blue-600' />
+						<FaLinkedin className='h-6 w-6 fill-white hover:fill-blue-600' />
 					</a>
 				</div>
 			</div>

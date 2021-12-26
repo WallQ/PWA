@@ -201,7 +201,7 @@ function userService(userModel) {
 				)
 				.then((match) => {
 					if (!match)
-						reject('Password alredy changed. Token is invalid!');
+						reject('Password already changed. Token is invalid!');
 					hashPassword(newPassword).then((hash) =>
 						updateById(userId, { password: hash })
 					);

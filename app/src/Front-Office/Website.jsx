@@ -7,6 +7,7 @@ const Layout = lazy(() => import('./Layout/Main'));
 const Homepage = lazy(() => import('./pages/Homepage/'));
 const SignUp = lazy(() => import('./pages/SignUp/'));
 const SignIn = lazy(() => import('./pages/SignIn/'));
+const SignOut = lazy(() => import('./pages/SignOut/'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function Website() {
@@ -17,9 +18,9 @@ function Website() {
 					<Route element={<Homepage />} index />
 					<Route element={<NotFound />} path="*" />
 				</Route>
-				<Route element={<SignUp />} path="signup" />
-				<Route element={<SignIn />} path="signin" />
-				<Route element={<NotFound />} path="*" />
+				<Route element={<SignUp />} path="sign-up" />
+				<Route element={<SignIn />} path="sign-in" />
+				<Route element={<SignOut />} path="sign-out" />
 			</Routes>
 		</Suspense>
 	);

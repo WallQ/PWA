@@ -20,9 +20,8 @@ function AuthRouter() {
 					maxAge: 1800000,
 					expires: new Date(Date.now()) + 1800000,
 					path: '/',
-					domain: 'localhost',
-					secure:
-						process.env.NODE_ENV === 'development' ? false : true,
+					domain: '127.0.0.1',
+					secure: process.env.NODE_ENV === 'development' ? false : true,
 					httpOnly: true,
 				})
 					.status(200)
@@ -45,9 +44,8 @@ function AuthRouter() {
 					maxAge: 1800000,
 					expires: new Date(Date.now()) + 1800000,
 					path: '/',
-					domain: 'localhost',
-					secure:
-						process.env.NODE_ENV === 'development' ? false : true,
+					domain: '127.0.0.1',
+					secure: process.env.NODE_ENV === 'development' ? false : true,
 					httpOnly: true,
 				})
 					.status(200)
@@ -57,11 +55,11 @@ function AuthRouter() {
 						message: 'Successfully signed in.',
 					});
 			})
-			.catch(() => {
-				res.status(401).send({
-					status: 401,
+			.catch((error) => {
+				res.status(200).send({
+					status: error.status,
 					auth: false,
-					message: 'Successfully signed in.',
+					message: error.message,
 				});
 			});
 	});
@@ -69,7 +67,7 @@ function AuthRouter() {
 	router.route('/sign-out').get(verifyJWT, (req, res, next) => {
 		res.clearCookie('jwt', {
 			path: '/',
-			domain: 'localhost',
+			domain: '127.0.0.1',
 		})
 			.status(200)
 			.send({

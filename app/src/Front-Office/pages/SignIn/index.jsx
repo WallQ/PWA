@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { signIn } from '../../services/auth';
 
 function SignIn() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [error, setError] = useState('');
+	const [message, setMessage] = useState('');
 
 	const authenticate = () => {
 		signIn(email,password)
 		.then((result) => {
-			console.log(result);
+			if(result.auth === true) {
+				console.log(result);
+				setMessage(result.message);
+				<Navigate  to="/" />
+			} else if(result.auth === false) {
+				console.log(result);
+				setMessage(result.message);
+			}
 		})
 		.catch((error) => {
 			console.log(error);
@@ -25,14 +32,16 @@ function SignIn() {
 
 	return (
 		<div>
-			{ error && (
-				<h1>{error}</h1>
+			{ message && (
+				<h1>{message}</h1>
 			)}
 			<form onSubmit={(e) => handleSubmit(e) }>
 				<label htmlFor="Email">Email</label>
-				<input type="email" id="Email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+				<input type="email" id="Email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} req="true"/>
+				<br />
 				<label htmlFor="Password">Password</label>
-				<input type="password" id="Password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+				<input type="password" id="Password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} req="true"/>
+				<br />
 				<input type="submit" value="submit" />
 			</form>
 		</div>
