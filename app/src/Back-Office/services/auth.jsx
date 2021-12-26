@@ -8,6 +8,7 @@ export const signUp = async ({ name, surname, email, password }) => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
+			credentials: 'include',
 			body: JSON.stringify({ name, surname, email, password }),
 		});
 		return await response.json();
@@ -24,6 +25,7 @@ export const signIn = async (email, password) => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
+			credentials: 'include',
 			body: JSON.stringify({ email, password }),
 		});
 		return await response.json();
@@ -32,18 +34,19 @@ export const signIn = async (email, password) => {
 	}
 };
 
-export const signOut = async () => {
-	try {
-		const response = await fetch(`${API_URL}/sign-out`, {
-			method: 'GET',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(),
+export const signOut = () => {
+	fetch('/auth/sign-out', {
+		headers: { Accept: 'application/json' },
+	})
+		.then((response) => {
+			response.json();
+		})
+		.then((response) => {
+			if (response.logout) {
+				setUserlogged(false);
+			}
+		})
+		.catch(() => {
+			setUserlogged(false);
 		});
-		return await response.json();
-	} catch (error) {
-		console.error('Error fetching data: ', error);
-	}
 };

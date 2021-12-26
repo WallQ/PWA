@@ -16,12 +16,9 @@ function AuthRouter() {
 		user.register(name, surname, email, password)
 			.then((userData) => user.createToken(userData))
 			.then((token) => {
-				res.cookie('jwt', token, {
+				res.cookie('token', token, {
 					maxAge: 1800000,
 					expires: new Date(Date.now()) + 1800000,
-					path: '/',
-					domain: '127.0.0.1',
-					secure: process.env.NODE_ENV === 'development' ? false : true,
 					httpOnly: true,
 				})
 					.status(200)
@@ -31,7 +28,13 @@ function AuthRouter() {
 						message: 'Successfully signed up.',
 					});
 			})
-			.catch(next);
+			.catch((error) => {
+				res.status(200).send({
+					status: error.status,
+					auth: false,
+					message: error.message,
+				});
+			});
 	});
 
 	router.route('/sign-in').post((req, res, next) => {
@@ -40,13 +43,9 @@ function AuthRouter() {
 			.verifyUser(email, password)
 			.then((userData) => user.createToken(userData))
 			.then((token) => {
-				res.cookie('jwt', token, {
+				res.cookie('token', token, {
 					maxAge: 1800000,
 					expires: new Date(Date.now()) + 1800000,
-					path: '/',
-					domain: '127.0.0.1',
-					secure: process.env.NODE_ENV === 'development' ? false : true,
-					sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
 					httpOnly: true,
 				})
 					.status(200)
@@ -66,15 +65,21 @@ function AuthRouter() {
 	});
 
 	router.route('/sign-out').get(verifyJWT, (req, res, next) => {
-		res.clearCookie('jwt', {
-			path: '/',
-			domain: '127.0.0.1',
-		})
+		res.clearCookie('token')
 			.status(200)
 			.send({
 				status: 200,
 				auth: false,
 				message: 'Successfully signed out.',
+			});
+	});
+
+	router.route('/signed').get(verifyJWT, (req, res, next) => {
+		res.status(200)
+			.send({
+				status: 200,
+				auth: true,
+				message: 'User authenticated!',
 			});
 	});
 

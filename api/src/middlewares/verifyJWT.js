@@ -3,21 +3,23 @@ const config =
 	require('../config/config')[process.env.NODE_ENV || 'development'];
 
 exports.verifyJWT = (req, res, next) => {
-	const token = req.cookies.jwt || req.headers['X-Access-Token'];
+	const token = req.cookies.token || req.headers['X-Access-Token'];
 
 	if (!token) {
-		return res.status(401).send({
+		return res.status(200).send({
 			error: {
 				status: 401,
+				auth: false,
 				message: 'Your token provided is invalid or has expired.',
 			},
 		});
 	}
 	jwt.verify(token, config.jsonwebtoken.secret, (err, decoded) => {
 		if (err) {
-			return res.status(401).send({
+			return res.status(200).send({
 				error: {
 					status: 401,
+					auth: false,
 					message: 'Your token provided is invalid or has expired.',
 				},
 			});
@@ -34,7 +36,7 @@ exports.verifyRecoverPasswordJWT = (req, res, next) => {
 	const token = req.headers['x-access-token'] || req.query['x-access-token'];
 
 	if (!token) {
-		return res.status(401).send({
+		return res.status(200).send({
 			error: {
 				status: 401,
 				message: 'Your token provided is invalid or has expired.',
@@ -43,7 +45,7 @@ exports.verifyRecoverPasswordJWT = (req, res, next) => {
 	}
 	jwt.verify(token, config.jsonwebtoken.recover_secret, (err, decoded) => {
 		if (err) {
-			return res.status(401).send({
+			return res.status(200).send({
 				error: {
 					status: 401,
 					message: 'Your token provided is invalid or has expired.',
