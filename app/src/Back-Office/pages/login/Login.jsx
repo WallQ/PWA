@@ -12,7 +12,7 @@ const Login = () => {
 
     const login = (values) => {
         console.log('Form Values:', values);
-        fetch('http://localhost:80/auth/sign-in', {
+        fetch('/auth/sign-in', {
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
             body: JSON.stringify(values)

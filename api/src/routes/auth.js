@@ -2,14 +2,11 @@ const express = require('express');
 const user = require('../components/user');
 const mailSender = require('../utils/mailSender');
 const { verifyJWT } = require('../middlewares/verifyJWT');
-const cookieParser = require('cookie-parser');
 
 function AuthRouter() {
 	let router = express();
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
-	//tentativa para funionar o criar a cookie
-	router.use(cookieParser());
 
 	router.route('/sign-up').post((req, res, next) => {
 		let body = req.body;
@@ -32,7 +29,7 @@ function AuthRouter() {
         .then((userFind)=> user.createToken(userFind))
         .then((token) => {
 			console.log("Token ->", token)
-            res.cookie('token', token, {httpOnly: true });
+            res.cookie('token', token,{httpOnly: true, maxAge: 1800000, expires: new Date(Date.now()) + 1800000 });
             res.status(200).send({
 				status: 200,
 				auth: true,
@@ -68,21 +65,23 @@ function AuthRouter() {
 			.catch((err) => next(err));
 	});
 
-	router.use(cookieParser)
 	router.use(verifyJWT)
 
 	router.route('/me')
     .get((req, res, next) => {
+
         res.status(202).send({auth:true})
     })
 
 	router.route('/sign-out')
 	.get((req, res, next) => {
-		res.cookie('token', req.cookies.token, {httpOnly: true, maxAge:0})
-
-            res.status(200);
-            res.send({logout: true})
-            next();
+		res.clearCookie('token')
+            .status(200)
+            .send({
+                status: 200,
+                auth: false,
+                message: 'Successfully signed out.',
+            });
 	});
 
 	router.route('/new-password')

@@ -1,13 +1,49 @@
-import React from 'react';
+import React, {useState, useEffect } from "react";
 import {Outlet} from "react-router-dom";
 import NavLink from './NavLink';
+import { Navigate, Link } from 'react-router-dom';
   
 const MainLayout = () => {
+
+    const [userLogged, setUserlogged] = useState(true);
+    const onClickLogout = () =>{
+        fetch('/auth/sign-out',{
+           headers: {'Accept': 'application/json'} 
+        })
+        .then((response)=>{response.json()})
+        .then((response)=>{
+            if(response.logout){
+                setUserlogged(false);
+            }
+        })
+        .catch(()=>{
+            setUserlogged(false);
+        })
+    }
+
+    useEffect(() => {
+        fetch('/auth/me',{
+            headers: {'Accept': 'application/json'},
+        })
+        .then((response)=> response.json())
+        .then((response) =>{
+            setUserlogged(response.auth);
+        })
+        .catch(()=>{
+            setUserlogged(false);
+        })
+    }, [])
+
+
+    //if(!userLogged){
+    //    return <Navigate to={'/admin/login'}/>
+    //}
+
     return (
         <div>
             <header>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-end">
-                    <h1 className="text-3xl font-bold leading-tight text-gray-900">Dashboard</h1>
+                    <h1 onClick={onClickLogout} className="text-3xl font-bold leading-tight text-gray-900">Dashboard</h1>
                     <nav className="flex ml-8">
                     <NavLink
                         to=""

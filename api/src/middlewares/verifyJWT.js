@@ -3,7 +3,8 @@ const config =
 	require('../config/config')[process.env.NODE_ENV || 'development'];
 
 exports.verifyJWT = (req, res, next) => {
-	const token = req.headers['x-access-token'] || req.query['x-access-token'];
+	console.log(req.cookies?.token)
+	const token = req.cookies?.token || req.headers['X-Access-Token'];
 
 	if (!token) {
 		return res.status(401).send({
@@ -31,7 +32,7 @@ exports.verifyJWT = (req, res, next) => {
 };
 
 exports.verifyRecoverPasswordJWT = (req, res, next) => {
-	const token = req.headers['x-access-token'] || req.query['x-access-token'];
+	const token = req.cookies.token || req.headers['X-Access-Token'];
 
 	if (!token) {
 		return res.status(401).send({
