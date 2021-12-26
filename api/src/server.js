@@ -5,8 +5,8 @@ const http = require('http');
 const https = require('https');
 
 const options = {
-	key: fs.readFileSync('./pwa.key'),
-	cert: fs.readFileSync('./pwa.cer'),
+	key: fs.readFileSync('./private/pwa.key'),
+	cert: fs.readFileSync('./private/pwa.cer'),
 };
 
 http.createServer(app).listen(
