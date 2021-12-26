@@ -1,9 +1,6 @@
-const config = require('../../config/config')[
-	process.env.NODE_ENV || 'development'
-];
+const config = require('../../config/config')[process.env.NODE_ENV || 'development'];
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const roles = require('../../config/roles');
 
 function userService(userModel) {
 	let service = {
@@ -216,22 +213,23 @@ function userService(userModel) {
 		});
 	}
 
-	function register(user) {
-		return hashPassword(user.password).then((hashedPassword, err) => {
+	function register(name, surname, email, password) {
+		return hashPassword(password).then((hashedPassword, err) => {
 			if (err) {
 				return Promise.reject(err);
 			}
 			let newUserUpdated = {
-				...user,
+				name: name,
+				surname: surname,
+				email: email,
 				password: hashedPassword,
-				roles: [roles.CLIENT],
 			};
 			let newUser = userModel(newUserUpdated);
 			return save(newUser);
 		});
 	}
 
-	function verifyUser({ email, password }) {
+	function verifyUser(email, password ) {
 		return new Promise((resolve, reject) => {
 			userModel.findOne({ email: email }, (err, user) => {
 				if (err) {

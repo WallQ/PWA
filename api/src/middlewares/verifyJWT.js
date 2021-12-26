@@ -3,7 +3,7 @@ const config =
 	require('../config/config')[process.env.NODE_ENV || 'development'];
 
 exports.verifyJWT = (req, res, next) => {
-	const token = req.headers['x-access-token'] || req.query['x-access-token'];
+	const token = req.cookies.jwt || req.headers['X-Access-Token'];
 
 	if (!token) {
 		return res.status(401).send({

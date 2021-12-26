@@ -1,8 +1,10 @@
 const express = require('express');
 const user = require('../components/user');
 const mailSender = require('../utils/mailSender');
-const { verifyRecoverPasswordJWT } = require('../middlewares/verifyJWT');
-const cookieParser = require('cookie-parser');
+const {
+	verifyJWT,
+	verifyRecoverPasswordJWT,
+} = require('../middlewares/verifyJWT');
 
 function AuthRouter() {
 	let router = express();
@@ -10,53 +12,76 @@ function AuthRouter() {
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 	router.route('/sign-up').post((req, res, next) => {
-		let body = req.body;
-		user.register(body)
+		let { name, surname, email, password } = req.body;
+		user.register(name, surname, email, password)
 			.then((userData) => user.createToken(userData))
 			.then((token) => {
-				res.status(200).send({
-					status: 200,
-					message: 'Successfully signed up.',
-					data: token,
-				});
+				res.cookie('jwt', token, {
+					maxAge: 1800000,
+					expires: new Date(Date.now()) + 1800000,
+					path: '/',
+					domain: 'localhost',
+					secure:
+						process.env.NODE_ENV === 'development' ? false : true,
+					httpOnly: true,
+				})
+					.status(200)
+					.send({
+						status: 200,
+						auth: true,
+						message: 'Successfully signed up.',
+					});
 			})
 			.catch(next);
 	});
 
 	router.route('/sign-in').post((req, res, next) => {
-		let body = req.body;
-        return  user.findUser(body)
-        .then((userResponse)=> user.createToken(userResponse))
-        .then((response) => {
-            res.cookie('token', response.token, {httpOnly: true});
-            res.status(200);
-            res.send(response);
-        })
-        .catch((err) => {
-            res.status(500);
-            res.send(err)
-            next();
-        })
+		let { email, password } = req.body;
+		return user
+			.verifyUser(email, password)
+			.then((userData) => user.createToken(userData))
+			.then((token) => {
+				res.cookie('jwt', token, {
+					maxAge: 1800000,
+					expires: new Date(Date.now()) + 1800000,
+					path: '/',
+					domain: 'localhost',
+					secure:
+						process.env.NODE_ENV === 'development' ? false : true,
+					httpOnly: true,
+				})
+					.status(200)
+					.send({
+						status: 200,
+						auth: true,
+						message: 'Successfully signed in.',
+					});
+			})
+			.catch(() => {
+				res.status(401).send({
+					status: 401,
+					auth: false,
+					message: 'Successfully signed in.',
+				});
+			});
 	});
-	router.use(cookieParser)
-	router.use(verifyRecoverPasswordJWT)
 
-	router.route('/me')
-    .get((req, res, next) => {
-        res.status(202).send({auth:true})
-    })
-
-	router.route('/sign-out')
-	.get((req, res, next) => {
-		res.cookie('token', req.cookies.token, {httpOnly: true, maxAge:0})
-
-            res.status(200);
-            res.send({logout: true})
-            next();
+	router.route('/sign-out').get(verifyJWT, (req, res, next) => {
+		res.clearCookie('jwt', {
+			path: '/',
+			domain: 'localhost',
+		})
+			.status(200)
+			.send({
+				status: 200,
+				auth: false,
+				message: 'Successfully signed out.',
+			});
 	});
 
-	router.route('/forgot-password')
-	.post((req, res, next) => {
+	router.use(verifyRecoverPasswordJWT);
+
+	router.route('/forgot-password').post((req, res, next) => {
 		let email = req.body.email;
 		user.findByEmail(email)
 			.then((userData) =>
@@ -74,8 +99,7 @@ function AuthRouter() {
 			.catch((err) => next(err));
 	});
 
-	router.route('/new-password')
-	.post((req, res, next) => {
+	router.route('/new-password').post((req, res, next) => {
 		let { password: newPassword, passwordMatch } = req.body;
 		if (
 			!req.userId ||
@@ -109,8 +133,7 @@ function AuthRouter() {
 				.catch((err) => {
 					res.status(400).send({
 						status: 400,
-						message:
-							'Some error on reset your password : ' + err,
+						message: 'Some error on reset your password : ' + err,
 					});
 				});
 		}
