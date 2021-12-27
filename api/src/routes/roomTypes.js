@@ -4,6 +4,7 @@ const roles = require('../config/roles');
 const { verifyJWT } = require('../middlewares/verifyJWT');
 const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
+const pagination = require('../middlewares/pagination');
 const verifyBelongHotel = require('../utils/verifyBelongHotel');
 
 function RoomTypeRouter() {
@@ -11,17 +12,21 @@ function RoomTypeRouter() {
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
 
-	router
-		.route('/')
+	router.use(pagination);
+
+	router.route('/')
 		.get((req, res, next) => {
 			roomTypes
-				.findAll()
+				.findAll(req.pagination)
 				.then((rooms) => {
-					res.status(200).send({
+					const response = {
 						status: 200,
 						message: 'RoomTypes have been successfully found.',
-						rooms: rooms,
-					});
+						auth:true,
+						...rooms
+					}
+					res.send(response);
+					
 				})
 				.catch(next);
 		})

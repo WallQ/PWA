@@ -35,9 +35,9 @@ const MainLayout = () => {
 			});
 	}, []);
 
-	//if(!userLogged){
-	//    return <Navigate to={'/admin/login'}/>
-	//}
+	if(!userLogged){
+	    return <Navigate to={'./admin/login'}/>
+	}
 
 	return (
 		<div>
