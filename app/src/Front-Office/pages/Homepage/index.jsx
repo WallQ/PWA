@@ -10,8 +10,6 @@ function Homepage() {
 	return (
 		<div>
 			<Header title="Pwa" titleWord="Booking" subTitle="" bgImage={bgImage1} searchBar={true} button={true} />
-			<Header title="Pwa Booking" titleWord="" subTitle="" bgImage={bgImage2} searchBar={true} button={true} />
-			<Header title="Pwa Booking" titleWord="" subTitle="" bgImage={bgImage3} searchBar={true} button={true} />
 		</div>
 	);
 }

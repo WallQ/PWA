@@ -16,7 +16,7 @@ export const signUp = async ({ name, surname, email, password }) => {
 	}
 };
 
-export const signIn = async (email, password) => {
+export const signIn = async ({ email, password }) => {
 	try {
 		const response = await fetch(`${API_URL}/sign-in`, {
 			method: 'POST',
@@ -40,7 +40,6 @@ export const signOut = async () => {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(),
 		});
 		return await response.json();
 	} catch (error) {

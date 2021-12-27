@@ -26,7 +26,7 @@ function Navbar() {
 						PWA <br /> BOOKING
 					</h1>
 				</NavLink>
-				<div className="hidden md:flex">
+				<div className="hidden lg:flex">
 					<div className="relative">
 						<input type="text" id="Search" name="search" placeholder="Search" className={`h-10 px-3 pr-10 focus:outline-none outline-none ease-linear duration-500 font-sans text-base font-medium bg-transparent text-white placeholder:text-white rounded-none border-b-2  ${navBar ? 'border-white' : 'border-blue-600'}`} />
 						<button type="submit" value="submit" className="absolute right-0 top-0 mt-2.5 mr-3">
@@ -46,7 +46,7 @@ function Navbar() {
 						Sign Out
 					</NavLink>
 				</div>
-				<div className="flex md:hidden">
+				<div className="flex lg:hidden">
 					<div className="relative inline-block">
 						<button className="relative z-10 block rounded-md focus:outline-none" type="button">
 							<FaChevronDown className="h-8 w-8 text-white" />

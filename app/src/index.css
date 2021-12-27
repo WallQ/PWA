@@ -12,6 +12,9 @@
 	.input-date {
 		@apply mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans font-medium text-base text-black focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer
 	}
+	.stepper { 
+		@apply flex items-center justify-center w-12 h-full py-1 bg-blue-600 text-white hover:text-white hover:bg-blue-700 outline-none focus:outline-none cursor-pointer
+	}
 	.text-shadow {
 		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	}
@@ -23,5 +26,10 @@
 	}
 	.text-shadow-none {
 		text-shadow: none;
+	}
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
 	}
 }

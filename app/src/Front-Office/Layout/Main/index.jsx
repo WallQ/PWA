@@ -7,7 +7,7 @@ import Scroll from '../../components/Scroll/';
 
 function Main() {
 	return (
-		<div className="bg-myLight dark:bg-myDark">
+		<div>
 			<header>
 				<Navbar />
 			</header>
