@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Menu, Transition  } from '@headlessui/react';
-import { FaChevronDown, FaSearch } from 'react-icons/fa';
+import { FaCalendarAlt, FaUsers, FaChevronDown, FaChevronUp, FaSearch } from 'react-icons/fa';
 
 function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 	const [adult, setAdult] = useState(2);
@@ -26,17 +26,29 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 						</h6>
 					)}
 					{ searchBar && (
-						<div className={`flex flex-col md:flex-row justify-between items-center ${titleWord ? 'mt-6' : 'mt-6'}`}>
+						<div className={`flex flex-col md:flex-row justify-between items-center ${titleWord ? 'mt-8' : 'mt-6'}`}>
 							<div className="flex flex-col md:flex-row">
+								{/* <div className="relative mr-0 md:mr-5 mb-5 md:mb-0">
+									<input type="date" name="endDate" className="input-date" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
+									<div className="absolute right-0 top-0 mt-2.5 mr-3">
+										<FaCalendarAlt className="ml-2 h-5 w-5 fill-blue-600" />
+									</div>
+								</div> */}
 								<input type="date" name="startDate" className="input-date" defaultValue={ new Date().toISOString().slice(0, 10) } />
 								<input type="date" name="endDate" className="input-date" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
 								<div>
 									<Menu as="div" className="relative mr-0 md:mr-5 mb-5 md:mb-0">
 										{({ open }) => (
 											<Fragment>
-												<Menu.Button className='inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans font-medium text-base text-black focus:outline-none focus:ring-2 focus:ring-blue-600'>
-													Options
-													<FaChevronDown className="ml-2 h-5 w-5 fill-black" aria-hidden="true" />
+												<Menu.Button className='inline-flex justify-center items-center w-56 h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans font-medium text-base text-black focus:outline-none focus:ring-2 focus:ring-blue-600'>
+													<FaUsers className="mr-2 h-5 w-5 fill-black" aria-hidden="true" />
+													{adult} Adult &bull; {child} Child 
+													{open && (
+														<FaChevronUp className="ml-2 h-5 w-5 fill-black" aria-hidden="true" />
+													)}
+													{!open && (
+														<FaChevronDown className="ml-2 h-5 w-5 fill-black" aria-hidden="true" />
+													)}
 												</Menu.Button>
 												<Transition show={open} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
 													<Menu.Items className='origin-top-right absolute right-0 mt-2 w-72 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none' static>

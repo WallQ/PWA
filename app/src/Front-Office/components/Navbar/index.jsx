@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
+import { Menu, Transition  } from '@headlessui/react';
 import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/images/logo.svg';
-import { FaUser, FaUserPlus, FaUserTimes, FaSearch, FaChevronDown } from 'react-icons/fa';
+import { FaUser, FaUserPlus, FaUserMinus, FaSearch, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
 function Navbar() {
 	const [navBar, setNavbar] = useState(false);
@@ -42,27 +43,49 @@ function Navbar() {
 						Sign In
 					</NavLink>
 					<NavLink to="/sign-out" className={`btn-primary ${navBar ? '' : 'bg-blue-600 hover:bg-blue-700 '}`}>
-						<FaUserTimes className="w-5 h-5 mr-2 fill-white" />
+						<FaUserMinus className="w-5 h-5 mr-2 fill-white" />
 						Sign Out
 					</NavLink>
 				</div>
-				<div className="flex lg:hidden">
-					<div className="relative inline-block">
-						<button className="relative z-10 block rounded-md focus:outline-none" type="button">
-							<FaChevronDown className="h-8 w-8 text-white" />
-						</button>
-						{/* <div className={`absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl ease-linear duration-700 ${dropDown ? '' : 'invisible'}`}>
-							<NavLink to="/sign-up" className="flex px-4 py-2 text-black capitalize">
-								<UserAddIcon className="h-5 w-5 text-black" />&nbsp;Sign Up
-							</NavLink>
-							<NavLink to="/sign-in" className="flex px-4 py-2 text-black capitalize">
-								<UserIcon className="h-5 w-5 text-black" />&nbsp;Sign In
-							</NavLink>
-							<NavLink to="/sign-out" className="flex px-4 py-2 text-black capitalize">
-								<UserRemoveIcon className="h-5 w-5 text-black" />&nbsp;Sign Out
-							</NavLink>
-						</div> */}
-					</div>
+				<div className="lg:hidden">
+					<Menu as="div" className="relative">
+						{({ open }) => (
+							<Fragment>
+								<Menu.Button className='inline-flex justify-center items-center w-full h-10 px-3 font-sans font-medium text-base focus:outline-none'>
+									{open && (
+										<FaChevronUp className="h-5 w-5 fill-white" aria-hidden="true" />
+									)}
+									{!open && (
+										<FaChevronDown className="h-5 w-5 fill-white" aria-hidden="true" />
+									)}
+								</Menu.Button>
+								<Transition show={open} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
+									<Menu.Items className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none' static>
+										<div className="py-1">
+											<Menu.Item>
+												<NavLink to="/sign-up" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 hover:bg-blue-600 text-blue-600 fill-blue-600 hover:fill-white">
+													<FaUserPlus className="mr-3 h-5 w-5 " aria-hidden="true" />
+													Sign Up
+												</NavLink>
+											</Menu.Item>
+											<Menu.Item>
+												<NavLink to="/sign-in" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 hover:bg-blue-600 text-blue-600 fill-blue-600 hover:fill-white">
+													<FaUser className="mr-3 h-5 w-5 " aria-hidden="true" />
+													Sign In
+												</NavLink>
+											</Menu.Item>
+											<Menu.Item>
+												<NavLink to="/sign-out" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 hover:bg-blue-600 text-blue-600 fill-blue-600 hover:fill-white">
+													<FaUserMinus className="mr-3 h-5 w-5 " aria-hidden="true" />
+													Sign Out
+												</NavLink>
+											</Menu.Item>
+										</div>
+									</Menu.Items>
+								</Transition>
+							</Fragment>
+						)}
+					</Menu>
 				</div>
 			</div>
 		</nav>
