@@ -1,6 +1,5 @@
 import React from 'react';
 import {Routes, Route} from 'react-router-dom';
-import MainLayout from './layout/MainLayout/MainLayout';
 import MainLayoutV2 from './layout/MainLayoutV2/MainLayoutV2';
 import Dashboard from './pages/dashboard/Dashboard';
 import Login from './pages/login/Login';
@@ -17,7 +16,7 @@ function BackOffice() {
 				<Route index element={<Dashboard />} />
 				<Route path="roomtypes" element={<Roomtypes/>} />
 				<Route path="roomtypes/new" element={<RoomTypeForm/>} />
-				<Route path="roomtypes/:id" element={<Roomtypes/>} />
+				<Route path="roomtypes/:id" element={<RoomTypeForm/>} />
 				<Route path="*" element={<h1>No Subpage found</h1>} />
 			</Route>
 				

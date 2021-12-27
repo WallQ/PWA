@@ -90,10 +90,16 @@ function RoomTypeRouter() {
 					res.status(200).send({
 						status: 200,
 						message: 'RoomType have been successfully found.',
-						room: room,
+						data: room,
 					});
 				})
-				.catch(next);
+				.catch((error)=>{
+					res.status(200).send({
+						status: 400,
+						message: 'RoomType not found',
+						data: null,
+					});
+				});
 		})
 		.put(
 			verifyJWT,
