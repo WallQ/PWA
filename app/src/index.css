@@ -9,6 +9,9 @@
 	.btn-primary {
 		@apply font-sans text-lg font-bold text-left text-white hover:text-white rounded-lg cursor-pointer px-3 h-10 ml-3 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700;
 	}
+	.input-date {
+		@apply mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans font-medium text-base text-black focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer
+	}
 	.text-shadow {
 		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	}
