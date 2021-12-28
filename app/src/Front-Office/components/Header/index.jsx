@@ -97,7 +97,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 							</div>
 							<button type="submit" value="submit" className="btn-primary bg-blue-600 hover:bg-blue-700">
 								<FaSearch className="w-5 h-5 mr-2 fill-white" />
-								Sign Up
+								Search
 							</button>
 						</div>
 					)}

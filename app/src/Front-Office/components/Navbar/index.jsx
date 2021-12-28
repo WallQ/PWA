@@ -34,15 +34,15 @@ function Navbar() {
 							<FaSearch className={`w-5 h-5 ease-linear duration-500 ${navBar ? 'fill-white' : 'fill-blue-600'}`} />
 						</button>
 					</div>
-					<NavLink to="/sign-up" className={`btn-primary ${navBar ? '' : 'bg-blue-600 hover:bg-blue-700 '}`}>
+					<NavLink to="/sign-up" className="btn-primary bg-blue-600 hover:bg-blue-700">
 						<FaUserPlus className="w-5 h-5 mr-2 fill-white" />
 						Sign Up
 					</NavLink>
-					<NavLink to="/sign-in" className={`btn-primary ${navBar ? '' : 'bg-blue-600 hover:bg-blue-700 '}`}>
+					<NavLink to="/sign-in" className="btn-primary bg-blue-600 hover:bg-blue-700">
 						<FaUser className="w-5 h-5 mr-2 fill-white" />
 						Sign In
 					</NavLink>
-					<NavLink to="/sign-out" className={`btn-primary ${navBar ? '' : 'bg-blue-600 hover:bg-blue-700 '}`}>
+					<NavLink to="/sign-out" className="btn-primary bg-blue-600 hover:bg-blue-700">
 						<FaUserMinus className="w-5 h-5 mr-2 fill-white" />
 						Sign Out
 					</NavLink>

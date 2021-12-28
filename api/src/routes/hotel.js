@@ -27,7 +27,13 @@ function HotelRouter() {
 						data: hotels,
 					});
 				})
-				.catch(next);
+				.catch((error) => {
+					res.status(200).send({
+						status: error.status,
+						message: error.message,
+						data: [],
+					});
+				});
 		})
 		.post(verifyJWT, verifyROLES(roles.ADMIN), (req, res, next) => {
 			let body = req.body;
