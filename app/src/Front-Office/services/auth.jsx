@@ -5,7 +5,6 @@ export const signUp = async ({ name, surname, email, password }) => {
 		const response = await fetch(`${API_URL}/sign-up`, {
 			method: 'POST',
 			headers: {
-				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ name, surname, email, password }),
@@ -21,7 +20,6 @@ export const signIn = async ({ email, password }) => {
 		const response = await fetch(`${API_URL}/sign-in`, {
 			method: 'POST',
 			headers: {
-				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ email, password }),
@@ -37,7 +35,6 @@ export const signOut = async () => {
 		const response = await fetch(`${API_URL}/sign-out`, {
 			method: 'GET',
 			headers: {
-				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
 		});

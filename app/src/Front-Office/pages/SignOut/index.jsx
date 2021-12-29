@@ -5,7 +5,7 @@ import { signOut } from '../../services/auth';
 
 function SignOut() {
 	useEffect(() => {
-            signOut
+            signOut()
             .then((result) => {
                 if(result.status === 200 && result.auth === false) {
                     console.log(result);

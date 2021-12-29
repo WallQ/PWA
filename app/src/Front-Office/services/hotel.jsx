@@ -5,7 +5,6 @@ export const getHotel = async () => {
 		const response = await fetch(`${API_URL}/`, {
 			method: 'GET',
 			headers: {
-				Accept: 'application/json',
 				'Content-Type': 'application/json',
 			},
 		});

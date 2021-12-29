@@ -19,7 +19,7 @@ function Navbar() {
 
 	window.addEventListener('scroll', changeNavBarBgColor);
 	return (
-		<nav className={`w-full py-6 px-4 fixed z-10 ease-linear duration-500 ${navBar ? 'bg-blue-600' : ''}`}>
+		<nav className={`w-full py-6 px-4 fixed z-40 ease-linear duration-500 ${navBar ? 'bg-blue-600' : ''}`}>
 			<div className="flex justify-between items-center container mx-auto">
 				<NavLink to="/" className="flex">
 					<img src={logo} className="w-12 h-12" alt="logo" />
