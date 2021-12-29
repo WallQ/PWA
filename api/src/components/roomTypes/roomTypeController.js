@@ -4,6 +4,7 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 		find,
 		findAll,
 		findById,
+		findByIdPupulated,
 		findByIdAndUpdate,
 		findByIdAndDelete,
 		findPacksFromRoomType,
@@ -76,6 +77,28 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 					}
 				}
 			});
+		});
+	}
+
+	function findByIdPupulated(roomTypeId, params) {
+		return new Promise((resolve, reject) => {
+			roomTypeModel.findById(roomTypeId, params, (err, roomTypes) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (roomTypes) {
+						resolve(roomTypes);
+					} else {
+						reject({
+							status: 404,
+							message: 'No roomType have been found.',
+						});
+					}
+				}
+			}).populate({
+				path: 'packs',
+				select: '_id name freeCancel'
+			  });
 		});
 	}
 

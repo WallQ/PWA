@@ -85,7 +85,7 @@ function RoomTypeRouter() {
 				: 'name description maxGuest maxGuestChild area sale packs facilities';
 			let roomId = req.params.roomTypeId;
 			roomTypes
-				.findById(roomId, opt)
+				.findByIdPupulated(roomId, opt)
 				.then((room) => {
 					res.status(200).send({
 						status: 200,

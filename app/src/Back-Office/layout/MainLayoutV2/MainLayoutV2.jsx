@@ -1,32 +1,72 @@
+import React, { useState, useEffect } from 'react';
+import { Navigate, Link } from 'react-router-dom';
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Outlet } from 'react-router-dom';
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-const navigation = [
-  { name: 'Dashboard', href: '/admin', current: true },
-  { name: 'Room Types', href: '/admin/roomTypes', current: false },
-  { name: 'Rooms', href: '/admin/rooms', current: false },
-  { name: 'Books', href: '/admin/books', current: false },
-  { name: 'Reports', href: '#', current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 const MainLayoutV2 = () => {
+  const [userLogged, setUserlogged] = useState(true);
+	const onClickLogout = () => {
+    console.log("lets logout")
+		fetch('/auth/sign-out', {
+			headers: { Accept: 'application/json' },
+		})
+			.then((response) => {
+				response.json();
+			})
+			.then((response) => {
+				if (response.logout) {
+					setUserlogged(false);
+				}
+			})
+			.catch(() => {
+				setUserlogged(false);
+			});
+	};
+
+  const user = {
+    name: 'Tom Cook',
+    email: 'tom@example.com',
+    imageUrl:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  }
+  const navigation = [
+    { name: 'Dashboard', href: '/admin', current: true },
+    { name: 'Room Types', href: '/admin/roomTypes', current: false },
+    { name: 'Rooms', href: '/admin/rooms', current: false },
+    { name: 'Books', href: '/admin/books', current: false },
+    { name: 'Reports', href: '#', current: false },
+  ]
+  const userNavigation = [
+    { name: 'Your Profile', href: '#' },
+    { name: 'Settings', href: '#' },
+    { name: 'Sign out', href: '#', onClick: onClickLogout },
+  ]
+  
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
+
+	useEffect(() => {
+		fetch('/auth/signed', {
+			headers: { Accept: 'application/json' },
+		})
+			.then((response) => response.json())
+			.then((response) => {
+				setUserlogged(response.auth);
+			})
+			.catch(() => {
+				setUserlogged(false);
+			});
+	}, []);
+
+	if(!userLogged){
+	    return <Navigate to={'./login'}/>
+	}
+
   return (
     <>
       <div className="min-h-full">
@@ -95,6 +135,7 @@ const MainLayoutV2 = () => {
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
                                   <a
+                                    onClick={item.onClick}
                                     href={item.href}
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',

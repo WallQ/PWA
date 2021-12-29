@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import {Table, Tag, Space} from 'antd'
 import { Modal, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const Roomtypes = () => {
 
@@ -62,7 +63,9 @@ const Roomtypes = () => {
           key: 'action',
           render: (text, record) => (
             <Space size="middle">
-                <Button onClick={showModal(record)} type="primary" shape="round">Edit {record._id}</Button>
+                <Button type="primary" shape="round">
+                    <Link to={"/admin/roomTypes/" + record._id}>Edit {record._id}</Link>
+                </Button>
                 <Button danger type="dashed" shape="round" >Remove </Button>
             </Space>
           ),
