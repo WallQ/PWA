@@ -8,6 +8,8 @@ import { Outlet } from 'react-router-dom';
 
 
 const MainLayoutV2 = () => {
+
+
   const [userLogged, setUserlogged] = useState(true);
 	const onClickLogout = () => {
     console.log("lets logout")

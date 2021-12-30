@@ -1,21 +1,25 @@
 import React,{useState, useEffect} from 'react'
 import { Navigate, useParams } from "react-router-dom";
-import { Form, Input, InputNumber, Button, Space,message } from 'antd';
+import { Form, Input, InputNumber, Button, Space,Table, message, Select } from 'antd';
 
+const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
 
 const RoomTypeForm = () => {
 
+
     const actionType = {"INSERT": 0, "UPDATE" : 1, "REDIRECT": 2};
-   
+
     //ID do roomty recebido no LINK
     let params = useParams();
 
     const [formAction, setFormAction] = useState(actionType.INSERT);
 
+    const [selectedRowKeys, setSelectedRowKeys] = useState(['61a04a0ab218cafaf8b2a05c']);
+
     //Dados do roomtype
     const [roomType, setRoomType] = useState({});
 
-    //Obter os dados do ROOMTYPE
+    //GET os dados do ROOMTYPE
     const getRoomType = () =>{
 
         const url = '/roomTypes/' + params.id
@@ -28,7 +32,9 @@ const RoomTypeForm = () => {
             const {status, data,message} = response;
             
             if(data){
+                
                 setRoomType(data)
+                console.log(roomType)
                 //Carregar dados para o form
                 form.setFieldsValue(data);
 
@@ -38,8 +44,7 @@ const RoomTypeForm = () => {
             }
         })
     }
-
-    //Update RoomType
+    //NEW RoomType
     const newRoomType = (values) =>{
         console.log("vou inserir")
         const url = '/roomTypes'
@@ -88,10 +93,10 @@ const RoomTypeForm = () => {
         form.setFieldsValue(roomType); 
     };
 
+
     //Useefect
     useEffect(() => {
         if(params.id){
-            //setFormAction(actionType.INSERT)
             getRoomType()
         } 
         return () =>{}
@@ -103,7 +108,12 @@ const RoomTypeForm = () => {
        return <Navigate to={'/admin'}/>
     }
 
+
+    
+
+
     return (
+        
         <div>
             <h1>{params.id}</h1>
             
@@ -148,6 +158,31 @@ const RoomTypeForm = () => {
 
                 <Form.Item name={'area'} label="Area m2">
                     <InputNumber addonBefore="m2" min={0} max={300}/>
+                </Form.Item>
+
+                <Form.Item>
+                    <Table
+                        rowSelection={{
+                            selectedRowKeys,
+                            type: 'checkbox',
+                            onChange: (selectedRowKeys, selectedRows) => {
+                                setSelectedRowKeys(selectedRowKeys);
+                                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                            },   
+                        }}
+                        rowKey={record => record._id}
+                        columns={[
+                            {
+                              title: 'Name',
+                              dataIndex: 'name',
+                            },
+                            {
+                              title: 'Price',
+                              dataIndex: 'dailyPrice',
+                            }
+                          ]}
+                        dataSource={roomType.packs}
+                    />
                 </Form.Item>
 
                 <Form.Item>
