@@ -142,7 +142,7 @@ function List() {
                             <div>
                                 <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                                     Sort
-                                    <FaChevronDown className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-blue-600 group-hover:text-blue-700" aria-hidden="true" />
+                                    <FaChevronDown className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-blue-600 group-hover:text-blue-800" aria-hidden="true" />
                                 </Menu.Button>
                             </div>
                             <Transition as={Fragment} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95" >
@@ -175,7 +175,7 @@ function List() {
                                         {({ open }) => (
                                             <div>
                                                 <h3 className="-my-3 flow-root">
-                                                    <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-blue-600 hover:text-blue-700">
+                                                    <Disclosure.Button className="py-3 bg-white w-full flex items-center justify-between text-sm text-blue-600 hover:text-blue-800">
                                                         <span className="font-semibold text-black">{section.name}</span>
                                                         <span className="flex items-center">
                                                             {open ? (

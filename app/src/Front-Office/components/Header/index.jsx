@@ -21,7 +21,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 						</h1>
 					)}
 					{ subTitle && (
-						<h6 className="text-3xl font-sans font-black capitalize text-white text-center text-shadow-lg">
+						<h6 className="text-3xl font-sans font-black capitalize text-white text-center">
 							{subTitle}
 						</h6>
 					)}
@@ -95,7 +95,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 									</Menu>
 								</div>
 							</div>
-							<button type="submit" value="submit" className="btn-primary bg-blue-600 hover:bg-blue-700">
+							<button type="submit" value="submit" className="btn-primary bg-blue-600 hover:bg-blue-800">
 								<FaSearch className="w-5 h-5 mr-2 fill-white" />
 								Search
 							</button>

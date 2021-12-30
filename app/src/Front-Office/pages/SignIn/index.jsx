@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 
 import { signIn } from '../../services/auth';
 
 function SignIn() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [rememberMe, setRememberMe] = useState(true);
 	const [message, setMessage] = useState('');
 
 	const authenticate = () => {
@@ -32,32 +34,65 @@ function SignIn() {
 
 	return (
 		<div>
-			{message && <h1>{message}</h1>}
-			<form onSubmit={handleSubmit}>
-				<label htmlFor="Email">Email</label>
-				<input
-					type="email"
-					id="Email"
-					name="email"
-					placeholder="Email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					req="true"
-				/>
-				<br />
-				<label htmlFor="Password">Password</label>
-				<input
-					type="password"
-					id="Password"
-					name="password"
-					placeholder="Password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					req="true"
-				/>
-				<br />
-				<input type="submit" value="submit" />
-			</form>
+			<div className="relative min-h-screen flex flex-col sm:justify-center items-center">
+				<div className="relative sm:max-w-sm w-full">
+					<div className="card bg-cyan-400 w-full h-full rounded-3xl absolute transform -rotate-6 shadow-lg shadow-cyan-400/30"></div>
+					<div className="card bg-green-400 w-full h-full rounded-3xl absolute transform rotate-6 shadow-lg shadow-green-400/30"></div>
+					<div className="relative w-full rounded-3xl px-6 py-6 bg-white shadow-md">
+						<h1 htmlFor="loginForm" className="block font-sans text-6xl font-extrabold tracking-widest leading-normal text-center text-blue-600 capitalize align-middle whitespace-normal">
+							Sign In
+						</h1>
+						<form onSubmit={handleSubmit} className="mt-6" id="loginForm">
+							<div className="flex flex-col gap-y-4">
+								<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="inline-flex px-4 py-2 w-full rounded-md bg-white border border-gray-300 font-sans text-base font-medium tracking-widest leading-normal text-left text-gray-600 normal-case align-middle whitespace-normal focus:outline-none ring-0 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 cursor-pointer" required={true} />         
+								<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="inline-flex px-4 py-2 w-full rounded-md bg-white border border-gray-300 font-sans text-base font-medium tracking-widest leading-normal text-left text-gray-600 normal-case align-middle whitespace-normal focus:outline-none ring-0 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 cursor-pointer" required={true} />                           
+							</div>
+							<div className="flex flex-row mt-4">
+								<label htmlFor="rememberMe" className="inline-flex items-center w-full cursor-pointer">
+									<input type="checkbox" name="remember" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} id="rememberMe" className="form-checkbox text-blue-600 rounded bg-white border border-gray-300 focus:outline-none ring-0 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 cursor-pointer" />
+									<span className="ml-2 text-sm text-gray-600">
+										Remember me
+									</span>
+								</label>
+								<div className="w-full text-right">     
+									<NavLink to="/forgot-password" className="font-sans text-xs font-normal tracking-widest leading-normal text-center text-blue-600 hover:text-blue-800 normal-case align-middle whitespace-normal underline" href="#">
+										Forgot your password?
+									</NavLink>                                  
+								</div>
+							</div>
+							<div className="flex flex-row mt-4">
+								<button className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-800 font-sans text-xl font-bold tracking-widest leading-normal text-center text-white capitalize align-middle whitespace-normal shadow-lg shadow-blue-600/50 focus:outline-none transition duration-500 ease-in-out transform hover:scale-105">
+									Submit
+								</button>
+							</div>
+							<div className="flex flex-row mt-4 items-center text-center">
+								<hr className="border-gray-300 border-1 w-full rounded-md" />
+								<label className="block w-full font-sans text-sm font-medium tracking-widest leading-normal text-center text-gray-600 capitalize align-middle whitespace-normal">
+									Sing In With
+								</label>
+								<hr className="border-gray-300 border-1 w-full rounded-md" />
+							</div>
+							<div className="flex mt-6 justify-center w-full gap-x-4">
+								<button className="inline-flex items-center px-4 py-2 bg-neutral-700 hover:bg-neutral-900 rounded-xl font-sans text-base font-medium tracking-widest leading-normal text-center text-white capitalize align-middle whitespace-normal cursor-pointer shadow-lg shadow-neutral-900/50 transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
+									<FaGithub className="mr-2 w-5 h-5 fill-white" />
+									<span>GitHub</span>
+								</button>
+								<button className="inline-flex items-center px-4 py-2 bg-red-500 hover:bg-red-700 rounded-xl font-sans text-base font-medium tracking-widest leading-normal text-center text-white capitalize align-middle whitespace-normal cursor-pointer shadow-lg shadow-red-900/50 transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
+									<FaGoogle className="mr-2 w-5 h-5 fill-white" />
+									<span>Google</span>
+								</button>
+							</div>
+							<div className="mt-6">
+								<div className="flex justify-center items-center">
+									<NavLink to="/sign-in" className="font-sans text-sm font-normal tracking-widest leading-normal text-center text-blue-600 hover:text-blue-800 normal-case align-middle whitespace-normal transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
+										I don't have an account
+									</NavLink>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
