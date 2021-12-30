@@ -1,13 +1,15 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import { NavLink, Navigate } from 'react-router-dom';
 import { Menu, Transition  } from '@headlessui/react';
-import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/images/logo.svg';
 import { FaUser, FaUserPlus, FaUserMinus, FaSearch, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 
+import { signEd } from '../../services/auth';
+
 function Navbar() {
+	const [authenticated, setAuthenticated] = useState(false);
 	const [navBar, setNavbar] = useState(false);
-	// const [dropDown, setDropDown] = useState(false);
 
 	const changeNavBarBgColor = () => {
 		if (window.scrollY >= 100) {
@@ -18,6 +20,20 @@ function Navbar() {
 	};
 
 	window.addEventListener('scroll', changeNavBarBgColor);
+
+	useEffect(() => {
+		signEd()
+			.then((result) => {
+				if(result.auth === true) {
+					console.log(result);
+					setAuthenticated(true);
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+	}, []);
+
 	return (
 		<nav className={`w-full py-6 px-4 fixed z-40 ease-linear duration-500 ${navBar ? 'bg-blue-600' : ''}`}>
 			<div className="flex justify-between items-center container mx-auto">
@@ -34,18 +50,26 @@ function Navbar() {
 							<FaSearch className={`w-5 h-5 ease-linear duration-500 ${navBar ? 'fill-white' : 'fill-blue-600'}`} />
 						</button>
 					</div>
-					<NavLink to="/sign-up" className="btn-primary bg-blue-600 hover:bg-blue-800">
-						<FaUserPlus className="w-5 h-5 mr-2 fill-white" />
-						Sign Up
-					</NavLink>
-					<NavLink to="/sign-in" className="btn-primary bg-blue-600 hover:bg-blue-800">
-						<FaUser className="w-5 h-5 mr-2 fill-white" />
-						Sign In
-					</NavLink>
-					<NavLink to="/sign-out" className="btn-primary bg-blue-600 hover:bg-blue-800">
-						<FaUserMinus className="w-5 h-5 mr-2 fill-white" />
-						Sign Out
-					</NavLink>
+					{authenticated 
+						?
+						<div>
+							<NavLink to="/sign-out" className="btn-primary bg-blue-600 hover:bg-blue-800">
+								<FaUserMinus className="w-5 h-5 mr-2 fill-white" />
+								Sign Out
+							</NavLink>
+						</div>
+						:
+						<div>
+							<NavLink to="/sign-up" className="btn-primary bg-blue-600 hover:bg-blue-800">
+								<FaUserPlus className="w-5 h-5 mr-2 fill-white" />
+								Sign Up
+							</NavLink>
+							<NavLink to="/sign-in" className="btn-primary bg-blue-600 hover:bg-blue-800">
+								<FaUser className="w-5 h-5 mr-2 fill-white" />
+								Sign In
+							</NavLink>
+						</div>
+					}
 				</div>
 				<div className="lg:hidden">
 					<Menu as="div" className="relative">

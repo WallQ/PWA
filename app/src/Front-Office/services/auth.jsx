@@ -43,3 +43,17 @@ export const signOut = async () => {
 		console.error('Error fetching data: ', error);
 	}
 };
+
+export const signEd = async () => {
+	try {
+		const response = await fetch(`${API_URL}/signed`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		return await response.json();
+	} catch (error) {
+		console.error('Error fetching data: ', error);
+	}
+};
