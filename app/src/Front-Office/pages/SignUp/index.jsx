@@ -3,7 +3,8 @@ import { NavLink, Navigate } from "react-router-dom";
 
 import { FaGithub, FaGoogle, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
 
-import { signUp, signEd } from '../../services/auth';
+import useAuthenticated from '../../hooks/authenticated';
+import { signUp } from '../../services/auth';
 
 function SignUp() {
 	const [redirect, setRedirect] = useState(false);
@@ -14,18 +15,10 @@ function SignUp() {
 	const [verifyPassword, setVerifyPassword] = useState('');
 	const [message, setMessage] = useState('');
 
-	useEffect(() => {
-		signEd()
-			.then((result) => {
-				if(result.auth === true) {
-					console.log(result);
-					setRedirect(true);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-	}, []);
+	const { authenticated } = useAuthenticated();
+	if(authenticated){
+		return <Navigate to='/'/>
+	}
 
 	const register = () => {
 		signUp({ name, surname, email, password })

@@ -1,24 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { FaTimes, FaChevronDown, FaFilter, FaPlus, FaMinus } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 import { getHotel } from '../../services/hotel';
-import bgImage3 from '../../assets/images/header/cover-3.webp';
+import bgImage1 from '../../assets/images/header/cover-1.webp';
 
 const sortOptions = [
-    { name: 'Most Popular', href: '#', current: true },
-    { name: 'Best Rating', href: '#', current: false },
-    { name: 'Newest', href: '#', current: false },
-    { name: 'Price: Low to High', href: '#', current: false },
-    { name: 'Price: High to Low', href: '#', current: false },
-];
-
-const subCategories = [
-    { name: 'Totes', href: '#' },
-    { name: 'Backpacks', href: '#' },
-    { name: 'Travel Bags', href: '#' },
-    { name: 'Hip Bags', href: '#' },
-    { name: 'Laptop Sleeves', href: '#' },
+    { name: 'Most Popular', path: '/most-popular', current: true },
+    { name: 'Best Rating', path: '/best-rating', current: false },
+    { name: 'Newest', path: '/newest', current: false },
+    { name: 'Price: Low to High', path: '/price-ascending', current: false },
+    { name: 'Price: High to Low', path: '/price-descending', current: false },
 ];
 
 const filters = [
@@ -67,7 +60,7 @@ function classNames(...classes) {
 function List() {
 	const [loading, setLoading] = useState(true);
 	const [hotel, setHotel] = useState([]);
-	const [error, setError] = useState(null);
+	const [message, setMessage] = useState('');
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
 	useEffect(() => {
@@ -81,9 +74,10 @@ function List() {
 			})
 			.catch((error) => {
                 console.error(error);
-				setError(error);
+				setMessage(error);
 			});
 	}, []);
+
 	return (
         <div>
             <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -204,16 +198,18 @@ function List() {
                                 ))}
                             </form>
                         </div>
-                        <div className="flex flex-wrap basis-3/4 justify-center">
+                        <div className="flex flex-wrap basis-3/4 justify-center gap-x-6">
                             {hotel.map((section) => (
-                                <div key={hotel.id} className="w-80 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 duration-500 transform transition cursor-pointer">
-                                    <img src={bgImage3} alt="" />
-                                    <div className="p-5">
-                                        <h1 className="text-2xl font-bold truncate">{section.name}</h1>
-                                        <p className="mt-2 text-lg font-semibold text-gray-600 truncate">{section.name}</p>
-                                        <p className="mt-1 text-gray-500 font-sans test">{section.description}</p>
+                                <NavLink to={`/hotel/${section._id}/roomTypes/`}>
+                                    <div key={section._id} className="w-80 mb-6 bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 duration-500 transform transition cursor-pointer">
+                                        <img src={`http://127.0.0.1:3030/public/assets/images/hotel/${section.images[0].path}`} alt="" loading="lazy" className="min-h-full" />
+                                        <div className="p-5">
+                                            <h1 className="text-2xl font-bold truncate">{section.name}</h1>
+                                            <p className="mt-2 text-lg font-semibold text-gray-600 truncate">{section.name}</p>
+                                            <p className="mt-1 text-gray-500 font-sans test">{section.description}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                </NavLink>
                             ))}
                         </div>
                     </div>

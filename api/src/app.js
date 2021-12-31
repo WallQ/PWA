@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(router.initialize());
+app.use('/public', express.static('public'))
 app.use(notFound);
 app.use(errorHandler);
 

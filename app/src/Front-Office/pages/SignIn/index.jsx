@@ -3,7 +3,8 @@ import { NavLink, Navigate } from 'react-router-dom';
 
 import { FaGithub, FaGoogle, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
 
-import { signIn, signEd } from '../../services/auth';
+import useAuthenticated from '../../hooks/authenticated';
+import { signIn } from '../../services/auth';
 
 function SignIn() {
 	const [redirect, setRedirect] = useState(false);
@@ -12,18 +13,10 @@ function SignIn() {
 	const [rememberMe, setRememberMe] = useState(true);
 	const [message, setMessage] = useState('');
 
-	useEffect(() => {
-		signEd()
-			.then((result) => {
-				if(result.auth === true) {
-					console.log(result);
-					setRedirect(true);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-	}, []);
+	const { authenticated } = useAuthenticated();
+	if(authenticated){
+		return <Navigate to='/'/>
+	}
 
 	const authenticate = () => {
 		signIn({ email, password })

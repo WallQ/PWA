@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Loading from './components/Loading/';
+import Testing from './components/Testing/';
 
 const Layout = lazy(() => import('./Layout/Main'));
 const Homepage = lazy(() => import('./pages/Homepage/'));
@@ -21,6 +22,7 @@ function Website() {
 				<Route element={<SignUp />} path="sign-up" />
 				<Route element={<SignIn />} path="sign-in" />
 				<Route element={<SignOut />} path="sign-out" />
+				<Route element={<Testing />} path="test" />
 			</Routes>
 		</Suspense>
 	);
