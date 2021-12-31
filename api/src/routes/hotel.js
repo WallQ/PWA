@@ -5,11 +5,13 @@ const { verifyJWT } = require('../middlewares/verifyJWT');
 const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
 const verifyBelongHotel = require('../utils/verifyBelongHotel');
+const pagination = require('../middlewares/pagination');
 
 function HotelRouter() {
 	let router = express();
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
+	router.use(pagination);
 
 	router
 		.route('/')
@@ -164,19 +166,22 @@ function HotelRouter() {
 			}
 		);
 
-	router.route('/:hotelId/roomTypes').get((req, res, next) => {
-		let opt = req.roles?.includes(roles.ADMIN)
+	router.route('/:hotelId/roomTypes')
+		.get((req, res, next) => {
+		let opt = req.roles?.includes(roles.ADMIN, roles.DIRECTOR)
 			? ''
 			: 'name description maxGuest maxGuestChild area sale packs facilities';
 		let hotelId = req.params.hotelId;
 		hotel
-			.findRoomTypesByHotelId(hotelId, opt)
+			.findRoomTypesByHotelId(hotelId, opt,req.pagination)
 			.then((roomTypes) => {
-				res.status(200).send({
+				const response = {
 					status: 200,
 					message: 'RoomTypes have been successfully found.',
-					data: roomTypes,
-				});
+					auth:true,
+					...roomTypes
+				}
+				res.send(response);
 			})
 			.catch(next);
 	});
