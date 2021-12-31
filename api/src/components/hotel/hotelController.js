@@ -158,10 +158,11 @@ function hotelService(
 		});
 	}
 
-	function findRoomTypesByHotelId(hotelId, params) {
+	function findRoomTypesByHotelId(hotelId, params, pagination) {
+		const {limit, skip}= pagination;
 		return new Promise((resolve, reject) => {
 			roomTypeModel
-				.find({ hotel: hotelId }, params, (err, roomTypes) => {
+				.find({ hotel: hotelId }, params, {skip,limit} , (err, roomTypes) => {
 					if (err) {
 						reject(err);
 					} else {
@@ -180,7 +181,20 @@ function hotelService(
 					'-_id name freeCancel maxGuests maxGuestsChild dailyPrice sale include'
 				)
 				.select('-_id');
-		});
+		})
+		.then( async (roomTypes) => {
+            //const totalRoomTypes = await roomTypeModel.count();
+			const totalRoomTypes = roomTypes.length;
+            return Promise.resolve({
+                roomTypes: roomTypes,
+                pagination:{
+                    pageSize: limit,
+                    page: Math.floor(skip / limit),
+                    hasMore: (skip + limit) < totalRoomTypes,
+                    total: totalRoomTypes
+                }
+            });
+        });
 	}
 
 	function findBooksByHotelId(hotelId) {

@@ -4,12 +4,14 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Outlet } from 'react-router-dom';
+import { Select } from 'antd';
+import Selecthotelworking from './SelectHotelWorking/SelectHotelWorking';
 
+const { Option } = Select;
 
+const MainLayoutV2 = (props) => {
 
-const MainLayoutV2 = () => {
-
-
+  //LOGIN
   const [userLogged, setUserlogged] = useState(true);
 	const onClickLogout = () => {
     console.log("lets logout")
@@ -29,6 +31,7 @@ const MainLayoutV2 = () => {
 			});
 	};
 
+  //Definições template
   const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',
@@ -47,9 +50,14 @@ const MainLayoutV2 = () => {
     { name: 'Settings', href: '#' },
     { name: 'Sign out', href: '#', onClick: onClickLogout },
   ]
-  
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
+  }
+
+  //Select HOTEL
+  function onChangeHotel(value) {
+    props.setHotelID(value);
+    console.log(`selected ${value}`);
   }
 
 	useEffect(() => {
@@ -107,6 +115,9 @@ const MainLayoutV2 = () => {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
+
+                      <Selecthotelworking setHotelID = {props.setHotelID}></Selecthotelworking>
+
                       <button
                         type="button"
                         className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"

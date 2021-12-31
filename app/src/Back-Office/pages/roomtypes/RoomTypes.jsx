@@ -4,7 +4,7 @@ import { Modal, Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-const Roomtypes = () => {
+const Roomtypes = (props) => {
 
     const [selectedRoomType, setSelectedRoomType] = useState({});
 
@@ -76,7 +76,11 @@ const Roomtypes = () => {
 
 
     const fetchApi = (pageSize, current) =>{
-        const url = '/roomTypes/?' + new URLSearchParams({
+        //const url = '/roomTypes/?' + new URLSearchParams({
+            
+        console.log(props.hotelID);
+        const url = `/hotel/${props.hotelID}/roomTypes?` + new URLSearchParams({
+        //const url = "/hotel/61a046e582d81d49a844e184/roomTypes?" + new URLSearchParams({  
             limit: pageSize,
             skip: current -1
         })
@@ -89,7 +93,6 @@ const Roomtypes = () => {
             console.log(response)
 
             const {auth, roomTypes = [],pagination} = response;
-
             if(auth){
 
                 setLoading(false);
@@ -107,7 +110,10 @@ const Roomtypes = () => {
     }
 
     useEffect(()=>{
-        fetchApi(data.pagination.pageSize, data.pagination.current);
+        if(props.hotelID){
+           fetchApi(data.pagination.pageSize, data.pagination.current); 
+        }
+        
 
         return ()=> setData({
             roomTypes:[],
@@ -116,7 +122,7 @@ const Roomtypes = () => {
                 pageSize: 10
             }
         })
-    },[]);
+    },[props.hotelID]);
     
     const handleTableChange =(pagination)=>{
         fetchApi(pagination.pageSize, pagination.current)
@@ -124,7 +130,7 @@ const Roomtypes = () => {
 
     return (
         <div>
-            <h1>Room Types</h1>
+            <h1>{props.hotelID}</h1>
             <Table
                 columns={columns}
                 rowKey={record => record._id}
