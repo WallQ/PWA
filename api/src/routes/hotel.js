@@ -173,17 +173,21 @@ function HotelRouter() {
 			: 'name description maxGuest maxGuestChild area sale packs facilities';
 		let hotelId = req.params.hotelId;
 		hotel
-			.findRoomTypesByHotelId(hotelId, opt,req.pagination)
+			.findRoomTypesByHotelId(hotelId, opt, req.pagination)
 			.then((roomTypes) => {
-				const response = {
+				res.status(200).send({
 					status: 200,
 					message: 'RoomTypes have been successfully found.',
-					auth:true,
-					...roomTypes
-				}
-				res.send(response);
+					data: roomTypes,
+				});
 			})
-			.catch(next);
+			.catch((error) => {
+				res.status(200).send({
+					status: error.status,
+					message: error.message,
+					data: [],
+				});
+			});
 	});
 
 	router

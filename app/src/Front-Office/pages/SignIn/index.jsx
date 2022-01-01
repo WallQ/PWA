@@ -8,6 +8,7 @@ import { signIn } from '../../services/auth';
 
 function SignIn() {
 	const [redirect, setRedirect] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(true);
@@ -34,6 +35,7 @@ function SignIn() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setLoading(true);
 		authenticate();
 	};
 
@@ -79,8 +81,16 @@ function SignIn() {
 								</div>
 							</div>
 							<div className="flex flex-row mt-6">
-								<button className="w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-800 font-sans text-xl font-bold tracking-widest leading-normal text-center text-white capitalize align-middle whitespace-normal shadow-lg shadow-blue-600/50 focus:outline-none transition duration-500 ease-in-out transform hover:scale-105">
-									Submit
+								<button className={`inline-flex items-center justify-center w-full py-3 rounded-lg bg-blue-600 hover:bg-blue-800 font-sans text-xl font-bold tracking-widest leading-normal text-center text-white capitalize align-middle whitespace-normal shadow-lg shadow-blue-600/50 focus:outline-none ${loading ? '' : 'duration-500 transform hover:scale-105'}`}>
+									{loading ?
+										<>
+											<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+												<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+												<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											</svg>
+											<span>Processing...</span>
+										</>
+									: <><span>Submit</span></>}
 								</button>
 							</div>
 							<div className="flex flex-row mt-6 items-center text-center">

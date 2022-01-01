@@ -8,7 +8,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 
 	return (
 		<div>
-			<div className="w-screen h-screen max-w-full max-h-full bg-fixed bg-cover bg-center bg-no-repeat flex flex-col justify-between items-center" style={{ backgroundImage: `url(${bgImage})` }}>
+			<div className="w-screen h-screen min-w-full max-w-full min-h-full max-h-full bg-fixed bg-cover bg-center bg-no-repeat flex flex-col justify-between items-center" style={{ backgroundImage: `url(${bgImage})` }}>
 				<div className="m-auto">
 					{ title && (
 						<h1 className="text-7xl font-sans font-black capitalize text-white text-center bg-clip-text bg-gradient-to-r from-indigo-500 mb-3">
@@ -42,7 +42,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 											<Fragment>
 												<Menu.Button className='inline-flex justify-center items-center w-56 h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans font-medium text-base text-black focus:outline-none focus:ring-2 focus:ring-blue-600'>
 													<FaUsers className="mr-2 h-5 w-5 fill-black" aria-hidden="true" />
-													{adult} Adult &bull; {child} Child 
+													<span>{adult} Adult &bull; {child} Child </span>
 													{open && (
 														<FaChevronUp className="ml-2 h-5 w-5 fill-black" aria-hidden="true" />
 													)}

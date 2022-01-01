@@ -159,10 +159,10 @@ function hotelService(
 	}
 
 	function findRoomTypesByHotelId(hotelId, params, pagination) {
-		const {limit, skip}= pagination;
+		const { limit, skip } = pagination;
 		return new Promise((resolve, reject) => {
 			roomTypeModel
-				.find({ hotel: hotelId }, params, {skip,limit} , (err, roomTypes) => {
+				.find({ hotel: hotelId }, params, { skip, limit } , (err, roomTypes) => {
 					if (err) {
 						reject(err);
 					} else {

@@ -59,27 +59,23 @@ const languageType = new Schema({
 });
 
 const imageType = new Schema({
-	cover: {
-		type: Boolean,
-		required: true,
-	},
-	path: {
+	fileName: {
 		type: String,
 		required: true,
 	},
-	tags: [
+	alt: [
 		{
 			type: String,
 		},
 	],
 });
 
-const commentType = new Schema({
+const reviewType = new Schema({
 	userID: {
 		type: String,
 		required: true,
 	},
-	message: {
+	review: {
 		type: String,
 		required: true,
 	},
@@ -95,28 +91,27 @@ const hotelSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	averagePrice: {
+		type: Number,
+		required: true,
+	},
 	rating: {
 		type: Number,
 		default: 0,
 	},
-	address: {
-		type: addressType,
-		required: true,
-	},
-	contacts: [
-		{
-			type: contactType,
-			required: true,
-		},
-	],
 	languages: [
 		{
 			type: languageType,
 		},
 	],
-	images: [
+	address: {
+		type: addressType,
+		required: true,
+	},	
+	contacts: [
 		{
-			type: imageType,
+			type: contactType,
+			required: true,
 		},
 	],
 	facilities: [
@@ -124,13 +119,22 @@ const hotelSchema = new Schema({
 			type: facilityType,
 		},
 	],
-	comments: [
-		{
-			type: commentType,
-		},
-	],
 	url: {
 		type: String,
+	},
+	images: [
+		{
+			type: imageType,
+		},
+	],
+	reviews: [
+		{
+			type: reviewType,
+		},
+	],
+	createdDate: {
+		type: Date,
+		default: Date.now,
 	},
 	director: {
 		type: mongoose.Schema.Types.ObjectId,
