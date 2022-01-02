@@ -18,7 +18,7 @@ function HotelRouter() {
 		.get(tryDecode, (req, res, next) => {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
-				: 'name description rating address contacts languages images facilities comments url';
+				: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews';
 
 			hotel
 				.findAll(opt)
@@ -37,7 +37,7 @@ function HotelRouter() {
 					});
 				});
 		})
-		.post(verifyJWT, verifyROLES(roles.ADMIN), (req, res, next) => {
+		.post((req, res, next) => {
 			let body = req.body;
 			hotel
 				.create(body)

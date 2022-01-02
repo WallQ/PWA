@@ -53,18 +53,18 @@ function Navbar() {
 					{authenticated 
 						?
 						<div>
-							<NavLink to="/sign-out" className="btn-primary bg-blue-600 hover:bg-blue-800">
+							<NavLink to="/sign-out" className={`font-sans text-lg font-bold tracking-wide leading-normal text-left text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 ml-3 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700 bg-blue-600 ${navBar ? '' : 'hover:bg-blue-800'}`}>
 								<FaUserMinus className="w-5 h-5 mr-2 fill-white" />
 								Sign Out
 							</NavLink>
 						</div>
 						:
 						<div>
-							<NavLink to="/sign-up" className="btn-primary bg-blue-600 hover:bg-blue-800">
+							<NavLink to="/sign-up" className={`font-sans text-lg font-bold tracking-wide leading-normal text-left text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 ml-3 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700 bg-blue-600 ${navBar ? '' : 'hover:bg-blue-800'}`}>
 								<FaUserPlus className="w-5 h-5 mr-2 fill-white" />
 								Sign Up
 							</NavLink>
-							<NavLink to="/sign-in" className="btn-primary bg-blue-600 hover:bg-blue-800">
+							<NavLink to="/sign-in" className={`font-sans text-lg font-bold tracking-wide leading-normal text-left text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 ml-3 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700 bg-blue-600 ${navBar ? '' : 'hover:bg-blue-800'}`}>
 								<FaUser className="w-5 h-5 mr-2 fill-white" />
 								Sign In
 							</NavLink>
@@ -86,24 +86,32 @@ function Navbar() {
 								<Transition show={open} enter="transition ease-out duration-100" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
 									<Menu.Items className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none' static>
 										<div className="py-1">
-											<Menu.Item>
-												<NavLink to="/sign-up" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 text-blue-600 hover:bg-blue-800 fill-blue-600 hover:fill-white">
-													<FaUserPlus className="mr-3 h-5 w-5 " aria-hidden="true" />
-													Sign Up
-												</NavLink>
-											</Menu.Item>
-											<Menu.Item>
-												<NavLink to="/sign-in" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 text-blue-600 hover:bg-blue-800 fill-blue-600 hover:fill-white">
-													<FaUser className="mr-3 h-5 w-5 " aria-hidden="true" />
-													Sign In
-												</NavLink>
-											</Menu.Item>
-											<Menu.Item>
-												<NavLink to="/sign-out" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 text-blue-600 hover:bg-blue-800 fill-blue-600 hover:fill-white">
-													<FaUserMinus className="mr-3 h-5 w-5 " aria-hidden="true" />
-													Sign Out
-												</NavLink>
-											</Menu.Item>
+										{authenticated 
+											?
+											<>
+												<Menu.Item>
+													<NavLink to="/sign-out" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 text-blue-600 hover:bg-blue-800 fill-blue-600 hover:fill-white">
+														<FaUserMinus className="mr-3 h-5 w-5 " aria-hidden="true" />
+														Sign Out
+													</NavLink>
+												</Menu.Item>
+											</>
+											:
+											<>
+												<Menu.Item>
+													<NavLink to="/sign-up" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 text-blue-600 hover:bg-blue-800 fill-blue-600 hover:fill-white">
+														<FaUserPlus className="mr-3 h-5 w-5 " aria-hidden="true" />
+														Sign Up
+													</NavLink>
+												</Menu.Item>
+												<Menu.Item>
+													<NavLink to="/sign-in" className="flex items-center px-4 py-2 font-sans text-base font-medium transition ease-out duration-300 text-blue-600 hover:bg-blue-800 fill-blue-600 hover:fill-white">
+														<FaUser className="mr-3 h-5 w-5 " aria-hidden="true" />
+														Sign In
+													</NavLink>
+												</Menu.Item>
+											</>
+										}
 										</div>
 									</Menu.Items>
 								</Transition>

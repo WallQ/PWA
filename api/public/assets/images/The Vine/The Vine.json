@@ -1,0 +1,74 @@
+{
+	"name" : "The Vine",
+	"description" : "The Vine Hotel is a modern design hotel overlooking the the sea and the port of Funchal, with restaurants, bars, wellness and business facilities.",
+	"averagePrice" : 90,
+	"rating": 4.6,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		}
+	],
+	"address" : {
+		"street" : "R. dos Aranhas",
+		"postCode" : "9000-044",
+		"doorNumber" : 27,
+		"district" : "Funchal",
+		"locality" : "Funchal",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "291 009 000"
+		},
+		{
+			"type" : "email",
+			"contact" : "reservations@hotelthevine.com"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.hotelthevine.com/",
+	"coverImage" : {
+		"path" : "The Vine/The_Vine.jpg",
+		"alt" : "The Vine"
+	},
+	"images" : [
+		{
+			"path" : "The Vine/The_Vine-01.jpg",
+			"alt" : "The Vine"
+		},
+		{
+			"path" : "The Vine/The_Vine-02.jpg",
+			"alt" : "The Vine"
+		},
+		{
+			"path" : "The Vine/The_Vine-03.jpg",
+			"alt" : "The Vine"
+		},
+		{
+			"path" : "The Vine/The_Vine-04.jpg",
+			"alt" : "The Vine"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" : "61d20be4060797ba20b93296",
+	"employee" : ["61d20bba060797ba20b93290","61d20bc7060797ba20b93292","61d20bd7060797ba20b93294"]
+}

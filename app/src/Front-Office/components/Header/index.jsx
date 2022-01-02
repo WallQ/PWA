@@ -29,13 +29,13 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 						<div className={`flex flex-col md:flex-row justify-between items-center ${titleWord ? 'mt-8' : 'mt-6'}`}>
 							<div className="flex flex-col md:flex-row">
 								{/* <div className="relative mr-0 md:mr-5 mb-5 md:mb-0">
-									<input type="date" name="endDate" className="input-date" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
+									<input type="date" name="endDate" className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-bold tracking-widest leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
 									<div className="absolute right-0 top-0 mt-2.5 mr-3">
 										<FaCalendarAlt className="ml-2 h-5 w-5 fill-blue-600" />
 									</div>
 								</div> */}
-								<input type="date" name="startDate" className="input-date" defaultValue={ new Date().toISOString().slice(0, 10) } />
-								<input type="date" name="endDate" className="input-date" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
+								<input type="date" name="startDate" className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer" defaultValue={ new Date().toISOString().slice(0, 10) } />
+								<input type="date" name="endDate" className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
 								<div>
 									<Menu as="div" className="relative mr-0 md:mr-5 mb-5 md:mb-0">
 										{({ open }) => (
@@ -60,12 +60,12 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 																	</div>
 																	<div className="flex justify-between items-center">
 																		<input type="number" value={adult} onChange={(e) => setAdult(e.target.value)} id="adult" name="custom-input-number" className="hidden opacity-0 w-0 h-0" min="1" max="5"></input>
-																		<button type="button" onClick={() => adult === 1 ? null : setAdult(adult - 1) } data-action="decrement" className="stepper">
-																			<span className="text-center font-sans text-base font-medium">&#8722;</span>
+																		<button type="button" onClick={() => adult === 1 ? null : setAdult(adult - 1) } data-action="decrement" className="flex items-center justify-center w-12 h-full py-1 bg-blue-600 hover:bg-blue-800 outline-none focus:outline-none cursor-pointer">
+																			<span className="font-sans text-base font-medium tracking-wide leading-normal text-center text-white normal-case align-middle whitespace-normal">&#8722;</span>
 																		</button>								 							
 																		<span className="w-10 text-center font-sans font-medium">{adult}</span>				
-																		<button type="button" onClick={() => adult === 5 ? null : setAdult(adult + 1) } data-action="increment" className="stepper">
-																			<span className="text-center font-sans text-base font-medium">&#43;</span>
+																		<button type="button" onClick={() => adult === 5 ? null : setAdult(adult + 1) } data-action="increment" className="flex items-center justify-center w-12 h-full py-1 bg-blue-600 hover:bg-blue-800 outline-none focus:outline-none cursor-pointer">
+																			<span className="font-sans text-base font-medium tracking-wide leading-normal text-center text-white normal-case align-middle whitespace-normal">&#43;</span>
 																		</button>
 																	</div>
 																</div>
@@ -77,12 +77,12 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 																	</div>
 																	<div className="flex justify-between items-center">
 																		<input type="number" value={child} onChange={(e) => setChild(e.target.value)} id="children" name="custom-input-number" className="hidden opacity-0 w-0 h-0" min="0" max="5"></input>
-																		<button type="button" onClick={() => child === 0 ? null : setChild(child - 1)} data-action="decrement" className="stepper">
-																			<span className="text-center font-sans text-base font-medium">&#8722;</span>
+																		<button type="button" onClick={() => child === 0 ? null : setChild(child - 1)} data-action="decrement" className="flex items-center justify-center w-12 h-full py-1 bg-blue-600 hover:bg-blue-800 outline-none focus:outline-none cursor-pointer">
+																			<span className="font-sans text-base font-medium tracking-wide leading-normal text-center text-white normal-case align-middle whitespace-normal">&#8722;</span>
 																		</button>								 							
 																		<span className="w-10 text-center font-sans font-medium">{child}</span>				
-																		<button type="button" onClick={() => child === 5 ? null : setChild(child + 1)} data-action="increment" className="stepper">
-																			<span className="text-center font-sans text-base font-medium">&#43;</span>
+																		<button type="button" onClick={() => child === 5 ? null : setChild(child + 1)} data-action="increment" className="flex items-center justify-center w-12 h-full py-1 bg-blue-600 hover:bg-blue-800 outline-none focus:outline-none cursor-pointer">
+																			<span className="font-sans text-base font-medium tracking-wide leading-normal text-center text-white normal-case align-middle whitespace-normal">&#43;</span>
 																		</button>
 																	</div>
 																</div>
@@ -95,7 +95,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 									</Menu>
 								</div>
 							</div>
-							<button type="submit" value="submit" className="btn-primary bg-blue-600 hover:bg-blue-800">
+							<button type="submit" value="submit" className="font-sans text-lg font-bold tracking-wide leading-normal text-left text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 ml-3 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700 bg-blue-600 hover:bg-blue-800">
 								<FaSearch className="w-5 h-5 mr-2 fill-white" />
 								Search
 							</button>

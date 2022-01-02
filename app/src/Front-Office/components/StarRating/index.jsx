@@ -9,7 +9,7 @@ function StarRating({ rating, style }) {
     for (i; i < intPart; i++) {
         stars.push(<FaStar key={i} className={style} />);
     }
-    if(fltPart !== 0 && fltPart >= 0.5) {
+    if(fltPart !== 0 && fltPart > 0.5) {
         stars.push(<FaStar key={i} className={style} />);
     } else if(fltPart !== 0 && fltPart <= 0.5) {
         stars.push(<FaStarHalf key={i} className={style} />);

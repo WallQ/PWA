@@ -1,0 +1,89 @@
+{
+	"name" : "Tivoli Marina Vilamoura",
+	"description" : "The iconic Tivoli Marina Vilamoura Algarve Resort is far more than a luxury 5 star hotel in Vilamoura.",
+	"averagePrice" : 100,
+	"rating": 4.6,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		},
+		{
+			"initials" : "ES",
+			"country" : "Spain",
+			"language" : "Spanish"
+		},
+		{
+			"initials" : "FR",
+			"country" : "France",
+			"language" : "French"
+		},
+		{
+			"initials" : "DE",
+			"country" : "German",
+			"language" : "Deutsch"
+		}
+	],
+	"address" : {
+		"street" : "Apartado 65 Marina Vilamoura",
+		"postCode" : "8125-401",
+		"doorNumber" : 1,
+		"district" : "Faro",
+		"locality" : "Vilamoura",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "289 303 303"
+		},
+		{
+			"type" : "email",
+			"contact" : "marinavilamoura@tivoli-hotels.com"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.tivolihotels.com/tivoli-marina-vilamoura",
+	"coverImage" : {
+		"path" : "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura.jpg",
+		"alt" : "Tivoli Marina Vilamoura"
+	},
+	"images" : [
+		{
+			"path" : "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-01.jpg",
+			"alt" : "Tivoli Marina Vilamoura"
+		},
+		{
+			"path" : "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-02.jpg",
+			"alt" : "Tivoli Marina Vilamoura"
+		},
+		{
+			"path" : "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-03.jpg",
+			"alt" : "Tivoli Marina Vilamoura"
+		},
+		{
+			"path" : "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-04.jpg",
+			"alt" : "Tivoli Marina Vilamoura"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" :  "61d1e6d37956d9277326a396",
+	"employee" : ["61d1e0f87956d9277326a390","61d1e5e07956d9277326a392","61d1e6357956d9277326a394"]
+}

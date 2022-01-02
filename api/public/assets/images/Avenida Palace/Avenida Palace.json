@@ -1,0 +1,74 @@
+{
+	"name" : "Avenida Palace",
+	"description" : "The Hotel Avenida Palace, located in the center of Lisbon near Bairro Alto and Chiado, is a 5-star hotel where luxury and unique charm intersect, being considered the city's historical heritage. With its exceptional location between Baixa Pombalina and Avenida da Liberdade, its elegant neoclassical architecture and the luxurious sophistication of its decoration, and with more than a century of history but fully renovated, this hotel is a landmark where tradition is combined and innovation.",
+	"averagePrice" : 85,
+	"rating": 4.7,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		}
+	],
+	"address" : {
+		"street" : "Rua 1º Dezembro",
+		"postCode" : "1200-359",
+		"doorNumber" : 123,
+		"district" : "Lisboa",
+		"locality" : "Lisboa",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "213 218 100"
+		},
+		{
+			"type" : "email",
+			"contact" : "reservas@hotelavenidapalace.pt"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.hotelavenidapalace.pt/",
+	"coverImage" : {
+		"path" : "Avenida Palace/Avenida_Palace.jpg",
+		"alt" : "Avenida Palace"
+	},
+	"images" : [
+		{
+			"path" : "Avenida Palace/Avenida_Palace-01.jpg",
+			"alt" : "Avenida Palace"
+		},
+		{
+			"path" : "Avenida Palace/Avenida_Palace-02.jpg",
+			"alt" : "Avenida Palace"
+		},
+		{
+			"path" : "Avenida Palace/Avenida_Palace-03.jpg",
+			"alt" : "Avenida Palace"
+		},
+		{
+			"path" : "Avenida Palace/Avenida_Palace-04.jpg",
+			"alt" : "Avenida Palace"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" : "61d207345040ee22b9bca2cd",
+	"employee" : ["61d207025040ee22b9bca2c7","61d207105040ee22b9bca2c9","61d207225040ee22b9bca2cb"]
+}

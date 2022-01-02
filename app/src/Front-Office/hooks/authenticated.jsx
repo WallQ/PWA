@@ -17,7 +17,8 @@ const useAuthenticated = () => {
                 console.log(error);
                 setAuthenticated(false);
             })
-    }, []);
+        return { authenticated }
+    }, [authenticated]);
 
     return { authenticated }
 }

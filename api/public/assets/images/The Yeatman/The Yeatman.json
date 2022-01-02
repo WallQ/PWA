@@ -1,0 +1,89 @@
+{
+	"name" : "The Yeatman",
+	"description" : "The Yeatman is a luxury wine hotel and spa in Porto with spectacular views over the UNESCO World Heritage city and the Douro River.",
+	"averagePrice" : 100,
+	"rating": 5,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		},
+		{
+			"initials" : "ES",
+			"country" : "Spain",
+			"language" : "Spanish"
+		},
+		{
+			"initials" : "FR",
+			"country" : "France",
+			"language" : "French"
+		},
+		{
+			"initials" : "DE",
+			"country" : "German",
+			"language" : "Deutsche"
+		}
+	],
+	"address" : {
+		"street" : "Rua do Choupelo",
+		"postCode" : "4400-088",
+		"doorNumber" : 1,
+		"district" : "Porto",
+		"locality" : "Vila Nova de Gaia",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "220 133 100"
+		},
+		{
+			"type" : "email",
+			"contact" : "reservations@theyeatman.com"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.the-yeatman-hotel.com/",
+	"coverImage" : {
+		"path" : "The Yeatman/The_Yeatman.jpg",
+		"alt" : "The Yeatman"
+	},
+	"images" : [
+		{
+			"path" : "The Yeatman/The_Yeatman-01.jpg",
+			"alt" : "The Yeatman"
+		},
+		{
+			"path" : "The Yeatman/The_Yeatman-02.jpg",
+			"alt" : "The Yeatman"
+		},
+		{
+			"path" : "The Yeatman/The_Yeatman-03.jpg",
+			"alt" : "The Yeatman"
+		},
+		{
+			"path" : "The Yeatman/The_Yeatman-04.jpg",
+			"alt" : "The Yeatman"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" : "61d1cb78c6d521c1caced610",
+	"employee" : ["61d1ca9bc6d521c1caced60c","61d1cac6c6d521c1caced60e","61d209f7c5faf65da5ebb6dd"]
+}

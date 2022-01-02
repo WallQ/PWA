@@ -1,0 +1,89 @@
+{
+	"name" : "Altis Avenida",
+	"description" : "The Hotel Altis Avenida is a charming boutique hotel in Lisbon, with an extraordinary location in the heart of the city, in Praça dos Restauradores. The architecture and decoration are inspired by the 40s and revolve around the urban chic concept, where the past and future meet creating a unique atmosphere of charm and glamour.",
+	"averagePrice" : 75,
+	"rating": 4.5,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		},
+		{
+			"initials" : "ES",
+			"country" : "Spain",
+			"language" : "Spanish"
+		},
+		{
+			"initials" : "FR",
+			"country" : "France",
+			"language" : "French"
+		},
+		{
+			"initials" : "DE",
+			"country" : "German",
+			"language" : "Deutsch"
+		}
+	],
+	"address" : {
+		"street" : "Rua 1º Dezembro",
+		"postCode" : "1200-360",
+		"doorNumber" : 120,
+		"district" : "Lisboa",
+		"locality" : "Lisboa",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "210 440 000"
+		},
+		{
+			"type" : "email",
+			"contact" : " guestserviceavenida@altishotels.com"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.altishotels.com/",
+	"coverImage" : {
+		"path" : "Altis Avenida/Altis_Avenida.jpg",
+		"alt" : "Altis Avenida"
+	},
+	"images" : [
+		{
+			"path" : "Altis Avenida/Altis_Avenida-01.jpg",
+			"alt" : "Altis Avenida"
+		},
+		{
+			"path" : "Altis Avenida/Altis_Avenida-02.jpg",
+			"alt" : "Altis Avenida"
+		},
+		{
+			"path" : "Altis Avenida/Altis_Avenida-03.jpg",
+			"alt" : "Altis Avenida"
+		},
+		{
+			"path" : "Altis Avenida/Altis_Avenida-04.jpg",
+			"alt" : "Altis Avenida"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" : "61d1f9577956d9277326a39e",
+	"employee" : ["61d1f8a97956d9277326a398","61d1f8cc7956d9277326a39a","61d1f8d87956d9277326a39c"]
+}

@@ -3,6 +3,7 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { FaTimes, FaChevronDown, FaFilter, FaPlus, FaMinus } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 
+import StarRating from '../StarRating/';
 import { getHotels } from '../../services/hotel';
 
 import Card from '../Card/';
@@ -19,19 +20,18 @@ const sortOptions = [
 
 const filters = [
     {
-        id: 'color',
-        name: 'Color',
+        id: 1,
+        name: 'Rating',
         options: [
-            { value: 'white', label: 'White', checked: false },
-            { value: 'beige', label: 'Beige', checked: false },
-            { value: 'blue', label: 'Blue', checked: true },
-            { value: 'brown', label: 'Brown', checked: false },
-            { value: 'green', label: 'Green', checked: false },
-            { value: 'purple', label: 'Purple', checked: false },
+            { value: 1, checked: false },
+            { value: 2, checked: false },
+            { value: 3, checked: false },
+            { value: 4, checked: false },
+            { value: 5, checked: false },
         ],
     },
     {
-        id: 'category',
+        id: 2,
         name: 'Category',
         options: [
             { value: 'new-arrivals', label: 'New Arrivals', checked: false },
@@ -42,7 +42,7 @@ const filters = [
         ],
     },
     {
-        id: 'size',
+        id: 3,
         name: 'Size',
         options: [
             { value: '2l', label: '2L', checked: false },
@@ -58,7 +58,6 @@ const filters = [
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 };
-
 
 function List() {
 	const [loading, setLoading] = useState(true);
@@ -146,9 +145,9 @@ function List() {
                                         {sortOptions.map((option) => (
                                             <Menu.Item key={option.name}>
                                                 {({ active }) => (
-                                                    <a href={option.href} className={classNames(option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm' )}>
+                                                    <button onClick={option.href} className={classNames(option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm' )}>
                                                         {option.name}
-                                                    </a>
+                                                    </button>
                                                 )}
                                             </Menu.Item>
                                         ))}
@@ -184,11 +183,9 @@ function List() {
                                                 <Disclosure.Panel className="pt-6">
                                                     <div className="space-y-4">
                                                         {section.options.map((option, optionIdx) => (
-                                                            <div key={option.value} className="flex items-center">
+                                                            <div key={option.value} className="flex items-center gap-x-2">
                                                                 <input id={`filter-${section.id}-${optionIdx}`} name={`${section.id}[]`} defaultValue={option.value} type="checkbox" defaultChecked={option.checked} className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500"/>
-                                                                <label htmlFor={`filter-${section.id}-${optionIdx}`} className="ml-3 text-sm text-gray-600">
-                                                                    {option.label}
-                                                                </label>
+                                                                <StarRating rating={option.value} style={`fill-blue-600 w-4 h-4`} />
                                                             </div>
                                                         ))}
                                                     </div>
@@ -212,7 +209,7 @@ function List() {
                             :
                                 <>
                                     {hotel.map((section) => (
-                                        <Card key={section._id} id={section._id} imageFileName={section.images[0].path} imageAltText={"N/A"} languages={section.languages} name={section.name} averagePrice={"300.00"} rating={section.rating} reviewsCount={section.comments.length} />
+                                        <Card key={section._id} id={section._id} image={section.coverImage.path} imageAltText={section.coverImage.alt} languages={section.languages} name={section.name} averagePrice={section.averagePrice} rating={section.rating} reviewsCount={section.reviews.length} />
                                     ))}
                                 </>
                             }

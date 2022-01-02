@@ -59,20 +59,19 @@ const languageType = new Schema({
 });
 
 const imageType = new Schema({
-	fileName: {
+	path: {
 		type: String,
 		required: true,
 	},
-	alt: [
-		{
-			type: String,
-		},
-	],
+	alt: {
+		type: String,
+	},
 });
 
 const reviewType = new Schema({
 	userID: {
-		type: String,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'user',
 		required: true,
 	},
 	review: {
@@ -122,6 +121,9 @@ const hotelSchema = new Schema({
 	url: {
 		type: String,
 	},
+	coverImage: {
+		type: imageType,
+	},
 	images: [
 		{
 			type: imageType,
@@ -139,6 +141,7 @@ const hotelSchema = new Schema({
 	director: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'user',
+		required: true,
 	},
 	employee: [
 		{

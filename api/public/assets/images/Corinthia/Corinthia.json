@@ -1,0 +1,84 @@
+{
+	"name" : "Corinthia",
+	"description" : "The luxury of being a frequent traveller, made even more enjoyable by becoming a DISCOVERY Loyalty member. An exclusive club for those in the know. Choose from over 500 luxury hotels, in 76 countries to find your dream destination. Immerse yourself in the culture of your chosen location, with incredible Local Experiences. As you travel the world with us, you will earn more Local Experiences, uplifting your travels along the way. ",
+	"averagePrice" : 100,
+	"rating": 4.5,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		},
+		{
+			"initials" : "ES",
+			"country" : "Spain",
+			"language" : "Spanish"
+		},
+		{
+			"initials" : "FR",
+			"country" : "France",
+			"language" : "French"
+		}
+	],
+	"address" : {
+		"street" : "Av. Columbano Bordalo Pinheiro",
+		"postCode" : "1099-031",
+		"doorNumber" : 105,
+		"district" : "Lisboa",
+		"locality" : "Lisboa",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "217 236 300"
+		},
+		{
+			"type" : "email",
+			"contact" : "reservations.stpetersburg@corinthia.com"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.corinthia.com/",
+	"coverImage" : {
+		"path" : "Corinthia/Corinthia",
+		"alt" : "Corinthia"
+	},
+	"images" : [
+		{
+			"path" : "Corinthia/Corinthia-01.jpg",
+			"alt" : "Corinthia"
+		},
+		{
+			"path" : "Corinthia/Corinthia-02.jpg",
+			"alt" : "Corinthia"
+		},
+		{
+			"path" : "Corinthia/Corinthia-03.jpg",
+			"alt" : "Corinthia"
+		},
+		{
+			"path" : "Corinthia/Corinthia-04.jpg",
+			"alt" : "Corinthia"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" : "61d207e95040ee22b9bca2d5",
+	"employee" : ["61d207a85040ee22b9bca2cf","61d207b85040ee22b9bca2d1","61d207cc5040ee22b9bca2d3"]
+}
