@@ -1,0 +1,74 @@
+{
+	"name" : "Memmo Pr?ncipe Real",
+	"description" : "The Hotel Avenida Palace, located in the center of Lisbon near Bairro Alto and Chiado, is a 5-star hotel where luxury and unique charm intersect, being considered the city's historical heritage. With its exceptional location between Baixa Pombalina and Avenida da Liberdade, its elegant neoclassical architecture and the luxurious sophistication of its decoration, and with more than a century of history but fully renovated, this hotel is a landmark where tradition is combined and innovation.",
+	"averagePrice" : 90,
+	"rating": 4.6,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		}
+	],
+	"address" : {
+		"street" : "R. Dom Pedro V",
+		"postCode" : "1250-094",
+		"doorNumber" : 56,
+		"district" : "Lisboa",
+		"locality" : "Lisboa",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "219 016 800"
+		},
+		{
+			"type" : "email",
+			"contact" : "preal@memmohotels.com"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.memmohotels.com/",
+	"coverImage" : {
+		"path" : "Memmo Pr?ncipe Real/Memmo_Principe_Real.jpg",
+		"alt" : "Memmo Pr?ncipe Real"
+	},
+	"images" : [
+		{
+			"path" : "Memmo Pr?ncipe Real/Memmo_Principe_Real-01.jpg",
+			"alt" : "Memmo Pr?ncipe Real"
+		},
+		{
+			"path" : "Memmo Pr?ncipe Real/Memmo_Principe_Real-02.jpg",
+			"alt" : "Memmo Pr?ncipe Real"
+		},
+		{
+			"path" : "Memmo Pr?ncipe Real/Memmo_Principe_Real-03.jpg",
+			"alt" : "Memmo Pr?ncipe Real"
+		},
+		{
+			"path" : "Memmo Pr?ncipe Real/Memmo_Principe_Real-04.jpg",
+			"alt" : "Memmo Pr?ncipe Real"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" : "61d2189ba411376343c8d3bb",
+	"employee" : ["61d21869a411376343c8d3b5","61d2187aa411376343c8d3b7","61d2188aa411376343c8d3b9"]
+}

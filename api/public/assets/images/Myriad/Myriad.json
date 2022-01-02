@@ -1,0 +1,89 @@
+{
+	"name" : "Myriad",
+	"description" : "The beauty of the Tagus river welcomes you. Located in the contemporary and vibrant Parque das Na??es, the Myriad by SANA Hotels is a landmark in the city of Lisbon.",
+	"averagePrice" : 100,
+	"rating": 4.8,
+	"languages" : [
+		{
+			"initials" : "PT",
+			"country" : "Portugal",
+			"language" : "Portuguese"
+		},
+		{
+			"initials" : "EN",
+			"country" : "United Kigdom",
+			"language" : "English"
+		},
+		{
+			"initials" : "ES",
+			"country" : "Spain",
+			"language" : "Spanish"
+		},
+		{
+			"initials" : "FR",
+			"country" : "France",
+			"language" : "French"
+		},
+		{
+			"initials" : "DE",
+			"country" : "German",
+			"language" : "Deutsch"
+		}
+	],
+	"address" : {
+		"street" : "R. Cais das Naus",
+		"postCode" : "1990-173",
+		"doorNumber" : 1,
+		"district" : "Lisboa",
+		"locality" : "Parque das Na??es",
+		"country" : "Portugal",
+		"map" : ""
+	},
+	"contacts" : [
+		{
+			"type" : "telephone",
+			"contact" : "211 107 600"
+		},
+		{
+			"type" : "email",
+			"contact" : "reservations@sanahotels.com"
+		}
+	],
+	"facilities" : [
+		{
+			"icon" : "N/A",
+			"description" : "N/A"
+		}
+	],
+	"url" : "https://www.myriad.pt/",
+	"coverImage" : {
+		"path" : "Myriad/Myriad.jpg",
+		"alt" : "Myriad"
+	},
+	"images" : [
+		{
+			"path" : "Myriad/Myriad-01.jpg",
+			"alt" : "Myriad"
+		},
+		{
+			"path" : "Myriad/Myriad-02.jpg",
+			"alt" : "Myriad"
+		},
+		{
+			"path" : "Myriad/Myriad-03.jpg",
+			"alt" : "Myriad"
+		},
+		{
+			"path" : "Myriad/Myriad-04.jpg",
+			"alt" : "Myriad"
+		}
+	],
+	"reviews" : [
+		{
+			"userID" : "61a0442176797ffc2a97aa9e",
+			"review" : "Love it!"
+		}
+	],
+	"director" : "61d21204030754d64b04e38b",
+	"employee" : ["61d21114030754d64b04e389","61d20fbb030754d64b04e387","61d20fad030754d64b04e385"]
+}
