@@ -79,6 +79,7 @@ function AuthRouter() {
 			.send({
 				status: 200,
 				auth: true,
+				roles: req.roles,
 				message: 'User authenticated!',
 			});
 	});
