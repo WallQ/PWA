@@ -9,7 +9,9 @@ export const signUp = async ({ name, surname, email, password }) => {
 			},
 			body: JSON.stringify({ name, surname, email, password }),
 		});
-		return await response.json();
+		return response.ok
+			? await response.json()
+			: Promise.reject('Something went wrong!');
 	} catch (error) {
 		console.error('Error fetching data: ', error);
 	}
@@ -24,7 +26,9 @@ export const signIn = async ({ email, password }) => {
 			},
 			body: JSON.stringify({ email, password }),
 		});
-		return await response.json();
+		return response.ok
+			? await response.json()
+			: Promise.reject('Something went wrong!');
 	} catch (error) {
 		console.error('Error fetching data: ', error);
 	}
@@ -38,7 +42,9 @@ export const signOut = async () => {
 				'Content-Type': 'application/json',
 			},
 		});
-		return await response.json();
+		return response.ok
+			? await response.json()
+			: Promise.reject('Something went wrong!');
 	} catch (error) {
 		console.error('Error fetching data: ', error);
 	}
@@ -52,7 +58,9 @@ export const signEd = async () => {
 				'Content-Type': 'application/json',
 			},
 		});
-		return await response.json();
+		return response.ok
+			? await response.json()
+			: Promise.reject('Something went wrong!');
 	} catch (error) {
 		console.error('Error fetching data: ', error);
 	}

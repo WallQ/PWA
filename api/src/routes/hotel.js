@@ -178,6 +178,7 @@ function HotelRouter() {
 				res.status(200).send({
 					status: 200,
 					message: 'RoomTypes have been successfully found.',
+					auth:true,
 					data: roomTypes,
 				});
 			})
