@@ -2,9 +2,8 @@ import React,{useState, useEffect} from 'react'
 import { Navigate, useParams } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Space,Table, message, Select } from 'antd';
 
-const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
 
-const RoomTypeForm = () => {
+const RoomTypeForm = (props) => {
 
 
     const actionType = {"INSERT": 0, "UPDATE" : 1, "REDIRECT": 2};
@@ -32,13 +31,17 @@ const RoomTypeForm = () => {
             const {status, data,message} = response;
             
             if(data){
-                
-                setRoomType(data)
-                console.log(roomType)
-                //Carregar dados para o form
-                form.setFieldsValue(data);
+                if(data.hotel == props.hotelID){
+                    //console.log("Pertence ao hotel atual")
+                    setRoomType(data)
+                    //console.log("ROOM TYPE: ",data)
+                    //Carregar dados para o form
+                    form.setFieldsValue(data);
 
-                setFormAction(actionType.UPDATE)
+                    setFormAction(actionType.UPDATE)
+                }else{
+                    setFormAction(actionType.REDIRECT)
+                }
             }  else{
                 setFormAction(actionType.REDIRECT)
             }
@@ -46,7 +49,7 @@ const RoomTypeForm = () => {
     }
     //NEW RoomType
     const newRoomType = (values) =>{
-        console.log("vou inserir")
+        //console.log("vou inserir")
         const url = '/roomTypes'
 
         fetch(url,{
@@ -54,7 +57,7 @@ const RoomTypeForm = () => {
             method: 'POST',
             body: JSON.stringify({
                 ...values,
-                hotel:"61a0479f82d81d49a844e191",
+                hotel: props.hotelID,
                 packs: [],
                 facilities: [],
                 priceByMonth: [],
@@ -63,8 +66,8 @@ const RoomTypeForm = () => {
         })
         .then((response) => response.json())
         .then((response) => {
-            console.log(response);
-            message.success('RooomType created');
+            //console.log(response);
+            message.success('RooomType Created');
         })
     }
 
@@ -74,8 +77,7 @@ const RoomTypeForm = () => {
     const onFinish = (values) => {
         console.log("Dados do form submit", values);
         //Se roomtype tiver dados o form é para alterar
-        console.log(formAction)
-        console.log(formAction.INSERT)
+        console.log("Ação do form: ",formAction)
         if(formAction == actionType.INSERT){
             newRoomType(values);
         }else{
@@ -86,7 +88,7 @@ const RoomTypeForm = () => {
     };
   
     const onFinishFailed = (data) => {
-        console.log(data);
+        //console.log(data);
     };
   
     const onFill = () => {

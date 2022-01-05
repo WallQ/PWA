@@ -1,27 +1,55 @@
 import React,{ useState, useEffect } from 'react';
 import { Select } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const { Option } = Select;
 
 const Selecthotelworking = (props) => {
-
+    const navigate = useNavigate();
     
     const [options, setOptions] = useState([]);
+    const [selectedOnLocalSorage, setSelectedOnLocalSorage] = useState(localStorage.getItem("hotelID"));
 
     function onChangeHotel(value) {
+        setSelectedOnLocalSorage(value);
         props.setHotelID(value);
         localStorage.setItem("hotelID", value);
-        console.log(`selected ${value}`);
+        navigate('/admin');
+        //console.log(`selected ${value}`);
     }
 
+    const getWorkingOn = () =>{
+        fetch('/hotel/workingon', {
+            headers: { Accept: 'application/json' },
+        })
+        .then((response) => response.json())
+        .then((response) => {
+
+            //console.log(response.data.some((val) => selectedOnLocalSorage == val._id))
+            if(response.data.some((val) => selectedOnLocalSorage == val._id)){
+                props.setHotelID(selectedOnLocalSorage);
+            }else{
+                //console.log("Primeiro ID da lista",response.data[0]._id)
+                setSelectedOnLocalSorage(response.data[0]._id);
+                props.setHotelID(response.data[0]._id);
+            }
+
+            setOptions(response.data)
+            //console.log("WORKING ON: ", response.data)
+
+            })
+        .catch(() => {
+            //console.log("Error");
+            });
+      }
+
     useEffect(() => {
-        props.setHotelID(localStorage.getItem("hotelID"));
-        setOptions([
-            {_id: "61a046e582d81d49a844e184",name:"The Yeatman"},
-            {_id: "61a0479f82d81d49a844e191",name:"Tivoli Marina Vilamoura Algarve Resort"},
-            {_id: "61a0483796cd78a40308a76b",name:"Hotel Altis Avenida"}
-        ])
+        getWorkingOn();
+
+        //const selectedOnLocalSorage = localStorage.getItem("hotelID")
+        //props.setHotelID(localStorage.getItem("hotelID"));
     }, []);
+
 
       
     return (
@@ -29,7 +57,7 @@ const Selecthotelworking = (props) => {
             showSearch
             placeholder="Select an Hotel"
             optionFilterProp="children"
-            defaultValue = {localStorage.getItem("hotelID")}
+            value = {selectedOnLocalSorage}
             onChange={onChangeHotel}
             //onSearch={onSearch}
             filterOption={(input, option) =>

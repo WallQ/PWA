@@ -78,9 +78,8 @@ const Roomtypes = (props) => {
     const fetchApi = (pageSize, current) =>{
         //const url = '/roomTypes/?' + new URLSearchParams({
             
-        console.log(props.hotelID);
+        console.log("URL Hotel ID",props.hotelID);
         const url = `/hotel/${props.hotelID}/roomTypes?` + new URLSearchParams({
-        //const url = "/hotel/61a046e582d81d49a844e184/roomTypes?" + new URLSearchParams({  
             limit: pageSize,
             skip: current -1
         })
@@ -90,9 +89,10 @@ const Roomtypes = (props) => {
         })
         .then((response) => response.json())
         .then((response) => {
-            console.log(response)
+            //console.log(response)
 
-            const {auth, roomTypes = [],pagination} = response;
+            const {auth} = response;
+            const {roomTypes = [],pagination} = response.data;
             if(auth){
 
                 setLoading(false);

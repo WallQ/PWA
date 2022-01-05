@@ -13,11 +13,11 @@ const actionType = {"AUTENTICATED": 0, "REDIRECT": 1};
 const MainLayoutV2 = (props) => {
 
   //LOGIN
-  const [me, setMe] = useState({auth: null, roles: null})
+  const [me, setMe] = useState({auth: false, roles: []})
   const [action, setAction] = useState(actionType.AUTENTICATED);
 
 	const logout = () => {
-    console.log("lets logout")
+    //console.log("lets logout")
 		fetch('/auth/sign-out', {
 			headers: { Accept: 'application/json' },
 		})
@@ -42,8 +42,9 @@ const MainLayoutV2 = (props) => {
 		})
 			.then((response) => response.json())
 			.then((response) => {
+        //console.log("API ME :", response)
         
-        if(response.roles.some(r=> ['admin','director','employee'].includes(r))){
+        if(response.roles.some(r=> ['Admin','Director','Employee'].includes(r))){
           setMe({auth: response.auth, roles: response.roles});
         }else{
           logout();
@@ -54,6 +55,8 @@ const MainLayoutV2 = (props) => {
         setAction(actionType.REDIRECT)
 			});
   }
+  
+ 
 
   //Definições template
   const user = {
@@ -87,11 +90,11 @@ const MainLayoutV2 = (props) => {
   }
 
   if(me.auth && action != actionType.REDIRECT){
-    if(!me.auth || !me.roles.some(r=> ['admin','director','employee'].includes(r))){
+    if(!me.auth || !me.roles.some(r=> ['Admin','Director','Employee'].includes(r))){
 	    return <Navigate to={'./login'}/>
 	  }
 
-    if(me.auth && me.roles.some(r=> ['admin','director','employee'].includes(r))){
+    if(me.auth && me.roles.some(r=> ['Admin','Director','Employee'].includes(r))){
 
       return (
         <>
