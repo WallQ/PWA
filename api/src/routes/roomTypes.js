@@ -82,7 +82,7 @@ function RoomTypeRouter() {
 		.get(tryDecode, (req, res, next) => {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
-				: 'name description maxGuest maxGuestChild area sale packs facilities';
+				: 'name hotel description maxGuest maxGuestChild area sale packs facilities';
 			let roomId = req.params.roomTypeId;
 			roomTypes
 				.findByIdPupulated(roomId, opt)

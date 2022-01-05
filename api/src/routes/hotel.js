@@ -68,6 +68,34 @@ function HotelRouter() {
 			.catch(next);
 	});
 
+	router.route('/workingon')
+	.get(verifyJWT, verifyROLES(roles.ADMIN,roles.DIRECTOR,roles.EMPLOYEE),(req, res, next) => {
+		let opt = '_id name';
+
+		if(req.roles?.includes(roles.ADMIN)){
+			hotel
+				.findAll(opt)
+				.then((hotels) => {
+					res.status(200).send({
+						status: 200,
+						auth: true,
+						message: 'Hotels have been successfully found.',
+						data: hotels,
+					});
+				})
+				.catch((error) => {
+					res.status(200).send({
+						status: error.status,
+						auth: false,
+						message: error.message,
+						data: [],
+					});
+				});
+		}else{
+
+		}
+	});
+
 	router
 		.route('/:hotelId')
 		.get(tryDecode, (req, res, next) => {
