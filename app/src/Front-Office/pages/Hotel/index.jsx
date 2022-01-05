@@ -38,7 +38,9 @@ function Hotel() {
 
 	return (
 		<>
-			<h1>{hotelID}</h1>
+			<div className="">
+				<h1>{hotelID}</h1>
+			</div>
 		</>
 	);
 }

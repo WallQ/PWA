@@ -54,7 +54,7 @@ function HotelRouter() {
 	router.route('/name/:hotelName').get((req, res, next) => {
 		let opt = req.roles?.includes(roles.ADMIN)
 			? ''
-			: 'name description rating address contacts languages images facilities comments url';
+			: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
 		let hotelName = req.params.hotelName;
 		hotel
 			.findByName(hotelName, opt)
