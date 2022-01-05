@@ -80,6 +80,7 @@ function hotelService(
 	function findById(hotelId, params) {
 		return new Promise((resolve, reject) => {
 			hotelModel.findById(hotelId, params, (err, hotel) => {
+				console.log(hotel);
 				if (err) {
 					reject(err);
 				} else {
@@ -92,7 +93,10 @@ function hotelService(
 						});
 					}
 				}
-			});
+			}).populate(
+				'reviews.userID',
+				'-_id name surname'
+			);
 		});
 	}
 

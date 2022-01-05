@@ -101,7 +101,7 @@ function HotelRouter() {
 		.get(tryDecode, (req, res, next) => {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
-				: 'name description rating address contacts languages images facilities comments url';
+				: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
 			let hotelId = req.params.hotelId;
 			hotel
 				.findById(hotelId, opt)
