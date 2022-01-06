@@ -43,6 +43,7 @@ function RoomTypeRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
@@ -53,6 +54,7 @@ function RoomTypeRouter() {
 								.then((roomType) => {
 									res.status(201).send({
 										status: 201,
+										auth: true,
 										message:
 											'RoomType has been created successfully.',
 										roomType: roomType,
@@ -67,6 +69,7 @@ function RoomTypeRouter() {
 						.then((roomType) => {
 							res.status(201).send({
 								status: 201,
+								auth: true,
 								message:
 									'RoomType has been created successfully.',
 								roomType: roomType,
@@ -80,7 +83,7 @@ function RoomTypeRouter() {
 	router
 		.route('/:roomTypeId')
 		.get(tryDecode, (req, res, next) => {
-			let opt = req.roles?.includes(roles.ADMIN)
+			let opt = req.roles?.includes(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE)
 				? ''
 				: 'name hotel description maxGuest maxGuestChild area sale packs facilities';
 			let roomId = req.params.roomTypeId;
@@ -115,17 +118,19 @@ function RoomTypeRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
 								});
 							}
-							rooms;
+							//rooms;
 							roomTypes
 								.findByIdAndUpdate(roomTypeId, body)
 								.then((roomType) => {
 									res.status(200).send({
 										status: 200,
+										auth: true,
 										message:
 											'RoomType has been successfully updated.',
 										roomType: roomType,
@@ -140,6 +145,7 @@ function RoomTypeRouter() {
 						.then((roomType) => {
 							res.status(200).send({
 								status: 200,
+								auth: true,
 								message:
 									'RoomType has been successfully updated.',
 								roomType: roomType,
@@ -159,11 +165,19 @@ function RoomTypeRouter() {
 					.then((roomType) => {
 						res.status(200).send({
 							status: 200,
+							auth: true,
 							message: 'RoomType has been successfully deleted.',
 							roomType: roomType,
 						});
 					})
-					.catch(next);
+					.catch((error)=>{
+						res.status(200).send({
+							status: 200,
+							auth: false,
+							message: 'RoomType has been successfully deleted.',
+							roomType: roomType,
+						});
+					});
 			}
 		);
 

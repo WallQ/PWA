@@ -143,9 +143,10 @@ function hotelService(
 		});
 	}
 
-	function findRoomsByHotelId(hotelId) {
+	function findRoomsByHotelId(hotelId,pagination) {
+		const { limit, skip } = pagination;
 		return new Promise((resolve, reject) => {
-			roomModel.find({ hotel: hotelId }, (err, rooms) => {
+			roomModel.find({ hotel: hotelId },{},{ skip, limit },(err, rooms) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -157,6 +158,18 @@ function hotelService(
 							message: 'No rooms have been found.',
 						});
 					}
+				}
+			});	
+		})
+		.then( async (rooms) => {
+			const totalRooms = await roomModel.count({ hotel: hotelId });
+			return Promise.resolve({
+				rooms: rooms,
+				pagination:{
+					pageSize: limit,
+					page: Math.floor(skip / limit),
+					hasMore: (skip + limit) < totalRooms,
+					total: totalRooms
 				}
 			});
 		});
@@ -188,7 +201,7 @@ function hotelService(
 		})
 		.then( async (roomTypes) => {
             //const totalRoomTypes = await roomTypeModel.count();
-			const totalRoomTypes = roomTypes.length;
+			const totalRoomTypes = await roomTypeModel.count({ hotel: hotelId });
             return Promise.resolve({
                 roomTypes: roomTypes,
                 pagination:{

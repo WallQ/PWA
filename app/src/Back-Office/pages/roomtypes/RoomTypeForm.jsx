@@ -13,7 +13,7 @@ const RoomTypeForm = (props) => {
 
     const [formAction, setFormAction] = useState(actionType.INSERT);
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState(['61a04a0ab218cafaf8b2a05c']);
+    const [selectedRowKeys, setSelectedRowKeys] = useState(['']);
 
     //Dados do roomtype
     const [roomType, setRoomType] = useState({});
@@ -66,32 +66,63 @@ const RoomTypeForm = (props) => {
         })
         .then((response) => response.json())
         .then((response) => {
-            //console.log(response);
-            message.success('RooomType Created');
+            console.log("Update Auth: ", response.auth);
+            if(response.auth){
+                message.success('RooomType Created');
+            }else{
+                message.error('Cant create RooomType');
+            }
+        })
+    }
+    //Update RoomType
+    const updateRoomType = (values) =>{
+        //console.log("vou inserir")
+        const url = '/roomTypes/' + params.id
+
+        fetch(url,{
+            headers: {'Content-Type': 'application/json'},
+            method: 'PUT',
+            body: JSON.stringify({
+                ...values,
+                packs: [],
+                facilities: [],
+                priceByMonth: [],
+                priceExtraDays : []
+            })
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            console.log("Update Auth: ", response.auth);
+            if(response.auth){
+                message.success('RooomType Updated');
+            }else{
+                message.error('Cant update RooomType');
+            }
+            
         })
     }
 
     //FORMULARIO
     const [form] = Form.useForm();
 
-    const onFinish = (values) => {
-        console.log("Dados do form submit", values);
+    const onFormFinish = (values) => {
+        //console.log("Dados do form submit", values);
         //Se roomtype tiver dados o form é para alterar
-        console.log("Ação do form: ",formAction)
+        //console.log("Ação do form: ",formAction)
         if(formAction == actionType.INSERT){
             newRoomType(values);
         }else{
-            console.log("update")
-            //update
+            //console.log("update")
+            updateRoomType(values);
         }
       
     };
   
-    const onFinishFailed = (data) => {
+    const onFormFinishFailed = (data) => {
         //console.log(data);
     };
   
-    const onFill = () => {
+    const fillForm = () => {
         form.setFieldsValue(roomType); 
     };
 
@@ -122,8 +153,8 @@ const RoomTypeForm = (props) => {
             <Form
                 form={form}
                 layout="vertical"
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                onFinish={onFormFinish}
+                onFinishFailed={onFormFinishFailed}
                 autoComplete="off"
                 >
                 <Form.Item
@@ -192,7 +223,7 @@ const RoomTypeForm = (props) => {
                     <Button type="primary" htmlType="submit">
                         Submit
                     </Button>
-                    <Button htmlType="button" onClick={onFill}>
+                    <Button htmlType="button" onClick={fillForm}>
                         Fill
                     </Button>
                     </Space>
