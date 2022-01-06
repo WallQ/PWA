@@ -25,9 +25,10 @@ function roomsController(roomModel, bookModel) {
 		});
 	}
 
-	function findAll() {
+	function findAll(pagination) {
+		const {limit, skip}= pagination;
 		return new Promise((resolve, reject) => {
-			roomModel.find({}, (err, rooms) => {
+			roomModel.find({},{},{skip,limit}, (err, rooms) => {
 				if (err) {
 					reject(err);
 				} else {

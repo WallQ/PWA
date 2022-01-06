@@ -1,14 +1,18 @@
 const express = require('express');
+const { trusted } = require('mongoose');
 const rooms = require('../components/rooms');
 const roles = require('../config/roles');
 const { verifyJWT } = require('../middlewares/verifyJWT');
 const verifyROLES = require('../middlewares/verifyROLES');
+const pagination = require('../middlewares/pagination');
 const verifyBelongHotel = require('../utils/verifyBelongHotel');
 
 function RoomRouter() {
 	let router = express();
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
+
+	router.use(pagination);
 
 	router
 		.route('/')
@@ -17,13 +21,15 @@ function RoomRouter() {
 			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
 			(req, res, next) => {
 				rooms
-					.findAll()
+					.findAll(req.pagination)
 					.then((rooms) => {
-						res.status(200).send({
+						const response = {
 							status: 200,
 							message: 'Rooms have been successfully found.',
-							data: rooms,
-						});
+							auth:true,
+							data: rooms
+						}
+						res.send(response);
 					})
 					.catch(next);
 			}
@@ -149,6 +155,7 @@ function RoomRouter() {
 					.then((room) => {
 						res.status(200).send({
 							message: 'Room has been successfully deleted.',
+							auth: true,
 							room: room,
 						});
 					})

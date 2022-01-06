@@ -11,6 +11,7 @@ function HotelRouter() {
 	let router = express();
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
+	
 	router.use(pagination);
 
 	router
@@ -182,10 +183,11 @@ function HotelRouter() {
 			(req, res, next) => {
 				let hotelId = req.params.hotelId;
 				hotel
-					.findRoomsByHotelId(hotelId)
+					.findRoomsByHotelId(hotelId,req.pagination)
 					.then((rooms) => {
 						res.status(200).send({
 							status: 200,
+							auth: true,
 							message: 'Rooms have been successfully found.',
 							data: rooms,
 						});

@@ -7,7 +7,6 @@ import { Outlet } from 'react-router-dom';
 import { Select } from 'antd';
 import Selecthotelworking from './SelectHotelWorking/SelectHotelWorking';
 
-const { Option } = Select;
 const actionType = {"AUTENTICATED": 0, "REDIRECT": 1};
 
 const MainLayoutV2 = (props) => {
@@ -56,7 +55,6 @@ const MainLayoutV2 = (props) => {
 			});
   }
   
- 
 
   //Definições template
   const user = {
@@ -65,13 +63,15 @@ const MainLayoutV2 = (props) => {
     imageUrl:
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   }
-  const navigation = [
+  const [navigation, setNavigation] = useState([
     { name: 'Dashboard', href: '/admin', current: false },
     { name: 'Room Types', href: '/admin/roomTypes', current: false },
     { name: 'Rooms', href: '/admin/rooms', current: false },
     { name: 'Books', href: '/admin/books', current: false },
     { name: 'Reports', href: '#', current: false },
-  ]
+  ]);
+
+
   const userNavigation = [
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
@@ -80,6 +80,7 @@ const MainLayoutV2 = (props) => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
+  //Fimm
 
 	useEffect(() => {
 		getMe();
@@ -249,20 +250,21 @@ const MainLayoutV2 = (props) => {
                 </>
               )}
             </Disclosure>
-    
+                        
             <header className="bg-white shadow">
               <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+                <h1 className="text-3xl font-bold text-gray-900"></h1>
               </div>
             </header>
             <main>
               <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                {/* Replace with your content */}
+                  
                 <Outlet/>
-                <div className="px-4 py-6 sm:px-0">
+
+                {/*<div className="px-4 py-6 sm:px-0">
                   <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
                 </div>
-                {/* /End replace */}
+                 /End replace */}
               </div>
             </main>
           </div>

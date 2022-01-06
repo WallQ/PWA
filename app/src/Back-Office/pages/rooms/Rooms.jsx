@@ -1,44 +1,41 @@
 import React,{useState, useEffect} from 'react'
 import {Table, Space} from 'antd'
 import { Button,message,Popconfirm } from 'antd';
-import { DeleteOutlined,QuestionCircleOutlined  } from '@ant-design/icons';
+import { QuestionCircleOutlined  } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import RoomsFormDrawer from './RoomsFormDrawer';
 
-const Roomtypes = (props) => {
-
-    const [selectedRoomType, setSelectedRoomType] = useState({});
+const Rooms = (props) => {
 
     const [loading, setLoading] = useState(true);
+    const [selectedRoom, setSelectedRoom] = useState('');
+
     const [ data, setData] = useState({
-        roomTypes: [],
+        rooms: [],
         pagination: {
             current: 1,
             pageSize: 2,
             total: 0
         }
     });
+    const {rooms, pagination} = data;
     
     //Definição das colunas da tabela
     const columns =[
         {
-            title: 'Name',
-            dataIndex: 'name',
-            width: '20%',
-        },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            width: '20%',
+            title: 'Number',
+            dataIndex: 'number',
+            width: '40%',
         },
         {
           title: 'Action',
           key: 'action',
           render: (text, record) => (
             <Space size="middle">
-                <Button type="primary" shape="round">
-                    <Link to={"/admin/roomTypes/" + record._id}>Edit </Link>
+                <Button type="primary" shape="round" onClick={showForm(record._id)}>
+                   Edit
                 </Button>
-                <Popconfirm title="Are you sure？" onConfirm={deleteRoomType(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
+                <Popconfirm title="Are you sure？" onConfirm={deleteRoom(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
                     <Button danger type="dashed" shape="round" >Remove </Button>
                 </Popconfirm>
                 
@@ -47,13 +44,12 @@ const Roomtypes = (props) => {
         }
     ]
 
-    const {roomTypes, pagination} = data;
-
-    const fetchApi = (pageSize, current) =>{
+    //Get RoomType
+    const getRooms = (pageSize, current) =>{
         //const url = '/roomTypes/?' + new URLSearchParams({
             
         console.log("URL Hotel ID",props.hotelID);
-        const url = `/hotel/${props.hotelID}/roomTypes?` + new URLSearchParams({
+        const url = `/hotel/${props.hotelID}/rooms?` + new URLSearchParams({
             limit: pageSize,
             skip: current -1
         })
@@ -66,12 +62,13 @@ const Roomtypes = (props) => {
             //console.log(response)
 
             const {auth} = response;
-            const {roomTypes = [],pagination} = response.data;
+            const {rooms = [],pagination} = response.data;
+
             if(auth){
                 console.log("Resposta: ",response)
                 setLoading(false);
                 setData({
-                    roomTypes,
+                    rooms,
                     pagination:{
                         current: pagination.page + 1 || 1,
                         pageSize: pagination.pageSize || 50,
@@ -82,12 +79,11 @@ const Roomtypes = (props) => {
 
         });
     }
-
     //Delete RoomType
-    const deleteRoomType = (id) =>{
+    const deleteRoom = (id) =>{
         return () =>{
             //console.log("vou inserir")
-            const url = '/roomTypes/' + id
+            const url = '/rooms/' + id
 
             fetch(url,{
                 headers: {'Content-Type': 'application/json'},
@@ -97,49 +93,68 @@ const Roomtypes = (props) => {
             .then((response) => {
                 console.log("Update Auth: ", response.auth);
                 if(response.auth){
-                    message.success('RooomType Deleted');
-                    fetchApi(data.pagination.pageSize, data.pagination.current);
+                    message.success('Rooom Deleted');
+                    getRooms(data.pagination.pageSize, data.pagination.current);
                 }else{
-                    message.error('Cant delete RooomType');
+                    message.error('Cant delete Rooom');
                 }
                 
             })
         }
     }
 
+    //Drwaer
+    const [roomFormToogle, setRoomFormToogle] = useState(false);
+
+    const showForm = (id) => {
+        return ()=>{
+            setSelectedRoom(rooms.find((room)=> room._id == id));
+            setRoomFormToogle(true);
+        }
+    };
+
+    const onCloseForm = () => {
+        //return () => setRoomFormToogle(false);
+    };
+    //end
+
     useEffect(()=>{
         if(props.hotelID){
-           fetchApi(data.pagination.pageSize, data.pagination.current); 
+           getRooms(data.pagination.pageSize, data.pagination.current); 
         }
         
-
         return ()=> setData({
-            roomTypes:[],
+            rooms:[],
             pagination: {
                 current: 1,
-                pageSize: 10
+                pageSize: 0
             }
         })
 
     },[props.hotelID]);
     
     const handleTableChange =(pagination)=>{
-        fetchApi(pagination.pageSize, pagination.current)
+        getRooms(pagination.pageSize, pagination.current)
     }
 
     return (
         <div>
-            <h1>{props.hotelID}</h1>
             <Table
                 columns={columns}
                 rowKey={record => record._id}
-                dataSource={roomTypes}
+                dataSource={rooms}
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
                 />
+            <RoomsFormDrawer 
+                visible={roomFormToogle}
+                selectedRoom={selectedRoom}
+                setVisible={setRoomFormToogle}
+                onCloseForm={onCloseForm}
+            />
         </div>
     );
 }
 
-export default Roomtypes;
+export default Rooms;

@@ -14,7 +14,7 @@ const Selecthotelworking = (props) => {
         setSelectedOnLocalSorage(value);
         props.setHotelID(value);
         localStorage.setItem("hotelID", value);
-        navigate('/admin');
+        //navigate('/admin');
         //console.log(`selected ${value}`);
     }
 
