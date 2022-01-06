@@ -93,11 +93,11 @@ function RoomTypeRouter() {
 						data: room,
 					});
 				})
-				.catch((error)=>{
+				.catch((error) => {
 					res.status(200).send({
-						status: 400,
-						message: 'RoomType not found',
-						data: null,
+						status: error.status,
+						message: error.message,
+						data: [],
 					});
 				});
 		})

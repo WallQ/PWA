@@ -34,7 +34,7 @@ export const getHotelById = async ({ hotelID }) => {
 
 export const getHotelRoomTypes = async ({ hotelID }) => {
 	try {
-		const response = await fetch(`${API_URL}/${hotelID}/roomTypes`, {
+		const response = await fetch(`${API_URL}/${hotelID}/roomTypes/`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

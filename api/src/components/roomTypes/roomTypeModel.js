@@ -31,7 +31,7 @@ const extraDays = new Schema({
 const roomTypeSchema = new Schema({
 	hotel: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Hotel',
+		ref: 'hotel',
 		required: true,
 	},
 	name: {

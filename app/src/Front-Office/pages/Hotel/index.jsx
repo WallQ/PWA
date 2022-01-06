@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { getHotelById, getHotelRoomTypes } from '../../services/hotel';
 
@@ -40,7 +41,7 @@ function Hotel() {
 		<>
 			{loadingHotel ? (
 				<>
-					<span>LOADING</span>
+					<span>LOADING HOTEL</span>
 				</>
 			) : (
 				<>
@@ -63,6 +64,55 @@ function Hotel() {
 					<p>{hotel.address.street} N.º {hotel.address.doorNumber}, {hotel.address.postCode} {hotel.address.district} {hotel.address.country}</p>
 					<iframe title="map" src={`https://www.google.com/maps/embed/v1/place?q=${hotel.address.locality}&key=AIzaSyA2W8VuMFPLKxR88upABeDzZZkKnU7svV8`}></iframe>
 					<p>{hotel.createdDate}</p>
+					{hotel.reviews.map((value) => (
+						<p>{value.userID.name} {value.userID.surname} - {value.review}</p>
+					))}
+				</>
+			)}
+			{loadingRoomTypes ? (
+				<>
+					<span>LOADING ROOMTYPES</span>
+				</>
+			) : (
+				<>
+					<ul>
+						{roomTypes.roomTypes.map((value) => (
+							<>
+								<NavLink to={`/room/${value._id}/`}>
+									<li>Area {value.area}</li>
+									<li>{value.name}</li>
+									<li>{value.description}</li>
+									<li>Adult {value.maxGuest}</li>
+									<li>Child {value.maxGuestChild}</li>
+									<ul>
+										{value.facilities.map((value) => (
+											<>
+												<li>{value.icon}</li>
+												<li>{value.description}</li>
+											</>
+										))}
+									</ul>
+									<ul>
+										{value.packs.map((value) => (
+											<>
+												<li>{value.name}</li>
+												<li>{value.dailyPrice}</li>
+												<li>{value.freeCancel}</li>
+												<li>{value.maxGuest}</li>
+												<li>{value.maxGuestChild}</li>
+												<ul>
+													<>
+														<li>{value.include.join(', ')}</li>
+													</>
+												</ul>
+											</>
+										))}
+									</ul>
+									<hr />
+								</NavLink>
+							</>
+						))}
+					</ul>
 				</>
 			)}
 		</>

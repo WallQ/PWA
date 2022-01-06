@@ -38,17 +38,14 @@ function hotelService(
 	function findAll(opt) {
 		return new Promise((resolve, reject) => {
 			hotelModel.find({}, opt, (err, hotels) => {
-				if (err) {
-					reject(err);
+				if (err) reject(err);
+				if (hotels.length) {
+					resolve(hotels);
 				} else {
-					if (hotels.length) {
-						resolve(hotels);
-					} else {
-						reject({
-							status: 404,
-							message: 'No hotels have been found.',
-						});
-					}
+					reject({
+						status: 404,
+						message: 'No hotels have been found.',
+					});
 				}
 			});
 		});
@@ -80,20 +77,11 @@ function hotelService(
 	function findById(hotelId, params) {
 		return new Promise((resolve, reject) => {
 			hotelModel.findById(hotelId, params, (err, hotel) => {
-				console.log(hotel);
-				if (err) {
-					reject(err);
-				} else {
-					if (hotel) {
-						resolve(hotel);
-					} else {
-						reject({
-							status: 404,
-							message: 'No hotel have been found.',
-						});
-					}
-				}
-			}).populate(
+				if (err) reject(err);
+				if (!hotel) reject({ status: 404, message: 'No hotel have been found.' });
+				resolve(hotel);
+			})
+			.populate(
 				'reviews.userID',
 				'-_id name surname'
 			);

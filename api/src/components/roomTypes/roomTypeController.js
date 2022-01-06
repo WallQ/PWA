@@ -15,11 +15,8 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 	function save(newRoomType) {
 		return new Promise((resolve, reject) => {
 			newRoomType.save((err) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(newRoomType);
-				}
+				if (err) reject(err);
+				resolve(newRoomType);
 			});
 		});
 	}
@@ -39,43 +36,32 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 	}
 
 	function findAll(pagination) {
-		const {limit, skip}= pagination;
+		const { limit, skip } = pagination;
 		return new Promise((resolve, reject) => {
-			roomTypeModel.find({},{},{skip,limit},(err, roomTypes) => {
+			roomTypeModel.find({}, {}, { skip, limit }, (err, roomTypes) => {
 				if (err) reject(err);
 				resolve(roomTypes);
-			})
-		})
-		.then( async (roomTypes) => {
-            const totalRoomTypes = await roomTypeModel.count();
-
-            return Promise.resolve({
-                roomTypes: roomTypes,
-                pagination:{
-                    pageSize: limit,
-                    page: Math.floor(skip / limit),
-                    hasMore: (skip + limit) < totalRoomTypes,
-                    total: totalRoomTypes
-                }
-            });
-        });
+			});
+		}).then(async (roomTypes) => {
+			const totalRoomTypes = await roomTypeModel.count();
+			return Promise.resolve({
+				roomTypes: roomTypes,
+				pagination: {
+					pageSize: limit,
+					page: Math.floor(skip / limit),
+					hasMore: skip + limit < totalRoomTypes,
+					total: totalRoomTypes,
+				},
+			});
+		});
 	}
 
 	function findById(roomTypeId, params) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel.findById(roomTypeId, params, (err, roomTypes) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (roomTypes) {
-						resolve(roomTypes);
-					} else {
-						reject({
-							status: 404,
-							message: 'No roomType have been found.',
-						});
-					}
-				}
+				if (err) reject(err);
+				if (!roomTypes) reject({ status: 404, message: 'No roomType have been found.' });
+				resolve(roomTypes);
 			});
 		});
 	}
@@ -83,64 +69,30 @@ function roomTypesController(roomTypeModel, bookModel, roomModel) {
 	function findByIdPupulated(roomTypeId, params) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel.findById(roomTypeId, params, (err, roomTypes) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (roomTypes) {
-						resolve(roomTypes);
-					} else {
-						reject({
-							status: 404,
-							message: 'No roomType have been found.',
-						});
-					}
-				}
-			}).populate({
-				path: 'packs',
-				select: '_id name freeCancel'
-			  });
+				if (err) reject(err);
+				if (!roomTypes) reject({ status: 404, message: 'No roomType have been found.' });
+				resolve(roomTypes);
+			})
+			.populate({path: 'packs', select: '_id name freeCancel'}); //,{path: 'hotel', select: '_id name'}
 		});
 	}
 
 	function findByIdAndUpdate(id, values) {
 		return new Promise((resolve, reject) => {
-			roomTypeModel.findByIdAndUpdate(
-				id,
-				values,
-				{ new: true },
-				(err, roomType) => {
-					if (err) {
-						reject(err);
-					} else {
-						if (roomType) {
-							resolve(roomType);
-						} else {
-							reject({
-								status: 404,
-								message: 'No RoomType have been found.',
-							});
-						}
-					}
-				}
-			);
+			roomTypeModel.findByIdAndUpdate(id, values, { new: true }, (err, roomType) => {
+				if (err) reject(err);
+				if (!roomType) reject({ status: 404, message: 'No RoomType have been found.' });
+				resolve(roomType);
+			});
 		});
 	}
 
 	function findByIdAndDelete(roomTypeId) {
 		return new Promise((resolve, reject) => {
 			roomTypeModel.findByIdAndDelete(roomTypeId, (err, roomType) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (roomType) {
-						resolve(roomType);
-					} else {
-						reject({
-							status: 404,
-							message: 'No RoomType have been found.',
-						});
-					}
-				}
+				if (err) reject(err);
+				if (!roomType) reject({ status: 404, message: 'No RoomType have been found.' });
+				resolve(roomType);
 			});
 		});
 	}

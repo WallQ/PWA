@@ -1,4 +1,4 @@
-import React, { Suspense, lazy  } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Loading from './components/Loading/';
@@ -15,20 +15,22 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 
 function Website() {
 	return (
-		<Suspense fallback={<Loading />}>
-			<Routes>
-				<Route element={<Layout />} path="/">
-					<Route element={<Homepage />} index />
-					<Route element={<Hotel />} path="hotel/:hotelID" />
-					<Route element={<Room />} path="room/:roomID" />
-					<Route element={<NotFound />} path="*" />
-				</Route>
-				<Route element={<SignUp />} path="sign-up" />
-				<Route element={<SignIn />} path="sign-in" />
-				<Route element={<SignOut />} path="sign-out" />
-				<Route element={<Testing />} path="test" />
-			</Routes>
-		</Suspense>
+		<>
+			<Suspense fallback={<Loading />}>
+				<Routes>
+					<Route element={<Layout />} path="/">
+						<Route element={<Homepage />} index />
+						<Route element={<Hotel />} path="hotel/:hotelID" />
+						<Route element={<Room />} path="room/:roomTypeID" />
+						<Route element={<NotFound />} path="*" />
+					</Route>
+					<Route element={<SignUp />} path="sign-up" />
+					<Route element={<SignIn />} path="sign-in" />
+					<Route element={<SignOut />} path="sign-out" />
+					<Route element={<Testing />} path="test" />
+				</Routes>
+			</Suspense>
+		</>
 	);
 }
 
