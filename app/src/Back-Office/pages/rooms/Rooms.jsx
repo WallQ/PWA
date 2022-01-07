@@ -103,7 +103,7 @@ const Rooms = (props) => {
         }
     }
 
-    //Drwaer
+    //Drawer
     const [roomFormToogle, setRoomFormToogle] = useState(false);
 
     const showForm = (id) => {
@@ -112,11 +112,23 @@ const Rooms = (props) => {
             setRoomFormToogle(true);
         }
     };
+    const showFormToCreate = () => {
+        return ()=>{
+            setSelectedRoom('');
+            setRoomFormToogle(true);
+        }
+    };
 
     const onCloseForm = () => {
-        //return () => setRoomFormToogle(false);
+            console.log("Fechou")
+            //getRooms(data.pagination.pageSize, data.pagination.current);
+        
     };
     //end
+
+    const handleTableChange =(pagination)=>{
+        getRooms(pagination.pageSize, pagination.current)
+    }
 
     useEffect(()=>{
         if(props.hotelID){
@@ -133,12 +145,17 @@ const Rooms = (props) => {
 
     },[props.hotelID]);
     
-    const handleTableChange =(pagination)=>{
-        getRooms(pagination.pageSize, pagination.current)
-    }
 
     return (
         <div>
+            <Space style={{ marginBottom: "30px"}}>
+                <Button 
+                    onClick={showFormToCreate()}
+                    type="primary" 
+                    style={{ background: "green", borderColor: "green" }}>
+                    NEW
+                </Button>
+            </Space>
             <Table
                 columns={columns}
                 rowKey={record => record._id}
@@ -147,7 +164,8 @@ const Rooms = (props) => {
                 loading={loading}
                 onChange={handleTableChange}
                 />
-            <RoomsFormDrawer 
+            <RoomsFormDrawer
+                hotelID={props.hotelID}
                 visible={roomFormToogle}
                 selectedRoom={selectedRoom}
                 setVisible={setRoomFormToogle}

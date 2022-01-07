@@ -1,18 +1,117 @@
 import React,{useState, useEffect} from 'react'
-import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker, Space } from 'antd';
+import { Drawer,message,Form, Button, Col, Row, Input, Select, Space } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
 const RoomsFormDrawer = (props) => {
 
+    //FORMULARIO
+    const [form] = Form.useForm();
+
+    const onFormFinish = (values) => {
+        if(room){
+            updateRoomType(room._id,values);
+            
+        }else{
+            newRoomType(props.hotelID,values); 
+        }
+        console.log("Submit Form: ",values)
+      
+    };
+    const onFormFinishFailed = (data) => {
+        //console.log(data);
+    };
+
+    //Dados do room
+    const [room, setRoom] = useState('');
+
+    //GET os dados do ROOMTYPE
+    const getRoom = (id) =>{
+
+        const url = '/rooms/' + id
+
+        fetch(url,{
+            headers: {'Accept': 'application/json'}
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            const {status, data,message} = response;
+            
+            if(data){
+                    setRoom(data)
+                    form.setFieldsValue(data);
+            }  else{
+                message.error('Cant find Room to Edit');
+            }
+        })
+    }
+    //NEW Room
+    const newRoomType = (hotelID,values) =>{
+        console.log("INSERT: ",hotelID,"Values: ", values)
+        const url = '/rooms'
+
+        fetch(url,{
+            headers: {'Content-Type': 'application/json'},
+            method: 'POST',
+            body: JSON.stringify({
+                ...values,
+                hotel: hotelID
+            })
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            if(response.auth){
+                message.success('Rooom Created');
+            }else{
+                message.error('Cant create Rooom');
+            }
+        })
+    }
+    //Update Room
+    const updateRoomType = (roomID, values) =>{
+        //console.log("vou inserir")
+        const url = '/rooms/' + roomID
+
+        fetch(url,{
+            headers: {'Content-Type': 'application/json'},
+            method: 'PUT',
+            body: JSON.stringify({
+                ...values,
+            })
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            if(response.auth){
+                message.success('Rooom Updated');
+                props.setVisible(false)
+            }else{
+                message.error('Cant update Rooom');
+            }
+            
+        })
+    }
+    
+
     useEffect(() => {
-        console.log("Drawer Selected Romm", props.selectedRoom)
+        if(props.selectedRoom._id)
+        {
+           getRoom(props.selectedRoom._id) 
+        }
+        
+        return () => {
+            if(!props.visible){
+              props.onCloseForm()  
+            }
+            
+        };
+        
     }, [props.selectedRoom]);
     return (
         <>
+            
             <Drawer
-            title={"Number Room: " + props.selectedRoom.number}
+            title={(props.selectedRoom) ? "Number Room: " + props.selectedRoom.number : "New Room"}
             width={720}
             onClose={()=>props.setVisible(false)}
             visible={props.visible}
@@ -20,105 +119,36 @@ const RoomsFormDrawer = (props) => {
             extra={
                 <Space>
                     <Button onClick={()=>props.setVisible(false)}>Cancel</Button>
-                    <Button type="primary">
-                        Submit
+                    <Button 
+                        form="formRoom"
+                        type="primary" 
+                        htmlType="submit"
+                        >
+                        {(props.selectedRoom) ? "Update" : "Create"}
                     </Button>
                 </Space>
             }
             >
-            <Form layout="vertical" hideRequiredMark>
+            <Form
+                id="formRoom"
+                form={form}
+                onFinish={onFormFinish}
+                onFinishFailed={onFormFinishFailed}
+                layout="vertical" 
+                hideRequiredMark
+                >
                 <Row gutter={16}>
-                <Col span={12}>
-                    <Form.Item
-                    name="name"
-                    label="Name"
-                    rules={[{ required: true, message: 'Please enter user name' }]}
-                    >
-                    <Input placeholder="Please enter user name" />
-                    </Form.Item>
-                </Col>
-                <Col span={12}>
-                    <Form.Item
-                    name="url"
-                    label="Url"
-                    rules={[{ required: true, message: 'Please enter url' }]}
-                    >
-                    <Input
-                        style={{ width: '100%' }}
-                        addonBefore="http://"
-                        addonAfter=".com"
-                        placeholder="Please enter url"
-                    />
-                    </Form.Item>
-                </Col>
-                </Row>
-                <Row gutter={16}>
-                <Col span={12}>
-                    <Form.Item
-                    name="owner"
-                    label="Owner"
-                    rules={[{ required: true, message: 'Please select an owner' }]}
-                    >
-                    <Select placeholder="Please select an owner">
-                        <Option value="xiao">Xiaoxiao Fu</Option>
-                        <Option value="mao">Maomao Zhou</Option>
-                    </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={12}>
-                    <Form.Item
-                    name="type"
-                    label="Type"
-                    rules={[{ required: true, message: 'Please choose the type' }]}
-                    >
-                    <Select placeholder="Please choose the type">
-                        <Option value="private">Private</Option>
-                        <Option value="public">Public</Option>
-                    </Select>
-                    </Form.Item>
-                </Col>
-                </Row>
-                <Row gutter={16}>
-                <Col span={12}>
-                    <Form.Item
-                    name="approver"
-                    label="Approver"
-                    rules={[{ required: true, message: 'Please choose the approver' }]}
-                    >
-                    <Select placeholder="Please choose the approver">
-                        <Option value="jack">Jack Ma</Option>
-                        <Option value="tom">Tom Liu</Option>
-                    </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={12}>
-                    <Form.Item
-                    name="dateTime"
-                    label="DateTime"
-                    rules={[{ required: true, message: 'Please choose the dateTime' }]}
-                    >
-                    <DatePicker.RangePicker
-                        style={{ width: '100%' }}
-                        getPopupContainer={trigger => trigger.parentElement}
-                    />
-                    </Form.Item>
-                </Col>
-                </Row>
-                <Row gutter={16}>
-                <Col span={24}>
-                    <Form.Item
-                    name="description"
-                    label="Description"
-                    rules={[
-                        {
-                        required: true,
-                        message: 'please enter url description',
-                        },
-                    ]}
-                    >
-                    <Input.TextArea rows={4} placeholder="please enter url description" />
-                    </Form.Item>
-                </Col>
+                    <Col span={12}>
+                        <Form.Item
+                        name="number"
+                        label="Number"
+                        rules={[{ required: true, message: 'Please enter a number room' }]}
+                        >
+                        <Input placeholder="Please enter user number room" />
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                    </Col>
                 </Row>
             </Form>
             </Drawer>

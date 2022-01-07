@@ -28,7 +28,17 @@ const Roomtypes = (props) => {
         {
             title: 'Description',
             dataIndex: 'description',
-            width: '20%',
+            width: '40%',
+        },
+        {
+            title: 'Guests',
+            dataIndex: 'maxGuest',
+            width: '10%',
+        },
+        {
+            title: 'Guests Child',
+            dataIndex: 'maxGuestChild',
+            width: '10%',
         },
         {
           title: 'Action',
@@ -129,7 +139,14 @@ const Roomtypes = (props) => {
 
     return (
         <div>
-            <h1>{props.hotelID}</h1>
+            <Space style={{ marginBottom: "30px"}}>
+                <Button 
+                    href='roomTypes/new'
+                    type="primary" 
+                    style={{ background: "green", borderColor: "green" }}>
+                    NEW
+                </Button>
+            </Space>
             <Table
                 columns={columns}
                 rowKey={record => record._id}

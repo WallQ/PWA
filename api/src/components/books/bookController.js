@@ -120,7 +120,7 @@ function booksController(bookModel, hotelModel, roomModel, roomTypeModel) {
 				],
 			};
 			const matchRoomTypes = await roomTypeModel.find(opt).exec();
-
+			//console.log("matchRoomTypes: ",matchRoomTypes)
 			let res = [];
 
 			for (const roomType of matchRoomTypes) {
