@@ -28,6 +28,12 @@ const Rooms = (props) => {
             width: '40%',
         },
         {
+            title: 'Room Type',
+            dataIndex: 'roomType',
+            width: '40%'
+            
+        },
+        {
           title: 'Action',
           key: 'action',
           render: (text, record) => (
@@ -59,7 +65,7 @@ const Rooms = (props) => {
         })
         .then((response) => response.json())
         .then((response) => {
-            //console.log(response)
+            console.log(response)
 
             const {auth} = response;
             const {rooms = [],pagination} = response.data;
@@ -94,7 +100,7 @@ const Rooms = (props) => {
                 console.log("Update Auth: ", response.auth);
                 if(response.auth){
                     message.success('Rooom Deleted');
-                    getRooms(data.pagination.pageSize, data.pagination.current);
+                    //getRooms(data.pagination.pageSize, data.pagination.current);
                 }else{
                     message.error('Cant delete Rooom');
                 }
@@ -121,7 +127,6 @@ const Rooms = (props) => {
 
     const onCloseForm = () => {
             console.log("Fechou")
-            //getRooms(data.pagination.pageSize, data.pagination.current);
         
     };
     //end

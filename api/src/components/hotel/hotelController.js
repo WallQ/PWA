@@ -147,7 +147,13 @@ function hotelService(
 						});
 					}
 				}
-			});	
+			})
+			.populate(
+				'roomType',
+				'_id name'
+			)
+			
+				
 		})
 		.then( async (rooms) => {
 			const totalRooms = await roomModel.count({ hotel: hotelId });

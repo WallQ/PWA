@@ -23,8 +23,13 @@ const RoomsFormDrawer = (props) => {
         //console.log(data);
     };
 
+    const handleChange = (value) => {
+        console.log(value);
+      }
+
     //Dados do room
     const [room, setRoom] = useState('');
+    const [roomTypes, setRoomTypes] = useState([]);
 
     //GET os dados do ROOMTYPE
     const getRoom = (id) =>{
@@ -39,8 +44,10 @@ const RoomsFormDrawer = (props) => {
             const {status, data,message} = response;
             
             if(data){
+                //console.log("GETROOM: ", data)
                     setRoom(data)
-                    form.setFieldsValue(data);
+                    form.setFieldsValue({number: data.number});
+                    form.setFieldsValue({roomType: {value: data.roomType}})
             }  else{
                 message.error('Cant find Room to Edit');
             }
@@ -55,7 +62,8 @@ const RoomsFormDrawer = (props) => {
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
             body: JSON.stringify({
-                ...values,
+                number: values.number,
+                roomType: values.roomType.value,
                 hotel: hotelID
             })
         })
@@ -77,7 +85,8 @@ const RoomsFormDrawer = (props) => {
             headers: {'Content-Type': 'application/json'},
             method: 'PUT',
             body: JSON.stringify({
-                ...values,
+                number:values.number,
+                roomType: values.roomType.value
             })
         })
         .then((response) => response.json())
@@ -91,13 +100,38 @@ const RoomsFormDrawer = (props) => {
             
         })
     }
+
+    //GET os dados do ROOMTYPE
+    const getAllRoomType = () =>{
+
+        const url = '/hotel/'+ props.hotelID +'/roomTypes'
+
+        fetch(url,{
+            headers: {'Accept': 'application/json'}
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            const {auth, data} = response;
+            if(auth){
+                //console.log("DATA: ",data.roomTypes)
+                setRoomTypes(data.roomTypes)  
+            }else{
+                message.error('Cant find RooomRypes from hotel');
+            }
+        })
+    }
     
 
     useEffect(() => {
+        if(props.hotelID){
+            console.log("Vou fazer")
+            getAllRoomType()
+        }
         if(props.selectedRoom._id)
         {
            getRoom(props.selectedRoom._id) 
         }
+        
         
         return () => {
             if(!props.visible){
@@ -106,28 +140,28 @@ const RoomsFormDrawer = (props) => {
             
         };
         
-    }, [props.selectedRoom]);
+    }, [props.selectedRoom,props.hotelID]);
+
     return (
-        <>
-            
+        <>   
             <Drawer
-            title={(props.selectedRoom) ? "Number Room: " + props.selectedRoom.number : "New Room"}
-            width={720}
-            onClose={()=>props.setVisible(false)}
-            visible={props.visible}
-            bodyStyle={{ paddingBottom: 80 }}
-            extra={
-                <Space>
-                    <Button onClick={()=>props.setVisible(false)}>Cancel</Button>
-                    <Button 
-                        form="formRoom"
-                        type="primary" 
-                        htmlType="submit"
-                        >
-                        {(props.selectedRoom) ? "Update" : "Create"}
-                    </Button>
-                </Space>
-            }
+                title={(props.selectedRoom) ? "Number Room: " + props.selectedRoom.number : "New Room"}
+                width={720}
+                onClose={()=>props.setVisible(false)}
+                visible={props.visible}
+                bodyStyle={{ paddingBottom: 80 }}
+                extra={
+                    <Space>
+                        <Button onClick={()=>props.setVisible(false)}>Cancel</Button>
+                        <Button 
+                            form="formRoom"
+                            type="primary" 
+                            htmlType="submit"
+                            >
+                            {(props.selectedRoom) ? "Update" : "Create"}
+                        </Button>
+                    </Space>
+                }
             >
             <Form
                 id="formRoom"
@@ -140,14 +174,31 @@ const RoomsFormDrawer = (props) => {
                 <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item
-                        name="number"
-                        label="Number"
-                        rules={[{ required: true, message: 'Please enter a number room' }]}
+                            name="number"
+                            label="Number"
+                            rules={[{ required: true, message: 'Please enter a number room' }]}
                         >
-                        <Input placeholder="Please enter user number room" />
+                            <Input placeholder="Please enter user number room" />
                         </Form.Item>
                     </Col>
                     <Col span={12}>
+                        <Form.Item
+                            name="roomType"
+                            label="Room Type"
+                        >
+                            <Select
+                                labelInValue
+                                onChange={handleChange}
+                            >
+                                {
+                                    roomTypes.map((val)=>{
+                                        return <Option value={val._id} key={val._id}>{val.name}</Option>
+                                    })
+                                    
+                                }
+                            </Select>
+                        </Form.Item>
+                        
                     </Col>
                 </Row>
             </Form>
