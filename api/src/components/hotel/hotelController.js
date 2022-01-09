@@ -227,9 +227,10 @@ function hotelService(
 		});
 	}
 
-	function findPacksByHotelId(hotelId) {
+	function findPacksByHotelId(hotelId,pagination) {
+		const { limit, skip } = pagination;
 		return new Promise((resolve, reject) => {
-			packsModel.find({ hotel: hotelId }, (err, packs) => {
+			packsModel.find({ hotel: hotelId },{},{ skip, limit },(err, packs) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -241,6 +242,19 @@ function hotelService(
 							message: 'No packs have been found.',
 						});
 					}
+				}
+			})
+		})
+		.then( async (packs) => {
+			//const totalRoomTypes = await roomTypeModel.count();
+			const totalPacks = await packsModel.count({ hotel: hotelId });
+			return Promise.resolve({
+				packs: packs,
+				pagination:{
+					pageSize: limit,
+					page: Math.floor(skip / limit),
+					hasMore: (skip + limit) < totalPacks,
+					total: totalPacks
 				}
 			});
 		});

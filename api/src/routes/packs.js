@@ -21,6 +21,7 @@ function PackRouter() {
 					.then((packs) => {
 						res.status(200).send({
 							status: 200,
+							auth: true,
 							message: 'Packs have been successfully found.',
 							data: packs,
 						});
@@ -41,6 +42,7 @@ function PackRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
@@ -51,6 +53,7 @@ function PackRouter() {
 								.then((pack) => {
 									res.status(201).send({
 										status: 201,
+										auth: true,
 										message:
 											'Pack has been created successfully.',
 										data: pack,
@@ -65,6 +68,7 @@ function PackRouter() {
 						.then((pack) => {
 							res.status(201).send({
 								status: 201,
+								auth: true,
 								message: 'Pack has been created successfully.',
 								data: pack,
 							});
@@ -86,6 +90,7 @@ function PackRouter() {
 					.then((pack) => {
 						res.status(200).send({
 							status: 200,
+							auth:true,
 							message: 'Pack has been successfully found.',
 							data: pack,
 						});
@@ -104,6 +109,7 @@ function PackRouter() {
 					.then((pack) => {
 						res.status(200).send({
 							status: 200,
+							auth: true,
 							message: 'Pack has been successfully updated.',
 							data: pack,
 						});
@@ -121,6 +127,7 @@ function PackRouter() {
 					.then((pack) => {
 						res.status(200).send({
 							status: 200,
+							auth: true,
 							message: 'Pack has been successfully deleted.',
 							data: pack,
 						});

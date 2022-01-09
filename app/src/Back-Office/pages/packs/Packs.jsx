@@ -3,33 +3,33 @@ import {Table, Space} from 'antd'
 import { Button,message,Popconfirm } from 'antd';
 import { QuestionCircleOutlined  } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import RoomsFormDrawer from './RoomsFormDrawer';
+import PacksFormDrawer from './PacksFormDrawer';
 
-const Rooms = (props) => {
+const Packs = (props) => {
 
     const [loading, setLoading] = useState(true);
-    const [selectedRoom, setSelectedRoom] = useState('');
+    const [selectedPack, setSelectedPack] = useState({});
 
     const [ data, setData] = useState({
-        rooms: [],
+        packs: [],
         pagination: {
             current: 1,
             pageSize: 7,
             total: 0
         }
     });
-    const {rooms, pagination} = data;
+    const {packs, pagination} = data;
     
     //Definição das colunas da tabela
     const columns =[
         {
-            title: 'Number',
-            dataIndex: 'number',
+            title: 'Name',
+            dataIndex: 'name',
             width: '40%',
         },
         {
-            title: 'Room Type',
-            dataIndex: 'roomType',
+            title: 'Price',
+            dataIndex: 'dailyPrice',
             width: '40%'
             
         },
@@ -41,7 +41,7 @@ const Rooms = (props) => {
                 <Button type="primary" shape="round" onClick={showForm(record._id)}>
                    Edit
                 </Button>
-                <Popconfirm title="Are you sure？" onConfirm={deleteRoom(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
+                <Popconfirm title="Are you sure？" onConfirm={deletePack(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
                     <Button danger type="dashed" shape="round" >Remove </Button>
                 </Popconfirm>
                 
@@ -50,12 +50,12 @@ const Rooms = (props) => {
         }
     ]
 
-    //Get RoomType
-    const getRooms = (pageSize, current) =>{
+    //Get Pack
+    const getPacks = (pageSize, current) =>{
         //const url = '/roomTypes/?' + new URLSearchParams({
             
         console.log("URL Hotel ID",props.hotelID);
-        const url = `/hotel/${props.hotelID}/rooms?` + new URLSearchParams({
+        const url = `/hotel/${props.hotelID}/packs?` + new URLSearchParams({
             limit: pageSize,
             skip: current -1
         })
@@ -68,13 +68,13 @@ const Rooms = (props) => {
             console.log(response)
 
             const {auth} = response;
-            const {rooms = [],pagination} = response.data;
+            const {packs = [],pagination} = response.data;
 
             if(auth){
                 console.log("Resposta: ",response)
                 setLoading(false);
                 setData({
-                    rooms,
+                    packs,
                     pagination:{
                         current: pagination.page + 1 || 1,
                         pageSize: pagination.pageSize || 50,
@@ -86,10 +86,10 @@ const Rooms = (props) => {
         });
     }
     //Delete RoomType
-    const deleteRoom = (id) =>{
+    const deletePack = (id) =>{
         return () =>{
             //console.log("vou inserir")
-            const url = '/rooms/' + id
+            const url = '/packs/' + id
 
             fetch(url,{
                 headers: {'Content-Type': 'application/json'},
@@ -99,10 +99,10 @@ const Rooms = (props) => {
             .then((response) => {
                 console.log("Update Auth: ", response.auth);
                 if(response.auth){
-                    message.success('Rooom Deleted');
+                    message.success('Pack Deleted');
                     //getRooms(data.pagination.pageSize, data.pagination.current);
                 }else{
-                    message.error('Cant delete Rooom');
+                    message.error('Cant delete Pack');
                 }
                 
             })
@@ -110,21 +110,21 @@ const Rooms = (props) => {
     }
 
     //Drawer
-    const [roomFormToogle, setRoomFormToogle] = useState(false);
+    const [packFormToogle, setPackFormToogle] = useState(false);
 
     const showForm = (id) => {
         return ()=>{
-            setSelectedRoom(rooms.find((room)=> room._id == id));
-            setRoomFormToogle(true);
+            //console.log("PACK FOUND: ", packs.find((pack)=> pack._id == id))
+            setSelectedPack(packs.find((pack)=> pack._id == id));
+            setPackFormToogle(true);
         }
     };
     const showFormToCreate = () => {
         return ()=>{
-            setSelectedRoom('');
-            setRoomFormToogle(true);
+            setSelectedPack('');
+            setPackFormToogle(true);
         }
     };
-
     const onCloseForm = () => {
             console.log("Fechou")
         
@@ -132,16 +132,16 @@ const Rooms = (props) => {
     //end
 
     const handleTableChange =(pagination)=>{
-        getRooms(pagination.pageSize, pagination.current)
+        getPacks(pagination.pageSize, pagination.current)
     }
 
     useEffect(()=>{
         if(props.hotelID){
-           getRooms(data.pagination.pageSize, data.pagination.current); 
+           getPacks(data.pagination.pageSize, data.pagination.current); 
         }
         
         return ()=> setData({
-            rooms:[],
+            packs:[],
             pagination: {
                 current: 1,
                 pageSize: 0
@@ -164,20 +164,21 @@ const Rooms = (props) => {
             <Table
                 columns={columns}
                 rowKey={record => record._id}
-                dataSource={rooms}
+                dataSource={packs}
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
                 />
-            <RoomsFormDrawer
+
+            <PacksFormDrawer
                 hotelID={props.hotelID}
-                visible={roomFormToogle}
-                selectedRoom={selectedRoom}
-                setVisible={setRoomFormToogle}
+                visible={packFormToogle}
+                selectedPack={selectedPack}
+                setVisible={setPackFormToogle}
                 onCloseForm={onCloseForm}
             />
         </div>
     );
 }
 
-export default Rooms;
+export default Packs;

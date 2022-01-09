@@ -284,16 +284,18 @@ function HotelRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
 								});
 							}
 							hotel
-								.findPacksByHotelId(hotelId)
+								.findPacksByHotelId(hotelId,req.pagination)
 								.then((packs) => {
 									res.status(200).send({
 										status: 200,
+										auth: true,
 										message:
 											'Packs have been successfully found.',
 										data: packs,
@@ -304,10 +306,11 @@ function HotelRouter() {
 						.catch(next);
 				} else {
 					hotel
-						.findPacksByHotelId(hotelId)
+						.findPacksByHotelId(hotelId,req.pagination)
 						.then((packs) => {
 							res.status(200).send({
 								status: 200,
+								auth: true,
 								message: 'Packs have been successfully found.',
 								data: packs,
 							});
