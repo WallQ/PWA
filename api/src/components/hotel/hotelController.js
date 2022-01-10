@@ -208,9 +208,12 @@ function hotelService(
         });
 	}
 
-	function findBooksByHotelId(hotelId) {
+	function findBooksByHotelId(hotelId,pagination) {
+		console.log(pagination)
+		const { limit, skip } = pagination;
+		
 		return new Promise((resolve, reject) => {
-			bookModel.find({ hotel: hotelId }, (err, books) => {
+			bookModel.find({ hotel: hotelId },{},{ skip, limit }, (err, books) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -219,12 +222,27 @@ function hotelService(
 					} else {
 						reject({
 							status: 404,
+							auth:false,
 							message: 'No books have been found.',
 						});
 					}
 				}
 			});
+		})
+		.then( async (books) => {
+			//const totalRoomTypes = await roomTypeModel.count();
+			const totalPacks = await bookModel.count({ hotel: hotelId });
+			return Promise.resolve({
+				books: books,
+				pagination:{
+					pageSize: limit,
+					page: Math.floor(skip / limit),
+					hasMore: (skip + limit) < totalPacks,
+					total: totalPacks
+				}
+			});
 		});
+		
 	}
 
 	function findPacksByHotelId(hotelId,pagination) {

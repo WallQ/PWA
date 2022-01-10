@@ -33,6 +33,7 @@ function BookRouter() {
 				.then((book) => {
 					res.status(200).send({
 						status: 200,
+						auth: true,
 						message: 'Book has been created successfully.',
 						data: book,
 					});

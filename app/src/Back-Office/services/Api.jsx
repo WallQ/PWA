@@ -1,41 +1,83 @@
-import * as axios from "axios";
-//import { getCookie } from "./utils";
+const API_URL = '/auth';
 
-export default class Api {
-  constructor() {
-    this.api_token = null;
-    this.client = null;
-    this.api_url = process.env.REACT_APP_API_ENDPOINT;
-  }
+export const getClients = () => {
+	return new Promise((resolve, reject) => {
+		const url = '/user'
 
-  init = () => {
-    //this.api_token = getCookie("token");
+		fetch(url,{
+			headers: {'Accept': 'application/json'}
+		})
+		.then((response) => response.json())
+		.then((response) => {
+			const {status, data} = response;
+			
+			if(data){
+				resolve(data)
+			}  else{
+				reject("Cant Find Users")
+			}
+		})
+	})
+};
 
-    let headers = {
-      Accept: "application/json",
-    };
+export const getRoomTypes = (hotelID) => {
+	return new Promise((resolve, reject) => {
+        const url = `/hotel/${hotelID}/roomTypes`
 
-    if (this.api_token) {
-      headers.Authorization = `Bearer ${this.api_token}`;
-    }
+        fetch(url,{
+            headers: {'Accept': 'application/json'}
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            const {auth} = response;
+            const {roomTypes = []} = response.data;
+            if(auth){
+                resolve(roomTypes)
+            }else{
+				reject("Cant Find RoomTypes from this Hotel")
+			}
 
-    this.client = axios.create({
-      //baseURL: this.api_url,
-      baseURL: "",
-      timeout: 31000,
-      headers: headers,
-    });
+        });
+	})
+};
 
-    return this.client;
-  };
+export const getPacks = (hotelID) => {
+	return new Promise((resolve, reject) => {
+        const url = `/hotel/${hotelID}/packs`
 
-  getRoomType = (idRoomType) => {
-    //return this.init().get("/users", { params: idRoomType });
-    const url = '/roomTypes/' + idRoomType;
-    return this.init().get(url);
-  };
+        fetch(url,{
+            headers: {'Accept': 'application/json'}
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            const {auth} = response;
+            const {packs = []} = response.data;
+			console.log("PACKS: ", packs)
+            if(auth){
+                resolve(packs)
+            }else{
+				reject("Cant Find RoomTypes from this Hotel")
+			}
+        });
+	});
+};
 
-  addNewUser = (data) => {
-    return this.init().post("/users", data);
-  };
-}
+export const getRoom = (hotelID) => {
+	return new Promise((resolve, reject) => {
+        const url = `/hotel/${hotelID}/roomTypes`
+
+        fetch(url,{
+            headers: {'Accept': 'application/json'}
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            const {auth} = response;
+            const {roomTypes = []} = response.data;
+            if(auth){
+                resolve(roomTypes)
+            }else{
+				reject("Cant Find RoomTypes from this Hotel")
+			}
+        });
+	})
+};
