@@ -62,9 +62,9 @@ export const getPacks = (hotelID) => {
 	});
 };
 
-export const getRoom = (hotelID) => {
+export const getRooms = (hotelID) => {
 	return new Promise((resolve, reject) => {
-        const url = `/hotel/${hotelID}/roomTypes`
+        const url = `/hotel/${hotelID}/rooms`
 
         fetch(url,{
             headers: {'Accept': 'application/json'}
@@ -72,9 +72,9 @@ export const getRoom = (hotelID) => {
         .then((response) => response.json())
         .then((response) => {
             const {auth} = response;
-            const {roomTypes = []} = response.data;
+            const {rooms = []} = response.data;
             if(auth){
-                resolve(roomTypes)
+                resolve(rooms)
             }else{
 				reject("Cant Find RoomTypes from this Hotel")
 			}

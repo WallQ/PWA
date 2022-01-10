@@ -227,7 +227,10 @@ function hotelService(
 						});
 					}
 				}
-			});
+			})
+			.populate('roomType','_id name')
+			.populate('pack','_id name')
+			
 		})
 		.then( async (books) => {
 			//const totalRoomTypes = await roomTypeModel.count();

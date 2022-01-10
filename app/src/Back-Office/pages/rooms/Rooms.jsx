@@ -30,7 +30,10 @@ const Rooms = (props) => {
         {
             title: 'Room Type',
             dataIndex: 'roomType',
-            width: '40%'
+            width: '40%',
+            render: (text, record) => (
+                <>{record.roomType.name}</>  
+              ),
             
         },
         {

@@ -4,6 +4,7 @@ import { Button,message,Popconfirm } from 'antd';
 import { QuestionCircleOutlined  } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import BooksFormDrawer from './BooksFormDrawer';
+import moment from 'moment';
 
 const Books = (props) => {
 
@@ -11,7 +12,7 @@ const Books = (props) => {
     const [selectedBook, setSelectedBook] = useState({});
 
     const [ data, setData] = useState({
-        packs: [],
+        books: [],
         pagination: {
             current: 1,
             pageSize: 7,
@@ -26,24 +27,34 @@ const Books = (props) => {
             title: 'Room',
             dataIndex: 'roomType',
             width: '20%',
+            render: (text, record) => (
+                <>{text.name}</>
+            )
         },
         {
             title: 'Pack',
             dataIndex: 'pack',
-            width: '20%'
+            width: '20%',
+            render: (text, record) => (
+                <>{text.name}</>
+            )
             
         },
         {
             title: 'Check In',
             dataIndex: 'checkIn_date',
-            width: '20%'
-            
+            width: '20%',
+            render: (text, record) => (
+                <>{moment(new Date(text)).format("DD/MM/YYYY")}</>
+            )  
         },
         {
             title: 'Check Out',
             dataIndex: 'checkOut_date',
-            width: '20%'
-            
+            width: '20%',
+            render: (text, record) => (
+                <>{moment(new Date(text)).format("DD/MM/YYYY")}</>
+            )
         },
         {
           title: 'Action',
@@ -53,7 +64,7 @@ const Books = (props) => {
                 <Button type="primary" shape="round" onClick={showForm(record._id)}>
                    Edit
                 </Button>
-                <Popconfirm title="Are you sure？" onConfirm={deletePack(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
+                <Popconfirm title="Are you sure？" onConfirm={deleteBook(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
                     <Button danger type="dashed" shape="round" >Remove </Button>
                 </Popconfirm>
                 
@@ -63,7 +74,7 @@ const Books = (props) => {
     ]
 
     //Get Pack
-    const getPacks = (pageSize, current) =>{
+    const getBooks = (pageSize, current) =>{
         //const url = '/roomTypes/?' + new URLSearchParams({
             
         console.log("URL Hotel ID",props.hotelID);
@@ -98,10 +109,10 @@ const Books = (props) => {
         });
     }
     //Delete RoomType
-    const deletePack = (id) =>{
+    const deleteBook = (id) =>{
         return () =>{
             //console.log("vou inserir")
-            const url = '/packs/' + id
+            const url = '/books/' + id
 
             fetch(url,{
                 headers: {'Content-Type': 'application/json'},
@@ -109,12 +120,11 @@ const Books = (props) => {
             })
             .then((response) => response.json())
             .then((response) => {
-                console.log("Update Auth: ", response.auth);
                 if(response.auth){
-                    message.success('Pack Deleted');
-                    //getRooms(data.pagination.pageSize, data.pagination.current);
+                    message.success('Book Deleted');
+                    getBooks(data.pagination.pageSize, data.pagination.current);
                 }else{
-                    message.error('Cant delete Pack');
+                    message.error('Cant delete Book');
                 }
                 
             })
@@ -126,8 +136,7 @@ const Books = (props) => {
 
     const showForm = (id) => {
         return ()=>{
-            //console.log("PACK FOUND: ", packs.find((pack)=> pack._id == id))
-            setSelectedBook(books.find((pack)=> pack._id == id));
+            setSelectedBook(books.find((books)=> books._id == id));
             setBookFormToogle(true);
         }
     };
@@ -144,12 +153,12 @@ const Books = (props) => {
     //end
 
     const handleTableChange =(pagination)=>{
-        getPacks(pagination.pageSize, pagination.current)
+        getBooks(pagination.pageSize, pagination.current)
     }
 
     useEffect(()=>{
         if(props.hotelID){
-           getPacks(data.pagination.pageSize, data.pagination.current); 
+           getBooks(data.pagination.pageSize, data.pagination.current); 
         }
         
         return ()=> setData({

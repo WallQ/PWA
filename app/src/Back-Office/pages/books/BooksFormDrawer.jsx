@@ -3,45 +3,42 @@ import { Drawer,DatePicker,message,Form,InputNumber, Button, Col, Row, Input, Se
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
-import {getClients,getRoomTypes,getPacks} from "../../services/API"
+import {getClients,getRoomTypes,getPacks,getRooms} from "../../services/API"
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 const BooksFormDrawer = (props) => {
 
+    const [form] = Form.useForm();
+
+    const [book, setBook] = useState({});
     const [clients, setClients] = useState([]);
     const [roomTypes, setRoomTypes] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [packs, setPacks] = useState([]);
 
     
-    
-
-    //FORMULARIO
-    const [form] = Form.useForm();
-
+    //Eventos Formulário
     const onFormFinish = (values) => {
-        if(book){
-            //updatePack(pack._id,values);
+        
+        if(props.selectedBook._id){
+            console.log("Submit Form: ",values)
+            updatePack(book._id,values);
         
         }else{
             newBook(props.hotelID,values);
         }
-        console.log("Submit Form: ",values)
-      
     };
     const onFormFinishFailed = (data) => {
         //console.log(data);
     };
+    
 
-    //Dados do room
-    const [book, setBook] = useState('');
+    //GET os dados do Book
+    const getBook = (id) =>{
 
-    //GET os dados do ROOMTYPE
-    const getPack = (id) =>{
-
-        const url = '/packs/' + id
+        const url = '/books/' + id
 
         fetch(url,{
             headers: {'Accept': 'application/json'}
@@ -66,19 +63,17 @@ const BooksFormDrawer = (props) => {
     }
     //NEW Room
     const newBook = (hotelID,values) =>{
-        //console.log("INSERT: ",hotelID,"Values: ", values)
         const url = '/books'
         fetch(url,{
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
             body: JSON.stringify({
                 hotel: hotelID,
-                client: values.client.value,
-                roomType : values.roomType.value,
-                room: values.room.value,
-                hotel: values.hotel.value,
-                pack: values.pack.value,
-                total_price: values.client,
+                client: values.client,
+                roomType : values.roomType,
+                room: values.room,
+                pack: values.pack,
+                total_price: values.total_price,
                 checkIn_date: values.date[0]._d,
                 checkOut_date: values.date[1]._d   
             })
@@ -95,28 +90,30 @@ const BooksFormDrawer = (props) => {
         })
     }
     //Update Room
-    const updatePack = (packID, values) =>{
+    const updatePack = (bookID, values) =>{
         //console.log("vou inserir")
-        const url = '/packs/' + packID
+        const url = '/books/' + bookID
 
         fetch(url,{
             headers: {'Content-Type': 'application/json'},
             method: 'PUT',
             body: JSON.stringify({
-                name:values.name,
-                dailyPrice:values.dailyPrice,
-                freeCancel: values.freeCancel.value,
-                start_date: values.date[0]._d,
-                end_date: values.date[1]._d,
+                client: values.client,
+                roomType : values.roomType,
+                room: values.room,
+                pack: values.pack,
+                total_price: values.total_price,
+                checkIn_date: values.date[0]._d,
+                checkOut_date: values.date[1]._d
             })
         })
         .then((response) => response.json())
         .then((response) => {
             if(response.auth){
-                message.success('Rooom Updated');
+                message.success('Book Updated');
                 props.setVisible(false)
             }else{
-                message.error('Cant update Rooom');
+                message.error('Cant update Book');
             }
             
         })
@@ -127,7 +124,7 @@ const BooksFormDrawer = (props) => {
     useEffect(() => {
         if(props.selectedBook?._id)
         {
-           getPack(props.selectedBook._id) 
+           getBook(props.selectedBook._id) 
         }
 
         //Carregar Clientes para formulario
@@ -146,7 +143,13 @@ const BooksFormDrawer = (props) => {
         if(!packs == [] && props.hotelID){
             getPacks(props.hotelID)
             .then((values)=>{setPacks(values)})
-            .catch((err)=>{message.error('Cant find Room Packs')})
+            .catch((err)=>{message.error('Cant find Packs')})
+        }
+        //Carregar Rooms para formulario
+        if(!rooms == [] && props.hotelID){
+            getRooms(props.hotelID)
+            .then((values)=>{setRooms(values)})
+            .catch((err)=>{message.error('Cant find Room')})
         }
         
         
@@ -249,14 +252,12 @@ const BooksFormDrawer = (props) => {
                 </Row>
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Form.Item
+                    <Form.Item
                             name="room"
-                            label="Room"
-                            rules={[{ required: true, message: 'Please enter a number room' }]}
+                            label="Rooms"
                         >
                             <Select
                                 showSearch
-                                mode= {'multiple'}
                                 style={{ width: '100%' }}
                                 placeholder="Search to Select"
                                 optionFilterProp="children"
@@ -267,12 +268,11 @@ const BooksFormDrawer = (props) => {
                                 optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
                                 }
                             >
-                                <Option value="1">Not Identified</Option>
-                                <Option value="2">Closed</Option>
-                                <Option value="3">Communicated</Option>
-                                <Option value="4">Identified</Option>
-                                <Option value="5">Resolved</Option>
-                                <Option value="6">Cancelled</Option>
+                                {
+                                    rooms.map((val)=>{
+                                        return <Option value= {val._id} key= {"room" + val._id}>{val.number}</Option>
+                                    })
+                                }
                             </Select>
                         </Form.Item>
                     </Col>
