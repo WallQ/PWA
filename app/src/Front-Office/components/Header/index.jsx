@@ -1,13 +1,17 @@
 import React, { Fragment, useState } from 'react';
 import { Menu, Transition  } from '@headlessui/react';
-import { FaCalendarAlt, FaUsers, FaChevronDown, FaChevronUp, FaSearch } from 'react-icons/fa';
+import { FaUsers, FaChevronDown, FaChevronUp, FaSearch } from 'react-icons/fa';
 
 function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 	const [adult, setAdult] = useState(2);
 	const [child, setChild] = useState(0);
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+	};
+
 	return (
-		<div>
+		<>
 			<div className="w-screen h-screen min-w-full max-w-full min-h-full max-h-full bg-fixed bg-cover bg-center bg-no-repeat flex flex-col justify-between items-center" style={{ backgroundImage: `url(${bgImage})` }}>
 				<div className="m-auto">
 					{ title && (
@@ -27,13 +31,10 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 					)}
 					{ searchBar && (
 						<div className={`flex flex-col md:flex-row justify-between items-center ${titleWord ? 'mt-8' : 'mt-6'}`}>
+							<form onSubmit={handleSubmit}>
+
+							</form>
 							<div className="flex flex-col md:flex-row">
-								{/* <div className="relative mr-0 md:mr-5 mb-5 md:mb-0">
-									<input type="date" name="endDate" className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-bold tracking-widest leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
-									<div className="absolute right-0 top-0 mt-2.5 mr-3">
-										<FaCalendarAlt className="ml-2 h-5 w-5 fill-blue-600" />
-									</div>
-								</div> */}
 								<input type="date" name="startDate" className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer" defaultValue={ new Date().toISOString().slice(0, 10) } />
 								<input type="date" name="endDate" className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer" defaultValue={ new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10) } />
 								<div>
@@ -108,7 +109,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 					</div>
 				)}
 			</div>
-		</div>
+		</>
 	);
 }
 

@@ -7,7 +7,6 @@ import Testing from './components/Testing/';
 const Layout = lazy(() => import('./Layout/Main'));
 const Homepage = lazy(() => import('./pages/Homepage/'));
 const Hotel = lazy(() => import('./pages/Hotel/'));
-const Room = lazy(() => import('./pages/Room/'));
 const SignUp = lazy(() => import('./pages/SignUp/'));
 const SignIn = lazy(() => import('./pages/SignIn/'));
 const SignOut = lazy(() => import('./pages/SignOut/'));
@@ -21,7 +20,6 @@ function Website() {
 					<Route element={<Layout />} path="/">
 						<Route element={<Homepage />} index />
 						<Route element={<Hotel />} path="hotel/:hotelID" />
-						<Route element={<Room />} path="room/:roomTypeID" />
 						<Route element={<NotFound />} path="*" />
 					</Route>
 					<Route element={<SignUp />} path="sign-up" />

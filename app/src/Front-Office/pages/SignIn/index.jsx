@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import { FaGithub, FaGoogle, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
@@ -8,6 +8,7 @@ import useAuthenticated from '../../hooks/authenticated';
 import { signIn } from '../../services/auth';
 
 function SignIn() {
+	//let navigate = useNavigate();
 	const [redirect, setRedirect] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -19,6 +20,7 @@ function SignIn() {
 	const { authenticated } = useAuthenticated();
 	if(authenticated){
 		return <Navigate to='/'/>
+		//navigate('/test', { state: {message: 'Hello'} })
 	}
 
 	const authenticate = () => {
