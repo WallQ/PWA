@@ -3,38 +3,58 @@ import {Table, Space} from 'antd'
 import { Button,message,Popconfirm } from 'antd';
 import { QuestionCircleOutlined  } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import RoomsFormDrawer from './RoomsFormDrawer';
+import BooksFormDrawer from './BooksFormDrawer';
+import moment from 'moment';
 
-const Rooms = (props) => {
+const Books = (props) => {
 
     const [loading, setLoading] = useState(true);
-    const [selectedRoom, setSelectedRoom] = useState('');
+    const [selectedBook, setSelectedBook] = useState({});
 
     const [ data, setData] = useState({
-        rooms: [],
+        books: [],
         pagination: {
             current: 1,
             pageSize: 7,
             total: 0
         }
     });
-    const {rooms, pagination} = data;
+    const {books, pagination} = data;
     
     //Definição das colunas da tabela
     const columns =[
         {
-            title: 'Number',
-            dataIndex: 'number',
-            width: '40%',
+            title: 'Room',
+            dataIndex: 'roomType',
+            width: '20%',
+            render: (text, record) => (
+                <>{text.name}</>
+            )
         },
         {
-            title: 'Room Type',
-            dataIndex: 'roomType',
-            width: '40%',
+            title: 'Pack',
+            dataIndex: 'pack',
+            width: '20%',
             render: (text, record) => (
-                <>{record.roomType.name}</>  
-              ),
+                <>{text.name}</>
+            )
             
+        },
+        {
+            title: 'Check In',
+            dataIndex: 'checkIn_date',
+            width: '20%',
+            render: (text, record) => (
+                <>{moment(new Date(text)).format("DD/MM/YYYY")}</>
+            )  
+        },
+        {
+            title: 'Check Out',
+            dataIndex: 'checkOut_date',
+            width: '20%',
+            render: (text, record) => (
+                <>{moment(new Date(text)).format("DD/MM/YYYY")}</>
+            )
         },
         {
           title: 'Action',
@@ -44,7 +64,7 @@ const Rooms = (props) => {
                 <Button type="primary" shape="round" onClick={showForm(record._id)}>
                    Edit
                 </Button>
-                <Popconfirm title="Are you sure？" onConfirm={deleteRoom(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
+                <Popconfirm title="Are you sure？" onConfirm={deleteBook(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
                     <Button danger type="dashed" shape="round" >Remove </Button>
                 </Popconfirm>
                 
@@ -53,12 +73,12 @@ const Rooms = (props) => {
         }
     ]
 
-    //Get RoomType
-    const getRooms = (pageSize, current) =>{
+    //Get Pack
+    const getBooks = (pageSize, current) =>{
         //const url = '/roomTypes/?' + new URLSearchParams({
             
         console.log("URL Hotel ID",props.hotelID);
-        const url = `/hotel/${props.hotelID}/rooms?` + new URLSearchParams({
+        const url = `/hotel/${props.hotelID}/books?` + new URLSearchParams({
             limit: pageSize,
             skip: current -1
         })
@@ -71,13 +91,13 @@ const Rooms = (props) => {
             console.log(response)
 
             const {auth} = response;
-            const {rooms = [],pagination} = response.data;
+            const {books = [],pagination} = response.data;
 
             if(auth){
-                console.log("Resposta: ",response)
+                console.log("Resposta GET Books: ",response)
                 setLoading(false);
                 setData({
-                    rooms,
+                    books: books,
                     pagination:{
                         current: pagination.page + 1 || 1,
                         pageSize: pagination.pageSize || 50,
@@ -89,10 +109,10 @@ const Rooms = (props) => {
         });
     }
     //Delete RoomType
-    const deleteRoom = (id) =>{
+    const deleteBook = (id) =>{
         return () =>{
             //console.log("vou inserir")
-            const url = '/rooms/' + id
+            const url = '/books/' + id
 
             fetch(url,{
                 headers: {'Content-Type': 'application/json'},
@@ -100,12 +120,11 @@ const Rooms = (props) => {
             })
             .then((response) => response.json())
             .then((response) => {
-                console.log("Update Auth: ", response.auth);
                 if(response.auth){
-                    message.success('Rooom Deleted');
-                    //getRooms(data.pagination.pageSize, data.pagination.current);
+                    message.success('Book Deleted');
+                    getBooks(data.pagination.pageSize, data.pagination.current);
                 }else{
-                    message.error('Cant delete Rooom');
+                    message.error('Cant delete Book');
                 }
                 
             })
@@ -113,21 +132,20 @@ const Rooms = (props) => {
     }
 
     //Drawer
-    const [roomFormToogle, setRoomFormToogle] = useState(false);
+    const [bookFormToogle, setBookFormToogle] = useState(false);
 
     const showForm = (id) => {
         return ()=>{
-            setSelectedRoom(rooms.find((room)=> room._id == id));
-            setRoomFormToogle(true);
+            setSelectedBook(books.find((books)=> books._id == id));
+            setBookFormToogle(true);
         }
     };
     const showFormToCreate = () => {
         return ()=>{
-            setSelectedRoom('');
-            setRoomFormToogle(true);
+            setSelectedBook('');
+            setBookFormToogle(true);
         }
     };
-
     const onCloseForm = () => {
             console.log("Fechou")
         
@@ -135,16 +153,16 @@ const Rooms = (props) => {
     //end
 
     const handleTableChange =(pagination)=>{
-        getRooms(pagination.pageSize, pagination.current)
+        getBooks(pagination.pageSize, pagination.current)
     }
 
     useEffect(()=>{
         if(props.hotelID){
-           getRooms(data.pagination.pageSize, data.pagination.current); 
+           getBooks(data.pagination.pageSize, data.pagination.current); 
         }
         
         return ()=> setData({
-            rooms:[],
+            books:[],
             pagination: {
                 current: 1,
                 pageSize: 0
@@ -167,20 +185,21 @@ const Rooms = (props) => {
             <Table
                 columns={columns}
                 rowKey={record => record._id}
-                dataSource={rooms}
+                dataSource={books}
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
                 />
-            <RoomsFormDrawer
+
+            <BooksFormDrawer
                 hotelID={props.hotelID}
-                visible={roomFormToogle}
-                selectedRoom={selectedRoom}
-                setVisible={setRoomFormToogle}
+                visible={bookFormToogle}
+                selectedBook={selectedBook}
+                setVisible={setBookFormToogle}
                 onCloseForm={onCloseForm}
             />
         </div>
     );
 }
 
-export default Rooms;
+export default Books;

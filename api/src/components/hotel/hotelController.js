@@ -96,7 +96,7 @@ function hotelService(
 				if (err) reject(err);
 				if (!rooms) reject({ status: 404, message: 'No rooms have been found.' });
 				resolve(rooms);
-			});	
+			}).populate('roomType', '_id name');
 		})
 		.then( async (rooms) => {
 			const totalRooms = await roomModel.count({ hotel: hotelId });
@@ -151,9 +151,12 @@ function hotelService(
         });
 	}
 
-	function findBooksByHotelId(hotelId) {
+	function findBooksByHotelId(hotelId,pagination) {
+		console.log(pagination)
+		const { limit, skip } = pagination;
+		
 		return new Promise((resolve, reject) => {
-			bookModel.find({ hotel: hotelId }, (err, books) => {
+			bookModel.find({ hotel: hotelId },{},{ skip, limit }, (err, books) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -162,17 +165,36 @@ function hotelService(
 					} else {
 						reject({
 							status: 404,
+							auth:false,
 							message: 'No books have been found.',
 						});
 					}
 				}
+			})
+			.populate('roomType','_id name')
+			.populate('pack','_id name')
+			
+		})
+		.then( async (books) => {
+			//const totalRoomTypes = await roomTypeModel.count();
+			const totalPacks = await bookModel.count({ hotel: hotelId });
+			return Promise.resolve({
+				books: books,
+				pagination:{
+					pageSize: limit,
+					page: Math.floor(skip / limit),
+					hasMore: (skip + limit) < totalPacks,
+					total: totalPacks
+				}
 			});
 		});
+		
 	}
 
-	function findPacksByHotelId(hotelId) {
+	function findPacksByHotelId(hotelId,pagination) {
+		const { limit, skip } = pagination;
 		return new Promise((resolve, reject) => {
-			packsModel.find({ hotel: hotelId }, (err, packs) => {
+			packsModel.find({ hotel: hotelId },{},{ skip, limit },(err, packs) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -184,6 +206,19 @@ function hotelService(
 							message: 'No packs have been found.',
 						});
 					}
+				}
+			})
+		})
+		.then( async (packs) => {
+			//const totalRoomTypes = await roomTypeModel.count();
+			const totalPacks = await packsModel.count({ hotel: hotelId });
+			return Promise.resolve({
+				packs: packs,
+				pagination:{
+					pageSize: limit,
+					page: Math.floor(skip / limit),
+					hasMore: (skip + limit) < totalPacks,
+					total: totalPacks
 				}
 			});
 		});

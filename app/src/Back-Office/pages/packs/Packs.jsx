@@ -1,54 +1,47 @@
 import React,{useState, useEffect} from 'react'
 import {Table, Space} from 'antd'
 import { Button,message,Popconfirm } from 'antd';
-import { DeleteOutlined,QuestionCircleOutlined  } from '@ant-design/icons';
+import { QuestionCircleOutlined  } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import PacksFormDrawer from './PacksFormDrawer';
 
-const Roomtypes = (props) => {
-
-    const [selectedRoomType, setSelectedRoomType] = useState({});
+const Packs = (props) => {
 
     const [loading, setLoading] = useState(true);
+    const [selectedPack, setSelectedPack] = useState({});
+
     const [ data, setData] = useState({
-        roomTypes: [],
+        packs: [],
         pagination: {
             current: 1,
-            pageSize: 2,
+            pageSize: 7,
             total: 0
         }
     });
+    const {packs, pagination} = data;
     
     //Definição das colunas da tabela
     const columns =[
         {
             title: 'Name',
             dataIndex: 'name',
-            width: '20%',
-        },
-        {
-            title: 'Description',
-            dataIndex: 'description',
             width: '40%',
         },
         {
-            title: 'Guests',
-            dataIndex: 'maxGuest',
-            width: '10%',
-        },
-        {
-            title: 'Guests Child',
-            dataIndex: 'maxGuestChild',
-            width: '10%',
+            title: 'Price',
+            dataIndex: 'dailyPrice',
+            width: '40%'
+            
         },
         {
           title: 'Action',
           key: 'action',
           render: (text, record) => (
             <Space size="middle">
-                <Button type="primary" shape="round">
-                    <Link to={"/admin/roomTypes/" + record._id}>Edit </Link>
+                <Button type="primary" shape="round" onClick={showForm(record._id)}>
+                   Edit
                 </Button>
-                <Popconfirm title="Are you sure？" onConfirm={deleteRoomType(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
+                <Popconfirm title="Are you sure？" onConfirm={deletePack(record._id)} icon={<QuestionCircleOutlined style={{ color: 'red' }} />}>
                     <Button danger type="dashed" shape="round" >Remove </Button>
                 </Popconfirm>
                 
@@ -57,13 +50,12 @@ const Roomtypes = (props) => {
         }
     ]
 
-    const {roomTypes, pagination} = data;
-
-    const fetchApi = (pageSize, current) =>{
+    //Get Pack
+    const getPacks = (pageSize, current) =>{
         //const url = '/roomTypes/?' + new URLSearchParams({
             
         console.log("URL Hotel ID",props.hotelID);
-        const url = `/hotel/${props.hotelID}/roomTypes?` + new URLSearchParams({
+        const url = `/hotel/${props.hotelID}/packs?` + new URLSearchParams({
             limit: pageSize,
             skip: current -1
         })
@@ -73,15 +65,16 @@ const Roomtypes = (props) => {
         })
         .then((response) => response.json())
         .then((response) => {
-            //console.log(response)
+            console.log(response)
 
             const {auth} = response;
-            const {roomTypes = [],pagination} = response.data;
+            const {packs = [],pagination} = response.data;
+
             if(auth){
                 console.log("Resposta: ",response)
                 setLoading(false);
                 setData({
-                    roomTypes,
+                    packs,
                     pagination:{
                         current: pagination.page + 1 || 1,
                         pageSize: pagination.pageSize || 50,
@@ -92,12 +85,11 @@ const Roomtypes = (props) => {
 
         });
     }
-
     //Delete RoomType
-    const deleteRoomType = (id) =>{
+    const deletePack = (id) =>{
         return () =>{
             //console.log("vou inserir")
-            const url = '/roomTypes/' + id
+            const url = '/packs/' + id
 
             fetch(url,{
                 headers: {'Content-Type': 'application/json'},
@@ -107,41 +99,63 @@ const Roomtypes = (props) => {
             .then((response) => {
                 console.log("Update Auth: ", response.auth);
                 if(response.auth){
-                    message.success('RooomType Deleted');
-                    fetchApi(data.pagination.pageSize, data.pagination.current);
+                    message.success('Pack Deleted');
+                    //getRooms(data.pagination.pageSize, data.pagination.current);
                 }else{
-                    message.error('Cant delete RooomType');
+                    message.error('Cant delete Pack');
                 }
                 
             })
         }
     }
 
+    //Drawer
+    const [packFormToogle, setPackFormToogle] = useState(false);
+
+    const showForm = (id) => {
+        return ()=>{
+            //console.log("PACK FOUND: ", packs.find((pack)=> pack._id == id))
+            setSelectedPack(packs.find((pack)=> pack._id == id));
+            setPackFormToogle(true);
+        }
+    };
+    const showFormToCreate = () => {
+        return ()=>{
+            setSelectedPack('');
+            setPackFormToogle(true);
+        }
+    };
+    const onCloseForm = () => {
+            console.log("Fechou")
+        
+    };
+    //end
+
+    const handleTableChange =(pagination)=>{
+        getPacks(pagination.pageSize, pagination.current)
+    }
+
     useEffect(()=>{
         if(props.hotelID){
-           fetchApi(data.pagination.pageSize, data.pagination.current); 
+           getPacks(data.pagination.pageSize, data.pagination.current); 
         }
         
-
         return ()=> setData({
-            roomTypes:[],
+            packs:[],
             pagination: {
                 current: 1,
-                pageSize: 10
+                pageSize: 0
             }
         })
 
     },[props.hotelID]);
     
-    const handleTableChange =(pagination)=>{
-        fetchApi(pagination.pageSize, pagination.current)
-    }
 
     return (
         <div>
             <Space style={{ marginBottom: "30px"}}>
                 <Button 
-                    href='roomTypes/new'
+                    onClick={showFormToCreate()}
                     type="primary" 
                     style={{ background: "green", borderColor: "green" }}>
                     NEW
@@ -150,13 +164,21 @@ const Roomtypes = (props) => {
             <Table
                 columns={columns}
                 rowKey={record => record._id}
-                dataSource={roomTypes}
+                dataSource={packs}
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
                 />
+
+            <PacksFormDrawer
+                hotelID={props.hotelID}
+                visible={packFormToogle}
+                selectedPack={selectedPack}
+                setVisible={setPackFormToogle}
+                onCloseForm={onCloseForm}
+            />
         </div>
     );
 }
 
-export default Roomtypes;
+export default Packs;

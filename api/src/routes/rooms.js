@@ -47,6 +47,7 @@ function RoomRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
@@ -57,6 +58,7 @@ function RoomRouter() {
 								.then((room) => {
 									res.status(201).send({
 										status: 201,
+										auth: true,
 										message:
 											'Room have been created successfully.',
 										data: room,
@@ -71,6 +73,7 @@ function RoomRouter() {
 						.then((room) => {
 							res.status(201).send({
 								status: 201,
+								auth: true,
 								message: 'Room have been created successfully.',
 								data: room,
 							});
@@ -113,6 +116,7 @@ function RoomRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
@@ -123,6 +127,7 @@ function RoomRouter() {
 								.then((room) => {
 									//console.log('Room updated -> \n', hotel);
 									res.status(200).send({
+										auth: true,
 										message:
 											'Room has been successfully updated.',
 										room: room,
@@ -137,6 +142,7 @@ function RoomRouter() {
 						.then((room) => {
 							//console.log('Room updated -> \n', hotel);
 							res.status(200).send({
+								auth: true,
 								message: 'Room has been successfully updated.',
 								room: room,
 							});

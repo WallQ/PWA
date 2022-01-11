@@ -33,6 +33,7 @@ function BookRouter() {
 				.then((book) => {
 					res.status(200).send({
 						status: 200,
+						auth: true,
 						message: 'Book has been created successfully.',
 						data: book,
 					});
@@ -49,6 +50,7 @@ function BookRouter() {
 				.then((book) => {
 					res.status(200).send({
 						status: 200,
+						auth: true,
 						message: 'Book has been successfully found.',
 						data: book,
 					});
@@ -63,7 +65,8 @@ function BookRouter() {
 				.then((book) => {
 					res.status(200).send({
 						status: 200,
-						message: 'Book has been successfully found.',
+						auth: true,
+						message: 'Book has been successfully updated.',
 						data: book,
 					});
 				})
@@ -76,6 +79,7 @@ function BookRouter() {
 				.then((book) => {
 					res.status(200).send({
 						status: 200,
+						auth: true,
 						message: 'Book has been successfully deleted.',
 						data: book,
 					});
@@ -95,7 +99,7 @@ function BookRouter() {
 				checkIn_date,
 				checkOut_date
 			);
-			console.log(roomTypesAvailable)
+			//console.log(roomTypesAvailable)
 			books
 				.findRoomTypes(roomTypesAvailable)
 				.then((books) => {

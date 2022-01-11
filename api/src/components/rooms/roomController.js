@@ -51,6 +51,7 @@ function roomsController(roomModel, bookModel) {
 				if (err) reject(err);
 				resolve(room);
 			});
+			
 		});
 	}
 

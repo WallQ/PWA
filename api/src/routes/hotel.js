@@ -242,16 +242,18 @@ function HotelRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth:false,
 										message:
 											"You don't have permission to access this content.",
 									},
 								});
 							}
 							hotel
-								.findBooksByHotelId(hotelId)
+								.findBooksByHotelId(hotelId,req.pagination)
 								.then((books) => {
 									res.status(200).send({
 										status: 200,
+										auth: true,
 										message:
 											'Books have been successfully found.',
 										data: books,
@@ -262,10 +264,11 @@ function HotelRouter() {
 						.catch(next);
 				} else {
 					hotel
-						.findBooksByHotelId(hotelId)
+						.findBooksByHotelId(hotelId,req.pagination)
 						.then((books) => {
 							res.status(200).send({
 								status: 200,
+								auth: true,
 								message: 'Books have been successfully found.',
 								data: books,
 							});
@@ -290,16 +293,18 @@ function HotelRouter() {
 								return res.status(403).send({
 									error: {
 										status: 403,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
 								});
 							}
 							hotel
-								.findPacksByHotelId(hotelId)
+								.findPacksByHotelId(hotelId,req.pagination)
 								.then((packs) => {
 									res.status(200).send({
 										status: 200,
+										auth: true,
 										message:
 											'Packs have been successfully found.',
 										data: packs,
@@ -310,10 +315,11 @@ function HotelRouter() {
 						.catch(next);
 				} else {
 					hotel
-						.findPacksByHotelId(hotelId)
+						.findPacksByHotelId(hotelId,req.pagination)
 						.then((packs) => {
 							res.status(200).send({
 								status: 200,
+								auth: true,
 								message: 'Packs have been successfully found.',
 								data: packs,
 							});
