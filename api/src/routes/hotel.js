@@ -66,7 +66,13 @@ function HotelRouter() {
 					data: hotel,
 				});
 			})
-			.catch(next);
+			.catch((error) => {
+				res.status(200).send({
+					status: error.status,
+					message: error.message,
+					data: [],
+				});
+			});
 	});
 
 	router.route('/workingon')

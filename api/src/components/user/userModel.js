@@ -24,8 +24,6 @@ const userSchema = new Schema({
 	roles: [
 		{
 			type: String,
-			required: true,
-			enum: [roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE, roles.CLIENT],
 			default: roles.CLIENT,
 		},
 	],

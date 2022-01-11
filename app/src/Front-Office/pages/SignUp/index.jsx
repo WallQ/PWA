@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import { FaGithub, FaGoogle, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
 
@@ -110,9 +110,9 @@ function SignUp() {
 							</div>
 							<div className="mt-6">
 								<div className="flex justify-center items-center">
-									<NavLink to="/sign-in" className="font-sans text-sm font-normal tracking-widest leading-normal text-center text-blue-600 normal-case align-middle whitespace-normal transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
+									<Link to="/sign-in" className="font-sans text-sm font-normal tracking-widest leading-normal text-center text-blue-600 normal-case align-middle whitespace-normal transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
 										Already have an account
-									</NavLink>
+									</Link>
 								</div>
 							</div>
 						</form>

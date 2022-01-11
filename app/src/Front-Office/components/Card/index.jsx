@@ -1,12 +1,12 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import StarRating from '../StarRating/';
 
 function Card({ id, image, imageAltText, languages, name, averagePrice, rating, reviewsCount }) {
     return (
         <>
-            <NavLink to={`/hotel/${id}/`}>
+            <Link to={`/hotel/${id}/`}>
                 <div className="mb-6 transition ease-in-out delay-150 hover:scale-105">
                     <div className="relative w-96 h-64">
                         <img src={`http://127.0.0.1:3030/public/assets/images/${image}`} alt={imageAltText} className="absolute w-96 h-64 object-cover rounded-lg shadow-md" />
@@ -35,7 +35,7 @@ function Card({ id, image, imageAltText, languages, name, averagePrice, rating, 
                         </div>
                     </div>
                 </div>
-            </NavLink>
+            </Link>
         </>
     )
 }

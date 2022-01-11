@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import { FaGithub, FaGoogle, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
@@ -84,9 +84,9 @@ function SignIn() {
 									</span>
 								</label>
 								<div className="w-full text-right">     
-									<NavLink to="/forgot-password" className="font-sans text-xs font-normal tracking-widest leading-normal text-center text-blue-600 hover:text-blue-800 transition-colors normal-case align-middle whitespace-normal underline" href="#">
+									<Link to="/forgot-password" className="font-sans text-xs font-normal tracking-widest leading-normal text-center text-blue-600 hover:text-blue-800 transition-colors normal-case align-middle whitespace-normal underline" href="#">
 										Forgot your password?
-									</NavLink>                                  
+									</Link>                                  
 								</div>
 							</div>
 							<div className="flex flex-row mt-6">
@@ -121,9 +121,9 @@ function SignIn() {
 							</div>
 							<div className="mt-6">
 								<div className="flex justify-center items-center">
-									<NavLink to="/sign-in" className="font-sans text-sm font-normal tracking-widest leading-normal text-center text-blue-600 hover:text-blue-800 normal-case align-middle whitespace-normal transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
+									<Link to="/sign-up" className="font-sans text-sm font-normal tracking-widest leading-normal text-center text-blue-600 hover:text-blue-800 normal-case align-middle whitespace-normal transition duration-500 ease-in-out transform hover:-translate-x hover:scale-105">
 										I don't have an account
-									</NavLink>
+									</Link>
 								</div>
 							</div>
 						</form>

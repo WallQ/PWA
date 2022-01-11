@@ -21,11 +21,8 @@ function hotelService(
 	function save(newHotel) {
 		return new Promise((resolve, reject) => {
 			newHotel.save((err) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(newHotel);
-				}
+				if (err) reject(err);
+				resolve(newHotel);
 			});
 		});
 	}
@@ -53,24 +50,11 @@ function hotelService(
 
 	function findByName(hotelName, params) {
 		return new Promise((resolve, reject) => {
-			hotelModel.find(
-				{ name: { $regex: hotelName, $options: 'i' } },
-				params,
-				(err, hotel) => {
-					if (err) {
-						reject(err);
-					} else {
-						if (hotel) {
-							resolve(hotel);
-						} else {
-							reject({
-								status: 404,
-								message: 'No hotel have been found.',
-							});
-						}
-					}
-				}
-			);
+			hotelModel.find({ name: { $regex: '^' + hotelName, $options: 'i' }}, params, (err, hotel) => {
+				if (err) reject(err);
+				if (!hotel) reject({ status: 404, message: 'No hotel have been found.' });
+				resolve(hotel);
+			});
 		});
 	}
 
@@ -81,52 +65,26 @@ function hotelService(
 				if (!hotel) reject({ status: 404, message: 'No hotel have been found.' });
 				resolve(hotel);
 			})
-			.populate(
-				'reviews.userID',
-				'-_id name surname'
-			);
+			.populate('reviews.userID', '-_id name surname');
 		});
 	}
 
 	function findByIdAndUpdate(hotelId, values) {
 		return new Promise((resolve, reject) => {
-			hotelModel.findByIdAndUpdate(
-				hotelId,
-				values,
-				{ new: true },
-				(err, hotel) => {
-					if (err) {
-						reject(err);
-					} else {
-						if (hotel) {
-							resolve(hotel);
-						} else {
-							reject({
-								status: 404,
-								message: 'No hotel have been found.',
-							});
-						}
-					}
-				}
-			);
+			hotelModel.findByIdAndUpdate(hotelId, values, { new: true }, (err, hotel) => {
+				if (err) reject(err);
+				if (!hotel) reject({ status: 404, message: 'No hotel have been found.' });
+				resolve(hotel);
+			});
 		});
 	}
 
 	function findByIdAndDelete(hotelId) {
 		return new Promise((resolve, reject) => {
 			hotelModel.findByIdAndDelete(hotelId, (err, hotel) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (hotel) {
-						resolve(hotel);
-					} else {
-						reject({
-							status: 404,
-							message: 'No hotel have been found.',
-						});
-					}
-				}
+				if (err) reject(err);
+				if (!hotel) reject({ status: 404, message: 'No hotel have been found.' });
+				resolve(hotel);
 			});
 		});
 	}
@@ -135,18 +93,9 @@ function hotelService(
 		const { limit, skip } = pagination;
 		return new Promise((resolve, reject) => {
 			roomModel.find({ hotel: hotelId },{},{ skip, limit },(err, rooms) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (rooms) {
-						resolve(rooms);
-					} else {
-						reject({
-							status: 404,
-							message: 'No rooms have been found.',
-						});
-					}
-				}
+				if (err) reject(err);
+				if (!rooms) reject({ status: 404, message: 'No rooms have been found.' });
+				resolve(rooms);
 			});	
 		})
 		.then( async (rooms) => {

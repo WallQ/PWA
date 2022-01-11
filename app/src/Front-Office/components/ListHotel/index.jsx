@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { FaTimes, FaChevronDown, FaFilter, FaPlus, FaMinus } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
 
 import StarRating from '../StarRating/';
 import { getHotels } from '../../services/hotel';
@@ -78,6 +77,8 @@ function List() {
 			});
 	}, []);
 
+    
+
 	return (
         <>
             <Transition.Root show={mobileFiltersOpen} as={Fragment}>
@@ -145,7 +146,7 @@ function List() {
                                         {sortOptions.map((option) => (
                                             <Menu.Item key={option.name}>
                                                 {({ active }) => (
-                                                    <button onClick={option.href} className={classNames(option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm' )}>
+                                                    <button onClick={option.href} className={classNames(option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'w-full block px-4 py-2 text-sm text-left' )}>
                                                         {option.name}
                                                     </button>
                                                 )}

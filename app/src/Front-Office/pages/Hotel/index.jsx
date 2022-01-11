@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { getHotelById, getHotelRoomTypes } from '../../services/hotel';
 
@@ -78,7 +78,7 @@ function Hotel() {
 					<ul>
 						{roomTypes.roomTypes.map((value) => (
 							<>
-								<NavLink to={`/room/${value._id}/`}>
+								<Link to={`/room/${value._id}/`}>
 									<li>Area {value.area}</li>
 									<li>{value.name}</li>
 									<li>{value.description}</li>
@@ -109,7 +109,7 @@ function Hotel() {
 										))}
 									</ul>
 									<hr />
-								</NavLink>
+								</Link>
 							</>
 						))}
 					</ul>
