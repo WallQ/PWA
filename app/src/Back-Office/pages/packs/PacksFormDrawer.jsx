@@ -57,7 +57,7 @@ const PacksFormDrawer = (props) => {
     }
     //NEW Room
     const newRoomType = (hotelID,values) =>{
-        //console.log("INSERT: ",hotelID,"Values: ", values)
+        console.log("INSERT: ",hotelID,"Values: ", values)
         const url = '/packs'
         fetch(url,{
             headers: {'Content-Type': 'application/json'},
@@ -65,6 +65,7 @@ const PacksFormDrawer = (props) => {
             body: JSON.stringify({
                 hotel: hotelID,
                 name:values.name,
+                include:values.include,
                 dailyPrice:values.dailyPrice,
                 freeCancel: values.freeCancel.value,
                 start_date: values.date[0]._d,
@@ -95,6 +96,7 @@ const PacksFormDrawer = (props) => {
             method: 'PUT',
             body: JSON.stringify({
                 name:values.name,
+                include:values.include,
                 dailyPrice:values.dailyPrice,
                 freeCancel: values.freeCancel.value,
                 start_date: values.date[0]._d,
@@ -230,12 +232,12 @@ const PacksFormDrawer = (props) => {
                                             {
                                             required: true,
                                             whitespace: true,
-                                            message: "Please input passenger's name or delete this field.",
+                                            message: "Please input Feature",
                                             },
                                         ]}
                                         noStyle
                                         >
-                                        <Input placeholder="passenger name" style={{ width: '60%' }} />
+                                        <Input placeholder="feature name" style={{ width: '55%' }} />
                                         </Form.Item>
                                         {fields.length > 1 ? (
                                         <MinusCircleOutlined
