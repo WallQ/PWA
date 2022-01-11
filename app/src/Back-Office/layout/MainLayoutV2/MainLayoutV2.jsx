@@ -41,7 +41,8 @@ const MainLayoutV2 = (props) => {
 		})
 			.then((response) => response.json())
 			.then((response) => {
-        //console.log("API ME :", response)
+        console.log("API ME :", response)
+        console.log("existe no array", response.roles.some(r=> ['Admin','Director','Employee'].includes(r)))
         
         if(response.roles.some(r=> ['Admin','Director','Employee'].includes(r))){
           setMe({auth: response.auth, roles: response.roles});
