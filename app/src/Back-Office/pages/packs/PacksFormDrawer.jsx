@@ -30,7 +30,7 @@ const PacksFormDrawer = (props) => {
     const [pack, setPack] = useState('');
 
     //GET os dados do ROOMTYPE
-    const getPacks = (id) =>{
+    const getPack = (id) =>{
 
         const url = '/packs/' + id
 
@@ -80,6 +80,7 @@ const PacksFormDrawer = (props) => {
             //console.log("Response: ", response)
             if(response.auth){
                 message.success('Rooom Created');
+                props.onAction();
                 props.setVisible(false);
             }else{
                 message.error('Cant create Rooom');
@@ -118,19 +119,22 @@ const PacksFormDrawer = (props) => {
     
 
     useEffect(() => {
+        //Inicializar valores default
+        form.setFieldsValue({
+            freeCancel: {value: true},
+            dailyPrice: 0,
+            date: [moment(), moment().add(1,'days')]
+        })
+
+        //Obter os PAcks
         if(props.selectedPack._id)
         {
-           getPacks(props.selectedPack._id) 
+           getPack(props.selectedPack._id) 
         }
         
         
         return () => {
             form.resetFields();
-            if(!props.visible){
-                
-              props.onCloseForm()  
-            }
-            
         };
         
     }, [props.selectedPack,props.hotelID]);
@@ -140,7 +144,9 @@ const PacksFormDrawer = (props) => {
             <Drawer
                 title={(props.selectedPack) ? "Pack: " + props.selectedPack.name : "New Pack"}
                 width={720}
-                onClose={()=>props.setVisible(false)}
+                onClose={()=>{
+                    if (props.visible) props.onCloseForm() 
+                    props.setVisible(false)}}
                 visible={props.visible}
                 bodyStyle={{ paddingBottom: 80 }}
                 extra={
@@ -179,7 +185,7 @@ const PacksFormDrawer = (props) => {
                             name="freeCancel"
                             label="Free Cancel"
                         >
-                            <Select labelInValue defaultValue={{value: true}}>                   
+                            <Select labelInValue >                   
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>                                    
                             </Select>
@@ -193,9 +199,7 @@ const PacksFormDrawer = (props) => {
                             name="dailyPrice"
                             label="Price"
                         >
-                            <InputNumber 
-                                addonAfter="€" 
-                                defaultValue={0} />
+                            <InputNumber addonAfter="€"/>
                         </Form.Item>
                     </Col>
                     <Col span={12}>
@@ -205,7 +209,7 @@ const PacksFormDrawer = (props) => {
                         >
                             <RangePicker
                                 
-                                defaultValue={[moment(), moment().add(1,'days')]}
+                                
                                 format={'DD/MM/YYYY'}/>  
                         </Form.Item>
                          

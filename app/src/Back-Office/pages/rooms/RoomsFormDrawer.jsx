@@ -123,6 +123,7 @@ const RoomsFormDrawer = (props) => {
     
 
     useEffect(() => {
+
         if(props.hotelID){
             console.log("Vou fazer")
             getAllRoomType()

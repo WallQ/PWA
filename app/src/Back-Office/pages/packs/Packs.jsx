@@ -126,10 +126,16 @@ const Packs = (props) => {
         }
     };
     const onCloseForm = () => {
-            console.log("Fechou")
+       
         
     };
     //end
+
+    //Refresh Table
+    const refreshTable = () => {
+        getPacks(data.pagination.pageSize, data.pagination.current);
+        console.log("RefreshTable")
+    };
 
     const handleTableChange =(pagination)=>{
         getPacks(pagination.pageSize, pagination.current)
@@ -176,6 +182,7 @@ const Packs = (props) => {
                 selectedPack={selectedPack}
                 setVisible={setPackFormToogle}
                 onCloseForm={onCloseForm}
+                onAction={refreshTable}
             />
         </div>
     );

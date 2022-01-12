@@ -122,6 +122,11 @@ const BooksFormDrawer = (props) => {
     
 
     useEffect(() => {
+        form.setFieldsValue({
+            total_price: 0,
+            date: [moment(), moment().add(1,'days')]
+        })
+
         if(props.selectedBook?._id)
         {
            getBook(props.selectedBook._id) 
@@ -311,8 +316,7 @@ const BooksFormDrawer = (props) => {
                         >
                             <InputNumber 
                                 style={{ width: '100%' }}
-                                addonAfter="€" 
-                                defaultValue={0} />
+                                addonAfter="€"/>
                         </Form.Item>
                     </Col>
                     <Col span={12}>
@@ -322,7 +326,6 @@ const BooksFormDrawer = (props) => {
                         >
                             <RangePicker
                                 style={{ width: '100%' }}
-                                defaultValue={[moment(), moment().add(1,'days')]}
                                 format={'DD/MM/YYYY'}/>  
                         </Form.Item>
                          
