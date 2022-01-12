@@ -75,18 +75,9 @@ function userService(userModel) {
 	function findByEmail(userEmail, params) {
 		return new Promise((resolve, reject) => {
 			userModel.findOne({ email: userEmail }, params, (err, user) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (user) {
-						resolve(user);
-					} else {
-						reject({
-							status: 404,
-							message: 'No user have been found.',
-						});
-					}
-				}
+				if (err) reject(err);
+				if (!user) reject({ status: 404, message: 'No user have been found.' });
+				resolve(user);
 			});
 		});
 	}

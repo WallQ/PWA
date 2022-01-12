@@ -7,7 +7,6 @@ function emailController(nodemailer,userController) {
 
 	function sendEmailRecoverPassword(sendTo,recoverToken){
 		return new Promise((resolve, reject) => {
-			
 			let transporter = nodemailer.createTransport({
 				host: config.nodemailer.smtp,
 				port: config.nodemailer.port,
@@ -21,10 +20,9 @@ function emailController(nodemailer,userController) {
 				from: config.nodemailer.email,
 				to: sendTo,
 				subject: 'Recover Password',
-				html: `<b>http://127.0.0.1:3000/auth/forgot-password/${recoverToken}</b>`, // html body
+				html: `<b>http://127.0.0.1:3030/auth/forgot-password/${recoverToken}</b>`, // html body
 			};
-
-			transporter.sendMail(mailOptions,  (error, info) => {
+			transporter.sendMail(mailOptions, (error, info) => {
 				if (error) reject("Error on sending Email for user!")
 				resolve("Email Send")
 			});	

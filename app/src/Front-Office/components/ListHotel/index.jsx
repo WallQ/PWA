@@ -37,7 +37,7 @@ function List() {
 	return (
 		<>
 			<div className="w-full py-6 px-4 container mx-auto">
-				<div className="flex justify-between items-center px-3">
+				<div className="flex justify-between items-center px-3 py-6">
 					<h1 className="text-5xl font-extrabold tracking-tight text-blue-600">
 						Hotels
 					</h1>

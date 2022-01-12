@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import { FaGithub, FaGoogle, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
@@ -8,7 +8,6 @@ import useAuthenticated from '../../hooks/authenticated';
 import { signIn } from '../../services/auth';
 
 function SignIn() {
-	//let navigate = useNavigate();
 	const [redirect, setRedirect] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [cookies, setCookie, removeCookie] = useCookies(null);
@@ -20,7 +19,6 @@ function SignIn() {
 	const { authenticated } = useAuthenticated();
 	if(authenticated){
 		return <Navigate to='/'/>
-		//navigate('/test', { state: {message: 'Hello'} })
 	}
 
 	const authenticate = () => {
@@ -75,8 +73,8 @@ function SignIn() {
 						)}
 						<form onSubmit={handleSubmit} className="mt-6" id="loginForm">
 							<div className="flex flex-col gap-y-4">
-								<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="inline-flex px-4 py-2 w-full rounded-md bg-white border border-gray-300 font-sans text-base font-medium tracking-widest leading-normal text-left text-gray-600 normal-case align-middle whitespace-normal focus:outline-none ring-0 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50" required={true} />         
-								<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="inline-flex px-4 py-2 w-full rounded-md bg-white border border-gray-300 font-sans text-base font-medium tracking-widest leading-normal text-left text-gray-600 normal-case align-middle whitespace-normal focus:outline-none ring-0 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50" required={true} />                           
+								<input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="inline-flex px-4 py-2 w-full rounded-md bg-white border border-gray-300 font-sans text-base font-medium tracking-widest leading-normal text-left text-gray-600 normal-case align-middle whitespace-normal focus:outline-none ring-0 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50" required={true} />
+								<input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="inline-flex px-4 py-2 w-full rounded-md bg-white border border-gray-300 font-sans text-base font-medium tracking-widest leading-normal text-left text-gray-600 normal-case align-middle whitespace-normal focus:outline-none ring-0 focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50" required={true} />
 							</div>
 							<div className="flex flex-row mt-4">
 								<label htmlFor="rememberMe" className="inline-flex items-center w-full cursor-pointer">

@@ -17,9 +17,6 @@ const roomSchema = new Schema({
 		ref: 'Hotel',
 		required: true,
 	},
-	notes: {
-		type: String,
-	},
 });
 
 const room = mongoose.model('room', roomSchema);

@@ -1,15 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import StarRating from '../StarRating/';
 
 function Card({ id, image, imageAltText, languages, name, averagePrice, rating, reviewsCount }) {
+    const navigate = useNavigate();
     return (
         <>
-            <Link to={`/hotel/${id}/`}>
+            <div onClick={() => navigate('hotel', { state: {selectedHotel:id} })} className="cursor-pointer">
                 <div className="transition ease-in-out delay-150 hover:scale-105">
                     <div className="relative w-96 h-64">
-                        <img src={`http://127.0.0.1:3030/public/assets/images/${image}`} alt={imageAltText} className="absolute w-96 h-64 object-cover rounded-lg shadow-md" />
+                        <img src={`http://127.0.0.1:3030/public/assets/images/${image}`} alt={imageAltText} className="absolute w-96 h-64 object-cover rounded-lg shadow-md" loading="lazy" />
                     </div>
                     <div className="relative px-4 -mt-16">
                         <div className="bg-white p-4 rounded-lg shadow-lg">
@@ -35,7 +36,7 @@ function Card({ id, image, imageAltText, languages, name, averagePrice, rating, 
                         </div>
                     </div>
                 </div>
-            </Link>
+            </div>
         </>
     )
 }
