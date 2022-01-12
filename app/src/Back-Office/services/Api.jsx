@@ -20,6 +20,28 @@ export const getClients = () => {
 	})
 };
 
+//ROOM TYPES
+export const getRoomType = (roomTypeID) => {
+	return new Promise((resolve, reject) => {
+        const url = '/roomTypes/' + roomTypeID
+
+        fetch(url,{
+            headers: {'Accept': 'application/json'}
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            const {auth} = response;
+            const {status, data,message} = response;
+            if(!data == []){
+                resolve(data)
+            }else{
+				reject("Cant Find RoomType ")
+			}
+
+        });
+	})
+};
+
 export const getRoomTypes = (hotelID) => {
 	return new Promise((resolve, reject) => {
         const url = `/hotel/${hotelID}/roomTypes`
@@ -41,6 +63,7 @@ export const getRoomTypes = (hotelID) => {
 	})
 };
 
+//PACKS
 export const getPacks = (hotelID) => {
 	return new Promise((resolve, reject) => {
         const url = `/hotel/${hotelID}/packs`
@@ -52,7 +75,6 @@ export const getPacks = (hotelID) => {
         .then((response) => {
             const {auth} = response;
             const {packs = []} = response.data;
-			console.log("PACKS: ", packs)
             if(auth){
                 resolve(packs)
             }else{
@@ -62,6 +84,7 @@ export const getPacks = (hotelID) => {
 	});
 };
 
+//ROOMS
 export const getRooms = (hotelID) => {
 	return new Promise((resolve, reject) => {
         const url = `/hotel/${hotelID}/rooms`

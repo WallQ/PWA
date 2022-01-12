@@ -42,6 +42,10 @@ const roomTypeSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	price: {
+		type: Number,
+		default: 0,
+	},
 	maxGuest: {
 		type: Number,
 		required: true,
@@ -64,10 +68,10 @@ const roomTypeSchema = new Schema({
 			ref: 'packs',
 		},
 	],
+	//Alterei por causa dos icons
 	facilities: [
 		{
-			type: facilityType,
-			required: true,
+			type: String
 		},
 	],
 	priceByMonth: [

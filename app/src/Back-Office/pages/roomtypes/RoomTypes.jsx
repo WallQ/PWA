@@ -78,7 +78,7 @@ const Roomtypes = (props) => {
             const {auth} = response;
             const {roomTypes = [],pagination} = response.data;
             if(auth){
-                console.log("Resposta: ",response)
+                //console.log("Resposta: ",response)
                 setLoading(false);
                 setData({
                     roomTypes,
@@ -105,7 +105,7 @@ const Roomtypes = (props) => {
             })
             .then((response) => response.json())
             .then((response) => {
-                console.log("Update Auth: ", response.auth);
+                //console.log("Update Auth: ", response.auth);
                 if(response.auth){
                     message.success('RooomType Deleted');
                     fetchApi(data.pagination.pageSize, data.pagination.current);
