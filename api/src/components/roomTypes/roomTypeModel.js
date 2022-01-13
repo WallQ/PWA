@@ -68,7 +68,6 @@ const roomTypeSchema = new Schema({
 			ref: 'packs',
 		},
 	],
-	//Alterei por causa dos icons
 	facilities: [
 		{
 			type: String

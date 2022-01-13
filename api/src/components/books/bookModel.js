@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const bookSchema = new Schema({
 	client: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'clients',
+		ref: 'user',
 		required: true,
 	},
 	roomType: {

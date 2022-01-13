@@ -34,6 +34,10 @@ function List() {
 			});
 	}, []);
 
+	const handleClick = () => {
+		setLoading(true);
+	};
+
 	return (
 		<>
 			<div className="w-full py-6 px-4 container mx-auto">

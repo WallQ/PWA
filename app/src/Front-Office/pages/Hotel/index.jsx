@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Menu, Transition  } from '@headlessui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Dialog, Menu, Transition  } from '@headlessui/react';
 
 import StarRating from '../../components/StarRating/';
 import Guest from '../../components/Guest/';
@@ -11,9 +11,15 @@ import { getAvailableRoomTypes, createBook } from '../../services/book';
 import { FaUsers, FaChevronDown, FaChevronUp, FaSearch, FaPhone, FaEnvelope, FaBook } from 'react-icons/fa';
 
 function Hotel() {
+	const navigate = useNavigate();
+	const [isOpen, setIsOpen] = useState(false);
+
+
 	const location = useLocation();
 	const hotelID = location.state.selectedHotel;
 
+	const [redirect, setRedirect] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [loadingHotel, setLoadingHotel] = useState(true);
 	const [loadingRoomTypes, setLoadingRoomTypes] = useState(true);
 	const [hotel, setHotel] = useState([]);
@@ -64,25 +70,29 @@ function Hotel() {
 	}, [hotelID, adult, child, dateStart, dateEnd]);
 
 	const book = () => {
-		createBook({ })
+		createBook({ hotel:hotelID, roomType:selectedRoomType, pack:selectedPack, total_price:0, checkIn_date:dateStart, checkOut_date:dateEnd })
 			.then((result) => {
 				if (result.auth === true) {
-					// setRedirect(true);
+					setIsOpen(true);
 				}
 				console.log(result);
-				// setMessage(result.message);
-				// setLoading(false);
+				setLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);
-				// setLoading(false);
+				setLoading(false);
 			});
 	};
 
 	const handleClick = (e) => {
 		e.preventDefault();
+		setLoading(true);
 		book();
 	};
+
+	function closeModal() {
+		setIsOpen(false);
+	}
 
 	return (
 		<>
@@ -221,9 +231,6 @@ function Hotel() {
 							</div>
 						</div>
 					</div>
-					{hotel.reviews.map((value) => (
-						<p>{value.userID.name} {value.userID.surname} - {value.review}</p>
-					))}
 				</>
 			)}
 			{loadingRoomTypes ? (
@@ -232,76 +239,156 @@ function Hotel() {
 				</>
 			) : (
 				<>
-					<div className="w-full h-full mx-auto container ">
-						<div className="flex flex-row gap-x-6 px-6 mt-6">
-							<table className="min-w-full divide-y divide-gray-200">
-								<thead className="bg-gray-50">
-									<tr>
-										<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-											Capacity
-										</th>
-										<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-											Room Type
-										</th>
-										<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-											Description
-										</th>
-										<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-											Facilities
-										</th>
-										<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-											Packs
-										</th>
-										<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-											Book
-										</th>
-									</tr>
-								</thead>
-								<tbody className="bg-white divide-y divide-gray-200">
-									{roomTypes.map((roomType) => (
-										<>
-											<tr>
-												<td className="px-6 py-4 whitespace-nowrap">
-													<div className="inline-flex">
-														<Guest number={roomType.maxGuest} type={"Adult"} style={`fill-blue-600 w-4 h-4`} />
-													</div>
-												</td>
-												<td className="px-6 py-4 whitespace-nowrap">{roomType.name}</td>
-												<td className="px-6 py-4 whitespace-nowrap">{roomType.description}</td>
-												<td className="px-6 py-4 whitespace-nowrap">
-
-												</td>
-												<td className="px-6 py-4 whitespace-nowrap">
-													{roomType.packs.map((value) => (
-														<tr>
-															<td>
-																<div className="inline-flex items-center">
-																	<input type="radio" name="pack" id={value._id} value={value._id} onChange={(e) => { setSelectedPack(e.target.value); setSelectedRoomType(roomType._id); }} />
-																	<label htmlFor={value._id}>&nbsp;{value.name} - &#36;{value.dailyPrice}</label>
-																</div>
-																<ul>
-																	<li>{value.include.join(', ')}</li>
-																</ul>
-															</td>
-														</tr>
-													))}
-												</td>
-												<td className="px-6 py-4 whitespace-nowrap">
-													<input type="hidden" value={roomType._id} />
-													<button onClick={handleClick} value="submit" className="font-sans text-lg font-bold tracking-wide leading-normal text-center text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 inline-flex justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-700 bg-blue-600 hover:bg-blue-800">
-														<FaBook className="w-5 h-5 mr-2 fill-white" />
-														Book
-													</button>
-												</td>
-											</tr>
-										</>
-									))}
-								</tbody>
-							</table>
+					{ roomTypes.length > 0 ? (
+						<div className="w-full h-full mx-auto container ">
+							<div className="flex flex-row gap-x-6 px-6 mt-6">
+								<table className="min-w-full divide-y divide-gray-200">
+									<thead className="bg-gray-50">
+										<tr>
+											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+												Capacity
+											</th>
+											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+												Room Type
+											</th>
+											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+												Description
+											</th>
+											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+												Facilities
+											</th>
+											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+												Packs
+											</th>
+											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+												Book
+											</th>
+										</tr>
+									</thead>
+									<tbody className="bg-white divide-y divide-gray-200">
+										{roomTypes.map((roomType) => (
+											<>
+												<tr>
+													<td className="px-6 py-4 whitespace-nowrap">
+														<div className="inline-flex">
+															<Guest number={roomType.maxGuest} type={"Adult"} style={`fill-blue-600 w-4 h-4`} />
+														</div>
+													</td>
+													<td className="px-6 py-4 whitespace-nowrap">{roomType.name}</td>
+													<td className="px-6 py-4 whitespace-nowrap">{roomType.description}</td>
+													<td className="px-6 py-4 whitespace-nowrap">
+														{/* {roomType.facilities.map((value) => (
+															<tr>
+																<td>{value.description}</td>
+															</tr>
+														))} */}
+													</td>
+													<td className="px-6 py-4 whitespace-nowrap">
+														{roomType.packs.map((value) => (
+															<tr>
+																<td>
+																	<div className="inline-flex items-center">
+																		<input type="radio" name="pack" id={value._id} value={value._id} onChange={(e) => { setSelectedPack(e.target.value); setSelectedRoomType(roomType._id); }} />
+																		<label htmlFor={value._id}>&nbsp;{value.name} - &#36;{value.dailyPrice}</label>
+																	</div>
+																	<ul>
+																		<li>{value.include.join(', ')}</li>
+																	</ul>
+																</td>
+															</tr>
+														))}
+													</td>
+													<td className="px-6 py-4 whitespace-nowrap">
+														<input type="hidden" value={roomType._id} />
+														<button onClick={handleClick} value="submit" className="font-sans text-lg font-bold tracking-wide leading-normal text-center text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 inline-flex justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-700 bg-blue-600 hover:bg-blue-800">
+															{loading ?
+																<>
+																	<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																		<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+																		<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+																	</svg>
+																	<span>Processing...</span>
+																</>
+															:
+																<>
+																	<FaBook className="w-5 h-5 mr-2 fill-white" />
+																	<span>Book</span>
+																</>
+															}
+														</button>
+													</td>
+												</tr>
+											</>
+										))}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					) : (
+						<>
+							<div className="w-full h-full mx-auto container">
+								<div className="flex flex-row justify-center items-center px-6 py-4 mt-6">
+									<h1 className="font-sans font-semibold text-red-400 text-lg">No room types have been found for this date range!</h1>
+								</div>
+							</div>
+						</>
+					)}
+				</>
+			)}
+			{loadingHotel ? (
+				<>
+					<span>LOADING HOTEL</span>
+				</>
+			) : (
+				<>
+					<div className="w-full h-full mx-auto container">
+						<div className="flex flex-row justify-between items-center px-6 py-4 mt-6">
+							{hotel.reviews.map((value) => (
+								<>
+									<div className="flex flex-col">
+										<div className="border-2 border-solid border-gray-200 px-6 py-2 items-center">
+											<span>{value.userID.name} {value.userID.surname}</span>
+											<p className='mb-0'>{value.review}</p>
+										</div>
+									</div>
+								</>
+							))}
 						</div>
 					</div>
 				</>
 			)}
+			<Transition appear show={isOpen} as={Fragment}>
+				<Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => {closeModal(); navigate('/')}}>
+					<div className="min-h-screen px-4 text-center">
+						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
+							<Dialog.Overlay className="fixed inset-0" />
+						</Transition.Child>
+						<span className="inline-block h-screen align-middle" aria-hidden="true">
+							&#8203;
+						</span>
+						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
+							<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+								<Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+									Booked successfully!
+								</Dialog.Title>
+								<div className="mt-2">
+									<p className="text-sm text-gray-500">
+										Your book has been successfully
+										made. We've sent you an email with
+										all of the details of your book.
+										Good stay!
+									</p>
+								</div>
+								<div className="mt-4">
+									<button type="button" className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500" onClick={() => { closeModal(); navigate('/'); }}>
+										Got it, thanks!
+									</button>
+								</div>
+							</div>
+						</Transition.Child>
+					</div>
+				</Dialog>
+			</Transition>
 		</>
 	);
 }
