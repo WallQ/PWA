@@ -1,119 +1,59 @@
-import React from 'react';
-
-import Image1 from '../../assets/images/header/cover-1.jpg';
-import Image2 from '../../assets/images/header/cover-2.jpg';
-import Image3 from '../../assets/images/header/cover-3.jpg';
-import Image4 from '../../assets/images/header/cover-4.jpg';
+import React, { Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Dialog, Transition } from '@headlessui/react';
 
 function Testing() {
+	const navigate = useNavigate();
+	const [isOpen, setIsOpen] = useState(false);
+
+	function closeModal() {
+		setIsOpen(false);
+	}
+
+	function openModal() {
+		setIsOpen(true);
+	}
+
+	console.log(isOpen);
 	return (
 		<>
-			<div className="w-full h-full mx-auto container bg-red-400">
-				<div className="flex flex-row gap-x-6 px-6">
-					<div className="flex flex-col basis-1/4 px-4 py-4 bg-amber-400 ">
-						<form className="flex flex-col gap-y-6">
-							<div className="flex flex-col">
-								<label htmlFor="search">Search...</label>
-								<input type="search" name="search" id="search" placeholder="Search" />
-							</div>
-							<div className="flex flex-col">
-								<label htmlFor="dateStart">Date Start</label>
-								<input type="date" name="dateStart" id="dateStart" />
-							</div>
-							<div className="flex flex-col">
-								<label htmlFor="dateEnd">Date End</label>
-								<input type="date" name="dateEnd" id="dateEnd" />
-							</div>
-							<div className="flex flex-col">
-								<label htmlFor="guest">Guests</label>
-								<select name="guest" id="guest" >
-									<option value="adult">Adult</option>
-									<option value="child">Child</option>
-								</select>
-							</div>
-							<div className="flex flex-col">
-								<button className="bg-blue-600 py-2 text-white font-semibold text-lg">Search</button>
-							</div>
-							<div className="flex flex-col">
-								<iframe title="Hotel Map" src="https://www.google.com/maps/embed/v1/place?q=Porto&amp;key=AIzaSyA2W8VuMFPLKxR88upABeDzZZkKnU7svV8" />
-							</div>
-						</form>
-					</div>
-					<div className="flex flex-col basis-3/4 px-4 py-4 bg-teal-400">
-						<div className="flex flex-row">							
-							<h1 className="text-white font-bold text-lg">Title</h1>
-						</div>
-						<div className="flex flex-row">
-							<div className="flex-col basis-1/4 ">
-								<img src={Image1} alt="Test" loading="lazy" />
-								<img src={Image2} alt="Test" loading="lazy" />
-								<img src={Image3} alt="Test" loading="lazy" />
-							</div>
-							<div className="flex-col basis-3/4">
-								<img src={Image4} alt="Test" loading="lazy" />
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="flex flex-row gap-x-6 px-6 mt-6">
-					<div className="flex flex-col basis-3/4 px-4 py-4 bg-green-400">
-						<div className="flex flex-row">							
-							<h1 className="text-white font-bold text-lg">Title</h1>
-						</div>
-						<div className="flex flex-row">
-							<p>TEST</p>
-						</div>
-					</div>
-					<div className="flex flex-col basis-1/4 px-4 py-4 bg-amber-400 ">
-						<form className="flex flex-col gap-y-6">
-							<div className="flex flex-col">
-								<label htmlFor="search">Search...</label>
-								<input type="search" name="search" id="search" placeholder="Search" />
-							</div>
-							<div className="flex flex-col">
-								<label htmlFor="dateStart">Date Start</label>
-								<input type="date" name="dateStart" id="dateStart" />
-							</div>
-							<div className="flex flex-col">
-								<label htmlFor="dateEnd">Date End</label>
-								<input type="date" name="dateEnd" id="dateEnd" />
-							</div>
-							<div className="flex flex-col">
-								<label htmlFor="guest">Guests</label>
-								<select name="guest" id="guest" >
-									<option value="adult">Adult</option>
-									<option value="child">Child</option>
-								</select>
-							</div>
-							<div className="flex flex-col">
-								<button className="bg-blue-600 py-2 text-white font-semibold text-lg">Search</button>
-							</div>
-							<div className="flex flex-col">
-								<iframe title="Hotel Map" src="https://www.google.com/maps/embed/v1/place?q=Porto&amp;key=AIzaSyA2W8VuMFPLKxR88upABeDzZZkKnU7svV8" />
-							</div>
-						</form>
-					</div>
-				</div>
-				<div className="flex flex-row gap-x-6 px-6 mt-6">
-					<table>
-						<tr>
-							<th>Capacity</th>
-							<th>Room Type</th>
-							<th></th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-				</div>
+			<div className="fixed inset-0 flex items-center justify-center">
+				<button type="button" onClick={openModal} className="px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+					Open dialog
+				</button>
 			</div>
+			<Transition appear show={isOpen} as={Fragment}>
+				<Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => {closeModal(); navigate('/')}}>
+					<div className="min-h-screen px-4 text-center">
+						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
+							<Dialog.Overlay className="fixed inset-0" />
+						</Transition.Child>
+						<span className="inline-block h-screen align-middle" aria-hidden="true">
+							&#8203;
+						</span>
+						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
+							<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+								<Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+									Booked successfully!
+								</Dialog.Title>
+								<div className="mt-2">
+									<p className="text-sm text-gray-500">
+										Your book has been successfully
+										made. We've sent you an email with
+										all of the details of your book.
+										Good stay!
+									</p>
+								</div>
+								<div className="mt-4">
+									<button type="button" className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500" onClick={() => { closeModal(); navigate('/'); }}>
+										Got it, thanks!
+									</button>
+								</div>
+							</div>
+						</Transition.Child>
+					</div>
+				</Dialog>
+			</Transition>
 		</>
 	);
 }

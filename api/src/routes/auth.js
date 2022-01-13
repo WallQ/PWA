@@ -84,27 +84,36 @@ function AuthRouter() {
 			});
 	});
 
-	router.use(verifyRecoverPasswordJWT);
-
 	router.route('/forgot-password').post((req, res, next) => {
 		let email = req.body.email;
 		user.findByEmail(email)
-			.then((userData) =>
-				user.createTokenRecoverPassword(userData).then((token) => {
-					console.log(token);
-					mailSender.sendEmailRecoverPassword(userData.email, token);
-				})
-			)
-			.then(
+			.then((userData) => {
+				user.createTokenRecoverPassword(userData)
+					.then((token) => {
+						console.log(token);
+						mailSender.sendEmailRecoverPassword(userData.email, token)
+						.then(() => {
+							console.log('estou aqui 1!');
+						})
+						.catch((error) => {
+							console.log(error);
+						})
+					})
+					.catch((error) => {
+						console.log(error);
+					})
+			})
+			.then(() => {
 				res.status(200).send({
 					status: 200,
-					message: 'A email was send to recover your password',
+					auth: false,
+					message: 'A email was send to recover your password!',
 				})
-			)
+			})
 			.catch((err) => next(err));
 	});
 
-	router.route('/new-password').post((req, res, next) => {
+	router.route('/new-password').post(verifyRecoverPasswordJWT, (req, res, next) => {
 		let { password: newPassword, passwordMatch } = req.body;
 		if (
 			!req.userId ||
@@ -118,6 +127,7 @@ function AuthRouter() {
 			res.status(401).send({
 				error: {
 					status: 401,
+					auth: false,
 					message:
 						'Please check all parameter required. Somthing wrong',
 				},
@@ -132,12 +142,14 @@ function AuthRouter() {
 					return;
 					res.status(200).send({
 						status: 200,
+						auth: false,
 						message: 'Password has been successfully changed.',
 					});
 				})
 				.catch((err) => {
 					res.status(400).send({
 						status: 400,
+						auth: false,
 						message: 'Some error on reset your password : ' + err,
 					});
 				});

@@ -3,7 +3,7 @@ import { Drawer,DatePicker,message,Form,InputNumber, Button, Col, Row, Input, Se
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
-import {getClients,getRoomTypes,getPacks,getRooms} from "../../services/API"
+import {getClients,getRoomTypes,getPacks,getRooms} from "../../services/Api"
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;

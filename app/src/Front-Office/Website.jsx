@@ -10,6 +10,8 @@ const Hotel = lazy(() => import('./pages/Hotel/'));
 const SignUp = lazy(() => import('./pages/SignUp/'));
 const SignIn = lazy(() => import('./pages/SignIn/'));
 const SignOut = lazy(() => import('./pages/SignOut/'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const NewPassword = lazy(() => import('./pages/NewPassword'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function Website() {
@@ -19,12 +21,14 @@ function Website() {
 				<Routes>
 					<Route element={<Layout />} path="/">
 						<Route element={<Homepage />} index />
-						<Route element={<Hotel />} path="hotel/:hotelID" />
+						<Route element={<Hotel />} path="hotel" />
 						<Route element={<NotFound />} path="*" />
 					</Route>
 					<Route element={<SignUp />} path="sign-up" />
 					<Route element={<SignIn />} path="sign-in" />
 					<Route element={<SignOut />} path="sign-out" />
+					<Route element={<ForgotPassword />} path="forgot-password" />
+					<Route element={<NewPassword />} path="new-password" />
 					<Route element={<Testing />} path="test" />
 				</Routes>
 			</Suspense>

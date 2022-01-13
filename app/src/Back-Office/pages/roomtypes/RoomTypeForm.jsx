@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import { Navigate, useParams } from "react-router-dom";
 import { Form, Input, InputNumber, Button, Space,Table, message, Select,Drawer,DatePicker,Col,Row } from 'antd';
-import {getClients,getRoomTypes,getPacks,getRooms,getRoomType} from "../../services/API"
+import {getClients,getRoomTypes,getPacks,getRooms,getRoomType} from "../../services/Api"
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { Option } = Select;

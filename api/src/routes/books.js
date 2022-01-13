@@ -27,7 +27,16 @@ function BookRouter() {
 				.catch(next);
 		})
 		.post(verifyJWT, (req, res, next) => {
-			let body = req.body;
+			let body;
+			let opt = req.roles?.includes(roles.ADMIN,roles.DIRECTOR,roles.EMPLOYEE)
+				? body = { 
+					...req.body,
+					client: req.body.client ? req.body.client : req.userId
+				}
+				: body = { 
+					...req.body,
+					client: req.userId 
+				};
 			books
 				.create(body)
 				.then((book) => {

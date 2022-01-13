@@ -16,11 +16,8 @@ function roomsController(roomModel, bookModel) {
 	function save(newRoom) {
 		return new Promise((resolve, reject) => {
 			newRoom.save((err) => {
-				if (err) {
-					reject(err);
-				} else {
-					resolve(newRoom);
-				}
+				if (err) reject(err);
+				resolve(newRoom);
 			});
 		});
 	}
@@ -29,18 +26,9 @@ function roomsController(roomModel, bookModel) {
 		const {limit, skip}= pagination;
 		return new Promise((resolve, reject) => {
 			roomModel.find({},{},{skip,limit}, (err, rooms) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (rooms.length) {
-						resolve(rooms);
-					} else {
-						reject({
-							status: 404,
-							message: 'No rooms have been found.',
-						});
-					}
-				}
+				if (err) reject(err);
+				if (!rooms.length) reject({ status: 404, message: 'No rooms have been found.' });
+				resolve(rooms);
 			});
 		});
 	}
@@ -57,43 +45,20 @@ function roomsController(roomModel, bookModel) {
 
 	function findByIdAndUpdate(id, values) {
 		return new Promise((resolve, reject) => {
-			roomModel.findByIdAndUpdate(
-				id,
-				values,
-				{ new: true },
-				(err, room) => {
-					if (err) {
-						reject(err);
-					} else {
-						if (room) {
-							resolve(room);
-						} else {
-							reject({
-								status: 404,
-								message: 'No Room have been found.',
-							});
-						}
-					}
-				}
-			);
+			roomModel.findByIdAndUpdate(id, values, { new: true }, (err, room) => {
+				if (err) reject(err); 
+				if (!room) reject({ status: 404, message: 'No Room have been found.' });
+				resolve(room);
+			});
 		});
 	}
 
 	function findByIdAndDelete(roomId) {
 		return new Promise((resolve, reject) => {
 			roomModel.findByIdAndDelete(roomId, (err, room) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (room) {
-						resolve(room);
-					} else {
-						reject({
-							status: 404,
-							message: 'No Room have been found.',
-						});
-					}
-				}
+				if (err) reject(err);
+				if (!room) reject({ status: 404, message: 'No Room have been found.' });
+				resolve(room);
 			});
 		});
 	}
