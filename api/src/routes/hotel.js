@@ -77,9 +77,10 @@ function HotelRouter() {
 
 	router.route('/workingon')
 	.get(verifyJWT, verifyROLES(roles.ADMIN,roles.DIRECTOR,roles.EMPLOYEE),(req, res, next) => {
-		let opt = '_id name';
+		let opt = '';
 
 		if(req.roles?.includes(roles.ADMIN)){
+			opt = '_id name';
 			hotel
 				.findAll(opt)
 				.then((hotels) => {
@@ -99,7 +100,27 @@ function HotelRouter() {
 					});
 				});
 		}else{
-
+			//findUserWorking
+			//{$or: [{director: ObjectId('61a0442176797ffc2a97aa9e')},{employee: ObjectId('61a0442176797ffc2a97aa9e')}]}
+			opt = {$or: [{director: req.userId},{employee: req.userId}]};
+			hotel
+				.findUserWorking(opt)
+				.then((hotels) => {
+					res.status(200).send({
+						status: 200,
+						auth: true,
+						message: 'Hotels have been successfully found.',
+						data: hotels,
+					});
+				})
+				.catch((error) => {
+					res.status(200).send({
+						status: error.status,
+						auth: false,
+						message: error.message,
+						data: [],
+					});
+				});
 		}
 	});
 
@@ -128,8 +149,7 @@ function HotelRouter() {
 				let hotelId = req.params.hotelId;
 				let body = req.body;
 				if (!req.roles?.includes(roles.ADMIN)) {
-					hotel
-						.verifyBelongHotel(req.userId, hotelId)
+						verifyBelongHotel(req.userId, hotelId)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
@@ -235,8 +255,7 @@ function HotelRouter() {
 			(req, res, next) => {
 				let hotelId = req.params.hotelId;
 				if (!req.roles?.includes(roles.ADMIN)) {
-					hotel
-						.verifyBelongHotel(req.userId, hotelId)
+						verifyBelongHotel(req.userId, hotelId)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
@@ -286,8 +305,7 @@ function HotelRouter() {
 			(req, res, next) => {
 				let hotelId = req.params.hotelId;
 				if (!req.roles?.includes(roles.ADMIN)) {
-					hotel
-						.verifyBelongHotel(req.userId, hotelId)
+						verifyBelongHotel(req.userId, hotelId)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({

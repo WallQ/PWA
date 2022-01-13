@@ -15,8 +15,11 @@ function UserRouter() {
 
 	router
 		.route('/')
-		.get(verifyROLES(roles.ADMIN), (req, res, next) => {
-			user.findAll()
+		.get(verifyROLES(roles.ADMIN,roles.DIRECTOR,roles.EMPLOYEE), (req, res, next) => {
+			let opt = req.roles?.includes(roles.ADMIN)
+				? '_id name surname email roles createdDate'
+				: '_id name surname email';
+			user.findAll(opt)
 				.then((users) => {
 					res.status(200).send({
 						status: 200,

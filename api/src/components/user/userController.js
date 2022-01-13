@@ -45,15 +45,15 @@ function userService(userModel) {
 		});
 	}
 
-	function findAll() {
-		let opt = {
-			_id: 1,
-			name: 1,
-			surname: 1,
-			email: 1,
-			roles: 1,
-			createdDate: 1,
-		};
+	function findAll(opt) {
+		//let opt = {
+		//	_id: 1,
+		//	name: 1,
+		//	surname: 1,
+		//	email: 1,
+		//	roles: 1,
+		//	createdDate: 1,
+		//};
 		return new Promise((resolve, reject) => {
 			userModel.find({}, opt, (err, users) => {
 				if (err) {

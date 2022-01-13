@@ -42,7 +42,11 @@ const MainLayoutV2 = (props) => {
 			.then((response) => response.json())
 			.then((response) => {
         console.log("API ME :", response)
-        console.log("existe no array", response.roles.some(r=> ['Admin','Director','Employee'].includes(r)))
+        //console.log("existe no array", response.roles.some(r=> ['Admin','Director','Employee'].includes(r)))
+
+        if(response.roles.some(r=> ['Admin'].includes(r))){
+          navigation.splice(1,0,{ name: 'Hotels', href: '/admin/hotels', current: false })
+        }
         
         if(response.roles.some(r=> ['Admin','Director','Employee'].includes(r))){
           setMe({auth: response.auth, roles: response.roles});
@@ -59,8 +63,8 @@ const MainLayoutV2 = (props) => {
 
   //Definições template
   const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
+    name: 'PETER',
+    email: 'peter@example.com',
     imageUrl:
       'https://lledogrupo.com/wp-content/uploads/2018/04/user-img-1.png',
   }
@@ -71,6 +75,7 @@ const MainLayoutV2 = (props) => {
     { name: 'Rooms', href: '/admin/rooms', current: false },
     { name: 'Books', href: '/admin/books', current: false },
   ]);
+  
   const userNavigation = [
     { name: 'Sign out', href: '#', onClick: logout },
   ]
@@ -80,6 +85,7 @@ const MainLayoutV2 = (props) => {
   //Fimm
 
 	useEffect(() => {
+    
 		getMe();
 	}, []);
 

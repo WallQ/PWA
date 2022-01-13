@@ -8,6 +8,7 @@ function hotelService(
 	let service = {
 		create,
 		findAll,
+		findUserWorking,
 		findByName,
 		findById,
 		findByIdAndUpdate,
@@ -35,6 +36,21 @@ function hotelService(
 	function findAll(opt) {
 		return new Promise((resolve, reject) => {
 			hotelModel.find({}, opt, (err, hotels) => {
+				if (err) reject(err);
+				if (hotels.length) {
+					resolve(hotels);
+				} else {
+					reject({
+						status: 404,
+						message: 'No hotels have been found.',
+					});
+				}
+			});
+		});
+	}
+	function findUserWorking(opt) {
+		return new Promise((resolve, reject) => {
+			hotelModel.find(opt, (err, hotels) => {
 				if (err) reject(err);
 				if (hotels.length) {
 					resolve(hotels);
