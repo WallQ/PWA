@@ -64,7 +64,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 										<Menu as="div" className="relative mr-0 md:mr-5 mb-5 md:mb-0">
 											{({ open }) => (
 												<Fragment>
-													<Menu.Button className='inline-flex justify-center items-center w-56 h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans font-medium text-base text-black focus:outline-none focus:ring-2 focus:ring-blue-600'>
+													<Menu.Button className='inline-flex justify-between items-center w-full md:w-56 h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans font-medium text-base text-black focus:outline-none focus:ring-2 focus:ring-blue-600'>
 														<FaUsers className="mr-2 h-5 w-5 fill-black" aria-hidden="true" />
 														<span>{adult} Adult &bull; {child} Child </span>
 														{open && (
@@ -118,18 +118,18 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 											)}
 										</Menu>
 									</div>
+									<select name="hotel" value={selectedHotel} onChange={(e) => {setSelectedHotel(e.target.value);}} className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer">
+										{hotel.map((value, index) => (
+											<>
+												<option value={value._id} selected={index === 0 ? true : false}>{value.name}</option>
+											</>
+										))}
+									</select>
+									<button type="submit" value="submit" className="font-sans text-lg font-bold tracking-wide leading-normal text-left text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700 bg-blue-600 hover:bg-blue-800">
+										<FaSearch className="w-5 h-5 mr-2 fill-white" />
+										Search
+									</button>
 								</div>
-								<select name="hotel" value={selectedHotel} onChange={(e) => {setSelectedHotel(e.target.value);}} className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer">
-									{hotel.map((value, index) => (
-										<>
-											<option value={value._id} selected={index === 0 ? true : false}>{value.name}</option>
-										</>
-									))}
-								</select>
-								<button type="submit" value="submit" className="font-sans text-lg font-bold tracking-wide leading-normal text-left text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 inline-flex items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-700 bg-blue-600 hover:bg-blue-800">
-									<FaSearch className="w-5 h-5 mr-2 fill-white" />
-									Search
-								</button>
 							</form>
 						</div>
 					)}

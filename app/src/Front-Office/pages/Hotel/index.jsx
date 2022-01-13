@@ -191,7 +191,7 @@ function Hotel() {
 										</button>
 									</div>
 									<div className="flex flex-col">
-										<iframe title="Hotel Map" src={`https://www.google.com/maps/embed/v1/place?q=${hotel.address.locality}&key=AIzaSyA2W8VuMFPLKxR88upABeDzZZkKnU7svV8`} />
+										<iframe title="Hotel Map" src={`https://www.google.com/maps/embed/v1/place?q=${hotel.address.locality}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`} />
 										<p>{hotel.address.street} N.º {hotel.address.doorNumber}, {hotel.address.postCode} {hotel.address.district} {hotel.address.country}</p>
 									</div>
 									<div className="flex flex-col">
