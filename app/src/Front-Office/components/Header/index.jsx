@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Menu, Transition  } from '@headlessui/react';
 import { FaUsers, FaChevronDown, FaChevronUp, FaSearch } from 'react-icons/fa';
 
-
 import { getHotels } from '../../services/hotel';
 
 function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {

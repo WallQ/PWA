@@ -33,9 +33,9 @@ function hotelService(
 		return save(newHotel);
 	}
 
-	function findAll(opt) {
+	function findAll(opt, field, order) {
 		return new Promise((resolve, reject) => {
-			hotelModel.find({}, opt, (err, hotels) => {
+			hotelModel.find({}, opt, {sort:{[field]: parseInt(order)}}, (err, hotels) => {
 				if (err) reject(err);
 				if (hotels.length) {
 					resolve(hotels);

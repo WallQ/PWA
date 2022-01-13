@@ -1,59 +1,53 @@
 import React, { Fragment, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Dialog, Transition } from '@headlessui/react';
+import { Listbox, Transition } from '@headlessui/react';
+import { HiCheck, HiSelector } from 'react-icons/hi';
+
+const sort = [
+	{ type: 'Best Rating'},
+	{ type: 'Newest'},
+	{ type: 'Name: A to Z'},
+	{ type: 'Name: Z to A'},
+	{ type: 'Price: Low to High'},
+	{ type: 'Price: High to Low'},
+];
 
 function Testing() {
-	const navigate = useNavigate();
-	const [isOpen, setIsOpen] = useState(false);
+	const [selected, setSelected] = useState(sort[0]);
 
-	function closeModal() {
-		setIsOpen(false);
-	}
-
-	function openModal() {
-		setIsOpen(true);
-	}
-
-	console.log(isOpen);
 	return (
 		<>
-			<div className="fixed inset-0 flex items-center justify-center">
-				<button type="button" onClick={openModal} className="px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-					Open dialog
-				</button>
-			</div>
-			<Transition appear show={isOpen} as={Fragment}>
-				<Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => {closeModal(); navigate('/')}}>
-					<div className="min-h-screen px-4 text-center">
-						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
-							<Dialog.Overlay className="fixed inset-0" />
-						</Transition.Child>
-						<span className="inline-block h-screen align-middle" aria-hidden="true">
-							&#8203;
-						</span>
-						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
-							<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-								<Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-									Booked successfully!
-								</Dialog.Title>
-								<div className="mt-2">
-									<p className="text-sm text-gray-500">
-										Your book has been successfully
-										made. We've sent you an email with
-										all of the details of your book.
-										Good stay!
-									</p>
-								</div>
-								<div className="mt-4">
-									<button type="button" className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500" onClick={() => { closeModal(); navigate('/'); }}>
-										Got it, thanks!
-									</button>
-								</div>
-							</div>
-						</Transition.Child>
+			<div className="w-72 fixed top-16">				
+				<Listbox value={selected} onChange={setSelected}>
+					<div className="relative mt-1">
+						<Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+							<span className="block truncate">{selected.type}</span>
+							<span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+								<HiSelector className="w-5 h-5 text-gray-400" aria-hidden="true" />
+							</span>
+						</Listbox.Button>
+						<Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
+							<Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+								{sort.map((sort, sortId) => (
+									<Listbox.Option key={sortId} value={sort} className={({ active }) => `${active ? 'text-blue-900 bg-blue-100' : 'text-gray-600'} cursor-default select-none relative py-2 pl-10 pr-4`}>
+										{({ selected, active }) => (
+											<>
+												<span className={`${selected ? 'font-medium' : 'font-normal' } block truncate`}>
+													{sort.type}
+												</span>
+												{selected ? (
+													<span className={`${active ? 'text-blue-600' : 'text-blue-600' } absolute inset-y-0 left-0 flex items-center pl-3`}>
+														<HiCheck className="w-5 h-5" aria-hidden="true" />
+													</span>
+												) : null}
+											</>
+										)}
+									</Listbox.Option>
+								))}
+							</Listbox.Options>
+						</Transition>
 					</div>
-				</Dialog>
-			</Transition>
+				</Listbox>
+			</div>
 		</>
 	);
 }

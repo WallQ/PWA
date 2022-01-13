@@ -1,8 +1,8 @@
 const API_URL = '/hotel';
 
-export const getHotels = async () => {
+export const getHotels = async (value) => {
 	try {
-		const response = await fetch(`${API_URL}/`, {
+		const response = await fetch(`${API_URL}?${new URLSearchParams( value )}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

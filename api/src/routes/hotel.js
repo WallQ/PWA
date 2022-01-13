@@ -20,9 +20,9 @@ function HotelRouter() {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
 				: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
-
+				const { field = 'name', order = 1 } = req.query;
 			hotel
-				.findAll(opt)
+				.findAll(opt, field, order)
 				.then((hotels) => {
 					res.status(200).send({
 						status: 200,
