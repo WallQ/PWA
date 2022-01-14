@@ -46,6 +46,7 @@ function HotelRouter() {
 				.then((hotel) => {
 					res.status(201).send({
 						status: 201,
+						auth:true,
 						message: 'Hotel has been created successfully.',
 						data: hotel,
 					});
@@ -132,11 +133,13 @@ function HotelRouter() {
 				? ''
 				: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
 			let hotelId = req.params.hotelId;
+			console.log("ROLES:",req.roles)
 			hotel
 				.findById(hotelId, opt)
 				.then((hotel) => {
 					res.status(200).send({
 						status: 200,
+						auth: true,
 						message: 'Hotel has been successfully found.',
 						data: hotel,
 					});
@@ -162,10 +165,11 @@ function HotelRouter() {
 								});
 							}
 							hotel
-								.updateById(hotelId, body)
+								.findByIdAndUpdate(hotelId, body)
 								.then((hotel) => {
 									res.status(200).send({
 										status: 200,
+										auth:true,
 										message:
 											'Hotel has been successfully updated.',
 										data: hotel,
@@ -176,10 +180,11 @@ function HotelRouter() {
 						.catch(next);
 				} else {
 					hotel
-						.updateById(hotelId, body)
+						.findByIdAndUpdate(hotelId, body)
 						.then((hotel) => {
 							res.status(200).send({
 								status: 200,
+								auth: true,
 								message: 'Hotel has been successfully updated.',
 								data: hotel,
 							});
@@ -191,10 +196,11 @@ function HotelRouter() {
 		.delete(verifyJWT, verifyROLES(roles.ADMIN), (req, res, next) => {
 			let hotelId = req.params.hotelId;
 			hotel
-				.deleteById(hotelId)
+				.findByIdAndDelete(hotelId)
 				.then((hotel) => {
 					res.status(200).send({
 						status: 200,
+						auth: true,
 						message: 'Hotel has been successfully deleted.',
 						data: hotel,
 					});

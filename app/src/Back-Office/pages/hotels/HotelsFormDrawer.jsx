@@ -7,6 +7,16 @@ import {getClients,getRoomTypes,getPacks,getRooms} from "../../services/Api"
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
+const { TextArea } = Input;
+
+const languagesData = [
+    {initials:"PT", country:"Portugal", language:"Portuguese" },
+    {initials:"EN", country:"United Kingdom", language:"English" },
+    {initials:"ES", country:"Spain", language:"Spanish" },
+    {initials:"FR", country:"France", language:"French" },
+    {initials:"IT", country:"Italy", language:"Italian" },
+    {initials:"DE", country:"Germany", language:"German" },
+]
 
 const HotelsFormDrawer = (props) => {
 
@@ -16,7 +26,7 @@ const HotelsFormDrawer = (props) => {
 
     const onFormFinish = (values) => {
         if(hotel){
-            updatePack(hotel._id,values);
+            updateHotel(hotel._id,values);
         
         }else{
             newRoomType(props.hotelID,values);
@@ -45,11 +55,11 @@ const HotelsFormDrawer = (props) => {
         .then((response) => {
             const {status, data} = response;
             if(data){
+                console.log("RESPONSE DATA: ", data)
                 setHotel(data)
                 form.setFieldsValue({
                     ...data,
-                    date: [moment(data.start_date),moment(data.end_date)],
-                    freeCancel: {value: data.freeCancel},
+                    languages: data.languages.map((e)=> {return e.initials})
                 });
             }  else{
                 message.error('Cant find Hotel to Edit');
@@ -58,60 +68,58 @@ const HotelsFormDrawer = (props) => {
     }
     //NEW hotel
     const newRoomType = (hotelID,values) =>{
-        console.log("INSERT: ",hotelID,"Values: ", values)
-        const url = '/packs'
+        console.log("INSERT: ",hotelID,"Values: ", {
+            ...values,
+            averagePrice:0,
+            address:{...values.address,
+                doorNumber: 1
+            }
+        })
+        const url = '/hotel'
         fetch(url,{
             headers: {'Content-Type': 'application/json'},
             method: 'POST',
             body: JSON.stringify({
-                hotel: hotelID,
-                name:values.name,
-                include:values.include,
-                dailyPrice:values.dailyPrice,
-                freeCancel: values.freeCancel.value,
-                start_date: values.date[0]._d,
-                end_date: values.date[1]._d,
-                maxGuests: 0,
-                maxGuestsChild: 0,
-                minNights: 1
+                ...values,
+                languages: values.languages.map((e)=>{return languagesData.find(element => element.initials == e)}),
+                averagePrice:0,
+                address:{...values.address,
+                    doorNumber: 1
+                }
             })
         })
         .then((response) => response.json())
         .then((response) => {
             //console.log("Response: ", response)
             if(response.auth){
-                message.success('Rooom Created');
+                message.success('Hotel Created');
                 props.onAction();
                 props.setVisible(false);
             }else{
-                message.error('Cant create Rooom');
+                message.error('Cant create Hotel');
             }
         })
     }
     //Update hotel
-    const updatePack = (packID, values) =>{
+    const updateHotel = (hotelID, values) =>{
         //console.log("vou inserir")
-        const url = '/packs/' + packID
-
+        const url = '/hotel/' + hotelID
+        //console.log("languages", values.languages.map((e)=>{return languagesData.find(element => element.initials == e)}))
         fetch(url,{
             headers: {'Content-Type': 'application/json'},
             method: 'PUT',
             body: JSON.stringify({
-                name:values.name,
-                include:values.include,
-                dailyPrice:values.dailyPrice,
-                freeCancel: values.freeCancel.value,
-                start_date: values.date[0]._d,
-                end_date: values.date[1]._d,
+                ...values,
+                languages: values.languages.map((e)=>{return languagesData.find(element => element.initials == e)})
             })
         })
         .then((response) => response.json())
         .then((response) => {
             if(response.auth){
-                message.success('Rooom Updated');
+                message.success('Hotel Updated');
                 props.setVisible(false)
             }else{
-                message.error('Cant update Rooom');
+                message.error('Cant update Hotel');
             }
             
         })
@@ -122,12 +130,10 @@ const HotelsFormDrawer = (props) => {
     useEffect(() => {
         //Inicializar valores default
         form.setFieldsValue({
-            freeCancel: {value: true},
-            dailyPrice: 0,
-            date: [moment(), moment().add(1,'days')]
+            rating: 1
         })
-
-        //Obter os PAcks
+        setHotel('');
+        //Obter o Hotel
         if(props.selectedHotel._id)
         {
            getHotel(props.selectedHotel._id) 
@@ -201,84 +207,212 @@ const HotelsFormDrawer = (props) => {
                 <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item
-                            name="dailyPrice"
-                            label="Price"
+                            name="director"
+                            label="Director"
+                            rules={[{ required: true, message: 'Please enter a number room' }]}
                         >
-                            <InputNumber addonAfter="€"/>
+                            <Select
+                                showSearch
+                                style={{ width: '100%' }}
+                                placeholder="Search to Select"
+                                optionFilterProp="children"
+                                filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                                filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                                }
+                            >
+                                {
+                                    clients.map((val)=>{
+                                        return <Option value= {val._id} key= {"clientsDirector" + val._id}>{val.name}</Option>
+                                    })
+                                }
+                            </Select>
                         </Form.Item>
                     </Col>
                     <Col span={12}>
                         <Form.Item
-                            name="date"
-                            label="Start / End Date"
+                            name="employee"
+                            label="Employees"
                         >
-                            <RangePicker
-                                
-                                
-                                format={'DD/MM/YYYY'}/>  
+                            <Select
+                                showSearch
+                                mode= {'multiple'}
+                                style={{ width: '100%' }}
+                                placeholder="Search to Select"
+                                optionFilterProp="children"
+                                filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                                filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                                }
+                            >
+                                {
+                                    clients.map((val)=>{
+                                        return <Option value= {val._id} key= {"clientsEmployee" + val._id}>{val.name}</Option>
+                                    })
+                                }
+                            </Select>
                         </Form.Item>
-                         
+                        
                     </Col>
                 </Row>
                 <Row gutter={16}>
-                    <Col span={12}>
-                        <Form.List
-                            name="include"
-                            label="Features"
-                            >
-                            {(fields, { add, remove }, { errors }) => (
-                            <>
-                                {fields.map((field, index) => (
-                                    <Form.Item
-                                        label={index === 0 ? 'Feature' : ''}
-                                        required={false}
-                                        key={field.key}
-                                    >
-                                        <Form.Item
-                                        {...field}
-                                        validateTrigger={['onChange', 'onBlur']}
-                                        rules={[
-                                            {
-                                            required: true,
-                                            whitespace: true,
-                                            message: "Please input Feature",
-                                            },
-                                        ]}
-                                        noStyle
-                                        >
-                                        <Input placeholder="feature name" style={{ width: '55%' }} />
-                                        </Form.Item>
-                                        {fields.length > 1 ? (
-                                        <MinusCircleOutlined
-                                            className="dynamic-delete-button"
-                                            onClick={() => remove(field.name)}
-                                        />
-                                        ) : null}
-                                    </Form.Item>
-                                ))}
-                                <Form.Item>
-
-                                <Button
-                                    type="dashed"
-                                    onClick={() => add()}
-                                    style={{ width: '60%' }}
-                                    icon={<PlusOutlined />}
-                                >
-                                    Add field
-                                </Button>
-                
-                                <Form.ErrorList errors={errors} />
-                                </Form.Item>
-                            </>
-                            )}
-                            
-                        </Form.List>
+                    <Col span={24}>
+                        <Form.Item
+                            name="description"
+                            label="Drescription"
+                        >
+                            <TextArea showCount maxLength={500} style={{ height: 120 }} />
+                        </Form.Item>
                     </Col>
-                    <Col span={12}>
-                       
+                </Row>    
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <Form.Item
+                            //name="adress"
+                            name={['address', 'street']}
+                            label="Adress"  
+                        >
+                            <Input placeholder="Street" />      
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item
+                            //name="adress"
+                            name={['address', 'postCode']}
+                            label="PostCode"  
+                        >
+                            <Input placeholder="postCode" />      
+                        </Form.Item>  
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item
+                            //name="adress"
+                            name={['address', 'district']}
+                            label="district"  
+                        >
+                            <Input placeholder="district" />      
+                        </Form.Item>  
                     </Col>
                 </Row>
-                
+                <Row gutter={16}>
+                    <Col span={8}>
+                        <Form.Item
+                            //name="adress"
+                            name={['address', 'locality']}
+                            label="Locality"  
+                        >
+                            <Input placeholder="Locality" />      
+                        </Form.Item>
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item
+                            //name="adress"
+                            name={['address', 'country']}
+                            label="Country"  
+                        >
+                            <Input placeholder="Country" />      
+                        </Form.Item>  
+                    </Col>
+                    <Col span={8}>
+                        <Form.Item
+                            //name="adress"
+                            name={['address', 'doorNumber']}
+                            label="Door Number"  
+                        >
+                            <Input placeholder="DoorNumber" />      
+                        </Form.Item>  
+                    </Col>
+                </Row>
+
+
+                <Row gutter={16}>
+                    <Col span={12}>
+                    <Form.List 
+                            name="contacts"
+                        >
+                        {(fields, { add, remove }) => (
+                        <>
+                            {fields.map(field => (
+                            <Space key={field.key} align="baseline">
+                                <Form.Item
+                                    noStyle
+                                    shouldUpdate={(prevValues, curValues) =>
+                                        prevValues.area !== curValues.area || prevValues.sights !== curValues.sights
+                                    }
+                                >
+                                    {() => (
+                                        <Form.Item
+                                        {...field}
+                                        label="Type"
+                                        name={[field.name, 'type']}
+                                        rules={[{ required: true, message: 'Missing type' }]}
+                                        >
+                                        <Select style={{ width: 100 }}>
+                                            <Option value={"email"}>Email</Option>
+                                            <Option value={"telephone"}>Telephone</Option>
+                                            <Option value={"fax"}>Fax</Option>
+                                        </Select>
+                                        </Form.Item>
+                                    )}
+                                </Form.Item>
+                                <Form.Item
+                                    {...field}
+                                    label="Contact"
+                                    name={[field.name, 'contact']}
+                                    rules={[{ required: true, message: 'Missing contact' }]}
+                                >
+                                    <Input />
+                                </Form.Item>
+
+                                <MinusCircleOutlined onClick={() => remove(field.name)} />
+                            </Space>
+                            ))}
+
+                            <Form.Item>
+                            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                                Add Contacts
+                            </Button>
+                            </Form.Item>
+                        </>
+                        )}
+                    </Form.List>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item
+                            name="languages"
+                            label="Languages"
+                        >
+                            <Select
+                                showSearch
+                                mode= {'multiple'}
+                                style={{ width: '100%' }}
+                                placeholder="Search to Select"
+                                optionFilterProp="children"
+                                filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                }
+                                filterSort={(optionA, optionB) =>
+                                optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                                }
+                            >
+                                <Option key={"pt"} value={"PT"}>Portuguese</Option>
+                                <Option key={"en"} value={"EN"}>English</Option>
+                                <Option key={"en"} value={"ES"}>Spanish</Option>
+                                <Option key={"fr"} value={"FR"}>French</Option>
+                                <Option key={"it"} value={"IT"}>Italian</Option>
+                                <Option key={"de"} value={"DE"}>German</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+
+
+
             </Form>
             </Drawer>
         </>
