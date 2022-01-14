@@ -36,9 +36,9 @@ function Hotel() {
 	useEffect(() => {
 		getHotels()
 		.then((result) => {
-			if (result.status === 200 && result.data.length) {
+			if (result.status === 200 && result.data.hotels.length) {
 				console.log(result);
-				setHotels(result.data);
+				setHotels(result.data.hotels);
 			}
 		})
 		.catch((error) => {
@@ -107,7 +107,7 @@ function Hotel() {
 					<div className="w-full h-full mx-auto container ">
 						<div className="flex flex-col lg:flex-row gap-x-6 gap-y-6 px-6 py-6">
 							<div className="flex flex-col basis-1/4 px-4 py-4 border-2 border-dashed border-gray-200">
-								<form className="flex flex-col gap-y-6">
+								<form className="flex flex-col gap-y-2 md:gap-y-6">
 									<div className="flex flex-col">
 										<input type="date" name="startDate" value={dateStart} onChange={(e) => setDateStart(e.target.value)} className="mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer" />
 									</div>
@@ -339,18 +339,23 @@ function Hotel() {
 					<span>LOADING HOTEL</span>
 				</>
 			) : (
-				<>
+				<>				
 					<div className="w-full h-full mx-auto container">
 						<div className="flex flex-row justify-between items-center px-6 py-4 mt-6">
 							{hotel.reviews.map((value) => (
-								<>
-									<div className="flex flex-col">
-										<div className="border-2 border-solid border-gray-200 px-6 py-2 items-center">
-											<span>{value.userID.name} {value.userID.surname}</span>
-											<p className='mb-0'>{value.review}</p>
+								<div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
+									<div class="relative flex gap-4">
+										<img src={`http://127.0.0.1:3030/public/assets/images/${value.userID.image.path}`} class="relative rounded-lg -top-8 -mb-4 bg-white border-2 border-solid border-gray-200 h-20 w-20" alt={`${value.userID.image.path}`} loading="lazy" />
+										<div class="flex flex-col w-full">
+											<div class="flex flex-row justify-between">
+												<p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{value.userID.name} {value.userID.surname}</p>
+												<a class="text-gray-500 text-xl" href="www.google.com"><i class="fa-solid fa-trash"></i></a>
+											</div>
+											<p class="text-gray-400 text-sm">{new Date(`${value.createdDate}`).toDateString()}</p>
 										</div>
 									</div>
-								</>
+									<p class="-mt-4 text-gray-500">{value.review}</p>
+								</div>
 							))}
 						</div>
 					</div>

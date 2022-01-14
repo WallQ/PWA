@@ -19,10 +19,10 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 	useEffect(() => {
 		getHotels()
 			.then((result) => {
-				if (result.status === 200 && result.data.length) {
+				if (result.status === 200 && result.data.hotels.length) {
 					console.log(result);
-					setHotel(result.data);
-					setSelectedHotel(result.data[0]._id)
+					setHotel(result.data.hotels);
+					setSelectedHotel(result.data.hotels[0]._id)
 				}
 			})
 			.catch((error) => {

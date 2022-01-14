@@ -16,9 +16,9 @@ function List() {
 	useEffect(() => {
 		getHotels(selected.value)
 			.then((result) => {
-				if (result.status === 200 && result.data.length) {
+				if (result.status === 200 && result.data.hotels.length) {
 					console.log(result);
-					setHotel(result.data);
+					setHotel(result.data.hotels);
 					setLoading(false);
 				}
 			})
