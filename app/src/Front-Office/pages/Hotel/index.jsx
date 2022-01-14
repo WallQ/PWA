@@ -18,7 +18,6 @@ function Hotel() {
 	const location = useLocation();
 	const hotelID = location.state.selectedHotel;
 
-	const [redirect, setRedirect] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [loadingHotel, setLoadingHotel] = useState(true);
 	const [loadingRoomTypes, setLoadingRoomTypes] = useState(true);

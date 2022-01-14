@@ -81,7 +81,7 @@ function hotelService(
 				if (!hotel) reject({ status: 404, message: 'No hotel have been found.' });
 				resolve(hotel);
 			})
-			.populate('reviews.userID', '-_id name surname');
+			.populate('reviews.userID', '-_id name surname image');
 		});
 	}
 
