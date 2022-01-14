@@ -26,15 +26,15 @@ const Selecthotelworking = (props) => {
         .then((response) => {
 
             //console.log(response.data.some((val) => selectedOnLocalSorage == val._id))
-            if(response.data.some((val) => selectedOnLocalSorage == val._id)){
+            if(response.data.hotels.some((val) => selectedOnLocalSorage == val._id)){
                 props.setHotelID(selectedOnLocalSorage);
             }else{
                 //console.log("Primeiro ID da lista",response.data[0]._id)
-                setSelectedOnLocalSorage(response.data[0]._id);
-                props.setHotelID(response.data[0]._id);
+                setSelectedOnLocalSorage(response.data.hotels[0]._id);
+                props.setHotelID(response.data.hoteld[0]._id);
             }
 
-            setOptions(response.data)
+            setOptions(response.data.hotels)
             //console.log("WORKING ON: ", response.data)
 
             })

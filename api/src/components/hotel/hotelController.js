@@ -33,9 +33,10 @@ function hotelService(
 		return save(newHotel);
 	}
 
-	function findAll(opt, field, order) {
+	function findAll(opt, field, order, pagination) {
+		const { limit, skip } = pagination;
 		return new Promise((resolve, reject) => {
-			hotelModel.find({}, opt, {sort:{[field]: parseInt(order)}}, (err, hotels) => {
+			hotelModel.find({}, opt, {...pagination, sort:{[field]: parseInt(order)}}, (err, hotels) => {
 				if (err) reject(err);
 				if (hotels.length) {
 					resolve(hotels);
@@ -44,6 +45,18 @@ function hotelService(
 						status: 404,
 						message: 'No hotels have been found.',
 					});
+				}
+			});
+		})
+		.then( async (hotels) => {
+			const totalHotels = await hotelModel.count();
+			return Promise.resolve({
+				hotels,
+				pagination:{
+					pageSize: limit,
+					page: Math.floor(skip / limit),
+					hasMore: (skip + limit) < totalHotels,
+					total: totalHotels
 				}
 			});
 		});

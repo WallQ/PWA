@@ -8,6 +8,7 @@ import Rooms from './pages/rooms/Rooms';
 import RoomTypeForm from './pages/roomtypes/RoomTypeForm';
 import Roomtypes from './pages/roomtypes/RoomTypes';
 import Books from './pages/books/Books';
+import Hotels from './pages/hotels/Hotels';
 
 //import Routes from './routes';
 
@@ -25,6 +26,7 @@ function BackOffice() {
 				<Route path="packs/" element={<Packs hotelID = {hotelID}/>} />
 				<Route path="rooms/" element={<Rooms hotelID = {hotelID}/>} />
 				<Route path="books/" element={<Books hotelID = {hotelID}/>} />
+				<Route path="hotels/" element={<Hotels hotelID = {hotelID}/>} />
 				<Route path="*" element={<h1>No Subpage found</h1>} />
 			</Route>
 				

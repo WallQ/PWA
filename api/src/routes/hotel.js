@@ -22,10 +22,11 @@ function HotelRouter() {
 				: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
 				const { field = 'name', order = 1 } = req.query;
 			hotel
-				.findAll(opt, field, order)
+				.findAll(opt, field, order, req.pagination)
 				.then((hotels) => {
 					res.status(200).send({
 						status: 200,
+						auth: true,
 						message: 'Hotels have been successfully found.',
 						data: hotels,
 					});
@@ -82,7 +83,7 @@ function HotelRouter() {
 		if(req.roles?.includes(roles.ADMIN)){
 			opt = '_id name';
 			hotel
-				.findAll(opt)
+				.findAll(opt,{},{},req.pagination)
 				.then((hotels) => {
 					res.status(200).send({
 						status: 200,
