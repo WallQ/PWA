@@ -2,6 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const roles = require('../../config/roles');
 
+const imageType = new Schema({
+	path: {
+		type: String,
+		required: true,
+	},
+	alt: {
+		type: String,
+	},
+});
+
 const userSchema = new Schema({
 	name: {
 		type: String,
@@ -27,6 +37,9 @@ const userSchema = new Schema({
 			default: roles.CLIENT,
 		},
 	],
+	image: {
+		type: imageType,
+	},
 	createdDate: {
 		type: Date,
 		default: Date.now,
