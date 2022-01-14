@@ -100,7 +100,7 @@ const Packs = (props) => {
                 console.log("Update Auth: ", response.auth);
                 if(response.auth){
                     message.success('Pack Deleted');
-                    //getRooms(data.pagination.pageSize, data.pagination.current);
+                    refreshTable()
                 }else{
                     message.error('Cant delete Pack');
                 }

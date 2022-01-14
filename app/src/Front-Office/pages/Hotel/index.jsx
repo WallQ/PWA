@@ -178,7 +178,7 @@ function Hotel() {
 										<select name="hotel" value={selectedHotel} onChange={(e) => {setSelectedHotel(e.target.value);}} className="mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer">
 											{hotels.map((value, index) => (
 												<>
-													<option value={value._id} selected={index === 0 ? true : false}>{value.name}</option>
+													<option key={index} value={value._id}>{value.name}</option>
 												</>
 											))}
 										</select>
@@ -194,8 +194,8 @@ function Hotel() {
 										<p>{hotel.address.street} N.º {hotel.address.doorNumber}, {hotel.address.postCode} {hotel.address.district} {hotel.address.country}</p>
 									</div>
 									<div className="flex flex-col">
-										{hotel.contacts.map((value) => (
-											<a href={value.type === 'email' ? `mailto:${value.contact}` : value.type === 'telephone' ? `tel:${value.contact}` : 'N/A'} className="inline-flex items-center">{value.type === 'email' ? <FaEnvelope /> : value.type === 'telephone' ? <FaPhone /> : 'N/A'}&nbsp; {value.contact}</a>
+										{hotel.contacts.map((value, index) => (
+											<a  key={index} href={value.type === 'email' ? `mailto:${value.contact}` : value.type === 'telephone' ? `tel:${value.contact}` : 'N/A'} className="inline-flex items-center">{value.type === 'email' ? <FaEnvelope /> : value.type === 'telephone' ? <FaPhone /> : 'N/A'}&nbsp; {value.contact}</a>
 										))}
 									</div>
 								</form>
@@ -284,17 +284,17 @@ function Hotel() {
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap">
 														{roomType.packs.map((value) => (
-															<tr>
-																<td>
-																	<div className="inline-flex items-center">
-																		<input type="radio" name="pack" id={value._id} value={value._id} onChange={(e) => { setSelectedPack(e.target.value); setSelectedRoomType(roomType._id); }} />
-																		<label htmlFor={value._id}>&nbsp;{value.name} - &#36;{value.dailyPrice}</label>
-																	</div>
-																	<ul>
-																		<li>{value.include.join(', ')}</li>
-																	</ul>
-																</td>
-															</tr>
+															
+															<>
+																<div className="inline-flex items-center">
+																	<input type="radio" name="pack" id={value._id} value={value._id} onChange={(e) => { setSelectedPack(e.target.value); setSelectedRoomType(roomType._id); }} />
+																	<label htmlFor={value._id}>&nbsp;{value.name} - &#36;{value.dailyPrice}</label>
+																</div>
+																<ul>
+																	<li>{value.include.join(', ')}</li>
+																</ul>
+															</>
+															
 														))}
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap">
@@ -343,18 +343,18 @@ function Hotel() {
 					<div className="w-full h-full mx-auto container">
 						<div className="flex flex-row justify-between items-center px-6 py-4 mt-6">
 							{hotel.reviews.map((value) => (
-								<div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
-									<div class="relative flex gap-4">
-										<img src={`http://127.0.0.1:3030/public/assets/images/${value.userID.image.path}`} class="relative rounded-lg -top-8 -mb-4 bg-white border-2 border-solid border-gray-200 h-20 w-20" alt={`${value.userID.image.path}`} loading="lazy" />
-										<div class="flex flex-col w-full">
-											<div class="flex flex-row justify-between">
-												<p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{value.userID.name} {value.userID.surname}</p>
-												<a class="text-gray-500 text-xl" href="www.google.com"><i class="fa-solid fa-trash"></i></a>
+								<div className="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
+									<div className="relative flex gap-4">
+										<img src={`http://127.0.0.1:3030/public/assets/images/${value.userID.image.path}`} className="relative rounded-lg -top-8 -mb-4 bg-white border-2 border-solid border-gray-200 h-20 w-20" alt={`${value.userID.image.path}`} loading="lazy" />
+										<div className="flex flex-col w-full">
+											<div className="flex flex-row justify-between">
+												<p className="relative text-xl whitespace-nowrap truncate overflow-hidden">{value.userID.name} {value.userID.surname}</p>
+												<a className="text-gray-500 text-xl" href="www.google.com"><i className="fa-solid fa-trash"></i></a>
 											</div>
-											<p class="text-gray-400 text-sm">{new Date(`${value.createdDate}`).toDateString()}</p>
+											<p className="text-gray-400 text-sm">{new Date(`${value.createdDate}`).toDateString()}</p>
 										</div>
 									</div>
-									<p class="-mt-4 text-gray-500">{value.review}</p>
+									<p className="-mt-4 text-gray-500">{value.review}</p>
 								</div>
 							))}
 						</div>
