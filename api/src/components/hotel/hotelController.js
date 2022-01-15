@@ -17,6 +17,7 @@ function hotelService(
 		findRoomTypesByHotelId,
 		findBooksByHotelId,
 		findPacksByHotelId,
+		createReview,
 	};
 
 	function save(newHotel) {
@@ -250,6 +251,16 @@ function hotelService(
 					total: totalPacks
 				}
 			});
+		});
+	}
+
+	function createReview(hotelId, body, params) {
+		return new Promise((resolve, reject) => {
+			hotelModel.findByIdAndUpdate(hotelId, { $push: { reviews: body }}, { new: true }, (err, hotel) => {
+				if (err) reject(err);
+				if (!hotel) reject({ status: 404, message: 'No hotel have been found.' });
+				resolve(hotel);
+			}).populate('reviews.userID', '-_id name surname image').select(params);
 		});
 	}
 

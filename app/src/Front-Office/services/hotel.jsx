@@ -31,3 +31,20 @@ export const getHotelById = async ({ hotelID }) => {
 		console.error('Error fetching data: ', error);
 	}
 };
+
+export const createReview = async (hotelID, value) => {
+	try {
+		const response = await fetch(`${API_URL}/${hotelID}/review`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ review:value }),
+		});
+		return response.ok
+			? await response.json()
+			: Promise.reject('Something went wrong!');
+	} catch (error) {
+		console.error('Error fetching data: ', error);
+	}
+};

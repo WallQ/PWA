@@ -11,7 +11,7 @@ function HotelRouter() {
 	let router = express();
 	router.use(express.json({ limit: '100mb' }));
 	router.use(express.urlencoded({ limit: '100mb', extended: true }));
-	
+
 	router.use(pagination);
 
 	router
@@ -20,7 +20,7 @@ function HotelRouter() {
 			let opt = req.roles?.includes(roles.ADMIN)
 				? ''
 				: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
-				const { field = 'name', order = 1 } = req.query;
+			const { field = 'name', order = 1 } = req.query;
 			hotel
 				.findAll(opt, field, order, req.pagination)
 				.then((hotels) => {
@@ -46,7 +46,7 @@ function HotelRouter() {
 				.then((hotel) => {
 					res.status(201).send({
 						status: 201,
-						auth:true,
+						auth: true,
 						message: 'Hotel has been created successfully.',
 						data: hotel,
 					});
@@ -77,54 +77,85 @@ function HotelRouter() {
 			});
 	});
 
-	router.route('/workingon')
-	.get(verifyJWT, verifyROLES(roles.ADMIN,roles.DIRECTOR,roles.EMPLOYEE),(req, res, next) => {
-		let opt = '';
-
-		if(req.roles?.includes(roles.ADMIN)){
-			opt = '_id name';
-			hotel
-				.findAll(opt,{},{},req.pagination)
-				.then((hotels) => {
-					res.status(200).send({
-						status: 200,
-						auth: true,
-						message: 'Hotels have been successfully found.',
-						data: hotels,
-					});
-				})
-				.catch((error) => {
-					res.status(200).send({
-						status: error.status,
-						auth: false,
-						message: error.message,
-						data: [],
-					});
+	router.route('/:hotelId/review').put(verifyJWT, (req, res, next) => {
+		let opt = req.roles?.includes(roles.ADMIN)
+		? ''
+		: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
+		let hotelID = req.params.hotelId;
+		let body = {
+			userID: req.userId,
+			review: req.body.review,
+		};
+		hotel
+			.createReview(hotelID, body, opt)
+			.then((hotel) => {
+				res.status(201).send({
+					status: 201,
+					message: 'Hotel review has been created successfully.',
+					data: hotel,
 				});
-		}else{
-			//findUserWorking
-			//{$or: [{director: ObjectId('61a0442176797ffc2a97aa9e')},{employee: ObjectId('61a0442176797ffc2a97aa9e')}]}
-			opt = {$or: [{director: req.userId},{employee: req.userId}]};
-			hotel
-				.findUserWorking(opt)
-				.then((hotels) => {
-					res.status(200).send({
-						status: 200,
-						auth: true,
-						message: 'Hotels have been successfully found.',
-						data: hotels,
-					});
-				})
-				.catch((error) => {
-					res.status(200).send({
-						status: error.status,
-						auth: false,
-						message: error.message,
-						data: [],
-					});
-				});
-		}
+			})
+			.catch(next);
 	});
+
+	router
+		.route('/workingon')
+		.get(
+			verifyJWT,
+			verifyROLES(roles.ADMIN, roles.DIRECTOR, roles.EMPLOYEE),
+			(req, res, next) => {
+				let opt = '';
+
+				if (req.roles?.includes(roles.ADMIN)) {
+					opt = '_id name';
+					hotel
+						.findAll(opt, {}, {}, req.pagination)
+						.then((hotels) => {
+							res.status(200).send({
+								status: 200,
+								auth: true,
+								message: 'Hotels have been successfully found.',
+								data: hotels,
+							});
+						})
+						.catch((error) => {
+							res.status(200).send({
+								status: error.status,
+								auth: false,
+								message: error.message,
+								data: [],
+							});
+						});
+				} else {
+					//findUserWorking
+					//{$or: [{director: ObjectId('61a0442176797ffc2a97aa9e')},{employee: ObjectId('61a0442176797ffc2a97aa9e')}]}
+					opt = {
+						$or: [
+							{ director: req.userId },
+							{ employee: req.userId },
+						],
+					};
+					hotel
+						.findUserWorking(opt)
+						.then((hotels) => {
+							res.status(200).send({
+								status: 200,
+								auth: true,
+								message: 'Hotels have been successfully found.',
+								data: hotels,
+							});
+						})
+						.catch((error) => {
+							res.status(200).send({
+								status: error.status,
+								auth: false,
+								message: error.message,
+								data: [],
+							});
+						});
+				}
+			}
+		);
 
 	router
 		.route('/:hotelId')
@@ -133,7 +164,7 @@ function HotelRouter() {
 				? ''
 				: 'name description averagePrice rating languages address contacts facilities url coverImage images reviews createdDate';
 			let hotelId = req.params.hotelId;
-			console.log("ROLES:",req.roles)
+			console.log('ROLES:', req.roles);
 			hotel
 				.findById(hotelId, opt)
 				.then((hotel) => {
@@ -153,7 +184,7 @@ function HotelRouter() {
 				let hotelId = req.params.hotelId;
 				let body = req.body;
 				if (!req.roles?.includes(roles.ADMIN)) {
-						verifyBelongHotel(req.userId, hotelId)
+					verifyBelongHotel(req.userId, hotelId)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
@@ -169,7 +200,7 @@ function HotelRouter() {
 								.then((hotel) => {
 									res.status(200).send({
 										status: 200,
-										auth:true,
+										auth: true,
 										message:
 											'Hotel has been successfully updated.',
 										data: hotel,
@@ -216,7 +247,7 @@ function HotelRouter() {
 			(req, res, next) => {
 				let hotelId = req.params.hotelId;
 				hotel
-					.findRoomsByHotelId(hotelId,req.pagination)
+					.findRoomsByHotelId(hotelId, req.pagination)
 					.then((rooms) => {
 						res.status(200).send({
 							status: 200,
@@ -229,8 +260,7 @@ function HotelRouter() {
 			}
 		);
 
-	router.route('/:hotelId/roomTypes')
-		.get((req, res, next) => {
+	router.route('/:hotelId/roomTypes').get((req, res, next) => {
 		let opt = req.roles?.includes(roles.ADMIN, roles.DIRECTOR)
 			? ''
 			: 'name description maxGuest maxGuestChild area sale packs facilities';
@@ -241,7 +271,7 @@ function HotelRouter() {
 				res.status(200).send({
 					status: 200,
 					message: 'RoomTypes have been successfully found.',
-					auth:true,
+					auth: true,
 					data: roomTypes,
 				});
 			})
@@ -262,20 +292,20 @@ function HotelRouter() {
 			(req, res, next) => {
 				let hotelId = req.params.hotelId;
 				if (!req.roles?.includes(roles.ADMIN)) {
-						verifyBelongHotel(req.userId, hotelId)
+					verifyBelongHotel(req.userId, hotelId)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
 									error: {
 										status: 403,
-										auth:false,
+										auth: false,
 										message:
 											"You don't have permission to access this content.",
 									},
 								});
 							}
 							hotel
-								.findBooksByHotelId(hotelId,req.pagination)
+								.findBooksByHotelId(hotelId, req.pagination)
 								.then((books) => {
 									res.status(200).send({
 										status: 200,
@@ -290,7 +320,7 @@ function HotelRouter() {
 						.catch(next);
 				} else {
 					hotel
-						.findBooksByHotelId(hotelId,req.pagination)
+						.findBooksByHotelId(hotelId, req.pagination)
 						.then((books) => {
 							res.status(200).send({
 								status: 200,
@@ -312,7 +342,7 @@ function HotelRouter() {
 			(req, res, next) => {
 				let hotelId = req.params.hotelId;
 				if (!req.roles?.includes(roles.ADMIN)) {
-						verifyBelongHotel(req.userId, hotelId)
+					verifyBelongHotel(req.userId, hotelId)
 						.then((result) => {
 							if (!result) {
 								return res.status(403).send({
@@ -325,7 +355,7 @@ function HotelRouter() {
 								});
 							}
 							hotel
-								.findPacksByHotelId(hotelId,req.pagination)
+								.findPacksByHotelId(hotelId, req.pagination)
 								.then((packs) => {
 									res.status(200).send({
 										status: 200,
@@ -340,7 +370,7 @@ function HotelRouter() {
 						.catch(next);
 				} else {
 					hotel
-						.findPacksByHotelId(hotelId,req.pagination)
+						.findPacksByHotelId(hotelId, req.pagination)
 						.then((packs) => {
 							res.status(200).send({
 								status: 200,

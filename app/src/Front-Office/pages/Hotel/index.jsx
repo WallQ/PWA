@@ -1,14 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Dialog, Menu, Transition  } from '@headlessui/react';
+import { FaUsers, FaChevronDown, FaChevronUp, FaPhone, FaEnvelope, FaBook } from 'react-icons/fa';
 
 import StarRating from '../../components/StarRating/';
 import Guest from '../../components/Guest/';
+import Comment from '../../components/Comment/';
 
-import { getHotels, getHotelById } from '../../services/hotel';
+import { getHotels, getHotelById, createReview } from '../../services/hotel';
 import { getAvailableRoomTypes, createBook } from '../../services/book';
-
-import { FaUsers, FaChevronDown, FaChevronUp, FaPhone, FaEnvelope, FaBook } from 'react-icons/fa';
 
 function Hotel() {
 	const navigate = useNavigate();
@@ -29,6 +29,7 @@ function Hotel() {
 	const [selectedHotel, setSelectedHotel] = useState(location.state.selectedHotel ? location.state.selectedHotel : hotels[0]._id);
 	const [selectedPack, setSelectedPack] = useState('');
 	const [selectedRoomType, setSelectedRoomType] = useState('');
+	const [userReview, setUserReview] = useState('');
 
 	useEffect(() => {
 		getHotels()
@@ -89,6 +90,28 @@ function Hotel() {
 	function closeModal() {
 		setIsOpen(false);
 	}
+
+	const review = () => {
+		createReview(selectedHotel, userReview)
+			.then((result) => {
+				if (result.status === 201) {
+					console.log(result);
+					setHotel(result.data);
+					setUserReview('');
+					setLoading(false);
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+				setLoading(false);
+			});
+	};
+
+	const handleReview = (e) => {
+		e.preventDefault();
+		setLoading(true);
+		review();
+	};
 
 	return (
 		<>
@@ -235,30 +258,27 @@ function Hotel() {
 								<h1 className="text-white font-sans font-semibold text-lg mb-0">Room Types</h1>
 							</div>
 							<div className="flex flex-row gap-x-6 px-6 mt-6">
-								<table className="min-w-full divide-y divide-gray-200">
+								<table className="min-w-full divide-y divide-gray-200 text-center">
 									<thead className="bg-gray-50">
 										<tr>
-											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+											<th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Capacity
 											</th>
-											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+											<th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Room Type
 											</th>
-											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+											<th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Description
 											</th>
-											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-												Facilities
-											</th>
-											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+											<th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Packs
 											</th>
-											<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+											<th scope="col" className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
 												Book
 											</th>
 										</tr>
 									</thead>
-									<tbody className="bg-white divide-y divide-gray-200">
+									<tbody className="bg-white divide-y divide-gray-200 text-center">
 										{roomTypes.map((roomType) => (
 											<>
 												<tr>
@@ -269,13 +289,6 @@ function Hotel() {
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap">{roomType.name}</td>
 													<td className="px-6 py-4 whitespace-nowrap">{roomType.description}</td>
-													<td className="px-6 py-4 whitespace-nowrap">
-														{/* {roomType.facilities.map((value) => (
-															<tr>
-																<td>{value.description}</td>
-															</tr>
-														))} */}
-													</td>
 													<td className="px-6 py-4 whitespace-nowrap">
 														{roomType.packs.map((value) => (
 															
@@ -343,19 +356,26 @@ function Hotel() {
 						</div>
 						<div className="flex flex-row flex-wrap justify-start items-center px-6 py-4 mt-6 gap-x-6">
 							{hotel.reviews.map((value) => (
-								<div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
-									<div class="relative flex items-center gap-4">
-										<img src={`http://127.0.0.1:3030/public/assets/images/${value.userID.image.path}`} class="relative rounded-lg -top-8 -mb-4 bg-white border-2 border-solid border-gray-200 h-20 w-20" alt={`${value.userID.image.path}`} loading="lazy" />
-										<div class="flex flex-col w-full items-center">
-											<div class="flex flex-col justify-between">
-												<p class="relative text-xl whitespace-nowrap truncate overflow-hidden mb-0">{value.userID.name} {value.userID.surname}</p>												
-												<p class="text-gray-400 text-sm">{new Date(`${value.createdDate}`).toDateString()}</p>
-											</div>
-										</div>
-									</div>
-									<h6 class="text-gray-500 text-base mb-0">{value.review}</h6>
-								</div>
+								<Comment imagePath={value.userID.image.path} altTextPath={value.userID.image.path} name={value.userID.name} surname={value.userID.surname} date={value.createdDate} review={value.review} />
 							))}
+						</div>
+						<div className="flex flex-col flex-wrap justify-start items-center px-6 py-4 gap-y-6">
+							<textarea className='w-full rounded-md border-2 border-solid border-gray-300' name="review" rows="4" value={userReview} onChange={(e) => setUserReview(e.target.value)} ></textarea>
+							<button onClick={handleReview} value="submit" className="font-sans text-lg font-bold tracking-wide leading-normal text-center text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 inline-flex justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-700 bg-blue-600 hover:bg-blue-800">
+								{loading ?
+									<>
+										<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+											<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+										</svg>
+										<span>Processing...</span>
+									</>
+								:
+									<>
+										<span>Submit</span>
+									</>
+								}
+							</button>
 						</div>
 					</div>
 				</>
