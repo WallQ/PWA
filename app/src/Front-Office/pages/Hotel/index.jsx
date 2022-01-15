@@ -8,16 +8,13 @@ import Guest from '../../components/Guest/';
 import { getHotels, getHotelById } from '../../services/hotel';
 import { getAvailableRoomTypes, createBook } from '../../services/book';
 
-import { FaUsers, FaChevronDown, FaChevronUp, FaSearch, FaPhone, FaEnvelope, FaBook } from 'react-icons/fa';
+import { FaUsers, FaChevronDown, FaChevronUp, FaPhone, FaEnvelope, FaBook } from 'react-icons/fa';
 
 function Hotel() {
 	const navigate = useNavigate();
-	const [isOpen, setIsOpen] = useState(false);
-
-
 	const location = useLocation();
-	const hotelID = location.state.selectedHotel;
 
+	const [isOpen, setIsOpen] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [loadingHotel, setLoadingHotel] = useState(true);
 	const [loadingRoomTypes, setLoadingRoomTypes] = useState(true);
@@ -44,7 +41,7 @@ function Hotel() {
 		.catch((error) => {
 			console.error(error);
 		});
-		getHotelById({ hotelID })
+		getHotelById({ hotelID:selectedHotel })
 			.then((result) => {
 				if (result.status === 200) {
 					console.log(result);
@@ -55,7 +52,7 @@ function Hotel() {
 			.catch((error) => {
 				console.error(error);
 			});
-		getAvailableRoomTypes({ hotelID, numGuest:adult, numGuestChild:child, checkIn_date:dateStart, checkOut_date:dateEnd })
+		getAvailableRoomTypes({ hotelID:selectedHotel, numGuest:adult, numGuestChild:child, checkIn_date:dateStart, checkOut_date:dateEnd })
 			.then((result) => {
 				if (result.status === 200) {
 					console.log(result);
@@ -66,10 +63,10 @@ function Hotel() {
 			.catch((error) => {
 				console.error(error);
 			});
-	}, [hotelID, adult, child, dateStart, dateEnd]);
+	}, [selectedHotel, adult, child, dateStart, dateEnd]);
 
 	const book = () => {
-		createBook({ hotel:hotelID, roomType:selectedRoomType, pack:selectedPack, total_price:0, checkIn_date:dateStart, checkOut_date:dateEnd })
+		createBook({ hotel:selectedHotel, roomType:selectedRoomType, pack:selectedPack, total_price:0, checkIn_date:dateStart, checkOut_date:dateEnd })
 			.then((result) => {
 				if (result.auth === true) {
 					setIsOpen(true);
@@ -184,12 +181,6 @@ function Hotel() {
 										</select>
 									</div>
 									<div className="flex flex-col">
-										<button type="submit" value="submit" className="font-sans text-lg font-bold tracking-wide leading-normal text-center text-white hover:text-white capitalize align-middle whitespace-normal rounded-lg cursor-pointer px-3 h-10 inline-flex justify-center items-center transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-700 bg-blue-600 hover:bg-blue-800">
-											<FaSearch className="w-5 h-5 mr-2 fill-white" />
-											Search
-										</button>
-									</div>
-									<div className="flex flex-col">
 										<iframe title="Hotel Map" src={`https://www.google.com/maps/embed/v1/place?q=${hotel.address.locality}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`} />
 										<p>{hotel.address.street} N.º {hotel.address.doorNumber}, {hotel.address.postCode} {hotel.address.district} {hotel.address.country}</p>
 									</div>
@@ -240,6 +231,9 @@ function Hotel() {
 				<>
 					{ roomTypes.length > 0 ? (
 						<div className="w-full h-full mx-auto container ">
+							<div className="flex flex-row justify-center items-center py-2 bg-blue-600 rounded-3xl">
+								<h1 className="text-white font-sans font-semibold text-lg mb-0">Room Types</h1>
+							</div>
 							<div className="flex flex-row gap-x-6 px-6 mt-6">
 								<table className="min-w-full divide-y divide-gray-200">
 									<thead className="bg-gray-50">
@@ -326,8 +320,11 @@ function Hotel() {
 					) : (
 						<>
 							<div className="w-full h-full mx-auto container">
-								<div className="flex flex-row justify-center items-center px-6 py-4 mt-6">
-									<h1 className="font-sans font-semibold text-red-400 text-lg">No room types have been found for this date range!</h1>
+								<div className="flex flex-row justify-center items-center py-2 bg-blue-600 rounded-3xl">
+									<h1 className="text-white font-sans font-semibold text-lg mb-0">Room Types</h1>
+								</div>
+								<div className="flex flex-row justify-center items-center py-8">
+									<h1 className="font-sans font-semibold text-red-400 text-lg mb-0">No room types have been found for this date range!</h1>
 								</div>
 							</div>
 						</>
@@ -341,20 +338,22 @@ function Hotel() {
 			) : (
 				<>				
 					<div className="w-full h-full mx-auto container">
-						<div className="flex flex-row justify-between items-center px-6 py-4 mt-6">
+						<div className="flex flex-row justify-center items-center py-2 bg-blue-600 rounded-3xl">
+							<h1 className="text-white font-sans font-semibold text-lg mb-0">Reviews</h1>
+						</div>
+						<div className="flex flex-row flex-wrap justify-start items-center px-6 py-4 mt-6 gap-x-6">
 							{hotel.reviews.map((value) => (
 								<div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
-									<div class="relative flex gap-4">
+									<div class="relative flex items-center gap-4">
 										<img src={`http://127.0.0.1:3030/public/assets/images/${value.userID.image.path}`} class="relative rounded-lg -top-8 -mb-4 bg-white border-2 border-solid border-gray-200 h-20 w-20" alt={`${value.userID.image.path}`} loading="lazy" />
-										<div class="flex flex-col w-full">
-											<div class="flex flex-row justify-between">
-												<p class="relative text-xl whitespace-nowrap truncate overflow-hidden">{value.userID.name} {value.userID.surname}</p>
-												<a class="text-gray-500 text-xl" href="www.google.com"><i class="fa-solid fa-trash"></i></a>
+										<div class="flex flex-col w-full items-center">
+											<div class="flex flex-col justify-between">
+												<p class="relative text-xl whitespace-nowrap truncate overflow-hidden mb-0">{value.userID.name} {value.userID.surname}</p>												
+												<p class="text-gray-400 text-sm">{new Date(`${value.createdDate}`).toDateString()}</p>
 											</div>
-											<p class="text-gray-400 text-sm">{new Date(`${value.createdDate}`).toDateString()}</p>
 										</div>
 									</div>
-									<p class="-mt-4 text-gray-500">{value.review}</p>
+									<h6 class="text-gray-500 text-base mb-0">{value.review}</h6>
 								</div>
 							))}
 						</div>

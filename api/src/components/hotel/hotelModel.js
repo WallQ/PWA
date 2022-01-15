@@ -27,9 +27,6 @@ const addressType = new Schema({
 		type: String,
 		required: true,
 	},
-	map: {
-		type: String,
-	},
 });
 
 const contactType = new Schema({
