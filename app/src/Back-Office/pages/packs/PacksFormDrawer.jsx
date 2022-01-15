@@ -108,6 +108,7 @@ const PacksFormDrawer = (props) => {
         .then((response) => {
             if(response.auth){
                 message.success('Rooom Updated');
+                props.onAction();
                 props.setVisible(false)
             }else{
                 message.error('Cant update Rooom');

@@ -80,8 +80,8 @@ function List() {
                                 </>
                             ) : (
                                 <>
-                                    {hotel.map((section) => (
-                                        <Card key={section._id} id={section._id} image={section.coverImage.path} imageAltText={section.coverImage.alt} languages={section.languages} name={section.name} averagePrice={section.averagePrice} rating={section.rating} reviewsCount={section.reviews.length} />
+                                    {hotel.map((section, index) => (
+                                        <Card key={index} id={section._id} image={section.coverImage.path} imageAltText={section.coverImage.alt} languages={section.languages} name={section.name} averagePrice={section.averagePrice} rating={section.rating} reviewsCount={section.reviews.length} />
                                     ))}
                                 </>
 							)

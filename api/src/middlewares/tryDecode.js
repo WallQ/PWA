@@ -3,7 +3,7 @@ const config =
 	require('../config/config')[process.env.NODE_ENV || 'development'];
 
 const tryDecode = (req, res, next) => {
-	const token = req.headers['x-access-token'] || req.query['x-access-token'];
+	const token = req.cookies.token || req.headers['x-access-token'];
 
 	if (!token) {
 		next();

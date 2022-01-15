@@ -12,7 +12,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 	const [dateEnd, setDateEnd] = useState(new Date(Date.now()+(3600*1000*24)).toISOString().slice(0, 10));
 	const [adult, setAdult] = useState(2);
 	const [child, setChild] = useState(0);
-	const [selectedHotel, setSelectedHotel] = useState(null);
+	const [selectedHotel, setSelectedHotel] = useState('');
 
 	const [hotel, setHotel] = useState([]);
 
@@ -121,7 +121,7 @@ function Header({ title, titleWord, subTitle, bgImage, searchBar, button }) {
 									<select name="hotel" value={selectedHotel} onChange={(e) => {setSelectedHotel(e.target.value);}} className="mr-0 md:mr-5 mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer">
 										{hotel.map((value, index) => (
 											<>
-												<option value={value._id} selected={index === 0 ? true : false}>{value.name}</option>
+												<option key={index} value={value._id} >{value.name}</option>
 											</>
 										))}
 									</select>

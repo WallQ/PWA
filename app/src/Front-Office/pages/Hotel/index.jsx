@@ -175,7 +175,7 @@ function Hotel() {
 										<select name="hotel" value={selectedHotel} onChange={(e) => {setSelectedHotel(e.target.value);}} className="mb-5 md:mb-0 inline-flex justify-center items-center w-full h-10 px-3 rounded-md border border-gray-300 shadow-sm bg-white font-sans text-lg font-medium tracking-wide leading-normal text-left text-black normal-case align-middle whitespace-normal focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer">
 											{hotels.map((value, index) => (
 												<>
-													<option value={value._id} selected={index === 0 ? true : false}>{value.name}</option>
+													<option key={index} value={value._id}>{value.name}</option>
 												</>
 											))}
 										</select>
@@ -185,8 +185,8 @@ function Hotel() {
 										<p>{hotel.address.street} N.º {hotel.address.doorNumber}, {hotel.address.postCode} {hotel.address.district} {hotel.address.country}</p>
 									</div>
 									<div className="flex flex-col">
-										{hotel.contacts.map((value) => (
-											<a href={value.type === 'email' ? `mailto:${value.contact}` : value.type === 'telephone' ? `tel:${value.contact}` : 'N/A'} className="inline-flex items-center">{value.type === 'email' ? <FaEnvelope /> : value.type === 'telephone' ? <FaPhone /> : 'N/A'}&nbsp; {value.contact}</a>
+										{hotel.contacts.map((value, index) => (
+											<a  key={index} href={value.type === 'email' ? `mailto:${value.contact}` : value.type === 'telephone' ? `tel:${value.contact}` : 'N/A'} className="inline-flex items-center">{value.type === 'email' ? <FaEnvelope /> : value.type === 'telephone' ? <FaPhone /> : 'N/A'}&nbsp; {value.contact}</a>
 										))}
 									</div>
 								</form>
@@ -278,17 +278,17 @@ function Hotel() {
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap">
 														{roomType.packs.map((value) => (
-															<tr>
-																<td>
-																	<div className="inline-flex items-center">
-																		<input type="radio" name="pack" id={value._id} value={value._id} onChange={(e) => { setSelectedPack(e.target.value); setSelectedRoomType(roomType._id); }} />
-																		<label htmlFor={value._id}>&nbsp;{value.name} - &#36;{value.dailyPrice}</label>
-																	</div>
-																	<ul>
-																		<li>{value.include.join(', ')}</li>
-																	</ul>
-																</td>
-															</tr>
+															
+															<>
+																<div className="inline-flex items-center">
+																	<input type="radio" name="pack" id={value._id} value={value._id} onChange={(e) => { setSelectedPack(e.target.value); setSelectedRoomType(roomType._id); }} />
+																	<label htmlFor={value._id}>&nbsp;{value.name} - &#36;{value.dailyPrice}</label>
+																</div>
+																<ul>
+																	<li>{value.include.join(', ')}</li>
+																</ul>
+															</>
+															
 														))}
 													</td>
 													<td className="px-6 py-4 whitespace-nowrap">
