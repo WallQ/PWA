@@ -1,10 +1,66 @@
 import React,{useState, useEffect} from 'react'
-import { Drawer,message,Form, Button, Col, Row, Input, Select, Space } from 'antd';
+import { Drawer,message,Form, Button, Col, Row, Input, Select, Space, Upload, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import FormItem from 'antd/lib/form/FormItem';
 
 const { Option } = Select;
 
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
 const RoomsFormDrawer = (props) => {
+
+    const [upload, setUpload] = useState({
+        previewVisible: false,
+        previewImage: '',
+        previewTitle: '',
+        fileList: [
+        {
+            uid: '-1',
+            name: 'image.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+            uid: '-2',
+            name: 'image.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        {
+            uid: '-3',
+            //percent: 100,
+            //status: 'error',
+            name: 'image.png',
+            status: 'done',
+            url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        },
+        ]
+    });
+
+
+    const handleCancel = () =>{
+        setUpload({ previewVisible: false })
+    }
+    const handlePreview = async (file) => {
+        if (!file.url && !file.preview) {
+        file.preview = await getBase64(file.originFileObj);
+        }
+
+        setUpload({
+        previewImage: file.url || file.preview,
+        previewVisible: true,
+        previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+        });
+    };
+
+    const handleChangeUpload = ({ fileList }) => setUpload({ fileList });
 
     //FORMULARIO
     const [form] = Form.useForm();
@@ -120,12 +176,13 @@ const RoomsFormDrawer = (props) => {
             }
         })
     }
+
+    
     
 
     useEffect(() => {
 
         if(props.hotelID){
-            console.log("Vou fazer")
             getAllRoomType()
         }
         if(props.selectedRoom._id)
@@ -144,6 +201,7 @@ const RoomsFormDrawer = (props) => {
     }, [props.selectedRoom,props.hotelID]);
 
     return (
+        
         <>   
             <Drawer
                 title={(props.selectedRoom) ? "Number Room: " + props.selectedRoom.number : "New Room"}
@@ -200,6 +258,34 @@ const RoomsFormDrawer = (props) => {
                             </Select>
                         </Form.Item>
                         
+                    </Col>
+                </Row>
+
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <FormItem>
+                        <>
+                            <Upload
+                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                listType="picture-card"
+                                fileList={upload.fileList}
+                                onChange={handleChangeUpload}
+                            >
+                                <div>
+                                    <PlusOutlined />
+                                    <div style={{ marginTop: 8 }}>Upload</div>
+                                </div>
+                            </Upload>
+                            <Modal
+                                visible={upload.previewVisible}
+                                title={upload.previewTitle}
+                                footer={null}
+                                onCancel={handleCancel}
+                            >
+                                <img alt="example" style={{ width: '100%' }} src={upload.previewImage} />
+                            </Modal>
+                        </>
+                        </FormItem>
                     </Col>
                 </Row>
             </Form>

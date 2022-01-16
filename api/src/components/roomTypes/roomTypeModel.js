@@ -73,6 +73,11 @@ const roomTypeSchema = new Schema({
 			type: String
 		},
 	],
+	images: [
+		{
+			type: String
+		},
+	],
 	priceByMonth: [
 		{
 			type: defaultByMonth,

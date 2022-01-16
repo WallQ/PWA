@@ -6,6 +6,7 @@ const tryDecode = require('../middlewares/tryDecode');
 const verifyROLES = require('../middlewares/verifyROLES');
 const pagination = require('../middlewares/pagination');
 const verifyBelongHotel = require('../utils/verifyBelongHotel');
+const uploadController = require('../middlewares/fileUpload')
 
 function RoomTypeRouter() {
 	let router = express();
@@ -79,6 +80,21 @@ function RoomTypeRouter() {
 				}
 			}
 		);
+	
+	router.route('/uploads')
+		.post(uploadController.upload,(req, res, next)=>{
+			if(req.files){
+				console.log(req.files)
+				res.status(201).send({
+					destination: req.files[0].destination,
+					filename:  req.files[0].filename,
+					path:  req.files[0].path,
+				  },);
+			}else{
+				res.status(400).send({
+				  },);
+			}
+		});
 
 	router
 		.route('/:roomTypeId')

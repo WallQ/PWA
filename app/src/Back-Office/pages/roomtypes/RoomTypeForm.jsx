@@ -1,14 +1,53 @@
 import React,{useState, useEffect} from 'react'
 import { Navigate, useParams } from "react-router-dom";
-import { Form, Input, InputNumber, Button, Space,Table, message, Select,Drawer,DatePicker,Col,Row } from 'antd';
+import { Form, Input, InputNumber, Button, Space,Table, message, Select,Drawer,DatePicker,Col,Row,Upload, Modal } from 'antd';
 import {getClients,getRoomTypes,getPacks,getRooms,getRoomType} from "../../services/Api"
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import FormItem from 'antd/lib/form/FormItem';
+
 
 const { Option } = Select;
 
 const actionType = {"INSERT": 0, "UPDATE" : 1, "REDIRECT": 2};
 
+
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+  }
+
 const RoomTypeForm = (props) => {
+
+    const [state, setState] = useState({
+        previewVisible: false,
+        previewImage: '',
+        previewTitle: '',
+        fileList: [],
+    });
+    
+    const handleCancel = () => setState({ ...state,previewVisible: false });
+
+    const handlePreview = async file => {
+    if (!file.url && !file.preview) {
+        file.preview = await getBase64(file.originFileObj);
+    }
+
+        setState({
+            ...state,
+            previewImage: file.url || file.preview,
+            previewVisible: true,
+            previewTitle: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+        });
+    };
+
+    const handleChange = ({ fileList }) => {
+        setState({ fileList })
+        console.log(state)
+    };
 
     //Redirect Use State
     const [formAction, setFormAction] = useState(actionType.INSERT);
@@ -47,14 +86,15 @@ const RoomTypeForm = (props) => {
     }
     //Update RoomType
     const updateRoomType = (values) =>{
-        //console.log("vou inserir")
+        console.log("UPDATE VALUES: ", values)
         const url = '/roomTypes/' + params.id
-
+        console.log("File List: ", state.fileList.filter(f => f.response.url))
         fetch(url,{
             headers: {'Content-Type': 'application/json'},
             method: 'PUT',
             body: JSON.stringify({
                 ...values,
+                images: state.fileList.filter(f => f.response?.path).map(e => e.response?.path ),
                 priceByMonth: [],
                 priceExtraDays : []
             })
@@ -98,7 +138,6 @@ const RoomTypeForm = (props) => {
         if(props.hotelID){
             getPacks(props.hotelID)
             .then((values)=>{
-                
                 setPacks(values)})
             .catch((err)=>{message.error('Cant find Packs')})
         }
@@ -110,6 +149,10 @@ const RoomTypeForm = (props) => {
                 form.setFieldsValue({
                     ...roomType,
                     packs: roomType.packs.map((item) => {return item._id})
+                })
+                setState({
+                    ...state,
+                    fileList: roomType.images.map(item => {return {name: item, url:`http://localhost:3030/${item}`, response:{path: item}}})
                 })
                 setFormAction(actionType.UPDATE)
             })
@@ -123,6 +166,14 @@ const RoomTypeForm = (props) => {
     if(formAction == actionType.REDIRECT){
        return <Navigate to={'/admin'}/>
     }
+
+    const { previewVisible, previewImage, fileList, previewTitle } = state;
+    const uploadButton = (
+      <div>
+        <PlusOutlined />
+        <div style={{ marginTop: 8 }}>Upload</div>
+      </div>
+    );
 
     return (
       
@@ -271,6 +322,47 @@ const RoomTypeForm = (props) => {
                             )}
                             
                         </Form.List>
+                    </Col>
+                </Row>
+
+                <Row gutter={16}>
+                    <Col span={24}>
+                        <FormItem
+                            name="images"
+                            label="Imagens"
+                        >
+                            <>
+                                <Upload
+                                    action="http://localhost:3030/roomTypes/uploads"
+                                    listType="picture-card"
+                                    fileList={fileList}
+                                    onPreview={handlePreview}
+                                    onChange={handleChange}
+                                    accept=".png,.jpg,.PNG,.JPG"
+                                    beforeUpload= {
+                                        file => {
+                                            
+                                            const isPNG = ['image/png','image/PNG','image/jpeg','image/JPEG'].includes(file.type);
+                                            console.log("Type: ", isPNG)
+                                            if (!isPNG) {
+                                              message.error(`${file.name} is not a png file`);
+                                            }
+                                            return isPNG || Upload.LIST_IGNORE;
+                                          }
+                                    }
+                                    //customRequest={()=>{upload(fileList.map((e)=> {return e.url}))}}
+                                >
+                                {uploadButton}
+                                </Upload>
+                                <Modal
+                                    visible={previewVisible}
+                                    footer={null}
+                                    onCancel={handleCancel}
+                                >
+                                    <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                                </Modal>
+                            </>
+                        </FormItem>
                     </Col>
                 </Row>
  
