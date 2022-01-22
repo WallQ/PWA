@@ -172,6 +172,7 @@ const Hotels = (props) => {
         <div>
             <Space style={{ marginBottom: "30px"}}>
                 <Button 
+                    data-testid="btnNewHotel"
                     onClick={showFormToCreate()}
                     type="primary" 
                     style={{ background: "green", borderColor: "green" }}>
@@ -188,6 +189,7 @@ const Hotels = (props) => {
             />
 
             <HotelsFormDrawer
+                data-testid="drawerHotel"
                 hotelID={props.hotelID}
                 visible={hotelFormToogle}
                 selectedHotel={selectedHotel}

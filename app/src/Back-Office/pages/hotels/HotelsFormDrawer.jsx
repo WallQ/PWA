@@ -1,12 +1,10 @@
 import React,{useState, useEffect} from 'react'
-import { Drawer,DatePicker,message,Form,InputNumber, Button, Col, Row, Input, Select, Space,Rate } from 'antd';
+import { Drawer,DatePicker,message,Form, Button, Col, Row, Input, Select, Space,Rate } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import moment from 'moment';
 
-import {getClients,getRoomTypes,getPacks,getRooms} from "../../services/Api"
+import {getClients} from "../../services/Api"
 
 const { Option } = Select;
-const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
 const languagesData = [
@@ -156,7 +154,8 @@ const HotelsFormDrawer = (props) => {
     return (
         <>   
             <Drawer
-                title={(props.selectedHotel) ? "Hotel: " + props.selectedHotel.name : "New Pack"}
+                data-testid="drawer"
+                title={(hotel._id) ? "Hotel: " + hotel.name : "New Hotel"}
                 width={720}
                 onClose={()=>{
                     if (props.visible) props.onCloseForm() 
@@ -167,11 +166,12 @@ const HotelsFormDrawer = (props) => {
                     <Space>
                         <Button onClick={()=>props.setVisible(false)}>Cancel</Button>
                         <Button 
+                            data-testid="btnSubmit"
                             form="formRoom"
                             type="primary" 
                             htmlType="submit"
                             >
-                            {(props.selectedHotel) ? "Update" : "Create"}
+                            {(hotel._id) ? "Update" : "Create"}
                         </Button>
                     </Space>
                 }

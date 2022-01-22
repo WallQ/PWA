@@ -260,34 +260,6 @@ const RoomsFormDrawer = (props) => {
                         
                     </Col>
                 </Row>
-
-                <Row gutter={16}>
-                    <Col span={24}>
-                        <FormItem>
-                        <>
-                            <Upload
-                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                listType="picture-card"
-                                fileList={upload.fileList}
-                                onChange={handleChangeUpload}
-                            >
-                                <div>
-                                    <PlusOutlined />
-                                    <div style={{ marginTop: 8 }}>Upload</div>
-                                </div>
-                            </Upload>
-                            <Modal
-                                visible={upload.previewVisible}
-                                title={upload.previewTitle}
-                                footer={null}
-                                onCancel={handleCancel}
-                            >
-                                <img alt="example" style={{ width: '100%' }} src={upload.previewImage} />
-                            </Modal>
-                        </>
-                        </FormItem>
-                    </Col>
-                </Row>
             </Form>
             </Drawer>
         </>

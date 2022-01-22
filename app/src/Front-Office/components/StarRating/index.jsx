@@ -7,12 +7,12 @@ function StarRating({ rating, style }) {
     let stars = [];
     let i = 0;
     for (i; i < intPart; i++) {
-        stars.push(<FaStar key={i} className={style} />);
+        stars.push(<FaStar  data-testid="star" key={i} className={style} />);
     }
     if(fltPart !== 0 && fltPart > 0.5) {
-        stars.push(<FaStar key={i} className={style} />);
+        stars.push(<FaStar data-testid="star" key={i} className={style} />);
     } else if(fltPart !== 0 && fltPart <= 0.5) {
-        stars.push(<FaStarHalf key={i} className={style} />);
+        stars.push(<FaStarHalf data-testid="halfStar" key={i} className={style} />);
     }
     return (
         <>
