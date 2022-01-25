@@ -1,0 +1,31 @@
+[{
+  "_id": {
+    "$oid": "61f07b375b8839f4bb254ce3"
+  },
+  "client": {
+    "$oid": "61d1ca9bc6d521c1caced60c"
+  },
+  "roomType": {
+    "$oid": "61f07a0d5b8839f4bb254a49"
+  },
+  "room": {
+    "$oid": "61f07abf5b8839f4bb254c9e"
+  },
+  "hotel": {
+    "$oid": "61d1fbe19b7b29e1f6cca516"
+  },
+  "pack": {
+    "$oid": "61f0774f5b8839f4bb254948"
+  },
+  "total_price": 330,
+  "checkIn_date": {
+    "$date": "2022-01-04T22:34:56.141Z"
+  },
+  "checkOut_date": {
+    "$date": "2022-01-05T22:34:56.141Z"
+  },
+  "purchase_date": {
+    "$date": "2022-01-25T22:35:35.574Z"
+  },
+  "__v": 0
+}]

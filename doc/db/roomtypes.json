@@ -3,927 +3,292 @@
     "$oid": "61a04ceb8b3626c1f81431d8"
   },
   "hotel": {
-    "$oid": "61a046e582d81d49a844e184"
+    "$oid": "61d1fbe19b7b29e1f6cca516"
   },
-  "name": "Quarto Suite",
+  "name": "Quarto Deluxe Mar",
   "description": "Quarto muito bom",
   "maxGuest": 2,
   "maxGuestChild": 0,
-  "area": 1,
+  "area": 23,
   "sale": 0,
   "packs": [
     {
-      "$oid": "61a04a12b218cafaf8b2a05e"
+      "$oid": "61f0774f5b8839f4bb254948"
+    },
+    {
+      "$oid": "61f077635b8839f4bb254951"
+    },
+    {
+      "$oid": "61f077945b8839f4bb25495a"
     }
   ],
   "facilities": [
-    {
-      "icon": "../images/1.svg",
-      "description": "Mesa ou local de trabalho",
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431d9"
-      }
-    },
-    {
-      "icon": "../images/2.svg",
-      "description": "Wifi grátis",
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431da"
-      }
-    },
-    {
-      "icon": "../images/3.svg",
-      "description": "Não fumador",
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431db"
-      }
-    },
-    {
-      "icon": "../images/4.svg",
-      "description": "Ar condicionado",
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431dc"
-      }
-    }
+    "Café",
+    "AC",
+    "WIFI",
+    "Cama King"
   ],
-  "priceByMonth": [
-    {
-      "month": 1,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431dd"
-      }
-    },
-    {
-      "month": 2,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431de"
-      }
-    },
-    {
-      "month": 3,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431df"
-      }
-    },
-    {
-      "month": 4,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e0"
-      }
-    },
-    {
-      "month": 5,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e1"
-      }
-    },
-    {
-      "month": 6,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e2"
-      }
-    },
-    {
-      "month": 7,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e3"
-      }
-    },
-    {
-      "month": 8,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e4"
-      }
-    },
-    {
-      "month": 9,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e5"
-      }
-    },
-    {
-      "month": 10,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e6"
-      }
-    },
-    {
-      "month": 11,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e7"
-      }
-    },
-    {
-      "month": 12,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e8"
-      }
-    }
-  ],
-  "priceExtraDays": [
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431e9"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431ea"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431eb"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04ceb8b3626c1f81431ec"
-      }
-    }
-  ],
-  "__v": 0
+  "priceByMonth": [],
+  "priceExtraDays": [],
+  "__v": 0,
+  "price": 100,
+  "images": [
+    "public\\assets\\images\\upload\\1643149375060.jpg",
+    "public\\assets\\images\\upload\\1643149377776.jpg",
+    "public\\assets\\images\\upload\\1643149380041.jpg"
+  ]
 },{
   "_id": {
     "$oid": "61a04d479c181b96e3ee2f15"
   },
   "hotel": {
-    "$oid": "61a046e582d81d49a844e184"
+    "$oid": "61d1fbe19b7b29e1f6cca516"
   },
-  "name": "Quarto Twin",
+  "name": "Quarto Familiar",
   "description": "Quarto bom",
-  "maxGuest": 2,
+  "maxGuest": 3,
   "maxGuestChild": 1,
-  "area": 1,
+  "area": 90,
   "sale": 0,
   "packs": [
     {
-      "$oid": "61a04a12b218cafaf8b2a05e"
+      "$oid": "61f077635b8839f4bb254951"
     },
     {
-      "$oid": "61a04a0ab218cafaf8b2a05c"
+      "$oid": "61f077945b8839f4bb25495a"
     }
   ],
   "facilities": [
-    {
-      "icon": "../images/1.svg",
-      "description": "Mesa ou local de trabalho",
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f16"
-      }
-    },
-    {
-      "icon": "../images/2.svg",
-      "description": "Wifi grátis",
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f17"
-      }
-    },
-    {
-      "icon": "../images/3.svg",
-      "description": "Não fumador",
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f18"
-      }
-    },
-    {
-      "icon": "../images/4.svg",
-      "description": "Ar condicionado",
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f19"
-      }
-    }
+    "WIF",
+    "Café",
+    "Sala de Estar",
+    "AC"
   ],
-  "priceByMonth": [
-    {
-      "month": 1,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f1a"
-      }
-    },
-    {
-      "month": 2,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f1b"
-      }
-    },
-    {
-      "month": 3,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f1c"
-      }
-    },
-    {
-      "month": 4,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f1d"
-      }
-    },
-    {
-      "month": 5,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f1e"
-      }
-    },
-    {
-      "month": 6,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f1f"
-      }
-    },
-    {
-      "month": 7,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f20"
-      }
-    },
-    {
-      "month": 8,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f21"
-      }
-    },
-    {
-      "month": 9,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f22"
-      }
-    },
-    {
-      "month": 10,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f23"
-      }
-    },
-    {
-      "month": 11,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f24"
-      }
-    },
-    {
-      "month": 12,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f25"
-      }
-    }
+  "priceByMonth": [],
+  "priceExtraDays": [],
+  "__v": 0,
+  "images": [
+    "public\\assets\\images\\upload\\1643149469819.jpg",
+    "public\\assets\\images\\upload\\1643149472048.jpg",
+    "public\\assets\\images\\upload\\1643149474239.jpg"
   ],
-  "priceExtraDays": [
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f26"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f27"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f28"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04d479c181b96e3ee2f29"
-      }
-    }
-  ],
-  "__v": 0
+  "price": 160
 },{
   "_id": {
-    "$oid": "61a04daabaa2d3c83343ca37"
+    "$oid": "61f079785b8839f4bb254a22"
   },
   "hotel": {
-    "$oid": "61a0483796cd78a40308a76b"
+    "$oid": "61d1fbe19b7b29e1f6cca516"
   },
-  "name": "Quarto Suite",
-  "description": "Quarto muito bom",
-  "maxGuest": 2,
-  "maxGuestChild": 1,
-  "area": 1,
-  "sale": 0,
-  "packs": [
-    {
-      "$oid": "61a04acc61818e989487b232"
-    }
-  ],
-  "facilities": [
-    {
-      "icon": "../images/1.svg",
-      "description": "Mesa ou local de trabalho",
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca38"
-      }
-    },
-    {
-      "icon": "../images/2.svg",
-      "description": "Wifi grátis",
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca39"
-      }
-    },
-    {
-      "icon": "../images/3.svg",
-      "description": "Não fumador",
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca3a"
-      }
-    },
-    {
-      "icon": "../images/4.svg",
-      "description": "Ar condicionado",
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca3b"
-      }
-    }
-  ],
-  "priceByMonth": [
-    {
-      "month": 1,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca3c"
-      }
-    },
-    {
-      "month": 2,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca3d"
-      }
-    },
-    {
-      "month": 3,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca3e"
-      }
-    },
-    {
-      "month": 4,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca3f"
-      }
-    },
-    {
-      "month": 5,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca40"
-      }
-    },
-    {
-      "month": 6,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca41"
-      }
-    },
-    {
-      "month": 7,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca42"
-      }
-    },
-    {
-      "month": 8,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca43"
-      }
-    },
-    {
-      "month": 9,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca44"
-      }
-    },
-    {
-      "month": 10,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca45"
-      }
-    },
-    {
-      "month": 11,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca46"
-      }
-    },
-    {
-      "month": 12,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca47"
-      }
-    }
-  ],
-  "priceExtraDays": [
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca48"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca49"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca4a"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04daabaa2d3c83343ca4b"
-      }
-    }
-  ],
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "61a04de99794f5aca7830446"
-  },
-  "hotel": {
-    "$oid": "61a0479f82d81d49a844e191"
-  },
-  "name": "Quarto Executivo",
-  "description": "Quarto muito bom",
+  "name": "Quarto Premium Marina",
+  "description": "Quarto Muito bom",
+  "price": 150,
   "maxGuest": 2,
   "maxGuestChild": 0,
-  "area": 1,
+  "area": 50,
   "sale": 0,
   "packs": [
     {
-      "$oid": "61a04bc19e45046fb4894506"
+      "$oid": "61f0774f5b8839f4bb254948"
+    },
+    {
+      "$oid": "61f077635b8839f4bb254951"
+    },
+    {
+      "$oid": "61f077945b8839f4bb25495a"
     }
   ],
   "facilities": [
-    {
-      "icon": "../images/1.svg",
-      "description": "Mesa ou local de trabalho",
-      "_id": {
-        "$oid": "61a04de99794f5aca7830447"
-      }
-    },
-    {
-      "icon": "../images/2.svg",
-      "description": "Wifi grátis",
-      "_id": {
-        "$oid": "61a04de99794f5aca7830448"
-      }
-    },
-    {
-      "icon": "../images/3.svg",
-      "description": "Não fumador",
-      "_id": {
-        "$oid": "61a04de99794f5aca7830449"
-      }
-    },
-    {
-      "icon": "../images/4.svg",
-      "description": "Ar condicionado",
-      "_id": {
-        "$oid": "61a04de99794f5aca783044a"
-      }
-    }
+    "Wifi",
+    "AC",
+    "Vista Marina"
   ],
-  "priceByMonth": [
-    {
-      "month": 1,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca783044b"
-      }
-    },
-    {
-      "month": 2,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca783044c"
-      }
-    },
-    {
-      "month": 3,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca783044d"
-      }
-    },
-    {
-      "month": 4,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca783044e"
-      }
-    },
-    {
-      "month": 5,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca783044f"
-      }
-    },
-    {
-      "month": 6,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830450"
-      }
-    },
-    {
-      "month": 7,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830451"
-      }
-    },
-    {
-      "month": 8,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830452"
-      }
-    },
-    {
-      "month": 9,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830453"
-      }
-    },
-    {
-      "month": 10,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830454"
-      }
-    },
-    {
-      "month": 11,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830455"
-      }
-    },
-    {
-      "month": 12,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830456"
-      }
-    }
-  ],
-  "priceExtraDays": [
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830457"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830458"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04de99794f5aca7830459"
-      }
-    },
-    {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04de99794f5aca783045a"
-      }
-    }
-  ],
+  "images": [],
+  "priceByMonth": [],
+  "priceExtraDays": [],
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a04e031f238e5d7cbe6b7d"
+    "$oid": "61f07a0d5b8839f4bb254a49"
   },
   "hotel": {
-    "$oid": "61a0479f82d81d49a844e191"
+    "$oid": "61d1fbe19b7b29e1f6cca516"
   },
-  "name": "Quarto Familia",
-  "description": "Quarto muito espacoso",
-  "maxGuest": 2,
-  "maxGuestChild": 2,
-  "area": 1,
+  "name": "Suite Presidencial",
+  "description": "Melhor suite",
+  "price": 300,
+  "maxGuest": 6,
+  "maxGuestChild": 4,
+  "area": 100,
   "sale": 0,
   "packs": [
     {
-      "$oid": "61a04bc59e45046fb4894508"
+      "$oid": "61f0774f5b8839f4bb254948"
+    },
+    {
+      "$oid": "61f077635b8839f4bb254951"
+    },
+    {
+      "$oid": "61f077945b8839f4bb25495a"
     }
   ],
   "facilities": [
+    "Wifi",
+    "Bar",
+    "TV 55",
+    "Varanda"
+  ],
+  "images": [],
+  "priceByMonth": [],
+  "priceExtraDays": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f07b8f5b8839f4bb254d0d"
+  },
+  "hotel": {
+    "$oid": "61d1fdede0e90fb512aaa519"
+  },
+  "name": "Quarto Classic",
+  "description": "Quarto Básico",
+  "price": 90,
+  "maxGuest": 2,
+  "maxGuestChild": 0,
+  "area": 22,
+  "sale": 0,
+  "packs": [
     {
-      "icon": "../images/1.svg",
-      "description": "Mesa ou local de trabalho",
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b7e"
-      }
+      "$oid": "61f0757e5b8839f4bb254906"
     },
     {
-      "icon": "../images/2.svg",
-      "description": "Wifi grátis",
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b7f"
-      }
+      "$oid": "61f075df5b8839f4bb254916"
     },
     {
-      "icon": "../images/3.svg",
-      "description": "Não fumador",
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b80"
-      }
-    },
-    {
-      "icon": "../images/4.svg",
-      "description": "Ar condicionado",
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b81"
-      }
+      "$oid": "61f0762c5b8839f4bb25491e"
     }
   ],
-  "priceByMonth": [
+  "facilities": [
+    "Wifi",
+    "AC",
+    "Cama King"
+  ],
+  "images": [],
+  "priceByMonth": [],
+  "priceExtraDays": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f07bdc5b8839f4bb254d19"
+  },
+  "hotel": {
+    "$oid": "61d1fdede0e90fb512aaa519"
+  },
+  "name": "Quarto Deluxe",
+  "description": "Quarto muito bom",
+  "price": 120,
+  "maxGuest": 2,
+  "maxGuestChild": 1,
+  "area": 40,
+  "sale": 0,
+  "packs": [
     {
-      "month": 1,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b82"
-      }
+      "$oid": "61f0757e5b8839f4bb254906"
     },
     {
-      "month": 2,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b83"
-      }
+      "$oid": "61f075c15b8839f4bb25490e"
     },
     {
-      "month": 3,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b84"
-      }
+      "$oid": "61f075df5b8839f4bb254916"
     },
     {
-      "month": 4,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b85"
-      }
+      "$oid": "61f0762c5b8839f4bb25491e"
     },
     {
-      "month": 5,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b86"
-      }
-    },
-    {
-      "month": 6,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b87"
-      }
-    },
-    {
-      "month": 7,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b88"
-      }
-    },
-    {
-      "month": 8,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b89"
-      }
-    },
-    {
-      "month": 9,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b8a"
-      }
-    },
-    {
-      "month": 10,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b8b"
-      }
-    },
-    {
-      "month": 11,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b8c"
-      }
-    },
-    {
-      "month": 12,
-      "default_price": 50,
-      "weekend_price": 90,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b8d"
-      }
+      "$oid": "61f076555b8839f4bb254926"
     }
   ],
-  "priceExtraDays": [
+  "facilities": [
+    "Wifi",
+    "AC",
+    "Cafe",
+    "Mini Bar"
+  ],
+  "images": [],
+  "priceByMonth": [],
+  "priceExtraDays": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f07c4a5b8839f4bb254d24"
+  },
+  "hotel": {
+    "$oid": "61d1fdede0e90fb512aaa519"
+  },
+  "name": "Quarto Superior",
+  "description": "Quarto superior com vista.",
+  "price": 200,
+  "maxGuest": 2,
+  "maxGuestChild": 1,
+  "area": 30,
+  "sale": 0,
+  "packs": [
     {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b8e"
-      }
+      "$oid": "61f0757e5b8839f4bb254906"
     },
     {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b8f"
-      }
+      "$oid": "61f075c15b8839f4bb25490e"
     },
     {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b90"
-      }
+      "$oid": "61f075df5b8839f4bb254916"
     },
     {
-      "day": {
-        "$date": "2021-10-09T23:00:00Z"
-      },
-      "price": 100,
-      "_id": {
-        "$oid": "61a04e031f238e5d7cbe6b91"
-      }
+      "$oid": "61f0762c5b8839f4bb25491e"
+    },
+    {
+      "$oid": "61f076555b8839f4bb254926"
     }
   ],
+  "facilities": [],
+  "images": [],
+  "priceByMonth": [],
+  "priceExtraDays": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f07cac5b8839f4bb254d31"
+  },
+  "hotel": {
+    "$oid": "61d1fdede0e90fb512aaa519"
+  },
+  "name": "Suite Presencial",
+  "description": "Suite com todos os luxos",
+  "price": 300,
+  "maxGuest": 2,
+  "maxGuestChild": 1,
+  "area": 89,
+  "sale": 0,
+  "packs": [
+    {
+      "$oid": "61f0757e5b8839f4bb254906"
+    },
+    {
+      "$oid": "61f075c15b8839f4bb25490e"
+    },
+    {
+      "$oid": "61f0762c5b8839f4bb25491e"
+    },
+    {
+      "$oid": "61f076555b8839f4bb254926"
+    }
+  ],
+  "facilities": [
+    "Full Bar",
+    "Cama Circular King",
+    "Vista Mar",
+    "Café"
+  ],
+  "images": [],
+  "priceByMonth": [],
+  "priceExtraDays": [],
   "__v": 0
 }]

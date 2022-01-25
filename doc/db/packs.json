@@ -1,135 +1,195 @@
 [{
   "_id": {
-    "$oid": "61a04a0ab218cafaf8b2a05c"
+    "$oid": "61f0757e5b8839f4bb254906"
   },
-  "name": "Pack Barato",
+  "name": "Pack Romântico",
   "hotel": {
-    "$oid": "61a046e582d81d49a844e184"
+    "$oid": "61d1fdede0e90fb512aaa519"
   },
   "freeCancel": true,
-  "maxGuests": 2,
+  "maxGuests": 0,
   "maxGuestsChild": 0,
-  "dailyPrice": 60,
+  "dailyPrice": 20,
   "minNights": 1,
-  "sale": 0,
   "include": [
     "Pequeno Almoço",
-    " Jantar"
-  ],
-  "start_date": {
-    "$date": "2021-12-16T00:00:00Z"
-  },
-  "end_date": {
-    "$date": "2022-01-03T00:00:00Z"
-  },
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "61a04a12b218cafaf8b2a05e"
-  },
-  "name": "Pack Caro",
-  "hotel": {
-    "$oid": "61a046e582d81d49a844e184"
-  },
-  "freeCancel": false,
-  "maxGuests": 2,
-  "maxGuestsChild": 0,
-  "dailyPrice": 120,
-  "minNights": 2,
-  "sale": 0,
-  "include": [
-    "Pequeno Almoço",
-    "Jantar",
-    "Spa",
-    "Acesso ao terraço"
-  ],
-  "start_date": {
-    "$date": "2021-12-27T00:00:00Z"
-  },
-  "end_date": {
-    "$date": "2022-01-03T00:00:00Z"
-  },
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "61a04acc61818e989487b232"
-  },
-  "name": "Pack Romantico",
-  "hotel": {
-    "$oid": "61a0483796cd78a40308a76b"
-  },
-  "freeCancel": true,
-  "maxGuests": 2,
-  "maxGuestsChild": 0,
-  "dailyPrice": 80,
-  "minNights": 1,
-  "sale": 0,
-  "include": [
-    "Pequeno Almoço",
-    " Jantar",
-    "Piscina",
-    "Spa",
-    "Acesso ao terraço",
     "Champanhe",
     "Rosas"
   ],
   "start_date": {
-    "$date": "2021-12-27T00:00:00Z"
+    "$date": "2022-01-25T22:08:27.470Z"
   },
   "end_date": {
-    "$date": "2022-01-03T00:00:00Z"
+    "$date": "2022-01-26T22:08:27.470Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a04bc19e45046fb4894506"
+    "$oid": "61f075c15b8839f4bb25490e"
   },
-  "name": "Pack Marinha",
+  "name": "Wine Experience",
   "hotel": {
-    "$oid": "61a0479f82d81d49a844e191"
+    "$oid": "61d1fdede0e90fb512aaa519"
   },
   "freeCancel": true,
-  "maxGuests": 2,
-  "maxGuestsChild": 1,
-  "dailyPrice": 190,
+  "maxGuests": 0,
+  "maxGuestsChild": 0,
+  "dailyPrice": 50,
   "minNights": 1,
-  "sale": 0,
   "include": [
-    "Jantar",
-    "Acesso a marinha",
-    "Passeio de barco"
+    "Pequeno Almoço",
+    "Prova de Vinhos",
+    "Jantar de Degustação"
   ],
   "start_date": {
-    "$date": "2021-11-29T00:00:00Z"
+    "$date": "2022-01-25T22:11:18.200Z"
   },
   "end_date": {
-    "$date": "2022-01-15T00:00:00Z"
+    "$date": "2022-01-26T22:11:18.200Z"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a04bc59e45046fb4894508"
+    "$oid": "61f075df5b8839f4bb254916"
   },
-  "name": "Pack Diversao",
+  "name": "Pack Standard",
   "hotel": {
-    "$oid": "61a0479f82d81d49a844e191"
+    "$oid": "61d1fdede0e90fb512aaa519"
   },
-  "freeCancel": false,
-  "maxGuests": 2,
+  "freeCancel": true,
+  "maxGuests": 0,
   "maxGuestsChild": 0,
-  "dailyPrice": 75,
+  "dailyPrice": 20,
   "minNights": 1,
-  "sale": 0,
   "include": [
-    "Pequeno Almoço",
-    " Jantar",
-    "Concerto"
+    "Pequeno Almoço"
   ],
   "start_date": {
-    "$date": "2021-12-29T00:00:00Z"
+    "$date": "2022-01-25T22:12:32.520Z"
   },
   "end_date": {
-    "$date": "2022-01-01T00:00:00Z"
+    "$date": "2022-01-26T22:12:32.520Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f0762c5b8839f4bb25491e"
+  },
+  "name": "Pack Zen",
+  "hotel": {
+    "$oid": "61d1fdede0e90fb512aaa519"
+  },
+  "freeCancel": true,
+  "maxGuests": 0,
+  "maxGuestsChild": 0,
+  "dailyPrice": 80,
+  "minNights": 1,
+  "include": [
+    "Pequeno Almoço",
+    "Circuito SPA",
+    "Jantar"
+  ],
+  "start_date": {
+    "$date": "2022-01-25T22:12:50.057Z"
+  },
+  "end_date": {
+    "$date": "2022-01-26T22:12:50.057Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f076555b8839f4bb254926"
+  },
+  "name": "Full Experience",
+  "hotel": {
+    "$oid": "61d1fdede0e90fb512aaa519"
+  },
+  "freeCancel": true,
+  "maxGuests": 0,
+  "maxGuestsChild": 0,
+  "dailyPrice": 120,
+  "minNights": 1,
+  "include": [
+    "All Experiences"
+  ],
+  "start_date": {
+    "$date": "2022-01-25T22:14:07.089Z"
+  },
+  "end_date": {
+    "$date": "2022-01-26T22:14:07.089Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f0774f5b8839f4bb254948"
+  },
+  "name": "Pack Romântico",
+  "hotel": {
+    "$oid": "61d1fbe19b7b29e1f6cca516"
+  },
+  "freeCancel": true,
+  "maxGuests": 0,
+  "maxGuestsChild": 0,
+  "dailyPrice": 20,
+  "minNights": 1,
+  "include": [
+    "Pequeno Almoço",
+    "Champanhe",
+    "Rosas"
+  ],
+  "start_date": {
+    "$date": "2022-01-25T22:18:29.440Z"
+  },
+  "end_date": {
+    "$date": "2022-01-26T22:18:29.440Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f077635b8839f4bb254951"
+  },
+  "name": "Pack Standard",
+  "hotel": {
+    "$oid": "61d1fbe19b7b29e1f6cca516"
+  },
+  "freeCancel": false,
+  "maxGuests": 0,
+  "maxGuestsChild": 0,
+  "dailyPrice": 20,
+  "minNights": 1,
+  "include": [
+    "Pequeno Almoço"
+  ],
+  "start_date": {
+    "$date": "2022-01-25T22:18:58.697Z"
+  },
+  "end_date": {
+    "$date": "2022-01-26T22:18:58.697Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61f077945b8839f4bb25495a"
+  },
+  "name": "Pack Zen",
+  "hotel": {
+    "$oid": "61d1fbe19b7b29e1f6cca516"
+  },
+  "freeCancel": true,
+  "maxGuests": 0,
+  "maxGuestsChild": 0,
+  "dailyPrice": 80,
+  "minNights": 1,
+  "include": [
+    "Pequeno Almoço",
+    "Circuito SPA",
+    "Jantar"
+  ],
+  "start_date": {
+    "$date": "2022-01-25T22:19:33.805Z"
+  },
+  "end_date": {
+    "$date": "2022-01-26T22:19:33.805Z"
   },
   "__v": 0
 }]

@@ -1,10 +1,694 @@
 [{
   "_id": {
-    "$oid": "61a046e582d81d49a844e184"
+    "$oid": "61d1fbe19b7b29e1f6cca516"
+  },
+  "name": "Tivoli Marina Vilamoura",
+  "description": "The iconic Tivoli Marina Vilamoura Algarve Resort is far more than a luxury 5 star hotel in Vilamoura.",
+  "averagePrice": 100,
+  "rating": 4,
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61f07d505b8839f4bb255102"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kingdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61f07d505b8839f4bb255103"
+      }
+    },
+    {
+      "initials": "ES",
+      "country": "Spain",
+      "language": "Spanish",
+      "_id": {
+        "$oid": "61f07d505b8839f4bb255104"
+      }
+    },
+    {
+      "initials": "FR",
+      "country": "France",
+      "language": "French",
+      "_id": {
+        "$oid": "61f07d505b8839f4bb255105"
+      }
+    },
+    {
+      "initials": "DE",
+      "country": "Germany",
+      "language": "German",
+      "_id": {
+        "$oid": "61f07d505b8839f4bb255106"
+      }
+    }
+  ],
+  "address": {
+    "street": "Apartado 65 Marina Vilamoura",
+    "postCode": "8125-401",
+    "doorNumber": 1,
+    "district": "Faro",
+    "locality": "Vilamoura",
+    "country": "Portugal",
+    "_id": {
+      "$oid": "61f07d505b8839f4bb2550ff"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "289 303 303",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca51d"
+      }
+    },
+    {
+      "type": "email",
+      "contact": "marinavilamoura@tivoli-hotels.com",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca51e"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "N/A",
+      "description": "N/A",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca51f"
+      }
+    }
+  ],
+  "url": "https://www.tivolihotels.com/tivoli-marina-vilamoura",
+  "coverImage": {
+    "path": "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura.jpg",
+    "alt": "Tivoli Marina Vilamoura",
+    "_id": {
+      "$oid": "61d1fbe19b7b29e1f6cca520"
+    }
+  },
+  "images": [
+    {
+      "path": "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-01.jpg",
+      "alt": "Tivoli Marina Vilamoura",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca521"
+      }
+    },
+    {
+      "path": "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-02.jpg",
+      "alt": "Tivoli Marina Vilamoura",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca522"
+      }
+    },
+    {
+      "path": "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-03.jpg",
+      "alt": "Tivoli Marina Vilamoura",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca523"
+      }
+    },
+    {
+      "path": "Tivoli Marina Vilamoura/Tivoli_Marina_Vilamoura-04.jpg",
+      "alt": "Tivoli Marina Vilamoura",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca524"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d1fbe19b7b29e1f6cca525"
+      }
+    },
+    {
+      "userID": {
+        "$oid": "61d1ca9bc6d521c1caced60c"
+      },
+      "review": "Fantastico!",
+      "_id": {
+        "$oid": "61e333a73290ec420956ca37"
+      },
+      "createdDate": {
+        "$date": "2022-01-15T20:50:47.213Z"
+      }
+    },
+    {
+      "userID": {
+        "$oid": "61d1ca9bc6d521c1caced60c"
+      },
+      "review": "Muito Limpo",
+      "_id": {
+        "$oid": "61e333cff979440e5f295504"
+      },
+      "createdDate": {
+        "$date": "2022-01-15T20:51:27.889Z"
+      }
+    },
+    {
+      "userID": {
+        "$oid": "61d1ca9bc6d521c1caced60c"
+      },
+      "review": "Funcionarios 5estrelas",
+      "_id": {
+        "$oid": "61e333fef979440e5f2955c8"
+      },
+      "createdDate": {
+        "$date": "2022-01-15T20:52:14.135Z"
+      }
+    },
+    {
+      "userID": {
+        "$oid": "61d1ca9bc6d521c1caced60c"
+      },
+      "review": "Super Familiar",
+      "_id": {
+        "$oid": "61e33411f979440e5f2957ef"
+      },
+      "createdDate": {
+        "$date": "2022-01-15T20:52:33.080Z"
+      }
+    },
+    {
+      "userID": {
+        "$oid": "61d1ca9bc6d521c1caced60c"
+      },
+      "review": "Adorei!",
+      "_id": {
+        "$oid": "61e33424f979440e5f2958b9"
+      },
+      "createdDate": {
+        "$date": "2022-01-15T20:52:52Z"
+      }
+    }
+  ],
+  "director": {
+    "$oid": "61d1e6d37956d9277326a396"
+  },
+  "employee": [
+    {
+      "$oid": "61d1e0f87956d9277326a390"
+    },
+    {
+      "$oid": "61d1e5e07956d9277326a392"
+    },
+    {
+      "$oid": "61d1e6357956d9277326a394"
+    }
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T19:24:17.091Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d1fdede0e90fb512aaa519"
+  },
+  "name": "Altis Avenida",
+  "description": "The Hotel Altis Avenida is a charming boutique hotel in Lisbon, with an extraordinary location in the heart of the city, in Praça dos Restauradores. The architecture and decoration are inspired by the 40s and revolve around the urban chic concept, where the past and future meet creating a unique atmosphere of charm and glamour.",
+  "averagePrice": 75,
+  "rating": 4,
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61f07a445b8839f4bb254acb"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kingdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61f07a445b8839f4bb254acc"
+      }
+    },
+    {
+      "initials": "ES",
+      "country": "Spain",
+      "language": "Spanish",
+      "_id": {
+        "$oid": "61f07a445b8839f4bb254acd"
+      }
+    },
+    {
+      "initials": "FR",
+      "country": "France",
+      "language": "French",
+      "_id": {
+        "$oid": "61f07a445b8839f4bb254ace"
+      }
+    },
+    {
+      "initials": "DE",
+      "country": "Germany",
+      "language": "German",
+      "_id": {
+        "$oid": "61f07a445b8839f4bb254acf"
+      }
+    }
+  ],
+  "address": {
+    "street": "Rua 1º Dezembro",
+    "postCode": "1200-360",
+    "doorNumber": 120,
+    "district": "Lisboa",
+    "locality": "Lisboa",
+    "country": "Portugal",
+    "_id": {
+      "$oid": "61f07a445b8839f4bb254ac8"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "210 440 000",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa520"
+      }
+    },
+    {
+      "type": "email",
+      "contact": "guestserviceavenida@altishotels.com",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa521"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "N/A",
+      "description": "N/A",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa522"
+      }
+    }
+  ],
+  "url": "https://www.altishotels.com/",
+  "coverImage": {
+    "path": "Altis Avenida/Altis_Avenida.jpg",
+    "alt": "Altis Avenida",
+    "_id": {
+      "$oid": "61d1fdede0e90fb512aaa523"
+    }
+  },
+  "images": [
+    {
+      "path": "Altis Avenida/Altis_Avenida-01.jpg",
+      "alt": "Altis Avenida",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa524"
+      }
+    },
+    {
+      "path": "Altis Avenida/Altis_Avenida-02.jpg",
+      "alt": "Altis Avenida",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa525"
+      }
+    },
+    {
+      "path": "Altis Avenida/Altis_Avenida-03.jpg",
+      "alt": "Altis Avenida",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa526"
+      }
+    },
+    {
+      "path": "Altis Avenida/Altis_Avenida-04.jpg",
+      "alt": "Altis Avenida",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa527"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d1fdede0e90fb512aaa528"
+      }
+    }
+  ],
+  "director": {
+    "$oid": "61d1f9577956d9277326a39e"
+  },
+  "employee": [
+    {
+      "$oid": "61d1f8a97956d9277326a398"
+    },
+    {
+      "$oid": "61d1f8cc7956d9277326a39a"
+    },
+    {
+      "$oid": "61d1f8d87956d9277326a39c"
+    }
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T19:33:01.484Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d2091e5040ee22b9bca2d9"
+  },
+  "name": "Avenida Palace",
+  "description": "The Hotel Avenida Palace, located in the center of Lisbon near Bairro Alto and Chiado, is a 5-star hotel where luxury and unique charm intersect, being considered the city's historical heritage. With its exceptional location between Baixa Pombalina and Avenida da Liberdade, its elegant neoclassical architecture and the luxurious sophistication of its decoration, and with more than a century of history but fully renovated, this hotel is a landmark where tradition is combined and innovation.",
+  "averagePrice": 85,
+  "rating": 4.7,
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2da"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kigdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2db"
+      }
+    }
+  ],
+  "address": {
+    "street": "Rua 1º Dezembro",
+    "postCode": "1200-359",
+    "doorNumber": 123,
+    "district": "Lisboa",
+    "locality": "Lisboa",
+    "country": "Portugal",
+    "map": "",
+    "_id": {
+      "$oid": "61d2091e5040ee22b9bca2dc"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "213 218 100",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2dd"
+      }
+    },
+    {
+      "type": "email",
+      "contact": "reservas@hotelavenidapalace.pt",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2de"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "N/A",
+      "description": "N/A",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2df"
+      }
+    }
+  ],
+  "url": "https://www.hotelavenidapalace.pt/",
+  "coverImage": {
+    "path": "Avenida Palace/Avenida_Palace.jpg",
+    "alt": "Avenida Palace",
+    "_id": {
+      "$oid": "61d2091e5040ee22b9bca2e0"
+    }
+  },
+  "images": [
+    {
+      "path": "Avenida Palace/Avenida_Palace-01.jpg",
+      "alt": "Avenida Palace",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2e1"
+      }
+    },
+    {
+      "path": "Avenida Palace/Avenida_Palace-02.jpg",
+      "alt": "Avenida Palace",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2e2"
+      }
+    },
+    {
+      "path": "Avenida Palace/Avenida_Palace-03.jpg",
+      "alt": "Avenida Palace",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2e3"
+      }
+    },
+    {
+      "path": "Avenida Palace/Avenida_Palace-04.jpg",
+      "alt": "Avenida Palace",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2e4"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d2091e5040ee22b9bca2e5"
+      }
+    }
+  ],
+  "director": {
+    "$oid": "61d207345040ee22b9bca2cd"
+  },
+  "employee": [
+    {
+      "$oid": "61d207025040ee22b9bca2c7"
+    },
+    {
+      "$oid": "61d207105040ee22b9bca2c9"
+    },
+    {
+      "$oid": "61d207225040ee22b9bca2cb"
+    }
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:20:46.530Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d209245040ee22b9bca2e7"
+  },
+  "name": "Corinthia",
+  "description": "The luxury of being a frequent traveller, made even more enjoyable by becoming a DISCOVERY Loyalty member. An exclusive club for those in the know. Choose from over 500 luxury hotels, in 76 countries to find your dream destination. Immerse yourself in the culture of your chosen location, with incredible Local Experiences. As you travel the world with us, you will earn more Local Experiences, uplifting your travels along the way. ",
+  "averagePrice": 100,
+  "rating": 4,
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61f07da85b8839f4bb255751"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kingdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61f07da85b8839f4bb255752"
+      }
+    },
+    {
+      "initials": "ES",
+      "country": "Spain",
+      "language": "Spanish",
+      "_id": {
+        "$oid": "61f07da85b8839f4bb255753"
+      }
+    },
+    {
+      "initials": "FR",
+      "country": "France",
+      "language": "French",
+      "_id": {
+        "$oid": "61f07da85b8839f4bb255754"
+      }
+    }
+  ],
+  "address": {
+    "street": "Av. Columbano Bordalo Pinheiro",
+    "postCode": "1099-031",
+    "doorNumber": 105,
+    "district": "Lisboa",
+    "locality": "Lisboa",
+    "country": "Portugal",
+    "_id": {
+      "$oid": "61f07da85b8839f4bb25574e"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "217 236 300",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2ed"
+      }
+    },
+    {
+      "type": "email",
+      "contact": "reservations.stpetersburg@corinthia.com",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2ee"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "N/A",
+      "description": "N/A",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2ef"
+      }
+    }
+  ],
+  "url": "https://www.corinthia.com/",
+  "coverImage": {
+    "path": "Corinthia/Corinthia.jpg",
+    "alt": "Corinthia",
+    "_id": {
+      "$oid": "61d209245040ee22b9bca2f0"
+    }
+  },
+  "images": [
+    {
+      "path": "Corinthia/Corinthia-01.jpg",
+      "alt": "Corinthia",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2f1"
+      }
+    },
+    {
+      "path": "Corinthia/Corinthia-02.jpg",
+      "alt": "Corinthia",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2f2"
+      }
+    },
+    {
+      "path": "Corinthia/Corinthia-03.jpg",
+      "alt": "Corinthia",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2f3"
+      }
+    },
+    {
+      "path": "Corinthia/Corinthia-04.jpg",
+      "alt": "Corinthia",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2f4"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d209245040ee22b9bca2f5"
+      }
+    }
+  ],
+  "director": {
+    "$oid": "61d207e95040ee22b9bca2d5"
+  },
+  "employee": [
+    {
+      "$oid": "61d207a85040ee22b9bca2cf"
+    },
+    {
+      "$oid": "61d207b85040ee22b9bca2d1"
+    },
+    {
+      "$oid": "61d207cc5040ee22b9bca2d3"
+    }
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:20:52.986Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d209c7c5faf65da5ebb6cc"
   },
   "name": "The Yeatman",
   "description": "The Yeatman is a luxury wine hotel and spa in Porto with spectacular views over the UNESCO World Heritage city and the Douro River.",
+  "averagePrice": 100,
   "rating": 5,
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6cd"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kigdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6ce"
+      }
+    },
+    {
+      "initials": "ES",
+      "country": "Spain",
+      "language": "Spanish",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6cf"
+      }
+    },
+    {
+      "initials": "FR",
+      "country": "France",
+      "language": "French",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6d0"
+      }
+    },
+    {
+      "initials": "DE",
+      "country": "German",
+      "language": "Deutsche",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6d1"
+      }
+    }
+  ],
   "address": {
     "street": "Rua do Choupelo",
     "postCode": "4400-088",
@@ -14,152 +698,116 @@
     "country": "Portugal",
     "map": "",
     "_id": {
-      "$oid": "61a046e582d81d49a844e185"
+      "$oid": "61d209c7c5faf65da5ebb6d2"
     }
   },
   "contacts": [
     {
       "type": "telephone",
-      "contact": "220133100",
+      "contact": "220 133 100",
       "_id": {
-        "$oid": "61a046e582d81d49a844e186"
+        "$oid": "61d209c7c5faf65da5ebb6d3"
       }
     },
     {
       "type": "email",
       "contact": "reservations@theyeatman.com",
       "_id": {
-        "$oid": "61a046e582d81d49a844e187"
-      }
-    }
-  ],
-  "languages": [
-    {
-      "initials": "PT",
-      "country": "Portugal",
-      "language": "Portuguese",
-      "_id": {
-        "$oid": "61a046e582d81d49a844e188"
-      }
-    },
-    {
-      "initials": "EN",
-      "country": "United Kingdom",
-      "language": "English",
-      "_id": {
-        "$oid": "61a046e582d81d49a844e189"
-      }
-    }
-  ],
-  "images": [
-    {
-      "cover": true,
-      "path": "../images/front-cover.jpg",
-      "tags": [
-        "sea",
-        "beautiful"
-      ],
-      "_id": {
-        "$oid": "61a046e582d81d49a844e18a"
-      }
-    },
-    {
-      "cover": false,
-      "path": "../images/room.jpg",
-      "tags": [
-        "clean",
-        "fresh",
-        "beautiful"
-      ],
-      "_id": {
-        "$oid": "61a046e582d81d49a844e18b"
+        "$oid": "61d209c7c5faf65da5ebb6d4"
       }
     }
   ],
   "facilities": [
     {
-      "icon": "../icons/sea.svg",
-      "description": "Sea view",
+      "icon": "N/A",
+      "description": "N/A",
       "_id": {
-        "$oid": "61a046e582d81d49a844e18c"
-      }
-    },
-    {
-      "icon": "../icons/no-smoking.svg",
-      "description": "Smoking not allowed",
-      "_id": {
-        "$oid": "61a046e582d81d49a844e18d"
-      }
-    }
-  ],
-  "comments": [
-    {
-      "userID": "123wasd",
-      "message": "Loved the place!",
-      "_id": {
-        "$oid": "61a046e582d81d49a844e18e"
-      }
-    },
-    {
-      "userID": "wasd321",
-      "message": "Hated the place!",
-      "_id": {
-        "$oid": "61a046e582d81d49a844e18f"
+        "$oid": "61d209c7c5faf65da5ebb6d5"
       }
     }
   ],
   "url": "https://www.the-yeatman-hotel.com/",
-  "director": {
-    "$oid": "61991fe289e8848774bbdd4f"
-  },
-  "employee": [
-    {
-      "$oid": "61a044d976797ffc2a97aaa2"
-    }
-  ],
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "61a0479f82d81d49a844e191"
-  },
-  "name": "Tivoli Marina Vilamoura Algarve Resort",
-  "description": "The iconic Tivoli Marina Vilamoura Algarve Resort is far more than a luxury 5 star hotel in Vilamoura.",
-  "rating": 5,
-  "address": {
-    "street": "Apartado 65 Marina Vilamoura",
-    "postCode": "8125-401",
-    "doorNumber": 1,
-    "district": "Faro",
-    "locality": "Vilamoura",
-    "country": "Portugal",
-    "map": "",
+  "coverImage": {
+    "path": "The Yeatman/The_Yeatman.jpg",
+    "alt": "The Yeatman",
     "_id": {
-      "$oid": "61a0479f82d81d49a844e192"
+      "$oid": "61d209c7c5faf65da5ebb6d6"
     }
   },
-  "contacts": [
+  "images": [
     {
-      "type": "telephone",
-      "contact": "289303303",
+      "path": "The Yeatman/The_Yeatman-01.jpg",
+      "alt": "The Yeatman",
       "_id": {
-        "$oid": "61a0479f82d81d49a844e193"
+        "$oid": "61d209c7c5faf65da5ebb6d7"
       }
     },
     {
-      "type": "email",
-      "contact": "marinavilamoura@tivoli-hotels.com",
+      "path": "The Yeatman/The_Yeatman-02.jpg",
+      "alt": "The Yeatman",
       "_id": {
-        "$oid": "61a0479f82d81d49a844e194"
+        "$oid": "61d209c7c5faf65da5ebb6d8"
+      }
+    },
+    {
+      "path": "The Yeatman/The_Yeatman-03.jpg",
+      "alt": "The Yeatman",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6d9"
+      }
+    },
+    {
+      "path": "The Yeatman/The_Yeatman-04.jpg",
+      "alt": "The Yeatman",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6da"
       }
     }
   ],
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d209c7c5faf65da5ebb6db"
+      }
+    }
+  ],
+  "director": {
+    "$oid": "61d1cb78c6d521c1caced610"
+  },
+  "employee": [
+    {
+      "$oid": "61d1ca9bc6d521c1caced60c"
+    },
+    {
+      "$oid": "61d1cac6c6d521c1caced60e"
+    },
+    {
+      "$oid": "61d209f7c5faf65da5ebb6dd"
+    }
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:23:35.316Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d20c54060797ba20b93298"
+  },
+  "name": "The Vine",
+  "description": "The Vine Hotel is a modern design hotel overlooking the the sea and the port of Funchal, with restaurants, bars, wellness and business facilities.",
+  "averagePrice": 90,
+  "rating": 4,
   "languages": [
     {
       "initials": "PT",
       "country": "Portugal",
       "language": "Portuguese",
       "_id": {
-        "$oid": "61a0479f82d81d49a844e195"
+        "$oid": "61f07dad5b8839f4bb255777"
       }
     },
     {
@@ -167,15 +815,144 @@
       "country": "United Kingdom",
       "language": "English",
       "_id": {
-        "$oid": "61a0479f82d81d49a844e196"
+        "$oid": "61f07dad5b8839f4bb255778"
+      }
+    }
+  ],
+  "address": {
+    "street": "R. dos Aranhas",
+    "postCode": "9000-044",
+    "doorNumber": 27,
+    "district": "Funchal",
+    "locality": "Funchal",
+    "country": "Portugal",
+    "_id": {
+      "$oid": "61f07dad5b8839f4bb255774"
+    }
+  },
+  "contacts": [
+    {
+      "type": "telephone",
+      "contact": "291 009 000",
+      "_id": {
+        "$oid": "61d20c54060797ba20b9329c"
       }
     },
     {
-      "initials": "DE",
-      "country": "German",
-      "language": "Deutsch",
+      "type": "email",
+      "contact": "reservations@hotelthevine.com",
       "_id": {
-        "$oid": "61a0479f82d81d49a844e197"
+        "$oid": "61d20c54060797ba20b9329d"
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "icon": "N/A",
+      "description": "N/A",
+      "_id": {
+        "$oid": "61d20c54060797ba20b9329e"
+      }
+    }
+  ],
+  "url": "https://www.hotelthevine.com/",
+  "coverImage": {
+    "path": "The Vine/The_Vine.jpg",
+    "alt": "The Vine",
+    "_id": {
+      "$oid": "61d20c54060797ba20b9329f"
+    }
+  },
+  "images": [
+    {
+      "path": "The Vine/The_Vine-01.jpg",
+      "alt": "The Vine",
+      "_id": {
+        "$oid": "61d20c54060797ba20b932a0"
+      }
+    },
+    {
+      "path": "The Vine/The_Vine-02.jpg",
+      "alt": "The Vine",
+      "_id": {
+        "$oid": "61d20c54060797ba20b932a1"
+      }
+    },
+    {
+      "path": "The Vine/The_Vine-03.jpg",
+      "alt": "The Vine",
+      "_id": {
+        "$oid": "61d20c54060797ba20b932a2"
+      }
+    },
+    {
+      "path": "The Vine/The_Vine-04.jpg",
+      "alt": "The Vine",
+      "_id": {
+        "$oid": "61d20c54060797ba20b932a3"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d20c54060797ba20b932a4"
+      }
+    }
+  ],
+  "director": {
+    "$oid": "61d20be4060797ba20b93296"
+  },
+  "employee": [
+    {
+      "$oid": "61d20bba060797ba20b93290"
+    },
+    {
+      "$oid": "61d20bc7060797ba20b93292"
+    },
+    {
+      "$oid": "61d20bd7060797ba20b93294"
+    }
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:34:28.674Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d21220030754d64b04e38d"
+  },
+  "name": "Myriad",
+  "description": "The beauty of the Tagus river welcomes you. Located in the contemporary and vibrant Parque das Nações, the Myriad by SANA Hotels is a landmark in the city of Lisbon.",
+  "averagePrice": 100,
+  "rating": 4.8,
+  "languages": [
+    {
+      "initials": "PT",
+      "country": "Portugal",
+      "language": "Portuguese",
+      "_id": {
+        "$oid": "61d21220030754d64b04e38e"
+      }
+    },
+    {
+      "initials": "EN",
+      "country": "United Kigdom",
+      "language": "English",
+      "_id": {
+        "$oid": "61d21220030754d64b04e38f"
+      }
+    },
+    {
+      "initials": "ES",
+      "country": "Spain",
+      "language": "Spanish",
+      "_id": {
+        "$oid": "61d21220030754d64b04e390"
       }
     },
     {
@@ -183,127 +960,137 @@
       "country": "France",
       "language": "French",
       "_id": {
-        "$oid": "61a0479f82d81d49a844e198"
+        "$oid": "61d21220030754d64b04e391"
       }
     },
     {
-      "initials": "ES",
-      "country": "Spain",
-      "language": "Spanish",
+      "initials": "DE",
+      "country": "German",
+      "language": "Deutsch",
       "_id": {
-        "$oid": "61a0479f82d81d49a844e199"
+        "$oid": "61d21220030754d64b04e392"
       }
     }
   ],
-  "images": [
-    {
-      "cover": true,
-      "path": "../images/front-cover.jpg",
-      "tags": [
-        "sea",
-        "beautiful"
-      ],
-      "_id": {
-        "$oid": "61a0479f82d81d49a844e19a"
-      }
-    },
-    {
-      "cover": false,
-      "path": "../images/room.jpg",
-      "tags": [
-        "clean",
-        "fresh",
-        "beautiful"
-      ],
-      "_id": {
-        "$oid": "61a0479f82d81d49a844e19b"
-      }
-    }
-  ],
-  "facilities": [
-    {
-      "icon": "../icons/sea.svg",
-      "description": "Sea view",
-      "_id": {
-        "$oid": "61a0479f82d81d49a844e19c"
-      }
-    },
-    {
-      "icon": "../icons/no-smoking.svg",
-      "description": "Smoking not allowed",
-      "_id": {
-        "$oid": "61a0479f82d81d49a844e19d"
-      }
-    }
-  ],
-  "comments": [
-    {
-      "userID": "123wasd",
-      "message": "Beautiful view of the sea!",
-      "_id": {
-        "$oid": "61a0479f82d81d49a844e19e"
-      }
-    },
-    {
-      "userID": "wasd321",
-      "message": "I loved the hospitality!",
-      "_id": {
-        "$oid": "61a0479f82d81d49a844e19f"
-      }
-    }
-  ],
-  "url": "https://www.tivolihotels.com/tivoli-marina-vilamoura",
-  "director": {
-    "$oid": "61a0442b76797ffc2a97aaa0"
-  },
-  "employee": [
-    {
-      "$oid": "61a044dd76797ffc2a97aaa4"
-    }
-  ],
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "61a0483796cd78a40308a76b"
-  },
-  "name": "Hotel Altis Avenida",
-  "description": "O Hotel Altis Avenida é um boutique hotel de charme em Lisboa, com uma localização extraordinária no centro da cidade, na Praça dos Restauradores. A arquitetura e decoração são inspiradas nos anos 40 e giram em torno do conceito urban chic, onde o passado e futuro se encontram criando um ambiente único de charme e glamour.",
-  "rating": 5,
   "address": {
-    "street": "Rua 1º Dezembro",
-    "postCode": "1200-360",
-    "doorNumber": 120,
+    "street": "R. Cais das Naus",
+    "postCode": "1990-173",
+    "doorNumber": 1,
     "district": "Lisboa",
-    "locality": "Lisboa",
+    "locality": "Parque das Nações",
     "country": "Portugal",
     "map": "",
     "_id": {
-      "$oid": "61a0483796cd78a40308a76c"
+      "$oid": "61d21220030754d64b04e393"
     }
   },
   "contacts": [
     {
       "type": "telephone",
-      "contact": "210440000",
+      "contact": "211 107 600",
       "_id": {
-        "$oid": "61a0483796cd78a40308a76d"
+        "$oid": "61d21220030754d64b04e394"
       }
     },
     {
       "type": "email",
-      "contact": " guestserviceavenida@altishotels.com",
+      "contact": "reservations@sanahotels.com",
       "_id": {
-        "$oid": "61a0483796cd78a40308a76e"
+        "$oid": "61d21220030754d64b04e395"
       }
     }
   ],
+  "facilities": [
+    {
+      "icon": "N/A",
+      "description": "N/A",
+      "_id": {
+        "$oid": "61d21220030754d64b04e396"
+      }
+    }
+  ],
+  "url": "https://www.myriad.pt/",
+  "coverImage": {
+    "path": "Myriad/Myriad.jpg",
+    "alt": "Myriad",
+    "_id": {
+      "$oid": "61d21220030754d64b04e397"
+    }
+  },
+  "images": [
+    {
+      "path": "Myriad/Myriad-01.jpg",
+      "alt": "Myriad",
+      "_id": {
+        "$oid": "61d21220030754d64b04e398"
+      }
+    },
+    {
+      "path": "Myriad/Myriad-02.jpg",
+      "alt": "Myriad",
+      "_id": {
+        "$oid": "61d21220030754d64b04e399"
+      }
+    },
+    {
+      "path": "Myriad/Myriad-03.jpg",
+      "alt": "Myriad",
+      "_id": {
+        "$oid": "61d21220030754d64b04e39a"
+      }
+    },
+    {
+      "path": "Myriad/Myriad-04.jpg",
+      "alt": "Myriad",
+      "_id": {
+        "$oid": "61d21220030754d64b04e39b"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d21220030754d64b04e39c"
+      }
+    }
+  ],
+  "director": {
+    "$oid": "61d21204030754d64b04e38b"
+  },
+  "employee": [
+    {
+      "$oid": "61d21114030754d64b04e389"
+    },
+    {
+      "$oid": "61d20fbb030754d64b04e387"
+    },
+    {
+      "$oid": "61d20fad030754d64b04e385"
+    }
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:59:12.891Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d2193aa411376343c8d3bd"
+  },
+  "name": "Memmo Príncipe Real",
+  "description": "The Hotel Avenida Palace, located in the center of Lisbon near Bairro Alto and Chiado, is a 5-star hotel where luxury and unique charm intersect, being considered the city's historical heritage. With its exceptional location between Baixa Pombalina and Avenida da Liberdade, its elegant neoclassical architecture and the luxurious sophistication of its decoration, and with more than a century of history but fully renovated, this hotel is a landmark where tradition is combined and innovation.",
+  "averagePrice": 90,
+  "rating": 2.5,
   "languages": [
     {
       "initials": "PT",
       "country": "Portugal",
       "language": "Portuguese",
       "_id": {
-        "$oid": "61a0483796cd78a40308a76f"
+        "$oid": "61f07a585b8839f4bb254bcf"
       }
     },
     {
@@ -311,83 +1098,111 @@
       "country": "United Kingdom",
       "language": "English",
       "_id": {
-        "$oid": "61a0483796cd78a40308a770"
-      }
-    },
-    {
-      "initials": "ES",
-      "country": "Spain",
-      "language": "Spanish",
-      "_id": {
-        "$oid": "61a0483796cd78a40308a771"
+        "$oid": "61f07a585b8839f4bb254bd0"
       }
     }
   ],
-  "images": [
+  "address": {
+    "street": "R. Dom Pedro V",
+    "postCode": "1250-094",
+    "doorNumber": 56,
+    "district": "Lisboa",
+    "locality": "Lisboa",
+    "country": "Portugal",
+    "_id": {
+      "$oid": "61f07a585b8839f4bb254bcc"
+    }
+  },
+  "contacts": [
     {
-      "cover": true,
-      "path": "../images/front-cover.jpg",
-      "tags": [
-        "sea",
-        "beautiful"
-      ],
+      "type": "telephone",
+      "contact": "219 016 800",
       "_id": {
-        "$oid": "61a0483796cd78a40308a772"
+        "$oid": "61d2193aa411376343c8d3c1"
       }
     },
     {
-      "cover": false,
-      "path": "../images/room.jpg",
-      "tags": [
-        "clean",
-        "fresh",
-        "beautiful"
-      ],
+      "type": "email",
+      "contact": "preal@memmohotels.com",
       "_id": {
-        "$oid": "61a0483796cd78a40308a773"
+        "$oid": "61d2193aa411376343c8d3c2"
       }
     }
   ],
   "facilities": [
     {
-      "icon": "../icons/sea.svg",
-      "description": "Sea view",
+      "icon": "N/A",
+      "description": "N/A",
       "_id": {
-        "$oid": "61a0483796cd78a40308a774"
-      }
-    },
-    {
-      "icon": "../icons/no-smoking.svg",
-      "description": "Smoking not allowed",
-      "_id": {
-        "$oid": "61a0483796cd78a40308a775"
+        "$oid": "61d2193aa411376343c8d3c3"
       }
     }
   ],
-  "comments": [
+  "url": "https://www.memmohotels.com/",
+  "coverImage": {
+    "path": "Memmo Príncipe Real/Memmo_Principe_Real.jpg",
+    "alt": "Memmo Príncipe Real",
+    "_id": {
+      "$oid": "61d2193aa411376343c8d3c4"
+    }
+  },
+  "images": [
     {
-      "userID": "123wasd",
-      "message": "Delicious gastronomic dishes!",
+      "path": "Memmo Príncipe Real/Memmo_Principe_Real-01.jpg",
+      "alt": "Memmo Príncipe Real",
       "_id": {
-        "$oid": "61a0483796cd78a40308a776"
+        "$oid": "61d2193aa411376343c8d3c5"
       }
     },
     {
-      "userID": "wasd321",
-      "message": "Too much noise!",
+      "path": "Memmo Príncipe Real/Memmo_Principe_Real-02.jpg",
+      "alt": "Memmo Príncipe Real",
       "_id": {
-        "$oid": "61a0483796cd78a40308a777"
+        "$oid": "61d2193aa411376343c8d3c6"
+      }
+    },
+    {
+      "path": "Memmo Príncipe Real/Memmo_Principe_Real-03.jpg",
+      "alt": "Memmo Príncipe Real",
+      "_id": {
+        "$oid": "61d2193aa411376343c8d3c7"
+      }
+    },
+    {
+      "path": "Memmo Príncipe Real/Memmo_Principe_Real-04.jpg",
+      "alt": "Memmo Príncipe Real",
+      "_id": {
+        "$oid": "61d2193aa411376343c8d3c8"
       }
     }
   ],
-  "url": "https://www.tivolihotels.com/tivoli-marina-vilamoura",
+  "reviews": [
+    {
+      "userID": {
+        "$oid": "61a0442176797ffc2a97aa9e"
+      },
+      "review": "Love it!",
+      "_id": {
+        "$oid": "61d2193aa411376343c8d3c9"
+      }
+    }
+  ],
   "director": {
-    "$oid": "61a0442176797ffc2a97aa9e"
+    "$oid": "61d2189ba411376343c8d3bb"
   },
   "employee": [
     {
-      "$oid": "61a044e176797ffc2a97aaa6"
+      "$oid": "61d21869a411376343c8d3b5"
+    },
+    {
+      "$oid": "61d2187aa411376343c8d3b7"
+    },
+    {
+      "$oid": "61d2188aa411376343c8d3b9"
     }
   ],
+  "createdDate": {
+    "$date": "2022-01-02T21:29:30.887Z"
+  },
   "__v": 0
 }]

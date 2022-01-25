@@ -7,13 +7,17 @@
   "email": "8200615@estg.ipp.pt",
   "password": "$2b$10$.ag8bruCfKADa/CjVmeEtOnadOthIOuxDlMMcqqcWobqs4MnvLAh.",
   "roles": [
-    "admin",
-    "director",
-    "employee",
-    "client"
+    "Admin",
+    "Director",
+    "Employee",
+    "Client"
   ],
   "createdDate": {
     "$date": "2021-11-26T02:19:13.693Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
   },
   "__v": 0
 },{
@@ -25,105 +29,697 @@
   "email": "8200613@estg.ipp.pt",
   "password": "$2b$10$ff0mLpp7dr3f3lMSgILC2u0itKWuorGWqDPWowRCrWl/tdyzWf.NO",
   "roles": [
-    "director",
-    "employee",
-    "client"
+    "Admin",
+    "Director",
+    "Employee",
+    "Client"
   ],
   "createdDate": {
     "$date": "2021-11-26T02:19:23.404Z"
   },
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "61a044d976797ffc2a97aaa2"
-  },
-  "name": "Cliente",
-  "surname": "Teste",
-  "email": "clienteteste@estg.ipp.pt",
-  "password": "$2b$10$BjSj5H5c3PU6SYCDsJcoQOPzFvgX9fKO/K4zau105IAuHm.T58FtS",
-  "roles": [
-    "employee",
-    "client"
-  ],
-  "createdDate": {
-    "$date": "2021-11-26T02:22:17.604Z"
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a044dd76797ffc2a97aaa4"
+    "$oid": "61d1ca9bc6d521c1caced60c"
   },
-  "name": "Cliente",
-  "surname": "Teste1",
-  "email": "clienteteste1@estg.ipp.pt",
-  "password": "$2b$10$bOp8UizjOJy4Gja2eChwGeYMN8kTOZOC.QpXzIbW06rzkhLwCLt6i",
+  "name": "Inês",
+  "surname": "Almeida",
+  "email": "inesalmeida@staff-yeatman.pt",
+  "password": "$2b$10$fEzqTYIsKJaSYHW9XszSw.3SYHw2Wc3tYbq6B4yB5TNNvVdGD.4Ua",
   "roles": [
-    "employee",
-    "client"
+    "Employee",
+    "Client"
   ],
   "createdDate": {
-    "$date": "2021-11-26T02:22:21.478Z"
+    "$date": "2022-01-02T15:54:03.085Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a044e176797ffc2a97aaa6"
+    "$oid": "61d1cac6c6d521c1caced60e"
   },
-  "name": "Cliente",
-  "surname": "Teste2",
-  "email": "clienteteste2@estg.ipp.pt",
-  "password": "$2b$10$EitfS5YjaYYPMNhmSP0RheYKiu2kq8HralEfCUqfxfx8HwfU88FnK",
+  "name": "João",
+  "surname": "Alves",
+  "email": "joaoalves@staff-yeatman.pt",
+  "password": "$2b$10$t/Pkt/6dd9oeV0OeG9BTy.RzCQQ9MGtMc1Id1TisKhnJF282rd8pO",
   "roles": [
-    "employee",
-    "client"
+    "Employee",
+    "Client"
   ],
   "createdDate": {
-    "$date": "2021-11-26T02:22:25.160Z"
+    "$date": "2022-01-02T15:54:46.962Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a0489296cd78a40308a779"
+    "$oid": "61d1cb78c6d521c1caced610"
   },
-  "name": "Cliente",
-  "surname": "Teste3",
-  "email": "clienteteste3@estg.ipp.pt",
-  "password": "$2b$10$g2qY3Fj4fQast2/XOW0X4.05bNu6ZE.e80Ycl9TUnWip8VhbK/gRW",
+  "name": "José",
+  "surname": "Teixeira",
+  "email": "joseteixeira@ceo-yeatman.pt",
+  "password": "$2b$10$RC6tNINL56cI6cIXhyHrXuLLN3b4W7AgCeFIHvRiARVBIyb80hJke",
   "roles": [
-    "client"
+    "Director",
+    "Employee",
+    "Client"
   ],
   "createdDate": {
-    "$date": "2021-11-26T02:38:10.849Z"
+    "$date": "2022-01-02T15:57:44.761Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a0489796cd78a40308a77b"
+    "$oid": "61d1e0f87956d9277326a390"
   },
-  "name": "Cliente",
-  "surname": "Teste4",
-  "email": "clienteteste4@estg.ipp.pt",
-  "password": "$2b$10$V1XqsdMlMfzqSR4998ajteL9WA9tVgpVkTOnAWFFSMCGPSZ5not2i",
+  "name": "Diogo",
+  "surname": "Silva",
+  "email": "diogosilva@staff-tivoli.com",
+  "password": "$2b$10$ZXAuiAgWW.rE9AcYnj.bp.Cw7gOoSnL2kK1MDK/uGy2BgNxTmiwJO",
   "roles": [
-    "client"
+    "Employee",
+    "Client"
   ],
   "createdDate": {
-    "$date": "2021-11-26T02:38:15.304Z"
+    "$date": "2022-01-02T17:29:28.277Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
   },
   "__v": 0
 },{
   "_id": {
-    "$oid": "61a048a696cd78a40308a77d"
+    "$oid": "61d1e5e07956d9277326a392"
   },
-  "name": "Cliente",
-  "surname": "Teste5",
-  "email": "clienteteste5@estg.ipp.pt",
-  "password": "$2b$10$VboUBJ3oZR6O5Hj7WyUqouO3TzTIDTK0xSnX1O4FP3Qo2GspYKQQS",
+  "name": "Carlos",
+  "surname": "Leite",
+  "email": "carlosleite@staff-tivoli.com",
+  "password": "$2b$10$1orrtrSMlnHeZh/4rGAoNu4DlrhGDLnTmpskwZOWfsqmIjEq1eiai",
   "roles": [
-    "client"
+    "Employee",
+    "Client"
   ],
   "createdDate": {
-    "$date": "2021-11-26T02:38:30.728Z"
+    "$date": "2022-01-02T17:50:24.561Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d1e6357956d9277326a394"
+  },
+  "name": "Andreia",
+  "surname": "Correia",
+  "email": "andreiacorreia@staff-tivoli.com",
+  "password": "$2b$10$DpliAerIvQj1lWn9dwr3MeAfxgxhAwuChRxVw2b8leFwn0kKMoiHe",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T17:51:49.748Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d1e6d37956d9277326a396"
+  },
+  "name": "Sofia",
+  "surname": "Dias",
+  "email": "sofiadias@ceo-tivoli.com",
+  "password": "$2b$10$4XIteiJbLHWO0BbPQBUtjOzNDci4kqTqr8gGiSLe6kAtMzLIJaC9i",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T17:54:27.288Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d1f8a97956d9277326a398"
+  },
+  "name": "Pedro",
+  "surname": "Ribeiro",
+  "email": "pedroribeiro@staff-altisavenida.com",
+  "password": "$2b$10$EFEivfX9Mg6dLqd7cmy.QOm1YBJ.VzDJG1eaS4tcuhYYvD75otjhG",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T19:10:33.571Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d1f8cc7956d9277326a39a"
+  },
+  "name": "Daniel",
+  "surname": "André",
+  "email": "danielandre@staff-altisavenida.com",
+  "password": "$2b$10$oibeET4rhP231Sw6M4mZdOIbpsvQAIi0CKM1bjeCKnK96WvhDa3OO",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T19:11:08.637Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d1f8d87956d9277326a39c"
+  },
+  "name": "João",
+  "surname": "Costa",
+  "email": "joaocosta@staff-altisavenida.com",
+  "password": "$2b$10$zO1W5igmHt6gTTzl1gM.hulc8Zu2KpnA4Lz.msfTzSVbLXB1.PdkC",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T19:11:20.945Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d1f9577956d9277326a39e"
+  },
+  "name": "Marcelo",
+  "surname": "Pereira",
+  "email": "marcelopereira@ceo-altisavenida.com",
+  "password": "$2b$10$aChsBIJGhiQI.FeIrKxEo.IYvSIsCFs3IP1csm.LbH4bJbRnon4ru",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T19:13:27.659Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207025040ee22b9bca2c7"
+  },
+  "name": "Margarida",
+  "surname": "Cunha",
+  "email": "margaridacunha@staff-avenidapalace.pt",
+  "password": "$2b$10$EJpdJyiP83TmvadZcZQ2F.O7k4qLWtt/q7ER39mc4uFeWhqxLcDe2",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:11:46.620Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207105040ee22b9bca2c9"
+  },
+  "name": "Wesley",
+  "surname": "Santos",
+  "email": "wesleysantos@staff-avenidapalace.pt",
+  "password": "$2b$10$NFHMQ.UDbIx1Kcqf0X3Y6O1f43FRvXPHb.H8i6dmlEAXDBuTK55TC",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:12:00.660Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207225040ee22b9bca2cb"
+  },
+  "name": "Bruna",
+  "surname": "Teixeira",
+  "email": "brunateixeira@staff-avenidapalace.pt",
+  "password": "$2b$10$1dAjIKPswtzSQoVY5ljgRORyF9rpk5JJa5KYZmQzzeL7Oc7reFUQ.",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:12:18.508Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207345040ee22b9bca2cd"
+  },
+  "name": "António",
+  "surname": "Costa",
+  "email": "antoniocosta@ceo-avenidapalace.pt",
+  "password": "$2b$10$/2oM0itBUsLv33jfuzwYPuEAcaoqWyE5SraeDBvH5zdrrSXKPlD4G",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:12:36.481Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207a85040ee22b9bca2cf"
+  },
+  "name": "Rodrigo",
+  "surname": "Dias",
+  "email": "rodrigodias@staff-corinthia.com",
+  "password": "$2b$10$WyBzPeKVGZbkZc0fNQJI4emJSYhc6ms12aNz2dGTdXdl9ZjrYivgK",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:14:32.446Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207b85040ee22b9bca2d1"
+  },
+  "name": "Eduarda",
+  "surname": "Teixeira",
+  "email": "eduardateixeira@staff-corinthia.com",
+  "password": "$2b$10$2pGh5LHi3Rg/DcCnCpb9leaxmqZ4YPv0CpwDQ/2Pr5ZVA9pc.p78i",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:14:48.513Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207cc5040ee22b9bca2d3"
+  },
+  "name": "Daniela",
+  "surname": "Silva",
+  "email": "danielasilva@staff-corinthia.com",
+  "password": "$2b$10$sH1PHffaoGcdnjaHnTSFuuTTNfwvihLPgezDm1kaArR.YXxGwdV8S",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:15:08.328Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d207e95040ee22b9bca2d5"
+  },
+  "name": "Joana",
+  "surname": "Marques",
+  "email": "joanamarques@ceo-corinthia.com",
+  "password": "$2b$10$CxNDDwG76.ItH7zH.LT6zuUl0pi/xLvkH0v2xSXn62339Bm/fqivq",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:15:37.340Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d209f7c5faf65da5ebb6dd"
+  },
+  "name": "André",
+  "surname": "Ventura",
+  "email": "andreventura@staff-yeatman.pt",
+  "password": "$2b$10$mO/veKOvp/U5S5/0OV1S/uOZZGBW2Sfu.kWCZ.YXareCpwbAS/8/a",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:24:23.462Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d20bba060797ba20b93290"
+  },
+  "name": "Pedro",
+  "surname": "Tiago",
+  "email": "pedrotiago@staff-vine.pt",
+  "password": "$2b$10$mACKtcOV5Oh08LyN/l0p8eF3T61DgkgxoCuCIV/.R1TMbbKVqbyVa",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:31:54.346Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d20bc7060797ba20b93292"
+  },
+  "name": "Andre",
+  "surname": "Fonseca",
+  "email": "andrefonseca@staff-vine.pt",
+  "password": "$2b$10$5SWile7czKKEa6LEyJspFOBvyuWNa04q0Oi.wyEN28vkUFRXjuhgq",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:32:07.861Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d20bd7060797ba20b93294"
+  },
+  "name": "Pedro",
+  "surname": "Henrique",
+  "email": "pedrohenrique@staff-vine.pt",
+  "password": "$2b$10$El.rgMIak6Dq.yYxepjAZulFiupy6MKj2na0N1oswrhHEPwMO6H7G",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:32:23.937Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d20be4060797ba20b93296"
+  },
+  "name": "Beatriz",
+  "surname": "Alves",
+  "email": "beatrizalves@ceo-vine.pt",
+  "password": "$2b$10$37XKs.Fp0ouyGvyvrslPRO5Iy5GAw2p9ZN8hWh7UFl8i2Y0W0DAWG",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:32:36.929Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d20fad030754d64b04e385"
+  },
+  "name": "Lara",
+  "surname": "Leite",
+  "email": "laraleite@staff-myriad.pt",
+  "password": "$2b$10$OqS0Ye0snjwFGg/esMoRAuX2GZcqAbvCgwnl0zZ5uFA1uBftdSG/K",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:48:45.080Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d20fbb030754d64b04e387"
+  },
+  "name": "Sofia",
+  "surname": "Silva",
+  "email": "sofiasilva@staff-myriad.pt",
+  "password": "$2b$10$9eQZX3V5pOQ0ysE6uKKinumKeny3IugN/rl.PSkTLgkNt52bRVTmK",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:48:59.434Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d21114030754d64b04e389"
+  },
+  "name": "André",
+  "surname": "André",
+  "email": "andreandre@staff-myriad.pt",
+  "password": "$2b$10$hYadARLP5oUOOciR8vvN.uXzbm7haz5ScD0nO9LAPw5l6hi8jHGUC",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:54:44.824Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d21204030754d64b04e38b"
+  },
+  "name": "Nuno",
+  "surname": "Bruno",
+  "email": "nunobruno@ceo-myriad.pt",
+  "password": "$2b$10$e2CcC2BLrk2WBqiHetuo0u/OCw8XYGn.yPep43b6fYBIubxqM1Yku",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T20:58:44.782Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d21869a411376343c8d3b5"
+  },
+  "name": "Dino",
+  "surname": "Morais",
+  "email": "dinomorais@staff-mpr.com",
+  "password": "$2b$10$dWkZPFu9E1fqF/Oz0yUaIOVXbj9RlkvJ6qsi/5F2no5GTdmG7HSvS",
+  "roles": [
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T21:26:01.915Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d2187aa411376343c8d3b7"
+  },
+  "name": "Alberto",
+  "surname": "Paulo",
+  "email": "albertopaulo@staff-mpr.com",
+  "password": "$2b$10$Kv5ePpecMeZIEvtAQatV2.XQXwDzbk9cgDNyRdaA7tbr6EkZ8VWKS",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T21:26:18.413Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d2188aa411376343c8d3b9"
+  },
+  "name": "José",
+  "surname": "Pedro",
+  "email": "josepedro@staff-mpr.com",
+  "password": "$2b$10$p4rotHlRNDV63DESDSyK..unBPaY/Ie.55JMGWrwThrDC3Hhe1jF6",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T21:26:34.473Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61d2189ba411376343c8d3bb"
+  },
+  "name": "Cátia",
+  "surname": "Aveiro",
+  "email": "catiaaveiro@ceo-mpr.com",
+  "password": "$2b$10$BXoloYuIyL18UcLcvAY/6u2wuXL7KpIuhz/PBf1ML0AIwWxeycsc6",
+  "roles": [
+    "Director",
+    "Employee",
+    "Client"
+  ],
+  "createdDate": {
+    "$date": "2022-01-02T21:26:51.752Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61e1484c90b4e175277b765c"
+  },
+  "name": "Test",
+  "surname": "Test",
+  "email": "test@test.pt",
+  "password": "$2b$10$7QPxzS8tqTa1BH.OqbXDO.vNTJ2535mDHrft3i5uPgnZytLaxS0cS",
+  "roles": [],
+  "createdDate": {
+    "$date": "2022-01-14T09:54:20.304Z"
+  },
+  "image": {
+    "path": "default/user.jpg",
+    "alt": "Avatar"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61ef5f121332411c5dffdd7d"
+  },
+  "name": "Client",
+  "surname": "Test",
+  "email": "clienttest@estg.ipp.pt",
+  "password": "$2b$10$6vfEibYgrJRCG5ybrE.5YOUqJWT3MnyqR0GbEyc2jvEtCGgti8S6K",
+  "roles": [],
+  "createdDate": {
+    "$date": "2022-01-25T02:23:14.310Z"
   },
   "__v": 0
 }]
