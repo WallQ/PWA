@@ -214,6 +214,7 @@ function userService(userModel) {
 				surname: surname,
 				email: email,
 				password: hashedPassword,
+				roles: ["Client"]
 			};
 			let newUser = userModel(newUserUpdated);
 			return save(newUser);

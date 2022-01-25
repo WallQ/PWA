@@ -34,7 +34,7 @@ const userSchema = new Schema({
 	roles: [
 		{
 			type: String,
-			default: roles.CLIENT,
+			default: 'Client',
 		},
 	],
 	image: {
