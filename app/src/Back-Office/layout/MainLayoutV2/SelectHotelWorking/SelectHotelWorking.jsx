@@ -25,13 +25,18 @@ const Selecthotelworking = (props) => {
         .then((response) => response.json())
         .then((response) => {
 
-            //console.log(response.data.some((val) => selectedOnLocalSorage == val._id))
+            //console.log("Lista :", response.data.hotels)
+            //console.log("Storage :", selectedOnLocalSorage)
+            //console.log("Comparação :", response.data.hotels.some((val) => selectedOnLocalSorage == val._id))
+
+
             if(response.data.hotels.some((val) => selectedOnLocalSorage == val._id)){
                 props.setHotelID(selectedOnLocalSorage);
             }else{
-                //console.log("Primeiro ID da lista",response.data[0]._id)
+                //console.log("Sem storege: ",response.data.hotels[0]._id)
                 setSelectedOnLocalSorage(response.data.hotels[0]._id);
-                props.setHotelID(response.data.hoteld[0]._id);
+                props.setHotelID(response.data.hotels[0]._id);
+                localStorage.setItem("hotelID", response.data.hotels[0]._id);
             }
 
             setOptions(response.data.hotels)
