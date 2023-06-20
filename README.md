@@ -1,5 +1,7 @@
 # PWA - PROGRAMAÇÃO PARA A WEB AVANÇADA
 
+### Description
+
 ## Technologies
 
 [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" width="64" height="64" />](https://www.mongodb.com/)
@@ -40,3 +42,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## License
 
 [MIT](https://github.com/WallQ/PWA/blob/master/LICENSE)
+
+**ESTG - Escola Superior de Tecnologia e Gestão | Politécnico do Porto**
+
