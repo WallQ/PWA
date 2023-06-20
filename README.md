@@ -1,6 +1,6 @@
 # PWA - PROGRAMAÇÃO PARA A WEB AVANÇADA
 
-### Description
+## Description
 
 ## Technologies
 
